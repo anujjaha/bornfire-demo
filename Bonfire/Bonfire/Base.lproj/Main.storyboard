@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3gs-nl-cuE">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Bonfire" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="campus_image" translatesAutoresizingMaskIntoConstraints="NO" id="Pgu-a3-VQ4">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="267" id="Ovk-Yt-uDf"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JfK-dz-bS3">
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Campus code,  please:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SO0-EB-nRe">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="HMr-xL-LRt"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="campuscode_rectangle" translatesAutoresizingMaskIntoConstraints="NO" id="B48-tL-VP6">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="82" id="2Ut-eS-hZA"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Campus code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FYu-6f-RgM">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="33" id="eZk-rO-ehV"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="B48-tL-VP6" firstAttribute="leading" secondItem="JfK-dz-bS3" secondAttribute="leading" id="9WL-Cy-7su"/>
+                                    <constraint firstItem="SO0-EB-nRe" firstAttribute="top" secondItem="JfK-dz-bS3" secondAttribute="top" constant="-4" id="AKd-R6-EtQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="SO0-EB-nRe" secondAttribute="trailing" constant="77" id="Pe4-OF-hKc"/>
+                                    <constraint firstItem="FYu-6f-RgM" firstAttribute="top" secondItem="SO0-EB-nRe" secondAttribute="bottom" constant="24" id="Um9-uL-Fqn"/>
+                                    <constraint firstItem="SO0-EB-nRe" firstAttribute="centerX" secondItem="JfK-dz-bS3" secondAttribute="centerX" id="Xb2-75-foN"/>
+                                    <constraint firstAttribute="trailing" secondItem="B48-tL-VP6" secondAttribute="trailing" id="e1f-oW-Buc"/>
+                                    <constraint firstAttribute="trailing" secondItem="FYu-6f-RgM" secondAttribute="trailing" constant="54" id="gaY-1v-Wx0"/>
+                                    <constraint firstItem="FYu-6f-RgM" firstAttribute="leading" secondItem="JfK-dz-bS3" secondAttribute="leading" constant="54" id="hk5-0Q-72b"/>
+                                    <constraint firstItem="B48-tL-VP6" firstAttribute="top" secondItem="SO0-EB-nRe" secondAttribute="bottom" constant="11" id="mq5-zM-TAw"/>
+                                    <constraint firstAttribute="height" constant="150" id="nYw-nY-I4a"/>
+                                    <constraint firstItem="SO0-EB-nRe" firstAttribute="leading" secondItem="JfK-dz-bS3" secondAttribute="leading" constant="76" id="ySW-W0-miW"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Pgu-a3-VQ4" secondAttribute="bottom" id="9Qa-tG-qIP"/>
+                            <constraint firstItem="JfK-dz-bS3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="D7t-vC-ZVj"/>
+                            <constraint firstItem="JfK-dz-bS3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" multiplier="4:3" constant="40" id="aB4-9J-o9V"/>
+                            <constraint firstAttribute="trailing" secondItem="Pgu-a3-VQ4" secondAttribute="trailing" id="bDt-9R-ikD"/>
+                            <constraint firstItem="JfK-dz-bS3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="jaq-eP-B5t"/>
+                            <constraint firstAttribute="trailing" secondItem="JfK-dz-bS3" secondAttribute="trailing" id="pMl-he-802"/>
+                            <constraint firstItem="Pgu-a3-VQ4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="yfD-NM-oFV"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="afS-55-HEh"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-391.875" y="7.5"/>
+        </scene>
+        <!--LoginVC-->
+        <scene sceneID="gxG-jF-Pwh">
+            <objects>
+                <viewController storyboardIdentifier="LoginVC" id="eW8-78-YBN" customClass="LoginVC" customModule="Bonfire" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="A4o-JZ-fv3"/>
+                        <viewControllerLayoutGuide type="bottom" id="bEc-sB-gS6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rRs-W3-38v">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_bg" translatesAutoresizingMaskIntoConstraints="NO" id="dHT-7w-Ziy"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Sage hill's Bonfire" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="krR-ij-f61">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bEc-sB-gS6" firstAttribute="top" secondItem="dHT-7w-Ziy" secondAttribute="bottom" id="5L6-vZ-1T2"/>
+                            <constraint firstItem="krR-ij-f61" firstAttribute="centerY" secondItem="rRs-W3-38v" secondAttribute="centerY" id="SxI-20-ZtP"/>
+                            <constraint firstItem="dHT-7w-Ziy" firstAttribute="leading" secondItem="rRs-W3-38v" secondAttribute="leading" id="dC8-ot-Oy7"/>
+                            <constraint firstAttribute="trailing" secondItem="dHT-7w-Ziy" secondAttribute="trailing" id="gS3-o9-UdD"/>
+                            <constraint firstItem="dHT-7w-Ziy" firstAttribute="top" secondItem="rRs-W3-38v" secondAttribute="top" id="j7P-AB-4Bz"/>
+                            <constraint firstItem="krR-ij-f61" firstAttribute="centerX" secondItem="rRs-W3-38v" secondAttribute="centerX" id="u8B-sR-ZEd"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kIl-4x-i5f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="241.875" y="7.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="LJJ-DE-13x">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="3gs-nl-cuE" sceneMemberID="viewController">
+                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ce0-hE-PKn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.85098039219999999" green="0.73333333329999995" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.76078431369999999" green="0.61568627450000002" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="O5D-1j-YAo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LjC-cw-nU0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1044" y="9"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="campus_image" width="303" height="267"/>
+        <image name="campuscode_rectangle" width="358" height="138"/>
+        <image name="login_bg" width="375" height="667"/>
+    </resources>
+</document>
