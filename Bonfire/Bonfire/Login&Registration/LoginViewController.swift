@@ -1,25 +1,22 @@
 //
-//  LoginVC.swift
+//  LoginViewController.swift
 //  Bonfire
 //
-//  Created by Yash on 16/04/17.
+//  Created by Yash on 17/04/17.
 //  Copyright © 2017 Niyati. All rights reserved.
 //
 
 import UIKit
 
-class LoginVC: UIViewController {
+class LoginViewController: UIViewController {
 
-    var strCampusCode = String()
-    
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning()
-    {
+    override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }

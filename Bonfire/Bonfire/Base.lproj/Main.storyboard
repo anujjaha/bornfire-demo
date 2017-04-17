@@ -6,6 +6,20 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Cabin-Bold.ttf">
+            <string>Cabin-Bold</string>
+        </array>
+        <array key="Cabin-Regular.ttf">
+            <string>Cabin-Regular</string>
+        </array>
+        <array key="Montserrat-Light.otf">
+            <string>Montserrat-Light</string>
+        </array>
+        <array key="exljbris-MuseoSans-500.otf">
+            <string>MuseoSans-500</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -28,9 +42,10 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Campus code,  please:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SO0-EB-nRe">
                                         <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="CYR-Yz-hMd"/>
                                             <constraint firstAttribute="height" constant="50" id="HMr-xL-LRt"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" name="Cabin-Regular" family="Cabin" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -44,15 +59,17 @@
                                             <constraint firstAttribute="height" constant="33" id="eZk-rO-ehV"/>
                                         </constraints>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="Cabin-Regular" family="Cabin" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="htr-UD-eQc"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="B48-tL-VP6" firstAttribute="leading" secondItem="JfK-dz-bS3" secondAttribute="leading" id="9WL-Cy-7su"/>
                                     <constraint firstItem="SO0-EB-nRe" firstAttribute="top" secondItem="JfK-dz-bS3" secondAttribute="top" constant="-4" id="AKd-R6-EtQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="SO0-EB-nRe" secondAttribute="trailing" constant="77" id="Pe4-OF-hKc"/>
                                     <constraint firstItem="FYu-6f-RgM" firstAttribute="top" secondItem="SO0-EB-nRe" secondAttribute="bottom" constant="24" id="Um9-uL-Fqn"/>
                                     <constraint firstItem="SO0-EB-nRe" firstAttribute="centerX" secondItem="JfK-dz-bS3" secondAttribute="centerX" id="Xb2-75-foN"/>
                                     <constraint firstAttribute="trailing" secondItem="B48-tL-VP6" secondAttribute="trailing" id="e1f-oW-Buc"/>
@@ -60,7 +77,6 @@
                                     <constraint firstItem="FYu-6f-RgM" firstAttribute="leading" secondItem="JfK-dz-bS3" secondAttribute="leading" constant="54" id="hk5-0Q-72b"/>
                                     <constraint firstItem="B48-tL-VP6" firstAttribute="top" secondItem="SO0-EB-nRe" secondAttribute="bottom" constant="11" id="mq5-zM-TAw"/>
                                     <constraint firstAttribute="height" constant="150" id="nYw-nY-I4a"/>
-                                    <constraint firstItem="SO0-EB-nRe" firstAttribute="leading" secondItem="JfK-dz-bS3" secondAttribute="leading" constant="76" id="ySW-W0-miW"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -76,6 +92,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="afS-55-HEh"/>
+                    <connections>
+                        <outlet property="txtCampusCode" destination="FYu-6f-RgM" id="lyj-b2-0Nm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -95,18 +114,48 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_bg" translatesAutoresizingMaskIntoConstraints="NO" id="dHT-7w-Ziy"/>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Sage hill's Bonfire" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="krR-ij-f61">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="260" id="4Fe-ro-isc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sGD-9F-zIf">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="L6B-yd-Eqn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Cabin-Bold" family="Cabin" pointSize="18"/>
+                                <state key="normal" title="Login"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIz-Xn-dpk">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="23B-zX-nlH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Cabin-Bold" family="Cabin" pointSize="18"/>
+                                <state key="normal" title="or"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZR-xs-dMI">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="8Mr-FZ-Gf7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Cabin-Bold" family="Cabin" pointSize="18"/>
+                                <state key="normal" title="Sign up"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="RIz-Xn-dpk" firstAttribute="top" secondItem="sGD-9F-zIf" secondAttribute="bottom" constant="10" id="1qZ-9E-AjM"/>
                             <constraint firstItem="bEc-sB-gS6" firstAttribute="top" secondItem="dHT-7w-Ziy" secondAttribute="bottom" id="5L6-vZ-1T2"/>
+                            <constraint firstItem="JZR-xs-dMI" firstAttribute="top" secondItem="RIz-Xn-dpk" secondAttribute="bottom" constant="10" id="G7r-sT-z7z"/>
+                            <constraint firstItem="RIz-Xn-dpk" firstAttribute="centerX" secondItem="rRs-W3-38v" secondAttribute="centerX" id="Pas-u8-hdn"/>
                             <constraint firstItem="krR-ij-f61" firstAttribute="centerY" secondItem="rRs-W3-38v" secondAttribute="centerY" id="SxI-20-ZtP"/>
+                            <constraint firstItem="sGD-9F-zIf" firstAttribute="top" secondItem="krR-ij-f61" secondAttribute="bottom" constant="37" id="YO2-Mv-p3t"/>
                             <constraint firstItem="dHT-7w-Ziy" firstAttribute="leading" secondItem="rRs-W3-38v" secondAttribute="leading" id="dC8-ot-Oy7"/>
                             <constraint firstAttribute="trailing" secondItem="dHT-7w-Ziy" secondAttribute="trailing" id="gS3-o9-UdD"/>
+                            <constraint firstItem="sGD-9F-zIf" firstAttribute="centerX" secondItem="rRs-W3-38v" secondAttribute="centerX" id="hgC-Ir-Mao"/>
                             <constraint firstItem="dHT-7w-Ziy" firstAttribute="top" secondItem="rRs-W3-38v" secondAttribute="top" id="j7P-AB-4Bz"/>
+                            <constraint firstItem="JZR-xs-dMI" firstAttribute="centerX" secondItem="rRs-W3-38v" secondAttribute="centerX" id="sZA-21-AuY"/>
                             <constraint firstItem="krR-ij-f61" firstAttribute="centerX" secondItem="rRs-W3-38v" secondAttribute="centerX" id="u8B-sR-ZEd"/>
                         </constraints>
                     </view>
@@ -115,12 +164,70 @@
             </objects>
             <point key="canvasLocation" x="241.875" y="7.5"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="LyK-y9-YBs">
+            <objects>
+                <viewController id="htz-gG-vJ4" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cue-MR-qdZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="f1R-WO-rsh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kdz-jB-xGh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Sage hill's Bonfire" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9tS-jP-5FP">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="58" id="Yq5-gc-QLC"/>
+                                    <constraint firstAttribute="width" constant="260" id="c6a-y8-vo7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="20"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="campuscode_rectangle" translatesAutoresizingMaskIntoConstraints="NO" id="wlT-r7-YzM">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="sQL-h1-zOE"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A5S-uX-TB3">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="kzF-Ya-tlr"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="Cabin-Regular" family="Cabin" pointSize="16"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="x5a-Yg-FIf"/>
+                                </connections>
+                            </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="7qE-Fv-nRF">
+                                <frame key="frameInset" minX="40" minY="143" width="15" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wlT-r7-YzM" firstAttribute="leading" secondItem="kdz-jB-xGh" secondAttribute="leading" id="3aj-Kp-bVB"/>
+                            <constraint firstAttribute="trailing" secondItem="A5S-uX-TB3" secondAttribute="trailing" constant="54" id="3uh-ai-h71"/>
+                            <constraint firstItem="9tS-jP-5FP" firstAttribute="top" secondItem="cue-MR-qdZ" secondAttribute="bottom" constant="26" id="480-hm-KHZ"/>
+                            <constraint firstItem="wlT-r7-YzM" firstAttribute="top" secondItem="9tS-jP-5FP" secondAttribute="bottom" constant="19" id="M4K-jW-DRO"/>
+                            <constraint firstItem="A5S-uX-TB3" firstAttribute="leading" secondItem="kdz-jB-xGh" secondAttribute="leading" constant="54" id="SqR-uy-x5N"/>
+                            <constraint firstAttribute="trailing" secondItem="wlT-r7-YzM" secondAttribute="trailing" id="lm0-o5-Pcy"/>
+                            <constraint firstItem="A5S-uX-TB3" firstAttribute="top" secondItem="9tS-jP-5FP" secondAttribute="bottom" constant="32" id="uoA-nX-yRJ"/>
+                            <constraint firstItem="9tS-jP-5FP" firstAttribute="centerX" secondItem="kdz-jB-xGh" secondAttribute="centerX" id="yTj-EI-8qg"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="keU-mz-Fqk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="881.25" y="5"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="LJJ-DE-13x">
             <objects>
                 <navigationController navigationBarHidden="YES" id="3gs-nl-cuE" sceneMemberID="viewController">
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ce0-hE-PKn">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ce0-hE-PKn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.85098039219999999" green="0.73333333329999995" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -139,5 +246,6 @@
         <image name="campus_image" width="303" height="267"/>
         <image name="campuscode_rectangle" width="358" height="138"/>
         <image name="login_bg" width="375" height="667"/>
+        <image name="user" width="130" height="130"/>
     </resources>
 </document>
