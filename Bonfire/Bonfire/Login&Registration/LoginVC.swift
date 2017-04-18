@@ -18,6 +18,20 @@ class LoginVC: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func btnLoginPressed()
+    {
+        let storyTab = UIStoryboard(name: "Main", bundle: nil)
+        let objLoginVC = storyTab.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        self.navigationController?.pushViewController(objLoginVC, animated: true)
+    }
+
+    @IBAction func btnSignupPressed()
+    {
+        let storyTab = UIStoryboard(name: "Main", bundle: nil)
+        let objLoginVC = storyTab.instantiateViewController(withIdentifier: "SignupViewController") as! SignupViewController
+        self.navigationController?.pushViewController(objLoginVC, animated: true)
+    }
+
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()

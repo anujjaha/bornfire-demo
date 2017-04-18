@@ -1,43 +1,37 @@
 //
-//  LoginViewController.swift
+//  SignupViewController.swift
 //  Bonfire
 //
-//  Created by Yash on 17/04/17.
+//  Created by Yash on 18/04/17.
 //  Copyright © 2017 Niyati. All rights reserved.
 //
 
 import UIKit
 
-class LoginViewController: UIViewController
+class SignupViewController: UIViewController
 {
-
+    @IBOutlet weak var txtFullName : UITextField!
+    @IBOutlet weak var txtEmail : UITextField!
     @IBOutlet weak var txtUserName : UITextField!
     @IBOutlet weak var txtPassword : UITextField!
+
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-    
-    @IBAction func btnLoginPressed()
+
+    @IBAction func btnSignupPressed()
     {
-        if (self.txtUserName.text?.isEmpty)!
-        {
-            App_showAlert(withMessage: "Please enter username", inView: self)
-        }
-        else
-        {
-            
-        }
     }
 
-    override func didReceiveMemoryWarning()
-    {
+    override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+
     /*
     // MARK: - Navigation
 

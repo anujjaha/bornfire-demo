@@ -16,6 +16,7 @@
 		D3599A1C1EA52BD200EC1D9B /* exljbris-MuseoSans-300.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3599A1A1EA52BD200EC1D9B /* exljbris-MuseoSans-300.otf */; };
 		D3599A1D1EA52BD200EC1D9B /* exljbris-MuseoSans-500.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3599A1B1EA52BD200EC1D9B /* exljbris-MuseoSans-500.otf */; };
 		D3599A1F1EA5342500EC1D9B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3599A1E1EA5342500EC1D9B /* LoginViewController.swift */; };
+		D39749E61EA67CAB00E41482 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39749E51EA67CAB00E41482 /* SignupViewController.swift */; };
 		D3C2CCBD1EA3B39A00996D8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C2CCBC1EA3B39A00996D8F /* AppDelegate.swift */; };
 		D3C2CCBF1EA3B39A00996D8F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C2CCBE1EA3B39A00996D8F /* ViewController.swift */; };
 		D3C2CCC21EA3B39A00996D8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3C2CCC01EA3B39A00996D8F /* Main.storyboard */; };
@@ -83,6 +84,7 @@
 		D3599A1A1EA52BD200EC1D9B /* exljbris-MuseoSans-300.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "exljbris-MuseoSans-300.otf"; sourceTree = "<group>"; };
 		D3599A1B1EA52BD200EC1D9B /* exljbris-MuseoSans-500.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "exljbris-MuseoSans-500.otf"; sourceTree = "<group>"; };
 		D3599A1E1EA5342500EC1D9B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D39749E51EA67CAB00E41482 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		D3C2CCB91EA3B39A00996D8F /* Bonfire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bonfire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3C2CCBC1EA3B39A00996D8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3C2CCBE1EA3B39A00996D8F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 			children = (
 				D3C2CD311EA3C87B00996D8F /* LoginVC.swift */,
 				D3599A1E1EA5342500EC1D9B /* LoginViewController.swift */,
+				D39749E51EA67CAB00E41482 /* SignupViewController.swift */,
 			);
 			path = "Login&Registration";
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				D3C2CD151EA3B96100996D8F /* SessionDelegate.swift in Sources */,
 				D3C2CD1E1EA3B96100996D8F /* IQUIView+Hierarchy.swift in Sources */,
 				D3C2CD141EA3B96100996D8F /* ServerTrustPolicy.swift in Sources */,
+				D39749E61EA67CAB00E41482 /* SignupViewController.swift in Sources */,
 				D3C2CCBF1EA3B39A00996D8F /* ViewController.swift in Sources */,
 				D3C2CD241EA3B96100996D8F /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				D3C2CD081EA3B96100996D8F /* AFError.swift in Sources */,
