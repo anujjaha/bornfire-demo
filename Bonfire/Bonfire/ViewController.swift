@@ -26,6 +26,9 @@ class ViewController: UIViewController,UITextFieldDelegate
         }
         else
         {
+            UserDefaults.standard.set(self.txtCampusCode.text!, forKey: kkeyCampusCode)
+            UserDefaults.standard.synchronize()
+           
             textField.resignFirstResponder()
             
             let storyTab = UIStoryboard(name: "Main", bundle: nil)

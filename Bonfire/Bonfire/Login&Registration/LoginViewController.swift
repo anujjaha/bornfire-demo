@@ -26,12 +26,26 @@ class LoginViewController: UIViewController
         {
             App_showAlert(withMessage: "Please enter username", inView: self)
         }
+        else if (self.txtPassword.text?.isEmpty)!
+        {
+            App_showAlert(withMessage: "Please enter password", inView: self)
+        }
         else
         {
-            
+            UserDefaults.standard.set(true, forKey: kkeyisUserLogin)
+            UserDefaults.standard.synchronize()
+            let storyTab = UIStoryboard(name: "Main", bundle: nil)
+            let tabbar = storyTab.instantiateViewController(withIdentifier: "TabBarViewController")
+            self.navigationController?.pushViewController(tabbar, animated: true)
         }
     }
 
+    @IBAction func btnbackPressed()
+    {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()

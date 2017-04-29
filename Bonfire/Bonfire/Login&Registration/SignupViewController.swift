@@ -15,7 +15,6 @@ class SignupViewController: UIViewController
     @IBOutlet weak var txtUserName : UITextField!
     @IBOutlet weak var txtPassword : UITextField!
 
-
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -24,6 +23,33 @@ class SignupViewController: UIViewController
 
     @IBAction func btnSignupPressed()
     {
+        if (self.txtFullName.text?.isEmpty)!
+        {
+            App_showAlert(withMessage: "Please enter fullname", inView: self)
+        }
+        else if (self.txtEmail.text?.isEmpty)!
+        {
+            App_showAlert(withMessage: "Please enter email address", inView: self)
+        }
+        else if (self.txtUserName.text?.isEmpty)!
+        {
+            App_showAlert(withMessage: "Please enter username", inView: self)
+        }
+        else if (self.txtPassword.text?.isEmpty)!
+        {
+            App_showAlert(withMessage: "Please enter password", inView: self)
+        }
+        else
+        {
+            let storyTab = UIStoryboard(name: "Main", bundle: nil)
+            let objTourGuideVC = storyTab.instantiateViewController(withIdentifier: "TourGuideVC") as! TourGuideVC
+            self.navigationController?.pushViewController(objTourGuideVC, animated: true)
+        }
+    }
+
+    @IBAction func btnbackPressed()
+    {
+        _ = self.navigationController?.popViewController(animated: true)
     }
 
     override func didReceiveMemoryWarning() {

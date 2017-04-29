@@ -38,6 +38,9 @@ let kkeylon = "lon"
 let kkeyuser = "user"
 let kkeyLoginData = "LoginData"
 let kkeyisUserLogin = "UserLogin"
+
+let kkeyCampusCode = "CampusCode"
+
 let kkeytext = "text"
 let kkeytime = "time"
 let kkeytitle = "title"
