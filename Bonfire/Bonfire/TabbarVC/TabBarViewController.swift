@@ -12,7 +12,9 @@ class TabBarViewController: UITabBarController
 {
     override func viewDidLoad()
     {
-        
+        // Do any additional setup after loading the view.
+        self.navigationController?.navigationBar.isHidden = true
+
     }
     override func viewDidAppear(_ animated: Bool)
     {
