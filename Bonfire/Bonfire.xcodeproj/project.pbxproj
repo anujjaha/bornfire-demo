@@ -22,6 +22,10 @@
 		D3599A1D1EA52BD200EC1D9B /* exljbris-MuseoSans-500.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3599A1B1EA52BD200EC1D9B /* exljbris-MuseoSans-500.otf */; };
 		D3599A1F1EA5342500EC1D9B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3599A1E1EA5342500EC1D9B /* LoginViewController.swift */; };
 		D39749E61EA67CAB00E41482 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39749E51EA67CAB00E41482 /* SignupViewController.swift */; };
+		D3BAC6281EB599A1002745AC /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BAC6271EB599A1002745AC /* TabBarViewController.swift */; };
+		D3BAC62F1EB59B4F002745AC /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BAC62E1EB59B4F002745AC /* MessageVC.swift */; };
+		D3BAC6311EB59B61002745AC /* ActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BAC6301EB59B61002745AC /* ActivityVC.swift */; };
+		D3BAC6331EB59B6E002745AC /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BAC6321EB59B6E002745AC /* ProfileVC.swift */; };
 		D3C2CCBD1EA3B39A00996D8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C2CCBC1EA3B39A00996D8F /* AppDelegate.swift */; };
 		D3C2CCBF1EA3B39A00996D8F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C2CCBE1EA3B39A00996D8F /* ViewController.swift */; };
 		D3C2CCC21EA3B39A00996D8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3C2CCC01EA3B39A00996D8F /* Main.storyboard */; };
@@ -95,6 +99,10 @@
 		D3599A1B1EA52BD200EC1D9B /* exljbris-MuseoSans-500.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "exljbris-MuseoSans-500.otf"; sourceTree = "<group>"; };
 		D3599A1E1EA5342500EC1D9B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D39749E51EA67CAB00E41482 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		D3BAC6271EB599A1002745AC /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		D3BAC62E1EB59B4F002745AC /* MessageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
+		D3BAC6301EB59B61002745AC /* ActivityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityVC.swift; sourceTree = "<group>"; };
+		D3BAC6321EB59B6E002745AC /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		D3C2CCB91EA3B39A00996D8F /* Bonfire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bonfire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3C2CCBC1EA3B39A00996D8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3C2CCBE1EA3B39A00996D8F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -207,6 +215,38 @@
 			path = fonts;
 			sourceTree = "<group>";
 		};
+		D3BAC6261EB599A1002745AC /* TabbarVC */ = {
+			isa = PBXGroup;
+			children = (
+				D3BAC6271EB599A1002745AC /* TabBarViewController.swift */,
+			);
+			path = TabbarVC;
+			sourceTree = "<group>";
+		};
+		D3BAC62B1EB59B3A002745AC /* ProfileVC */ = {
+			isa = PBXGroup;
+			children = (
+				D3BAC6321EB59B6E002745AC /* ProfileVC.swift */,
+			);
+			path = ProfileVC;
+			sourceTree = "<group>";
+		};
+		D3BAC62C1EB59B3A002745AC /* ActivityVC */ = {
+			isa = PBXGroup;
+			children = (
+				D3BAC6301EB59B61002745AC /* ActivityVC.swift */,
+			);
+			path = ActivityVC;
+			sourceTree = "<group>";
+		};
+		D3BAC62D1EB59B3A002745AC /* MessageVC */ = {
+			isa = PBXGroup;
+			children = (
+				D3BAC62E1EB59B4F002745AC /* MessageVC.swift */,
+			);
+			path = MessageVC;
+			sourceTree = "<group>";
+		};
 		D3C2CCB01EA3B39A00996D8F = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +266,10 @@
 		D3C2CCBB1EA3B39A00996D8F /* Bonfire */ = {
 			isa = PBXGroup;
 			children = (
+				D3BAC62B1EB59B3A002745AC /* ProfileVC */,
+				D3BAC62C1EB59B3A002745AC /* ActivityVC */,
+				D3BAC62D1EB59B3A002745AC /* MessageVC */,
+				D3BAC6261EB599A1002745AC /* TabbarVC */,
 				D30D9EA51EB4C63500245FE5 /* DiscoverView */,
 				D30D9EA01EB4736600245FE5 /* TourGuide */,
 				D30D9E9C1EB470A000245FE5 /* Interests */,
@@ -476,8 +520,10 @@
 			files = (
 				D3C2CD0E1EA3B96100996D8F /* Notifications.swift in Sources */,
 				D3C2CD211EA3B96100996D8F /* IQKeyboardManagerConstants.swift in Sources */,
+				D3BAC6281EB599A1002745AC /* TabBarViewController.swift in Sources */,
 				D3C2CD101EA3B96100996D8F /* Request.swift in Sources */,
 				D30D9EA21EB4737800245FE5 /* TourGuideVC.swift in Sources */,
+				D3BAC6311EB59B61002745AC /* ActivityVC.swift in Sources */,
 				D3C2CD1B1EA3B96100996D8F /* IQNSArray+Sort.swift in Sources */,
 				D3C2CD171EA3B96100996D8F /* TaskDelegate.swift in Sources */,
 				D3C2CD221EA3B96100996D8F /* IQKeyboardManagerConstantsInternal.swift in Sources */,
@@ -502,6 +548,7 @@
 				D3C2CD111EA3B96100996D8F /* Response.swift in Sources */,
 				D30D9E981EB4704F00245FE5 /* HTag.swift in Sources */,
 				D3C2CD1D1EA3B96100996D8F /* IQUITextFieldView+Additions.swift in Sources */,
+				D3BAC6331EB59B6E002745AC /* ProfileVC.swift in Sources */,
 				D3C2CD261EA3B96100996D8F /* IQBarButtonItem.swift in Sources */,
 				D3C2CD0F1EA3B96100996D8F /* ParameterEncoding.swift in Sources */,
 				D3C2CD191EA3B96100996D8F /* Validation.swift in Sources */,
@@ -513,6 +560,7 @@
 				D30D9E9E1EB470B700245FE5 /* InterestVC.swift in Sources */,
 				D39749E61EA67CAB00E41482 /* SignupViewController.swift in Sources */,
 				D3C2CCBF1EA3B39A00996D8F /* ViewController.swift in Sources */,
+				D3BAC62F1EB59B4F002745AC /* MessageVC.swift in Sources */,
 				D3C2CD241EA3B96100996D8F /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				D3C2CD081EA3B96100996D8F /* AFError.swift in Sources */,
 				D3C2CD231EA3B96100996D8F /* IQKeyboardManager.swift in Sources */,
@@ -585,7 +633,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -628,7 +676,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -642,6 +690,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Bonfire/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Bonfire.Bonfire;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -655,6 +704,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Bonfire/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Bonfire.Bonfire;
 				PRODUCT_NAME = "$(TARGET_NAME)";
