@@ -10,10 +10,16 @@ import UIKit
 
 class ActivityVC: UIViewController {
 
-    override func viewDidLoad() {
+    @IBOutlet weak var btnStartNewGroup: UIButton!
+    @IBOutlet weak var clvwLeading: UICollectionView!
+    @IBOutlet weak var clvwDiscover: UICollectionView!
+
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        btnStartNewGroup.layer.cornerRadius = 10.0
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,4 +38,28 @@ class ActivityVC: UIViewController {
     }
     */
 
+}
+extension ActivityVC : UICollectionViewDataSource
+{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        let identifier = "DiscoverCell"
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! DiscoverCell
+        return cell
+    }
+}
+
+// MARK:- UICollectionViewDelegate Methods
+
+extension ActivityVC : UICollectionViewDelegate
+{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+        
+    }
 }
