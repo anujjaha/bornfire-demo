@@ -41,6 +41,7 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
         tagViewGroups.tagMainTextColor = UIColor.black
         tagViewGroups.tagSecondBackColor =  UIColor(red: 234.0/255.0, green: 255.0/255.0, blue: 196.0/255.0, alpha: 1)
         tagViewGroups.tagSecondTextColor = UIColor.black
+                
 
         tagViewInterest.reloadData()
         tagViewGroups.reloadData()

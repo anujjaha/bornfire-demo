@@ -51,6 +51,28 @@ class SignupViewController: UIViewController
     {
         _ = self.navigationController?.popViewController(animated: true)
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {   //delegate method
+        if textField == self.txtFullName
+        {
+            self.txtEmail.becomeFirstResponder()
+        }
+        else if textField == self.txtEmail
+        {
+            self.txtUserName.becomeFirstResponder()
+        }
+        else if textField == self.txtUserName
+        {
+            self.txtPassword.becomeFirstResponder()
+        }
+        else
+        {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

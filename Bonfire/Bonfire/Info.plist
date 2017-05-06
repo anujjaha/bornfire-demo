@@ -50,5 +50,7 @@
 		<string>Montserrat-Bold.ttf</string>
 		<string>Odin Rounded-Regular.otf</string>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

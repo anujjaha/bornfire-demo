@@ -21,25 +21,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         IQKeyboardManager.sharedManager().shouldHidePreviousNext = false
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
         
-        if (userDefaults.bool(forKey: kkeyisUserLogin))
-        {
-            let appdelegate = UIApplication.shared.delegate as! AppDelegate
-            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: "TabBarViewController")
-            let nav = UINavigationController(rootViewController: homeViewController)
-            appdelegate.window!.rootViewController = nav
-        }
-        else
-        {
+//        if (userDefaults.bool(forKey: kkeyisUserLogin))
+//        {
+//            let appdelegate = UIApplication.shared.delegate as! AppDelegate
+//            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//            let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: "TabBarViewController")
+//            let nav = UINavigationController(rootViewController: homeViewController)
+//            appdelegate.window!.rootViewController = nav
+//        }
+//        else
+//        {
             let appdelegate = UIApplication.shared.delegate as! AppDelegate
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
             let nav = UINavigationController(rootViewController: homeViewController)
             nav.isNavigationBarHidden = true
             appdelegate.window!.rootViewController = nav
-        }
+//        }
 
-        
+        UIApplication.shared.statusBarStyle = .lightContent
+
         return true
     }
 

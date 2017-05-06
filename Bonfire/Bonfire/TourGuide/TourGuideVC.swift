@@ -31,6 +31,8 @@ class TourGuideVC: UIViewController,UIScrollViewDelegate
         self.view.addSubview(self.scrvw)
         self.view.bringSubview(toFront: self.pgControl)
 
+        UIApplication.shared.isStatusBarHidden = true
+        
         for index in 0..<4
         {
             frame.origin.x = self.scrvw.frame.size.width * CGFloat(index)
@@ -78,27 +80,45 @@ class TourGuideVC: UIViewController,UIScrollViewDelegate
         self.scrvw.contentSize = CGSize(width:self.scrvw.frame.size.width * 4,height: self.scrvw.frame.size.height)
     }
     
+    override func viewWillDisappear(_ animated: Bool)     {
+        UIApplication.shared.isStatusBarHidden = false
+    }
+    
     //MARK: Paging Methods
     func changePage(sender: AnyObject) -> ()
     {
         let x = CGFloat(pgControl.currentPage) * self.scrvw.frame.size.width
         self.scrvw.setContentOffset(CGPoint(x: x,y :0), animated: true)
     }
+    
+   /* func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView)
+    {
+        // The case where I used this, the x-coordinate was relevant. You may be concerned with the y-coordinate--I'm not sure
+        let pageNumber = Int(scrollView.contentOffset.x.truncatingRemainder(dividingBy: scrollView.frame.size.width))
+       
+        let percent: CGFloat = (CGFloat(pageNumber)) / self.scrvw.frame.size.width
+        if percent > 0.0 && percent < 1.0 {
+            // Of course, you can specify your own range of alpha values
+            self.scrvw.alpha = percent + 0.1
+        }
+    }*/
+
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView)
     {
+//        self.scrvw.alpha = 1.0
         let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
-        pgControl.currentPage = Int(pageNumber)
+        self.pgControl.currentPage = Int(pageNumber)
     }
     
     @IBAction func gotoTabbar(sender: UIButton)
     {
+        UIApplication.shared.isStatusBarHidden = false
         UserDefaults.standard.set(true, forKey: kkeyisUserLogin)
         UserDefaults.standard.synchronize()
         let storyTab = UIStoryboard(name: "Main", bundle: nil)
         let tabbar = storyTab.instantiateViewController(withIdentifier: "TabBarViewController")
         self.navigationController?.pushViewController(tabbar, animated: true)
     }
-
 
     override func didReceiveMemoryWarning()
     {

@@ -8,19 +8,23 @@
 
 import UIKit
 
-class DiscoverVC: UIViewController {
+class DiscoverVC: UIViewController
+{
+    @IBOutlet weak var clvwyour: UICollectionView!
+    @IBOutlet weak var clvwDiscover: UICollectionView!
+    @IBOutlet weak var clvwGroups: UICollectionView!
 
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation
@@ -31,5 +35,28 @@ class DiscoverVC: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+}
+extension DiscoverVC : UICollectionViewDataSource
+{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        let identifier = "DiscoverCell"
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! DiscoverCell
+        return cell
+    }
+}
 
+// MARK:- UICollectionViewDelegate Methods
+
+extension DiscoverVC : UICollectionViewDelegate
+{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+        
+    }
 }

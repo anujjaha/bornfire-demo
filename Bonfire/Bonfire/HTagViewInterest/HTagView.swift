@@ -263,6 +263,7 @@ open class HTagView: UIView, HTagDelegate {
                 x += tags[index].frame.width + btwTags
             }
             self.frame.size = CGSize(width: self.frame.width, height: y + (tags.last?.frame.height ?? 0) + marg )
+
         }
     }
     

@@ -25,7 +25,8 @@ class HTag: UIButton {
     }
     var tagFontSize : CGFloat = 17{
         didSet{
-            titleLabel?.font = titleLabel?.font.withSize(tagFontSize)
+//            titleLabel?.font = titleLabel?.font.withSize(tagFontSize)
+            titleLabel?.font = UIFont(name: "Cabin-Regular", size: tagFontSize)
             layoutSubviews()
         }
     }
