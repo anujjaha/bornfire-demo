@@ -56,7 +56,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="Cabin-Regular" family="Cabin" pointSize="16"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                         <connections>
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="htr-UD-eQc"/>
                                         </connections>
@@ -1356,6 +1356,11 @@
                                     <outlet property="delegate" destination="6jc-dT-dgd" id="KHo-Xv-A7k"/>
                                 </connections>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nwo-ej-RkH">
+                                <frame key="frameInset" minY="430" width="322" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgF-bJ-i9a">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="CKt-pv-b8H"/>
