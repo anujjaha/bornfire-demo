@@ -13,6 +13,10 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var clvwMessage: UICollectionView!
     @IBOutlet weak var tblMessages: UITableView!
 
+    @IBOutlet var buttonPlus: UIButton!
+    @IBOutlet var btnHashTag: UIButton!
+    @IBOutlet var btnAnythingToSay: UIButton!
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -22,7 +26,14 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         tblMessages.rowHeight = UITableViewAutomaticDimension
         tblMessages.reloadData()
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.layer.zPosition = 0
+        self.buttonPlus.isHidden = false
+        self.tabBarController?.tabBar.isUserInteractionEnabled = true
+        self.tabBarController?.tabBar.isHidden = false
+        
+        
+    }
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
@@ -33,6 +44,29 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     {
         return 10
     }
+   
+    
+    @IBAction func btnHasTagTap(_ sender: Any) {
+          self.tabBarController?.tabBar.layer.zPosition = 0
+        if let viewController = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: kIdentifire_AddInterestToMsgView) as? AddInterestToMsgVC {
+            
+            self .navigationController?.pushViewController(viewController, animated: true)
+            
+            }
+    }
+  
+    @IBAction func btnAnythingTosayTap(_ sender: Any) {
+        
+    }
+    @IBAction func buttonPlusTap(_ sender: Any) {
+        
+        self.buttonPlus.isHidden = true
+        self.tabBarController?.tabBar.layer.zPosition = -1
+        self.tabBarController?.tabBar.isUserInteractionEnabled = false;
+        self.tabBarController?.tabBar.isHidden = true
+        
+    }
+   
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92E51A901EC235B70022AC6A /* Main2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92E51A8F1EC235B70022AC6A /* Main2.storyboard */; };
+		92E51A941EC239A90022AC6A /* AddInterestToMsgVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E51A931EC239A90022AC6A /* AddInterestToMsgVC.swift */; };
 		D30D9E981EB4704F00245FE5 /* HTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30D9E951EB4704F00245FE5 /* HTag.swift */; };
 		D30D9E991EB4704F00245FE5 /* HTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30D9E961EB4704F00245FE5 /* HTagView.swift */; };
 		D30D9E9E1EB470B700245FE5 /* InterestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30D9E9D1EB470B700245FE5 /* InterestVC.swift */; };
@@ -85,6 +87,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		92E51A8F1EC235B70022AC6A /* Main2.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main2.storyboard; sourceTree = "<group>"; };
+		92E51A931EC239A90022AC6A /* AddInterestToMsgVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddInterestToMsgVC.swift; sourceTree = "<group>"; };
 		D30D9E951EB4704F00245FE5 /* HTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTag.swift; sourceTree = "<group>"; };
 		D30D9E961EB4704F00245FE5 /* HTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTagView.swift; sourceTree = "<group>"; };
 		D30D9E9D1EB470B700245FE5 /* InterestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestVC.swift; sourceTree = "<group>"; };
@@ -246,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				D3BAC62E1EB59B4F002745AC /* MessageVC.swift */,
+				92E51A931EC239A90022AC6A /* AddInterestToMsgVC.swift */,
 			);
 			path = MessageVC;
 			sourceTree = "<group>";
@@ -285,6 +290,7 @@
 				D3C2CCBC1EA3B39A00996D8F /* AppDelegate.swift */,
 				D3C2CCBE1EA3B39A00996D8F /* ViewController.swift */,
 				D3C2CCC01EA3B39A00996D8F /* Main.storyboard */,
+				92E51A8F1EC235B70022AC6A /* Main2.storyboard */,
 				D3C2CCC31EA3B39A00996D8F /* Assets.xcassets */,
 				D3C2CCC51EA3B39A00996D8F /* LaunchScreen.storyboard */,
 				D3C2CCC81EA3B39A00996D8F /* Info.plist */,
@@ -510,6 +516,7 @@
 				D3599A1C1EA52BD200EC1D9B /* exljbris-MuseoSans-300.otf in Resources */,
 				D3C2CCC21EA3B39A00996D8F /* Main.storyboard in Resources */,
 				D3599A141EA52B5000EC1D9B /* Montserrat-Bold.ttf in Resources */,
+				92E51A901EC235B70022AC6A /* Main2.storyboard in Resources */,
 				D3599A151EA52B5000EC1D9B /* Montserrat-Light.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -558,6 +565,7 @@
 				D3C2CD191EA3B96100996D8F /* Validation.swift in Sources */,
 				D3C2CD051EA3B96100996D8F /* AppUtils.swift in Sources */,
 				D3599A1F1EA5342500EC1D9B /* LoginViewController.swift in Sources */,
+				92E51A941EC239A90022AC6A /* AddInterestToMsgVC.swift in Sources */,
 				D3C2CD151EA3B96100996D8F /* SessionDelegate.swift in Sources */,
 				D3C2CD1E1EA3B96100996D8F /* IQUIView+Hierarchy.swift in Sources */,
 				D3C2CD141EA3B96100996D8F /* ServerTrustPolicy.swift in Sources */,

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Add Interest To MsgVC-->
+        <scene sceneID="Npf-og-67y">
+            <objects>
+                <viewController storyboardIdentifier="AddInterestToMsgView" id="G4d-yk-5N2" customClass="AddInterestToMsgVC" customModule="Bonfire" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CHJ-0h-EnN"/>
+                        <viewControllerLayoutGuide type="bottom" id="7tz-fh-T3q"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xBc-8C-Vza">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qQV-U4-z1r">
+                                <rect key="frame" x="0.0" y="20" width="375" height="130"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add interest to your message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lhx-tp-ACZ">
+                                        <rect key="frame" x="86" y="23" width="204" height="84"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FE1-jS-3Lp">
+                                        <rect key="frame" x="17" y="0.0" width="21" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="EDO-KB-JTO"/>
+                                        </constraints>
+                                        <state key="normal" image="back_icon"/>
+                                        <connections>
+                                            <action selector="buttonBackTap:" destination="G4d-yk-5N2" eventType="touchUpInside" id="ctM-mM-jtJ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Lhx-tp-ACZ" firstAttribute="centerX" secondItem="qQV-U4-z1r" secondAttribute="centerX" id="4Pg-Dj-f1r"/>
+                                    <constraint firstAttribute="height" constant="130" id="F3b-nw-v5T"/>
+                                    <constraint firstItem="FE1-jS-3Lp" firstAttribute="top" secondItem="qQV-U4-z1r" secondAttribute="top" id="f1I-Hv-Z6o"/>
+                                    <constraint firstAttribute="trailing" secondItem="Lhx-tp-ACZ" secondAttribute="trailing" constant="85" id="off-dk-nAE"/>
+                                    <constraint firstItem="FE1-jS-3Lp" firstAttribute="leading" secondItem="qQV-U4-z1r" secondAttribute="leading" constant="17" id="tJT-qn-zLl"/>
+                                    <constraint firstItem="Lhx-tp-ACZ" firstAttribute="centerY" secondItem="qQV-U4-z1r" secondAttribute="centerY" id="vCF-dl-NLu"/>
+                                    <constraint firstItem="Lhx-tp-ACZ" firstAttribute="top" secondItem="qQV-U4-z1r" secondAttribute="top" constant="23" id="znf-wZ-kia"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wMF-G0-tgX">
+                                <rect key="frame" x="0.0" y="150" width="375" height="517"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="These interests will make appear on others' feed who have the same interest." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pNH-s6-anN">
+                                        <rect key="frame" x="70" y="360" width="235" height="61"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lu0-lq-Ko0">
+                                        <rect key="frame" x="17" y="473" width="30" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="Bvd-cz-8PV"/>
+                                        </constraints>
+                                        <state key="normal" image="anyinterest_add_icon"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G1V-rT-yMn">
+                                        <rect key="frame" x="62" y="473" width="189" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="189" id="EBt-rp-b3X"/>
+                                        </constraints>
+                                        <state key="normal" title="Any interests to add?">
+                                            <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addInterest:" destination="G4d-yk-5N2" eventType="touchUpInside" id="dx7-jF-5VG"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="D2q-Ng-ucF" customClass="HTagView" customModule="Bonfire" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="10" width="335" height="330"/>
+                                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Lu0-lq-Ko0" secondAttribute="bottom" constant="9" id="4gD-eG-gzd"/>
+                                    <constraint firstAttribute="trailing" secondItem="pNH-s6-anN" secondAttribute="trailing" constant="70" id="9FR-GF-Tv8"/>
+                                    <constraint firstItem="pNH-s6-anN" firstAttribute="top" secondItem="D2q-Ng-ucF" secondAttribute="bottom" constant="20" id="9tU-3H-o4r"/>
+                                    <constraint firstItem="D2q-Ng-ucF" firstAttribute="leading" secondItem="wMF-G0-tgX" secondAttribute="leading" constant="20" id="OrZ-Mr-QPq"/>
+                                    <constraint firstAttribute="trailing" secondItem="D2q-Ng-ucF" secondAttribute="trailing" constant="20" id="gxx-Nm-ji2"/>
+                                    <constraint firstItem="Lu0-lq-Ko0" firstAttribute="leading" secondItem="wMF-G0-tgX" secondAttribute="leading" constant="17" id="htk-b2-yKr"/>
+                                    <constraint firstItem="G1V-rT-yMn" firstAttribute="leading" secondItem="Lu0-lq-Ko0" secondAttribute="trailing" constant="15" id="qhQ-hX-Zz0"/>
+                                    <constraint firstAttribute="bottom" secondItem="G1V-rT-yMn" secondAttribute="bottom" constant="10" id="qzf-WY-1Qz"/>
+                                    <constraint firstItem="pNH-s6-anN" firstAttribute="leading" secondItem="wMF-G0-tgX" secondAttribute="leading" constant="70" id="sin-vZ-Ni7"/>
+                                    <constraint firstItem="D2q-Ng-ucF" firstAttribute="top" secondItem="wMF-G0-tgX" secondAttribute="top" constant="10" id="u0b-fZ-Hcb"/>
+                                    <constraint firstItem="G1V-rT-yMn" firstAttribute="top" secondItem="pNH-s6-anN" secondAttribute="bottom" constant="52" id="zWe-Cd-K73"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wMF-G0-tgX" firstAttribute="leading" secondItem="xBc-8C-Vza" secondAttribute="leading" id="7g3-nJ-sA8"/>
+                            <constraint firstAttribute="trailing" secondItem="wMF-G0-tgX" secondAttribute="trailing" id="Ihl-NT-nq7"/>
+                            <constraint firstItem="qQV-U4-z1r" firstAttribute="top" secondItem="CHJ-0h-EnN" secondAttribute="bottom" id="SJr-Ez-2XK"/>
+                            <constraint firstItem="7tz-fh-T3q" firstAttribute="top" secondItem="wMF-G0-tgX" secondAttribute="bottom" id="bK6-Ol-jYr"/>
+                            <constraint firstAttribute="trailing" secondItem="qQV-U4-z1r" secondAttribute="trailing" id="fiC-sp-rlh"/>
+                            <constraint firstItem="qQV-U4-z1r" firstAttribute="leading" secondItem="xBc-8C-Vza" secondAttribute="leading" id="pWe-zh-xLo"/>
+                            <constraint firstItem="wMF-G0-tgX" firstAttribute="top" secondItem="qQV-U4-z1r" secondAttribute="bottom" id="zUy-Ap-5rs"/>
+                        </constraints>
+                    </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="buttonBack" destination="FE1-jS-3Lp" id="yx9-Sn-VRF"/>
+                        <outlet property="tagViewInterest" destination="D2q-Ng-ucF" id="qsH-Th-AG3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JED-7o-ZzS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-13.6" y="169.56521739130437"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="anyinterest_add_icon" width="30" height="30"/>
+        <image name="back_icon" width="21" height="16"/>
+    </resources>
+</document>
