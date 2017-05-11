@@ -13,10 +13,15 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var clvwMessage: UICollectionView!
     @IBOutlet weak var tblMessages: UITableView!
 
+    @IBOutlet var const_TxtAnything_leading: NSLayoutConstraint!
+    @IBOutlet var buttonUpArrow: UIButton!
     @IBOutlet var buttonPlus: UIButton!
     @IBOutlet var btnHashTag: UIButton!
-    @IBOutlet var btnAnythingToSay: UIButton!
     
+    @IBOutlet var btnG: UIButton!
+    
+    @IBOutlet var btnBackBtn: UIButton!
+    @IBOutlet var txtAnythingTosay: UITextField!
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -25,14 +30,21 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         tblMessages.estimatedRowHeight = 138.0
         tblMessages.rowHeight = UITableViewAutomaticDimension
         tblMessages.reloadData()
+        
+        self.txtAnythingTosay.setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
+        self.txtAnythingTosay.delegate = self
+        self.btnBackBtn.isHidden = true
     }
     override func viewWillAppear(_ animated: Bool) {
+        
+        self.setTabbar()
+        
+    }
+    func setTabbar(){
         self.tabBarController?.tabBar.layer.zPosition = 0
         self.buttonPlus.isHidden = false
         self.tabBarController?.tabBar.isUserInteractionEnabled = true
         self.tabBarController?.tabBar.isHidden = false
-        
-        
     }
     override func didReceiveMemoryWarning()
     {
@@ -55,15 +67,25 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             }
     }
   
-    @IBAction func btnAnythingTosayTap(_ sender: Any) {
+    @IBAction func buttonUpArrowTap(_ sender: Any) {
+        self.txtAnythingTosay .resignFirstResponder()
+        self.setTabbar()
         
     }
+   
+    @IBAction func buttonBackArrowTap(_ sender: Any) {
+        self.txtAnythingTosay .resignFirstResponder()
+        self.txtAnythingTosay.text = nil
+        
+    }
+    
     @IBAction func buttonPlusTap(_ sender: Any) {
         
         self.buttonPlus.isHidden = true
         self.tabBarController?.tabBar.layer.zPosition = -1
         self.tabBarController?.tabBar.isUserInteractionEnabled = false;
         self.tabBarController?.tabBar.isHidden = true
+        self.txtAnythingTosay.text = nil
         
     }
    
@@ -125,6 +147,30 @@ extension MessageVC : UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         
+    }
+}
+extension MessageVC : UITextFieldDelegate
+{
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.btnG.isHidden = false
+        self.btnHashTag.isHidden = false
+        self.buttonUpArrow.isHidden = true
+        IQKeyboardManager.sharedManager().enableAutoToolbar = true
+         self.txtAnythingTosay.placeholder = "Anything to say?"
+        self.btnBackBtn.isHidden = true
+        
+        self.const_TxtAnything_leading.constant = 10
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        self.const_TxtAnything_leading.constant = -20
+        self.btnG.isHidden = true
+        self.btnHashTag.isHidden = true
+        self.buttonUpArrow.isHidden = false
+        IQKeyboardManager.sharedManager().enableAutoToolbar = false
+        self.txtAnythingTosay.placeholder = nil
+        self.btnBackBtn.isHidden = false
     }
 }
 class MessageCell: UITableViewCell

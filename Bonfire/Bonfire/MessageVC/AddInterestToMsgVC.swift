@@ -13,17 +13,23 @@ class AddInterestToMsgVC: UIViewController , HTagViewDelegate, HTagViewDataSourc
     @IBOutlet var tagViewInterest: HTagView!
     @IBOutlet var buttonBack: UIButton!
     
-    @IBAction func addInterest(_ sender: Any) {
-        
-    }
+    
     
     @IBAction func buttonBackTap(_ sender: Any) {
         _ = self.navigationController?.popViewController(animated: true)
     }
     
+    @IBOutlet var txtInterestToadd: UITextField!
+    
+    @IBOutlet var buttonUpArrow: UIButton!
+    @IBOutlet var btnHash: UIButton!
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+    }
+    @IBAction func upArrowTap(_ sender: Any) {
+        self.txtInterestToadd .resignFirstResponder()
     }
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false
@@ -31,6 +37,10 @@ class AddInterestToMsgVC: UIViewController , HTagViewDelegate, HTagViewDataSourc
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.txtInterestToadd.delegate = self
+        self.buttonUpArrow.isHidden = true
+
+        self.txtInterestToadd .setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
         self.navigationController?.navigationBar.isHidden = true
         // Do any additional setup after loading the view.
         tagViewInterest.delegate = self
@@ -114,4 +124,26 @@ class AddInterestToMsgVC: UIViewController , HTagViewDelegate, HTagViewDataSourc
     }
     */
 
+}
+extension AddInterestToMsgVC : UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        //delegate method
+        self.buttonUpArrow.isHidden = false
+        self.btnHash.setImage(UIImage(named: ""), for: .normal)
+        self.btnHash .setTitleColor( UIColor .black , for: .normal)
+        self.btnHash .setTitle("#", for:.normal)
+        self.btnHash .setTitle("#", for:.highlighted)
+        self.txtInterestToadd .placeholder = nil
+        
+        IQKeyboardManager.sharedManager().enableAutoToolbar = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.btnHash.setImage(UIImage(named: "anyinterest_add_icon"), for: .normal)
+        IQKeyboardManager.sharedManager().enableAutoToolbar = true
+        self.btnHash .setTitle("", for:.normal)
+        self.buttonUpArrow.isHidden = true
+        self.txtInterestToadd .placeholder = "Any interests to add?"
+    }
 }

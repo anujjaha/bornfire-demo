@@ -55,48 +55,68 @@
                                 <rect key="frame" x="0.0" y="150" width="375" height="517"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="These interests will make appear on others' feed who have the same interest." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pNH-s6-anN">
-                                        <rect key="frame" x="70" y="360" width="235" height="61"/>
+                                        <rect key="frame" x="70" y="356" width="235" height="61"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lu0-lq-Ko0">
-                                        <rect key="frame" x="17" y="473" width="30" height="35"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GhI-da-cUP" userLabel="bottomview">
+                                        <rect key="frame" x="0.0" y="467" width="375" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lu0-lq-Ko0">
+                                                <rect key="frame" x="20" y="7" width="30" height="35"/>
+                                                <state key="normal" image="anyinterest_add_icon"/>
+                                            </button>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Any interests to add?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2p4-9b-LwZ">
+                                                <rect key="frame" x="70" y="15.5" width="261" height="17"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TxR-QV-PxT">
+                                                <rect key="frame" x="343" y="7" width="25" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="9fZ-qh-OQP"/>
+                                                </constraints>
+                                                <state key="normal" image="upArrow">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="upArrowTap:" destination="G4d-yk-5N2" eventType="touchUpInside" id="Cq4-8M-n5M"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="Bvd-cz-8PV"/>
+                                            <constraint firstItem="Lu0-lq-Ko0" firstAttribute="leading" secondItem="GhI-da-cUP" secondAttribute="leading" constant="20" id="G1q-tI-iJK"/>
+                                            <constraint firstItem="2p4-9b-LwZ" firstAttribute="centerY" secondItem="Lu0-lq-Ko0" secondAttribute="centerY" id="KPA-6i-pLa"/>
+                                            <constraint firstAttribute="bottom" secondItem="Lu0-lq-Ko0" secondAttribute="bottom" constant="8" id="Kkw-bn-ylP"/>
+                                            <constraint firstItem="2p4-9b-LwZ" firstAttribute="leading" secondItem="Lu0-lq-Ko0" secondAttribute="trailing" constant="20" id="ROg-7b-8Op"/>
+                                            <constraint firstAttribute="trailing" secondItem="TxR-QV-PxT" secondAttribute="trailing" constant="7" id="ZXU-Lf-qvd"/>
+                                            <constraint firstAttribute="bottom" secondItem="TxR-QV-PxT" secondAttribute="bottom" constant="13" id="ap9-QN-3yl"/>
+                                            <constraint firstItem="TxR-QV-PxT" firstAttribute="top" secondItem="GhI-da-cUP" secondAttribute="top" constant="7" id="nmv-OA-bcv"/>
+                                            <constraint firstItem="Lu0-lq-Ko0" firstAttribute="top" secondItem="GhI-da-cUP" secondAttribute="top" constant="7" id="o1y-dg-rZg"/>
+                                            <constraint firstAttribute="height" constant="50" id="pfe-UI-9N7"/>
+                                            <constraint firstItem="TxR-QV-PxT" firstAttribute="leading" secondItem="2p4-9b-LwZ" secondAttribute="trailing" constant="12" id="sek-Ow-VZT"/>
                                         </constraints>
-                                        <state key="normal" image="anyinterest_add_icon"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G1V-rT-yMn">
-                                        <rect key="frame" x="62" y="473" width="189" height="34"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="189" id="EBt-rp-b3X"/>
-                                        </constraints>
-                                        <state key="normal" title="Any interests to add?">
-                                            <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="addInterest:" destination="G4d-yk-5N2" eventType="touchUpInside" id="dx7-jF-5VG"/>
-                                        </connections>
-                                    </button>
+                                    </view>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="D2q-Ng-ucF" customClass="HTagView" customModule="Bonfire" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="10" width="335" height="330"/>
+                                        <rect key="frame" x="20" y="10" width="335" height="326"/>
                                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Lu0-lq-Ko0" secondAttribute="bottom" constant="9" id="4gD-eG-gzd"/>
                                     <constraint firstAttribute="trailing" secondItem="pNH-s6-anN" secondAttribute="trailing" constant="70" id="9FR-GF-Tv8"/>
                                     <constraint firstItem="pNH-s6-anN" firstAttribute="top" secondItem="D2q-Ng-ucF" secondAttribute="bottom" constant="20" id="9tU-3H-o4r"/>
+                                    <constraint firstItem="GhI-da-cUP" firstAttribute="top" secondItem="pNH-s6-anN" secondAttribute="bottom" constant="50" id="LxV-UN-O02"/>
                                     <constraint firstItem="D2q-Ng-ucF" firstAttribute="leading" secondItem="wMF-G0-tgX" secondAttribute="leading" constant="20" id="OrZ-Mr-QPq"/>
+                                    <constraint firstAttribute="bottom" secondItem="GhI-da-cUP" secondAttribute="bottom" id="VeD-14-EBO"/>
                                     <constraint firstAttribute="trailing" secondItem="D2q-Ng-ucF" secondAttribute="trailing" constant="20" id="gxx-Nm-ji2"/>
-                                    <constraint firstItem="Lu0-lq-Ko0" firstAttribute="leading" secondItem="wMF-G0-tgX" secondAttribute="leading" constant="17" id="htk-b2-yKr"/>
-                                    <constraint firstItem="G1V-rT-yMn" firstAttribute="leading" secondItem="Lu0-lq-Ko0" secondAttribute="trailing" constant="15" id="qhQ-hX-Zz0"/>
-                                    <constraint firstAttribute="bottom" secondItem="G1V-rT-yMn" secondAttribute="bottom" constant="10" id="qzf-WY-1Qz"/>
+                                    <constraint firstItem="GhI-da-cUP" firstAttribute="leading" secondItem="wMF-G0-tgX" secondAttribute="leading" id="oqN-2T-lH1"/>
                                     <constraint firstItem="pNH-s6-anN" firstAttribute="leading" secondItem="wMF-G0-tgX" secondAttribute="leading" constant="70" id="sin-vZ-Ni7"/>
                                     <constraint firstItem="D2q-Ng-ucF" firstAttribute="top" secondItem="wMF-G0-tgX" secondAttribute="top" constant="10" id="u0b-fZ-Hcb"/>
-                                    <constraint firstItem="G1V-rT-yMn" firstAttribute="top" secondItem="pNH-s6-anN" secondAttribute="bottom" constant="52" id="zWe-Cd-K73"/>
+                                    <constraint firstAttribute="trailing" secondItem="GhI-da-cUP" secondAttribute="trailing" id="yo5-1y-oUm"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -115,8 +135,11 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="btnHash" destination="Lu0-lq-Ko0" id="Azs-GS-UsR"/>
                         <outlet property="buttonBack" destination="FE1-jS-3Lp" id="yx9-Sn-VRF"/>
+                        <outlet property="buttonUpArrow" destination="TxR-QV-PxT" id="oZq-I8-9Kr"/>
                         <outlet property="tagViewInterest" destination="D2q-Ng-ucF" id="qsH-Th-AG3"/>
+                        <outlet property="txtInterestToadd" destination="2p4-9b-LwZ" id="HgH-zU-KCH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JED-7o-ZzS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -127,5 +150,6 @@
     <resources>
         <image name="anyinterest_add_icon" width="30" height="30"/>
         <image name="back_icon" width="21" height="16"/>
+        <image name="upArrow" width="50" height="50"/>
     </resources>
 </document>
