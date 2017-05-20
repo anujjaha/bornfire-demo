@@ -151,30 +151,33 @@ extension MessageVC : UICollectionViewDelegate
 extension MessageVC : UITextFieldDelegate
 {
 
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField)
+    {
         self.btnG.isHidden = false
         self.btnHashTag.isHidden = false
         self.buttonUpArrow.isHidden = true
-//        IQKeyboardManager.sharedManager().enableAutoToolbar = rue
-         self.txtAnythingTosay.placeholder = "Anything to say?"
+        IQKeyboardManager.sharedManager().enableAutoToolbar = true
+        self.txtAnythingTosay.placeholder = "Anything to say?"
         self.btnBackBtn.isHidden = true
         
         self.const_TxtAnything_leading.constant = 10
         self.setTabbar()
     }
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField)
+    {
         
         self.const_TxtAnything_leading.constant = -20
         self.btnG.isHidden = true
         self.btnHashTag.isHidden = true
         self.buttonUpArrow.isHidden = false
-//        IQKeyboardManager.sharedManager().enableAutoToolbar = false
+        IQKeyboardManager.sharedManager().enableAutoToolbar = false
         self.txtAnythingTosay.placeholder = nil
         self.btnBackBtn.isHidden = false
-        
-        
     }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
         textField .resignFirstResponder()
         
         return true

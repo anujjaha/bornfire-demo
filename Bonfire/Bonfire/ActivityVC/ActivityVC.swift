@@ -74,9 +74,12 @@ extension ActivityVC : UICollectionViewDelegate
     {
         let grpVcOBj = GroupVC.initViewController()
         
-        if collectionView == self.clvwLeading {
+        if collectionView == self.clvwLeading
+        {
             grpVcOBj.isFromLeadingGrp = true
-        } else {
+        }
+        else
+        {
             grpVcOBj.isFromLeadingGrp = false
         }
         self.navigationController?.pushViewController(grpVcOBj, animated: true)

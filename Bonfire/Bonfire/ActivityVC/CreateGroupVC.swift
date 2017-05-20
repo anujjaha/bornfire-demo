@@ -29,25 +29,28 @@ class CreateGroupVC: UIViewController {
         self.clviewLeader.dataSource = self
         self.clviewLeader.delegate = self
         
+        self.btnAddCoverPhoto.layer.cornerRadius = 14.0
+        self.btnAddCoverPhoto.clipsToBounds = true
     }
 
     @IBOutlet weak var clviewLeader: UICollectionView!
     
  
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool)
+    {
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.isHidden = false
     }
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
         super.viewWillAppear(animated)
-        self.btnAddCoverPhoto.layer.cornerRadius = self.btnAddCoverPhoto.frame.height/2
-        self.btnAddCoverPhoto.clipsToBounds = true
         
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.isHidden = true
     }
-    static func initViewController() -> CreateGroupVC {
+    static func initViewController() -> CreateGroupVC
+    {
         return UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "CreateGroupView") as! CreateGroupVC
     }
     
@@ -82,8 +85,9 @@ class CreateGroupVC: UIViewController {
         self.openActionsheet()
     }
     
-    @IBAction func prevBtnTap(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+    @IBAction func prevBtnTap(_ sender: Any)
+    {
+        _ = self.navigationController?.popViewController(animated: true)
     
     }
     
@@ -97,7 +101,8 @@ class CreateGroupVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func openActionsheet() {
+    func openActionsheet()
+    {
         let optionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
         
         // 2
@@ -135,31 +140,34 @@ extension CreateGroupVC : UICollectionViewDataSource
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return 3
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         
-        if collectionView  == clviewLeader {
+        if collectionView  == clviewLeader
+        {
             let identifier = "leadercell"
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! CreateGrpCell
-            
-            cell.leaderImgView.layer.cornerRadius = cell.leaderImgView.frame.width/2
-            
-            cell.leaderImgView.clipsToBounds = true
-            
-            return cell
-        } else {
-            let identifier = "cell"
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! CreateGrpCell
-            
-            cell.imgView.layer.cornerRadius = cell.imgView.frame.width/2
-            cell.imgView.clipsToBounds = true
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! LeaderCell
             
             return cell
         }
-       
+        else
+        {
+            let identifier = "cell"
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! CreateGrpCell
+            
+            if (indexPath.row == 0)
+            {
+                cell.imgView.image =  UIImage(named: "circle_leader")!
+            }
+            else
+            {
+                cell.imgView.image =  UIImage(named: "plus_leader")!
+            }
+            return cell
+        }
     }
 }
 
@@ -172,7 +180,6 @@ extension CreateGroupVC : UICollectionViewDelegate
 //       self.leaderView.isHidden  = !self.leaderView.isHidden
 //        self.coverView.isHidden  = !self.coverView.isHidden;
     }
-    
 }
 
 
@@ -192,10 +199,22 @@ extension CreateGroupVC : UIImagePickerControllerDelegate,UINavigationController
     }
     
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
+    {
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         self.imageViewCoverPhoto.image = chosenImage
         self.imageViewCoverPhoto.contentMode = .scaleAspectFit
         dismiss(animated: true, completion: nil)
+    }
+}
+
+class LeaderCell: UICollectionViewCell
+{
+    @IBOutlet weak var imgView: UIImageView!
+    @IBOutlet weak var lblUserName: UILabel!
+
+    override func awakeFromNib()
+    {
+        super.awakeFromNib()
     }
 }

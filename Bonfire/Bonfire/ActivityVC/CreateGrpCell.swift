@@ -11,7 +11,6 @@ import UIKit
 class CreateGrpCell: UICollectionViewCell {
     @IBOutlet weak var imgView: UIImageView!
  
-    @IBOutlet weak var leaderImgView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
     
