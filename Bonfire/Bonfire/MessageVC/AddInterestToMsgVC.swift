@@ -2,7 +2,7 @@
 //  AddInterestToMsgVC.swift
 //  Bonfire
 //
-//  Created by Sanjay Makvana on 09/05/17.
+//  Created by Ios User on 09/05/17.
 //  Copyright © 2017 Niyati. All rights reserved.
 //
 
@@ -13,27 +13,31 @@ class AddInterestToMsgVC: UIViewController , HTagViewDelegate, HTagViewDataSourc
     @IBOutlet var tagViewInterest: HTagView!
     @IBOutlet var buttonBack: UIButton!
     
+    @IBOutlet var txtInterestToadd: UITextField!
+    
+    @IBOutlet var buttonUpArrow: UIButton!
+    @IBOutlet var btnHash: UIButton!
     
     
     @IBAction func buttonBackTap(_ sender: Any) {
         _ = self.navigationController?.popViewController(animated: true)
     }
     
-    @IBOutlet var txtInterestToadd: UITextField!
-    
-    @IBOutlet var buttonUpArrow: UIButton!
-    @IBOutlet var btnHash: UIButton!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
     }
+    
     @IBAction func upArrowTap(_ sender: Any) {
         self.txtInterestToadd .resignFirstResponder()
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false
     }
+    
+    var tagViewInterest_data   = ["# interest","# interest","# interest","# interest"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +66,7 @@ class AddInterestToMsgVC: UIViewController , HTagViewDelegate, HTagViewDataSourc
         // Dispose of any resources that can be recreated.
     }
     
-    let tagViewInterest_data = ["# interest","# interest","# interest","# interest"]
+    
 //    var tagViewGroups_data = ["Group","Group","Group"]
     
     // MARK: - HTagViewDataSource
@@ -136,14 +140,30 @@ extension AddInterestToMsgVC : UITextFieldDelegate {
         self.btnHash .setTitle("#", for:.highlighted)
         self.txtInterestToadd .placeholder = nil
         
-        IQKeyboardManager.sharedManager().enableAutoToolbar = false
+       //IQKeyboardManager.sharedManager().enableAutoToolbar = false
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField .resignFirstResponder()
+        return true
+    }
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.btnHash.setImage(UIImage(named: "anyinterest_add_icon"), for: .normal)
-        IQKeyboardManager.sharedManager().enableAutoToolbar = true
+       // IQKeyboardManager.sharedManager().enableAutoToolbar = true
         self.btnHash .setTitle("", for:.normal)
         self.buttonUpArrow.isHidden = true
+        
         self.txtInterestToadd .placeholder = "Any interests to add?"
+        
+        if (textField.text?.characters.count)! > 0 {
+            let str  = "# " + textField.text! 
+            tagViewInterest_data.append(str)
+            tagViewInterest .reloadData()
+        }
+        
+    
+        
+        self.txtInterestToadd.text = nil
+        
     }
 }

@@ -39,24 +39,33 @@ class TourGuideVC: UIViewController,UIScrollViewDelegate
             frame.size = self.scrvw.frame.size
             
             let myImageView:UIImageView = UIImageView()
-            myImageView.image =  UIImage(named: "login_bg")!
             myImageView.frame = self.frame
+            myImageView.image =  UIImage(named: "login_bg")!
             self.scrvw.addSubview(myImageView)
             
-            let lblText:UILabel = UILabel(frame: CGRect(x:frame.origin.x + 30 , y:frame.size.height-180, width:frame.size.width-60,height:60))
+            let myiconImgView:UIImageView = UIImageView()
+            myiconImgView.frame = CGRect(x:(frame.origin.x+(frame.size.width/2))-55 , y:(frame.size.height/2)-120, width:100,height:120)
+            myiconImgView.contentMode = .scaleAspectFit
+            
+            let lblText:UILabel = UILabel(frame: CGRect(x:frame.origin.x + 30 , y:frame.size.height-200, width:frame.size.width-60,height:60))
             switch index
             {
             case 0:
                 lblText.text = "Discover New Groups"
+                myiconImgView.image =  UIImage(named: "Rocket_tourGuide")!
+
                 break
             case 1:
                 lblText.text = "Stay Updated on Campus"
+                myiconImgView.image =  UIImage(named: "Bonfire_tourGuide")!
                 break
             case 2:
                 lblText.text = "Lead and be active in groups"
+                myiconImgView.image =  UIImage(named: "Penny Farthing_tourGuide")!
                 break
             case 3:
                 lblText.text = "Keep of a profile of your groups and interests"
+                myiconImgView.image =  UIImage(named: "Monocle_tourGuide")!
                 break
             default:
                 break
@@ -65,6 +74,8 @@ class TourGuideVC: UIViewController,UIScrollViewDelegate
             lblText.textColor = UIColor.white
             lblText.textAlignment = .center
             lblText.font = UIFont(name: "Cabin-Bold", size: 24)
+            
+            self.scrvw.addSubview(myiconImgView)
             self.scrvw.addSubview(lblText)
             
             if(index == 3)

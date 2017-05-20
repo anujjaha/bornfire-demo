@@ -79,14 +79,13 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         
     }
     
-    @IBAction func buttonPlusTap(_ sender: Any) {
-        
+    @IBAction func buttonPlusTap(_ sender: Any)
+    {
         self.buttonPlus.isHidden = true
         self.tabBarController?.tabBar.layer.zPosition = -1
         self.tabBarController?.tabBar.isUserInteractionEnabled = false;
         self.tabBarController?.tabBar.isHidden = true
         self.txtAnythingTosay.text = nil
-        
     }
    
     
@@ -156,11 +155,12 @@ extension MessageVC : UITextFieldDelegate
         self.btnG.isHidden = false
         self.btnHashTag.isHidden = false
         self.buttonUpArrow.isHidden = true
-        IQKeyboardManager.sharedManager().enableAutoToolbar = true
+//        IQKeyboardManager.sharedManager().enableAutoToolbar = rue
          self.txtAnythingTosay.placeholder = "Anything to say?"
         self.btnBackBtn.isHidden = true
         
         self.const_TxtAnything_leading.constant = 10
+        self.setTabbar()
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
@@ -168,9 +168,16 @@ extension MessageVC : UITextFieldDelegate
         self.btnG.isHidden = true
         self.btnHashTag.isHidden = true
         self.buttonUpArrow.isHidden = false
-        IQKeyboardManager.sharedManager().enableAutoToolbar = false
+//        IQKeyboardManager.sharedManager().enableAutoToolbar = false
         self.txtAnythingTosay.placeholder = nil
         self.btnBackBtn.isHidden = false
+        
+        
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField .resignFirstResponder()
+        
+        return true
     }
 }
 class MessageCell: UITableViewCell

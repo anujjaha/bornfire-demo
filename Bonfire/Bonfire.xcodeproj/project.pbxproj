@@ -14,6 +14,16 @@
 		D30D9E9E1EB470B700245FE5 /* InterestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30D9E9D1EB470B700245FE5 /* InterestVC.swift */; };
 		D30D9EA21EB4737800245FE5 /* TourGuideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30D9EA11EB4737800245FE5 /* TourGuideVC.swift */; };
 		D30D9EA91EB4C64800245FE5 /* DiscoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30D9EA81EB4C64800245FE5 /* DiscoverVC.swift */; };
+		D312118E1ED0521500DAE68C /* CreateGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31211851ED0521500DAE68C /* CreateGroupVC.swift */; };
+		D312118F1ED0521500DAE68C /* CreateGrpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31211861ED0521500DAE68C /* CreateGrpCell.swift */; };
+		D31211901ED0521500DAE68C /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31211871ED0521500DAE68C /* GroupCell.swift */; };
+		D31211911ED0521500DAE68C /* GroupEventDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31211881ED0521500DAE68C /* GroupEventDetailVC.swift */; };
+		D31211921ED0521500DAE68C /* GroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31211891ED0521500DAE68C /* GroupVC.swift */; };
+		D31211931ED0521500DAE68C /* GroupEventDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D312118A1ED0521500DAE68C /* GroupEventDetailCell.swift */; };
+		D31211941ED0521500DAE68C /* profileCollectonviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D312118B1ED0521500DAE68C /* profileCollectonviewCell.swift */; };
+		D31211951ED0521500DAE68C /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D312118C1ED0521500DAE68C /* SettingCell.swift */; };
+		D31211961ED0521500DAE68C /* SettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D312118D1ED0521500DAE68C /* SettingVC.swift */; };
+		D312119A1ED0527E00DAE68C /* InterestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31211991ED0527E00DAE68C /* InterestCell.swift */; };
 		D35522321EB5EBD000E0608C /* DiscoverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35522311EB5EBD000E0608C /* DiscoverCell.swift */; };
 		D3599A101EA52B5000EC1D9B /* Cabin-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3599A081EA52B5000EC1D9B /* Cabin-Bold.ttf */; };
 		D3599A111EA52B5000EC1D9B /* Cabin-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3599A091EA52B5000EC1D9B /* Cabin-Regular.ttf */; };
@@ -94,6 +104,16 @@
 		D30D9E9D1EB470B700245FE5 /* InterestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestVC.swift; sourceTree = "<group>"; };
 		D30D9EA11EB4737800245FE5 /* TourGuideVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TourGuideVC.swift; sourceTree = "<group>"; };
 		D30D9EA81EB4C64800245FE5 /* DiscoverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverVC.swift; sourceTree = "<group>"; };
+		D31211851ED0521500DAE68C /* CreateGroupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGroupVC.swift; sourceTree = "<group>"; };
+		D31211861ED0521500DAE68C /* CreateGrpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGrpCell.swift; sourceTree = "<group>"; };
+		D31211871ED0521500DAE68C /* GroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
+		D31211881ED0521500DAE68C /* GroupEventDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupEventDetailVC.swift; sourceTree = "<group>"; };
+		D31211891ED0521500DAE68C /* GroupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupVC.swift; sourceTree = "<group>"; };
+		D312118A1ED0521500DAE68C /* GroupEventDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupEventDetailCell.swift; sourceTree = "<group>"; };
+		D312118B1ED0521500DAE68C /* profileCollectonviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profileCollectonviewCell.swift; sourceTree = "<group>"; };
+		D312118C1ED0521500DAE68C /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
+		D312118D1ED0521500DAE68C /* SettingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingVC.swift; sourceTree = "<group>"; };
+		D31211991ED0527E00DAE68C /* InterestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestCell.swift; sourceTree = "<group>"; };
 		D35522311EB5EBD000E0608C /* DiscoverCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverCell.swift; sourceTree = "<group>"; };
 		D3599A081EA52B5000EC1D9B /* Cabin-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cabin-Bold.ttf"; sourceTree = "<group>"; };
 		D3599A091EA52B5000EC1D9B /* Cabin-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cabin-Regular.ttf"; sourceTree = "<group>"; };
@@ -185,6 +205,7 @@
 		D30D9E9C1EB470A000245FE5 /* Interests */ = {
 			isa = PBXGroup;
 			children = (
+				D31211991ED0527E00DAE68C /* InterestCell.swift */,
 				D30D9E9D1EB470B700245FE5 /* InterestVC.swift */,
 			);
 			path = Interests;
@@ -241,6 +262,15 @@
 		D3BAC62C1EB59B3A002745AC /* ActivityVC */ = {
 			isa = PBXGroup;
 			children = (
+				D31211851ED0521500DAE68C /* CreateGroupVC.swift */,
+				D31211861ED0521500DAE68C /* CreateGrpCell.swift */,
+				D31211871ED0521500DAE68C /* GroupCell.swift */,
+				D31211881ED0521500DAE68C /* GroupEventDetailVC.swift */,
+				D31211891ED0521500DAE68C /* GroupVC.swift */,
+				D312118A1ED0521500DAE68C /* GroupEventDetailCell.swift */,
+				D312118B1ED0521500DAE68C /* profileCollectonviewCell.swift */,
+				D312118C1ED0521500DAE68C /* SettingCell.swift */,
+				D312118D1ED0521500DAE68C /* SettingVC.swift */,
 				D3BAC6301EB59B61002745AC /* ActivityVC.swift */,
 			);
 			path = ActivityVC;
@@ -531,11 +561,13 @@
 				D3C2CD0E1EA3B96100996D8F /* Notifications.swift in Sources */,
 				D3C2CD211EA3B96100996D8F /* IQKeyboardManagerConstants.swift in Sources */,
 				D3BAC6281EB599A1002745AC /* TabBarViewController.swift in Sources */,
+				D312118E1ED0521500DAE68C /* CreateGroupVC.swift in Sources */,
 				D3C2CD101EA3B96100996D8F /* Request.swift in Sources */,
 				D30D9EA21EB4737800245FE5 /* TourGuideVC.swift in Sources */,
 				D3BAC6311EB59B61002745AC /* ActivityVC.swift in Sources */,
 				D3C2CD1B1EA3B96100996D8F /* IQNSArray+Sort.swift in Sources */,
 				D3C2CD171EA3B96100996D8F /* TaskDelegate.swift in Sources */,
+				D312119A1ED0527E00DAE68C /* InterestCell.swift in Sources */,
 				D3C2CD221EA3B96100996D8F /* IQKeyboardManagerConstantsInternal.swift in Sources */,
 				D3C2CD1A1EA3B96100996D8F /* SwiftyJSON.swift in Sources */,
 				D3C2CD1C1EA3B96100996D8F /* IQUIScrollView+Additions.swift in Sources */,
@@ -546,8 +578,10 @@
 				D3C2CD291EA3B96100996D8F /* IQToolbar.swift in Sources */,
 				D35522321EB5EBD000E0608C /* DiscoverCell.swift in Sources */,
 				D3C2CD161EA3B96100996D8F /* SessionManager.swift in Sources */,
+				D312118F1ED0521500DAE68C /* CreateGrpCell.swift in Sources */,
 				D3C2CD091EA3B96100996D8F /* Alamofire.swift in Sources */,
 				D3C2CD0D1EA3B96100996D8F /* NetworkReachabilityManager.swift in Sources */,
+				D31211941ED0521500DAE68C /* profileCollectonviewCell.swift in Sources */,
 				D3C2CD0A1EA3B96100996D8F /* DispatchQueue+Alamofire.swift in Sources */,
 				D3C2CD121EA3B96100996D8F /* ResponseSerialization.swift in Sources */,
 				D30D9E991EB4704F00245FE5 /* HTagView.swift in Sources */,
@@ -561,6 +595,9 @@
 				D3C2CD1D1EA3B96100996D8F /* IQUITextFieldView+Additions.swift in Sources */,
 				D3BAC6331EB59B6E002745AC /* ProfileVC.swift in Sources */,
 				D3C2CD261EA3B96100996D8F /* IQBarButtonItem.swift in Sources */,
+				D31211931ED0521500DAE68C /* GroupEventDetailCell.swift in Sources */,
+				D31211901ED0521500DAE68C /* GroupCell.swift in Sources */,
+				D31211951ED0521500DAE68C /* SettingCell.swift in Sources */,
 				D3C2CD0F1EA3B96100996D8F /* ParameterEncoding.swift in Sources */,
 				D3C2CD191EA3B96100996D8F /* Validation.swift in Sources */,
 				D3C2CD051EA3B96100996D8F /* AppUtils.swift in Sources */,
@@ -575,10 +612,13 @@
 				D3BAC62F1EB59B4F002745AC /* MessageVC.swift in Sources */,
 				D3C2CD241EA3B96100996D8F /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				D3C2CD081EA3B96100996D8F /* AFError.swift in Sources */,
+				D31211961ED0521500DAE68C /* SettingVC.swift in Sources */,
 				D3C2CD231EA3B96100996D8F /* IQKeyboardManager.swift in Sources */,
 				D3C2CD321EA3C87B00996D8F /* LoginVC.swift in Sources */,
 				D3C2CCBD1EA3B39A00996D8F /* AppDelegate.swift in Sources */,
 				D3C2CD061EA3B96100996D8F /* Constant.swift in Sources */,
+				D31211921ED0521500DAE68C /* GroupVC.swift in Sources */,
+				D31211911ED0521500DAE68C /* GroupEventDetailVC.swift in Sources */,
 				D3C2CD201EA3B96100996D8F /* IQUIWindow+Hierarchy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

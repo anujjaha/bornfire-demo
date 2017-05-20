@@ -14,6 +14,18 @@ class ActivityVC: UIViewController {
     @IBOutlet weak var clvwLeading: UICollectionView!
     @IBOutlet weak var clvwDiscover: UICollectionView!
 
+    @IBAction func btnStartNewGrpTap(_ sender: UIButton)
+    {
+        let createGrpObj = CreateGroupVC.initViewController()
+        self.navigationController?.pushViewController(createGrpObj, animated: true)
+        
+//        let createGrpObj = InterestVC.initViewController()
+//        self.navigationController?.pushViewController(createGrpObj, animated: true)
+        
+//        let createGrpObj = SettingVC.initViewController()
+//        self.navigationController?.pushViewController(createGrpObj, animated: true)
+    }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -60,6 +72,13 @@ extension ActivityVC : UICollectionViewDelegate
 {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
+        let grpVcOBj = GroupVC.initViewController()
         
+        if collectionView == self.clvwLeading {
+            grpVcOBj.isFromLeadingGrp = true
+        } else {
+            grpVcOBj.isFromLeadingGrp = false
+        }
+        self.navigationController?.pushViewController(grpVcOBj, animated: true)
     }
 }
