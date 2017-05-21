@@ -58,6 +58,8 @@ let kServerURL = "http://35.154.46.190:1337/api/"
 //var CurrentUser : UserModel = UserModel()
 
 let kIdentifire_AddInterestToMsgView = "AddInterestToMsgView"
+let kIdentifire_GroupTitleVC = "GroupTitleVC"
+
 var progressView : UIView?
 
 //var CurrentUser : ModelUser = ModelUser()

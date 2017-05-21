@@ -19,11 +19,6 @@ class ActivityVC: UIViewController {
         let createGrpObj = CreateGroupVC.initViewController()
         self.navigationController?.pushViewController(createGrpObj, animated: true)
         
-//        let createGrpObj = InterestVC.initViewController()
-//        self.navigationController?.pushViewController(createGrpObj, animated: true)
-        
-//        let createGrpObj = SettingVC.initViewController()
-//        self.navigationController?.pushViewController(createGrpObj, animated: true)
     }
     
     override func viewDidLoad()
@@ -67,7 +62,6 @@ extension ActivityVC : UICollectionViewDataSource
 }
 
 // MARK:- UICollectionViewDelegate Methods
-
 extension ActivityVC : UICollectionViewDelegate
 {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)

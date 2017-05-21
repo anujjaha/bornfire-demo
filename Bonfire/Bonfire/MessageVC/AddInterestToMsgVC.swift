@@ -17,16 +17,27 @@ class AddInterestToMsgVC: UIViewController , HTagViewDelegate, HTagViewDataSourc
     
     @IBOutlet var buttonUpArrow: UIButton!
     @IBOutlet var btnHash: UIButton!
-    
+    var bfromGroup = Bool()
+    @IBOutlet var btnNext: UIButton!
+
     
     @IBAction func buttonBackTap(_ sender: Any) {
         _ = self.navigationController?.popViewController(animated: true)
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
         super.viewWillAppear(animated)
         
+        if bfromGroup
+        {
+            btnNext.isHidden = false
+        }
+        else
+        {
+            btnNext.isHidden = true
+        }
     }
     
     @IBAction func upArrowTap(_ sender: Any) {
@@ -59,6 +70,14 @@ class AddInterestToMsgVC: UIViewController , HTagViewDelegate, HTagViewDataSourc
        
         //tagViewInterest.tagSecondBackColor = UIColor(red: 204.0/255.0, green: 228.0/255.0, blue: 254.0/255.0, alpha: 1)
         tagViewInterest.tagSecondTextColor = UIColor.black
+    }
+    
+    @IBAction func btnNextAction(_ sender: UIButton)
+    {
+        if let viewController = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: kIdentifire_GroupTitleVC) as? GroupTitleVC
+        {
+            self .navigationController?.pushViewController(viewController, animated: true)
+        }
     }
 
     override func didReceiveMemoryWarning() {

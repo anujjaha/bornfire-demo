@@ -62,6 +62,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
           self.tabBarController?.tabBar.layer.zPosition = 0
         if let viewController = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: kIdentifire_AddInterestToMsgView) as? AddInterestToMsgVC {
             
+            viewController.bfromGroup = false
             self .navigationController?.pushViewController(viewController, animated: true)
             
             }

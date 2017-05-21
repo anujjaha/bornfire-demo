@@ -15,10 +15,12 @@ class CreateGroupVC: UIViewController {
     @IBOutlet weak var imageViewCoverPhoto: UIImageView!
     @IBOutlet weak var btnAddCoverPhoto: UIButton!
     var picker:UIImagePickerController?=UIImagePickerController()
-    
+    var bnextbuttontap = Bool()
+
     @IBOutlet weak var clvLeaderList: UICollectionView!
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         picker?.delegate=self
         // Do any additional setup after loading the view.
@@ -39,8 +41,11 @@ class CreateGroupVC: UIViewController {
     override func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
-        self.tabBarController?.tabBar.isHidden = false
-        self.navigationController?.navigationBar.isHidden = false
+        if(!bnextbuttontap)
+        {
+            self.tabBarController?.tabBar.isHidden = false
+            self.navigationController?.navigationBar.isHidden = false
+        }
     }
     override func viewWillAppear(_ animated: Bool)
     {
@@ -87,12 +92,20 @@ class CreateGroupVC: UIViewController {
     
     @IBAction func prevBtnTap(_ sender: Any)
     {
+        bnextbuttontap = false
         _ = self.navigationController?.popViewController(animated: true)
     
     }
     
-    @IBAction func nextBtnTap(_ sender: Any) {
-    
+    @IBAction func nextBtnTap(_ sender: Any)
+    {
+        bnextbuttontap = true
+        if let viewController = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: kIdentifire_AddInterestToMsgView) as? AddInterestToMsgVC
+        {
+            viewController.bfromGroup = true
+            self .navigationController?.pushViewController(viewController, animated: true)
+        }
+
     }
     
 
@@ -124,6 +137,14 @@ class CreateGroupVC: UIViewController {
         optionMenu.addAction(cancelAction)
         self.present(optionMenu, animated: true, completion: nil)
     }
+    
+    @IBAction func btnCloserLeaderView(_ sender: UIButton)
+    {
+        self.leaderView.isHidden = true
+        self.coverView.isHidden = false
+    }
+    
+
     /*
     // MARK: - Navigation
 
@@ -150,7 +171,6 @@ extension CreateGroupVC : UICollectionViewDataSource
         {
             let identifier = "leadercell"
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! LeaderCell
-            
             return cell
         }
         else
@@ -172,16 +192,23 @@ extension CreateGroupVC : UICollectionViewDataSource
 }
 
 // MARK:- UICollectionViewDelegate Methods
-
 extension CreateGroupVC : UICollectionViewDelegate
 {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-//       self.leaderView.isHidden  = !self.leaderView.isHidden
-//        self.coverView.isHidden  = !self.coverView.isHidden;
+        if collectionView  == clviewLeader
+        {
+        }
+        else
+        {
+            if (indexPath.row == 1)
+            {
+                self.leaderView.isHidden = false
+                self.coverView.isHidden = true
+            }
+        }
     }
 }
-
 
 extension CreateGroupVC : UISearchBarDelegate
 {

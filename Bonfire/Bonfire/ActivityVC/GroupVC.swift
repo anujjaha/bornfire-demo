@@ -50,7 +50,7 @@ class GroupVC: UIViewController {
       let isShow =   dict .value(forKey: "isShowHeader") as! Bool
         
         if isShow {
-            self.const_topview_height.constant  = 110
+            self.const_topview_height.constant  = 130
         } else {
             self.const_topview_height.constant  = 0
         }
@@ -70,6 +70,11 @@ class GroupVC: UIViewController {
         self.tblviewListing.delegate = self
         
         // Do any additional setup after loading the view.
+        
+        self.profileCollectonview.dataSource = self
+        self.profileCollectonview.delegate = self
+        self.profileCollectonview.reloadData()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,8 +87,6 @@ class GroupVC: UIViewController {
         
         
         self.navigationController?.navigationBar.isHidden = true
-        self.profileCollectonview.dataSource = self
-        self.profileCollectonview.delegate = self
         
         
         
@@ -95,7 +98,6 @@ class GroupVC: UIViewController {
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = true
         
-        self.profileCollectonview.reloadData()
         
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -121,7 +123,7 @@ extension GroupVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollec
         let identifier = "profileCell"
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! profileCollectonviewCell
         
-        cell.imgView.layer.cornerRadius = cell.imgView.frame.height/2.0;
+        cell.imgView.layer.cornerRadius = 11.0;
         cell.imgView.layoutIfNeeded() //This is important line
         //cell.imgView.layer.masksToBounds = true
         cell.imgView.clipsToBounds = true

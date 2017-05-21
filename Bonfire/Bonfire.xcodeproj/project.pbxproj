@@ -84,6 +84,7 @@
 		D3C2CD2A1EA3B96100996D8F /* IQUIView+IQKeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C2CD021EA3B96100996D8F /* IQUIView+IQKeyboardToolbar.swift */; };
 		D3C2CD2B1EA3B96100996D8F /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D3C2CD041EA3B96100996D8F /* IQKeyboardManager.bundle */; };
 		D3C2CD321EA3C87B00996D8F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C2CD311EA3C87B00996D8F /* LoginVC.swift */; };
+		D3D49AFC1ED152530000ED81 /* GroupTitleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D49AFB1ED152530000ED81 /* GroupTitleVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -180,6 +181,7 @@
 		D3C2CD021EA3B96100996D8F /* IQUIView+IQKeyboardToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIView+IQKeyboardToolbar.swift"; sourceTree = "<group>"; };
 		D3C2CD041EA3B96100996D8F /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
 		D3C2CD311EA3C87B00996D8F /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		D3D49AFB1ED152530000ED81 /* GroupTitleVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTitleVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +274,7 @@
 				D312118C1ED0521500DAE68C /* SettingCell.swift */,
 				D312118D1ED0521500DAE68C /* SettingVC.swift */,
 				D3BAC6301EB59B61002745AC /* ActivityVC.swift */,
+				D3D49AFB1ED152530000ED81 /* GroupTitleVC.swift */,
 			);
 			path = ActivityVC;
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 				D3C2CD1C1EA3B96100996D8F /* IQUIScrollView+Additions.swift in Sources */,
 				D30D9EA91EB4C64800245FE5 /* DiscoverVC.swift in Sources */,
 				D3C2CD2A1EA3B96100996D8F /* IQUIView+IQKeyboardToolbar.swift in Sources */,
+				D3D49AFC1ED152530000ED81 /* GroupTitleVC.swift in Sources */,
 				D3C2CD251EA3B96100996D8F /* IQTextView.swift in Sources */,
 				D3C2CD281EA3B96100996D8F /* IQTitleBarButtonItem.swift in Sources */,
 				D3C2CD291EA3B96100996D8F /* IQToolbar.swift in Sources */,
