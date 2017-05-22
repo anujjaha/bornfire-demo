@@ -19,6 +19,9 @@ class ActivityVC: UIViewController {
         let createGrpObj = CreateGroupVC.initViewController()
         self.navigationController?.pushViewController(createGrpObj, animated: true)
         
+//        let createGrpObj = SettingVC.initViewController()
+//        self.navigationController?.pushViewController(createGrpObj, animated: true)
+        
     }
     
     override func viewDidLoad()

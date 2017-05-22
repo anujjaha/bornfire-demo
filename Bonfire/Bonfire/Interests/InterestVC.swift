@@ -42,6 +42,7 @@ class InterestVC: UIViewController
     }
     
     @IBAction func PrevBtnTap(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
         
     }
     

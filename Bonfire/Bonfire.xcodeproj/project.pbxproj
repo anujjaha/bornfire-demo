@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		734F05011ED35D2900AB4FA1 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734F05001ED35D2900AB4FA1 /* MemberCell.swift */; };
+		73E2E2431ED2239800FA7F41 /* ChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2E2421ED2239800FA7F41 /* ChannelCell.swift */; };
 		92E51A901EC235B70022AC6A /* Main2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92E51A8F1EC235B70022AC6A /* Main2.storyboard */; };
 		92E51A941EC239A90022AC6A /* AddInterestToMsgVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E51A931EC239A90022AC6A /* AddInterestToMsgVC.swift */; };
 		D30D9E981EB4704F00245FE5 /* HTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30D9E951EB4704F00245FE5 /* HTag.swift */; };
@@ -98,6 +100,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		734F05001ED35D2900AB4FA1 /* MemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
+		73E2E2421ED2239800FA7F41 /* ChannelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelCell.swift; sourceTree = "<group>"; };
 		92E51A8F1EC235B70022AC6A /* Main2.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main2.storyboard; sourceTree = "<group>"; };
 		92E51A931EC239A90022AC6A /* AddInterestToMsgVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddInterestToMsgVC.swift; sourceTree = "<group>"; };
 		D30D9E951EB4704F00245FE5 /* HTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTag.swift; sourceTree = "<group>"; };
@@ -265,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				D31211851ED0521500DAE68C /* CreateGroupVC.swift */,
+				73E2E2421ED2239800FA7F41 /* ChannelCell.swift */,
 				D31211861ED0521500DAE68C /* CreateGrpCell.swift */,
 				D31211871ED0521500DAE68C /* GroupCell.swift */,
 				D31211881ED0521500DAE68C /* GroupEventDetailVC.swift */,
@@ -275,6 +280,7 @@
 				D312118D1ED0521500DAE68C /* SettingVC.swift */,
 				D3BAC6301EB59B61002745AC /* ActivityVC.swift */,
 				D3D49AFB1ED152530000ED81 /* GroupTitleVC.swift */,
+				734F05001ED35D2900AB4FA1 /* MemberCell.swift */,
 			);
 			path = ActivityVC;
 			sourceTree = "<group>";
@@ -598,6 +604,7 @@
 				D30D9E981EB4704F00245FE5 /* HTag.swift in Sources */,
 				D3C2CD1D1EA3B96100996D8F /* IQUITextFieldView+Additions.swift in Sources */,
 				D3BAC6331EB59B6E002745AC /* ProfileVC.swift in Sources */,
+				73E2E2431ED2239800FA7F41 /* ChannelCell.swift in Sources */,
 				D3C2CD261EA3B96100996D8F /* IQBarButtonItem.swift in Sources */,
 				D31211931ED0521500DAE68C /* GroupEventDetailCell.swift in Sources */,
 				D31211901ED0521500DAE68C /* GroupCell.swift in Sources */,
@@ -620,6 +627,7 @@
 				D3C2CD231EA3B96100996D8F /* IQKeyboardManager.swift in Sources */,
 				D3C2CD321EA3C87B00996D8F /* LoginVC.swift in Sources */,
 				D3C2CCBD1EA3B39A00996D8F /* AppDelegate.swift in Sources */,
+				734F05011ED35D2900AB4FA1 /* MemberCell.swift in Sources */,
 				D3C2CD061EA3B96100996D8F /* Constant.swift in Sources */,
 				D31211921ED0521500DAE68C /* GroupVC.swift in Sources */,
 				D31211911ED0521500DAE68C /* GroupEventDetailVC.swift in Sources */,
