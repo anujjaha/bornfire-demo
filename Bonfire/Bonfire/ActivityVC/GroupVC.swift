@@ -42,6 +42,9 @@ class GroupVC: UIViewController {
     }
     
     @IBAction func menuBtnTap(_ sender: Any) {
+        
+        let createGrpObj = SettingVC.initViewController()
+        self.navigationController?.pushViewController(createGrpObj, animated: true)
     }
     
     func updateHeader (notification : NSNotification) {

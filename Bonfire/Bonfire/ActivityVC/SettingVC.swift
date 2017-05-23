@@ -60,11 +60,16 @@ class SettingVC: UIViewController {
         self.leaderSearch.delegate = self
         self.memberSearch.delegate = self
         
-        self.memberSearch.layer.cornerRadius = 10
+        self.textViewEventDescription.delegate = self
+        self.textViewGrpDescription.delegate = self
+        
+        
+        
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.isHidden = true
        
@@ -78,17 +83,64 @@ class SettingVC: UIViewController {
         self.clvMember.delegate = self
         
         
+        self.setRoundCorner()
+        
+        
+    }
+  
+    
+    @IBAction func menuButtonClick(_ sender: AnyObject) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    func setRoundCorner() {
         self.view .layoutIfNeeded()
         self.btnNewChannel.layer.cornerRadius = self.btnNewChannel.bounds.size.height/2;
         
         self.btncoverPhoto.layer.cornerRadius = self.btncoverPhoto.bounds.size.height/2;
         self.btnEditInterests.layer.cornerRadius = self.btnEditInterests.bounds.size.height/2;
+        
         self.view .layoutIfNeeded()
+        
+        self.memberSearch.layer.cornerRadius = 15
+        self.leaderSearch.layer.cornerRadius = 15
+        self.textViewGrpDescription.layer.cornerRadius = 15
+        self.textViewEventDescription.layer.cornerRadius = 15
+        self.txtGrpName.layer.cornerRadius = 15
+        self.txtTime.layer.cornerRadius = 15
+        self.txtDate.layer.cornerRadius = 15
+        
+        self.txtTime.backgroundColor = UIColor .white
+        self.txtTime.layer.borderColor = UIColor.white.cgColor
+        self.txtTime.layer.borderWidth  = 1.0
+        
+        
+        self.txtDate.backgroundColor = UIColor .white
+        self.txtDate.layer.borderColor = UIColor.white.cgColor
+        self.txtDate.layer.borderWidth  = 1.0
+        
+        
+        self.txtGrpName.backgroundColor = UIColor .white
+        self.txtGrpName.layer.borderColor = UIColor.white.cgColor
+        self.txtGrpName.layer.borderWidth  = 1.0
         
         self.memberSearch.backgroundColor = UIColor .white
         self.memberSearch.layer.borderColor = UIColor.white.cgColor
         self.memberSearch.layer.borderWidth  = 1.0
+        
+        self.leaderSearch.backgroundColor = UIColor .white
+        self.leaderSearch.layer.borderColor = UIColor.white.cgColor
+        self.leaderSearch.layer.borderWidth  = 1.0
+        
+        self.textViewGrpDescription.backgroundColor = UIColor .white
+        self.textViewGrpDescription.layer.borderColor = UIColor.white.cgColor
+        self.textViewGrpDescription.layer.borderWidth  = 1.0
+        
+        self.textViewEventDescription.backgroundColor = UIColor .white
+        self.textViewEventDescription.layer.borderColor = UIColor.white.cgColor
+        self.textViewEventDescription.layer.borderWidth  = 1.0
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.isHidden = false
@@ -290,6 +342,35 @@ extension SettingVC : UITextFieldDelegate {
     }
     
 }
+
+extension SettingVC : UITextViewDelegate {
+    
+     public func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        if textView == textViewGrpDescription {
+            if textView.text == "Group Description" {
+                textView.text = ""
+            }
+        } else {
+            if textView.text == "Event Description" {
+                textView.text = ""
+            }
+        }
+       
+    }
+     public func textViewDidEndEditing(_ textView: UITextView) {
+        if textView == textViewGrpDescription {
+            if textView.text == "" {
+                textView.text = "Group Description"
+            }
+        } else {
+            if textView.text == "" {
+                textView.text = "Event Description"
+            }
+        }
+    }
+    
+}
 extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
@@ -319,26 +400,34 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     }
     
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        
-//        var calCulateSizze: CGSize? = (self.arrChannelList[indexPath.row]).size(attributes: nil)
-//        //print("\(calCulateSizze?.height)\(calCulateSizze?.width)")
-//        let num = Int((calCulateSizze?.width)!)
-//        
-//        if collectionView == clvChannelList {
-//            
-//            if num <= 42 {
-//                calCulateSizze?.width = (calCulateSizze?.width)! + 45
-//            } else{
-//                calCulateSizze?.width = (calCulateSizze?.width)! + 50
-//            }
-//            
-//            calCulateSizze?.height = (calCulateSizze?.height)! + 10
-//            return calCulateSizze!
-//        }
-//        return CGSize.zero
-//    }
-//    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        
+        
+        
+        if collectionView == clvChannelList {
+            
+            var calCulateSizze: CGSize? = (self.arrChannelList[indexPath.row]).size(attributes: nil)
+            //print("\(calCulateSizze?.height)\(calCulateSizze?.width)")
+            let num = Int((calCulateSizze?.width)!)
+            
+            if num <= 42 {
+                calCulateSizze?.width = (calCulateSizze?.width)! + 45
+            } else{
+                calCulateSizze?.width = (calCulateSizze?.width)! + 50
+            }
+            
+            calCulateSizze?.height = (calCulateSizze?.height)! + 10
+            return calCulateSizze!
+        } else {
+        
+//            let cell = clvLeader.cellForItem(at: indexPath) as! MemberCell
+//            return CGSize(width: cell.frame.size.width, height: cell.frame.size.height)
+            return CGSize(width: 62, height: 69)
+        }
+       // return CGSize.zero
+    }
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
     
