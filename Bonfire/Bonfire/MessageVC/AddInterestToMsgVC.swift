@@ -19,12 +19,14 @@ class AddInterestToMsgVC: UIViewController , HTagViewDelegate, HTagViewDataSourc
     @IBOutlet var btnHash: UIButton!
     var bfromGroup = Bool()
     @IBOutlet var btnNext: UIButton!
-
+    @IBOutlet weak var lblBottomMsg: UILabel!
+    @IBOutlet weak var lblTopMessage: UILabel!
     
     @IBAction func buttonBackTap(_ sender: Any) {
         _ = self.navigationController?.popViewController(animated: true)
     }
     
+
     
     override func viewWillAppear(_ animated: Bool)
     {
@@ -33,6 +35,8 @@ class AddInterestToMsgVC: UIViewController , HTagViewDelegate, HTagViewDataSourc
         if bfromGroup
         {
             btnNext.isHidden = false
+            self.lblTopMessage.text = "Add interest to your group"
+            self.lblBottomMsg.text = "There interests will help other find your group"
         }
         else
         {

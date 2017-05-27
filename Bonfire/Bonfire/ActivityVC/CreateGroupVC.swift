@@ -18,7 +18,13 @@ class CreateGroupVC: UIViewController {
     var bnextbuttontap = Bool()
 
     @IBOutlet weak var clvLeaderList: UICollectionView!
+    @IBOutlet weak var txtFindLeader: UITextField!
     
+    var search:String=""
+    var arrLeaderSearch = [String]()
+    var arrLeader = ["member","user","test"]
+    var  isSearchLeader : Bool  = false
+        
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -33,6 +39,8 @@ class CreateGroupVC: UIViewController {
         
         self.btnAddCoverPhoto.layer.cornerRadius = 14.0
         self.btnAddCoverPhoto.clipsToBounds = true
+        
+        self.txtFindLeader.delegate = self
     }
 
     @IBOutlet weak var clviewLeader: UICollectionView!
@@ -140,6 +148,7 @@ class CreateGroupVC: UIViewController {
     
     @IBAction func btnCloserLeaderView(_ sender: UIButton)
     {
+        self.view .endEditing(true)
         self.leaderView.isHidden = true
         self.coverView.isHidden = false
     }
@@ -161,7 +170,15 @@ extension CreateGroupVC : UICollectionViewDataSource
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return 2
+        if collectionView  == clviewLeader
+        {
+            if isSearchLeader {
+                return self.arrLeaderSearch.count
+            }
+          return arrLeader.count
+        }else {
+            return 2
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -171,6 +188,7 @@ extension CreateGroupVC : UICollectionViewDataSource
         {
             let identifier = "leadercell"
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! LeaderCell
+            cell.lblUserName.text = arrLeader[indexPath.row]
             return cell
         }
         else
@@ -205,18 +223,59 @@ extension CreateGroupVC : UICollectionViewDelegate
             {
                 self.leaderView.isHidden = false
                 self.coverView.isHidden = true
+                clviewLeader .reloadData()
             }
         }
     }
 }
 
-extension CreateGroupVC : UISearchBarDelegate
+extension CreateGroupVC : UITextFieldDelegate
 {
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-            searchBar .resignFirstResponder()
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == txtFindLeader {
+            self.isSearchLeader = true
+        }else {
+            self.isSearchLeader = false
+        }
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField .resignFirstResponder()
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if string.isEmpty
+        {
+            search = String(search.characters.dropLast())
+        }
+        else
+        {
+            search=textField.text!+string
+        }
+        
+        if textField == txtFindLeader {
+            print(search)
+            let predicate = NSPredicate(format: "SELF CONTAINS[cd] %@", search)
+            let arr=(self.arrLeader as NSArray).filtered(using: predicate)
+            
+            if arr.count > 0
+            {
+                self.arrLeaderSearch.removeAll()
+                self.arrLeaderSearch = arr as! [String]
+            }
+            else
+            {
+                self.arrLeaderSearch = self.arrLeader
+            }
+            
+            clviewLeader .reloadData()
+            
+        }
+        return true
+    }
 }
 
 extension CreateGroupVC : UIImagePickerControllerDelegate,UINavigationControllerDelegate{

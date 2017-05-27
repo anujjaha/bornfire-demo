@@ -21,6 +21,8 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet var btnG: UIButton!
     
     @IBOutlet var btnBackBtn: UIButton!
+    
+   
     @IBOutlet var txtAnythingTosay: UITextField!
     override func viewDidLoad()
     {
@@ -71,6 +73,31 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBAction func buttonUpArrowTap(_ sender: Any) {
         self.txtAnythingTosay .resignFirstResponder()
         self.setTabbar()
+        
+    }
+    
+    @IBAction func btnGTap(_ sender: AnyObject) {
+        let leadGrp = UIAlertController(title: "Leading group", message: "", preferredStyle: .actionSheet)
+       
+        let action1 = UIAlertAction(title: "Group 1", style: .default) { action -> Void in
+            print("Cancel")
+        }
+        leadGrp.addAction(action1)
+        
+        let action2 = UIAlertAction(title: "Group 2", style: .default) { action -> Void in
+            print("Cancel")
+        }
+        leadGrp.addAction(action2)
+        
+        
+        let action3 = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
+            print("Cancel")
+        }
+        leadGrp.addAction(action3)
+        
+        self .present(leadGrp, animated: true) {
+        
+        }
         
     }
    

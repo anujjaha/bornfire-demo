@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3gs-nl-cuE">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3gs-nl-cuE">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -56,7 +56,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="Cabin-Regular" family="Cabin" pointSize="16"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <connections>
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="htr-UD-eQc"/>
                                         </connections>
@@ -546,7 +546,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="3gs-nl-cuE" sceneMemberID="viewController">
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ce0-hE-PKn">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ce0-hE-PKn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.85098039219999999" green="0.73333333329999995" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -623,7 +623,7 @@
             <objects>
                 <navigationController id="aEp-aF-Q6S" userLabel="DiscoveNavigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="fjc-t3-fQx"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="blv-K7-kXP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="blv-K7-kXP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -864,7 +864,7 @@
             <objects>
                 <navigationController id="hOR-Zj-W6e" userLabel="ActivityNavigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="91b-uJ-bSN"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="C2b-on-2h0">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="C2b-on-2h0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1210,7 +1210,7 @@
             <objects>
                 <navigationController id="ydP-Yq-gOb" userLabel="MessageNavigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="WCW-yd-dkV"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GZh-a9-1Q9">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GZh-a9-1Q9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1292,14 +1292,14 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_icon" translatesAutoresizingMaskIntoConstraints="NO" id="JsG-e8-lMj">
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="82" id="QZQ-CQ-cVa"/>
-                                                        <constraint firstAttribute="height" constant="82" id="zS6-cl-55Y"/>
+                                                        <constraint firstAttribute="width" constant="42" id="QZQ-CQ-cVa"/>
+                                                        <constraint firstAttribute="height" constant="42" id="zS6-cl-55Y"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9j-Wi-QKY">
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="40" id="3SM-eP-zAQ"/>
-                                                        <constraint firstAttribute="width" constant="82" id="aIG-I3-26x"/>
+                                                        <constraint firstAttribute="height" constant="30" id="3SM-eP-zAQ"/>
+                                                        <constraint firstAttribute="width" constant="42" id="aIG-I3-26x"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Cabin-Regular" family="Cabin" pointSize="15"/>
                                                     <nil key="textColor"/>
@@ -1335,19 +1335,18 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="c97-zm-Y5P" firstAttribute="top" secondItem="sKE-19-IOf" secondAttribute="top" constant="8" id="0kj-Zj-mQb"/>
-                                                <constraint firstItem="JsG-e8-lMj" firstAttribute="top" secondItem="sKE-19-IOf" secondAttribute="top" constant="8" id="1wi-nF-e8P"/>
+                                                <constraint firstItem="c97-zm-Y5P" firstAttribute="top" secondItem="sKE-19-IOf" secondAttribute="top" constant="10" id="0kj-Zj-mQb"/>
+                                                <constraint firstItem="JsG-e8-lMj" firstAttribute="top" secondItem="sKE-19-IOf" secondAttribute="top" constant="14" id="1wi-nF-e8P"/>
                                                 <constraint firstItem="a9j-Wi-QKY" firstAttribute="leading" secondItem="sKE-19-IOf" secondAttribute="leading" constant="8" id="BHR-qL-09u"/>
                                                 <constraint firstAttribute="trailing" secondItem="TOf-Uq-hPe" secondAttribute="trailing" constant="8" id="CE7-Iy-MZK"/>
-                                                <constraint firstAttribute="bottom" secondItem="a9j-Wi-QKY" secondAttribute="bottom" constant="4" id="LAq-Tj-ZKv"/>
                                                 <constraint firstItem="c97-zm-Y5P" firstAttribute="leading" secondItem="JsG-e8-lMj" secondAttribute="trailing" constant="8" id="LHh-15-8IL"/>
                                                 <constraint firstAttribute="trailing" secondItem="c97-zm-Y5P" secondAttribute="trailing" constant="8" id="NcP-xe-ydO"/>
-                                                <constraint firstItem="9Og-ic-zcl" firstAttribute="top" secondItem="c97-zm-Y5P" secondAttribute="bottom" constant="4.5" id="UmK-ph-OWc"/>
+                                                <constraint firstItem="9Og-ic-zcl" firstAttribute="top" secondItem="c97-zm-Y5P" secondAttribute="bottom" constant="27" id="UmK-ph-OWc"/>
                                                 <constraint firstItem="TOf-Uq-hPe" firstAttribute="leading" secondItem="9Og-ic-zcl" secondAttribute="trailing" constant="8" id="fgx-6Z-NG9"/>
-                                                <constraint firstItem="TOf-Uq-hPe" firstAttribute="top" secondItem="c97-zm-Y5P" secondAttribute="bottom" constant="3.5" id="hxe-Qh-MeC"/>
+                                                <constraint firstItem="TOf-Uq-hPe" firstAttribute="top" secondItem="c97-zm-Y5P" secondAttribute="bottom" constant="26" id="hxe-Qh-MeC"/>
                                                 <constraint firstAttribute="bottom" secondItem="9Og-ic-zcl" secondAttribute="bottom" constant="8" id="iI1-so-cex"/>
                                                 <constraint firstItem="JsG-e8-lMj" firstAttribute="leading" secondItem="sKE-19-IOf" secondAttribute="leading" constant="8" id="lWC-dR-72b"/>
-                                                <constraint firstItem="a9j-Wi-QKY" firstAttribute="top" secondItem="JsG-e8-lMj" secondAttribute="bottom" constant="2" id="rGA-Bq-XFO"/>
+                                                <constraint firstItem="a9j-Wi-QKY" firstAttribute="top" secondItem="JsG-e8-lMj" secondAttribute="bottom" constant="4" id="rGA-Bq-XFO"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1412,6 +1411,9 @@
                                             <constraint firstAttribute="width" constant="30" id="fij-ZY-PCw"/>
                                         </constraints>
                                         <state key="normal" title="G"/>
+                                        <connections>
+                                            <action selector="btnGTap:" destination="6jc-dT-dgd" eventType="touchUpInside" id="Brl-gc-gKz"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kZe-wl-BgJ">
                                         <state key="normal" image="back_icon"/>
