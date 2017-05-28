@@ -19,6 +19,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet var btnHashTag: UIButton!
     
     @IBOutlet var btnG: UIButton!
+    var arrMessages = NSMutableArray()
     
     @IBOutlet var btnBackBtn: UIButton!
     
@@ -31,15 +32,22 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         // Do any additional setup after loading the view.
         tblMessages.estimatedRowHeight = 138.0
         tblMessages.rowHeight = UITableViewAutomaticDimension
-        tblMessages.reloadData()
+        
         
         self.txtAnythingTosay.setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
         self.txtAnythingTosay.delegate = self
         self.btnBackBtn.isHidden = true
+        
+        for _ in 1...10 {
+            arrMessages .add("Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ")
+        }
+        
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         
         self.setTabbar()
+        tblMessages.reloadData()
         
     }
     func setTabbar(){
@@ -56,7 +64,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return 10
+        return arrMessages.count
     }
    
     
@@ -77,28 +85,26 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     @IBAction func btnGTap(_ sender: AnyObject) {
+
+    
+        func handleAction(action: UIAlertAction) {
+            //Use action.title
+            if action.title == "Group1" {
+                NSLog("Group1 handler")
+            }
+        }
+        
         let leadGrp = UIAlertController(title: "Leading group", message: "", preferredStyle: .actionSheet)
-       
-        let action1 = UIAlertAction(title: "Group 1", style: .default) { action -> Void in
-            print("Cancel")
+        for i in ["Group1", "Group2", "Group3", "Group4"] {
+            leadGrp.addAction(UIAlertAction(title: i, style: .default, handler: handleAction))
         }
-        leadGrp.addAction(action1)
         
-        let action2 = UIAlertAction(title: "Group 2", style: .default) { action -> Void in
-            print("Cancel")
-        }
-        leadGrp.addAction(action2)
-        
-        
-        let action3 = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
-            print("Cancel")
-        }
-        leadGrp.addAction(action3)
+        leadGrp.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: handleAction))
         
         self .present(leadGrp, animated: true) {
-        
+
         }
-        
+      
     }
    
     @IBAction func buttonBackArrowTap(_ sender: Any) {
@@ -122,13 +128,12 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageCell
         cell.selectionStyle = .none
         
-        cell.imgUser.layer.masksToBounds = false
-        cell.imgUser.layer.cornerRadius = cell.imgUser.frame.height/2
-        cell.imgUser.clipsToBounds = true
+      
 
         cell.btnInterest.layer.cornerRadius = 10.0
         cell.btnGroup.layer.cornerRadius = 10.0
 
+        cell.lblMessageText.text = self.arrMessages[indexPath.row] as! String
         return cell
     }
     
@@ -189,6 +194,10 @@ extension MessageVC : UITextFieldDelegate
         self.btnBackBtn.isHidden = true
         
         self.const_TxtAnything_leading.constant = 10
+        
+        arrMessages .add(textField.text)
+        self.tblMessages .reloadData()
+        
         self.setTabbar()
     }
     
@@ -213,6 +222,13 @@ extension MessageVC : UITextFieldDelegate
 }
 class MessageCell: UITableViewCell
 {
+    override func awakeFromNib() {
+        self .layoutIfNeeded()
+        self.imgUser.layer.masksToBounds = false
+        self.imgUser.layer.cornerRadius = self.imgUser.frame.height/2
+        self.imgUser.clipsToBounds = true
+        self .layoutIfNeeded()
+    }
     @IBOutlet weak var lblUserame : UILabel!
     @IBOutlet weak var imgUser : UIImageView!
     @IBOutlet weak var lblMessageText : UILabel!

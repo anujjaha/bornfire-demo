@@ -8,15 +8,21 @@
 
 import UIKit
 
-class DiscoverVC: UIViewController
+class DiscoverVC: UIViewController ,UIScrollViewDelegate
 {
     @IBOutlet weak var clvwyour: UICollectionView!
     @IBOutlet weak var clvwDiscover: UICollectionView!
     @IBOutlet weak var clvwGroups: UICollectionView!
-
+    @IBOutlet weak var scrlvMain: UIScrollView!
+    
+    var previousScrollViewYOffset: CGFloat = 0.0
+    var currentOffset = CGFloat()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.clvwyour.dataSource = self
+        scrlvMain.delegate = self
         
     }
 
@@ -26,16 +32,38 @@ class DiscoverVC: UIViewController
         // Dispose of any resources that can be recreated.
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: - UITableView
+    
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
+        if scrollView == scrlvMain {
+            currentOffset = self.scrlvMain.contentOffset.y
+            
+            let scrollPos: CGFloat = clvwyour.contentOffset.y
+            if scrollPos >= currentOffset {
+                //Fully hide your toolbar
+                UIView.animate(withDuration: 0.25, animations: {() -> Void in
+                    self.navigationController?.setNavigationBarHidden(true, animated: true)
+                })
+            }
+            else {
+                //Slide it up incrementally, etc.
+               
+                UIView.beginAnimations("toggleNavBar", context: nil)
+                UIView.setAnimationDuration(0.2)
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                UIView.commitAnimations()
+            }
+        }
     }
-    */
+    
+    
+    
+    
+
 }
+
 extension DiscoverVC : UICollectionViewDataSource
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int

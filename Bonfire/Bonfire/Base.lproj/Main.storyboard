@@ -546,7 +546,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="3gs-nl-cuE" sceneMemberID="viewController">
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ce0-hE-PKn">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ce0-hE-PKn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.85098039219999999" green="0.73333333329999995" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -623,7 +623,7 @@
             <objects>
                 <navigationController id="aEp-aF-Q6S" userLabel="DiscoveNavigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="fjc-t3-fQx"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="blv-K7-kXP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="blv-K7-kXP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -853,6 +853,7 @@
                         <outlet property="clvwDiscover" destination="dtf-ee-n74" id="rNQ-Ae-5FD"/>
                         <outlet property="clvwGroups" destination="DOs-wV-cIj" id="g0I-2H-24e"/>
                         <outlet property="clvwyour" destination="Ai7-QA-vtz" id="rTH-u5-wW5"/>
+                        <outlet property="scrlvMain" destination="fii-eO-e12" id="2JS-Tn-3ch"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QrU-we-9y5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -864,7 +865,7 @@
             <objects>
                 <navigationController id="hOR-Zj-W6e" userLabel="ActivityNavigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="91b-uJ-bSN"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="C2b-on-2h0">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="C2b-on-2h0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -881,7 +882,7 @@
             <objects>
                 <navigationController id="MAm-QC-EtE" userLabel="ProfileNavigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="aXz-mB-fgR"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="5CT-LY-qwH">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5CT-LY-qwH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1210,7 +1211,7 @@
             <objects>
                 <navigationController id="ydP-Yq-gOb" userLabel="MessageNavigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="WCW-yd-dkV"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GZh-a9-1Q9">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GZh-a9-1Q9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
