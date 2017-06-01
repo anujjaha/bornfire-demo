@@ -38,11 +38,7 @@ class TourGuideVC: UIViewController,UIScrollViewDelegate
             frame.origin.x = self.scrvw.frame.size.width * CGFloat(index)
             frame.size = self.scrvw.frame.size
             
-            let myImageView:UIImageView = UIImageView()
-            myImageView.frame = self.frame
-            myImageView.image =  UIImage(named: "login_bg")!
-            self.scrvw.addSubview(myImageView)
-            
+        
             let myiconImgView:UIImageView = UIImageView()
             myiconImgView.frame = CGRect(x:(frame.origin.x+(frame.size.width/2))-55 , y:(frame.size.height/2)-120, width:100,height:120)
             myiconImgView.contentMode = .scaleAspectFit

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3gs-nl-cuE">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3gs-nl-cuE">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -546,7 +546,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="3gs-nl-cuE" sceneMemberID="viewController">
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ce0-hE-PKn">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ce0-hE-PKn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.85098039219999999" green="0.73333333329999995" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -572,6 +572,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_bg" translatesAutoresizingMaskIntoConstraints="NO" id="uoR-3N-LlE"/>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="5" translatesAutoresizingMaskIntoConstraints="NO" id="5LU-UX-LJA">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="zF4-37-RSF"/>
@@ -583,6 +584,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="5LU-UX-LJA" firstAttribute="leading" secondItem="WEw-ql-HW2" secondAttribute="leading" id="6wg-7V-lMy"/>
+                            <constraint firstItem="uoR-3N-LlE" firstAttribute="top" secondItem="oOm-sX-8JC" secondAttribute="bottom" id="7FE-tF-YQp"/>
+                            <constraint firstItem="uoR-3N-LlE" firstAttribute="leading" secondItem="WEw-ql-HW2" secondAttribute="leading" id="Muf-Lj-ugf"/>
+                            <constraint firstAttribute="trailing" secondItem="uoR-3N-LlE" secondAttribute="trailing" id="NSG-eV-cFX"/>
+                            <constraint firstItem="p5O-Fy-gS8" firstAttribute="top" secondItem="uoR-3N-LlE" secondAttribute="bottom" id="Na0-xq-LKA"/>
                             <constraint firstItem="p5O-Fy-gS8" firstAttribute="top" secondItem="5LU-UX-LJA" secondAttribute="bottom" constant="20" id="e66-wi-Snh"/>
                             <constraint firstAttribute="trailing" secondItem="5LU-UX-LJA" secondAttribute="trailing" id="pBw-6b-xMb"/>
                         </constraints>
@@ -594,7 +599,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uL2-tY-Jif" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2160" y="5"/>
+            <point key="canvasLocation" x="2159.1999999999998" y="4.9475262368815596"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="gqb-bG-jkW">
@@ -623,7 +628,7 @@
             <objects>
                 <navigationController id="aEp-aF-Q6S" userLabel="DiscoveNavigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="fjc-t3-fQx"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="blv-K7-kXP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="blv-K7-kXP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -865,7 +870,7 @@
             <objects>
                 <navigationController id="hOR-Zj-W6e" userLabel="ActivityNavigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="91b-uJ-bSN"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="C2b-on-2h0">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="C2b-on-2h0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -882,7 +887,7 @@
             <objects>
                 <navigationController id="MAm-QC-EtE" userLabel="ProfileNavigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="aXz-mB-fgR"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5CT-LY-qwH">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="5CT-LY-qwH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1211,7 +1216,7 @@
             <objects>
                 <navigationController id="ydP-Yq-gOb" userLabel="MessageNavigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="WCW-yd-dkV"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GZh-a9-1Q9">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GZh-a9-1Q9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1288,7 +1293,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="137"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ma0-5b-Rtr" id="sKE-19-IOf">
-                                            <frame key="frameInset" width="375" height="136"/>
+                                            <frame key="frameInset" width="375" height="136.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_icon" translatesAutoresizingMaskIntoConstraints="NO" id="JsG-e8-lMj">
