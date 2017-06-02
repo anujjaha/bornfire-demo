@@ -68,6 +68,15 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
    
     
+    @IBAction func btnAcceptTap(_ sender: Any) {
+        print("accepted")
+    }
+    
+    @IBAction func btnRejectTap(_ sender: Any) {
+         print("accepted")
+    }
+    
+    
     @IBAction func btnHasTagTap(_ sender: Any) {
           self.tabBarController?.tabBar.layer.zPosition = 0
         if let viewController = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: kIdentifire_AddInterestToMsgView) as? AddInterestToMsgVC {
@@ -126,13 +135,17 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageCell
-        cell.selectionStyle = .none
-        
       
-
         cell.btnInterest.layer.cornerRadius = 10.0
         cell.btnGroup.layer.cornerRadius = 10.0
-
+       
+        // For Testign Purpose i have  set cell here
+//        if indexPath.row == 1 || indexPath.row == 2 {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "inviteCell") as! InviteCell
+//            return cell
+//        }
+        
+        cell.selectionStyle = .none
         cell.lblMessageText.text = self.arrMessages[indexPath.row] as! String
         return cell
     }
@@ -234,4 +247,23 @@ class MessageCell: UITableViewCell
     @IBOutlet weak var lblMessageText : UILabel!
     @IBOutlet weak var btnInterest: UIButton!
     @IBOutlet weak var btnGroup: UIButton!
+
+}
+
+class InviteCell: UITableViewCell
+{
+    override func awakeFromNib() {
+        self .layoutIfNeeded()
+        self.imgUser.layer.masksToBounds = false
+        self.imgUser.layer.cornerRadius = self.imgUser.frame.height/2
+        self.imgUser.clipsToBounds = true
+        self .layoutIfNeeded()
+    }
+    
+    @IBOutlet weak var lblUserame: UILabel!
+    @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var lblMessageText : UILabel!
+    @IBOutlet weak var btnAccept: UIButton!
+    @IBOutlet weak var btnReject: UIButton!
+    
 }
