@@ -21,10 +21,11 @@ class JBDatePickerSelectionView: UIView {
     
     
     private var circlePath: CGPath {
-        let arcCenter = CGPoint(x: frame.width / 2, y: frame.height / 2)
+        let arcCenter = CGPoint(x: (frame.width / 2) , y: frame.height / 2)
         let startAngle = CGFloat(0)
         let endAngle = CGFloat.pi * 2.0 
         let clockwise = true
+        
         let path = UIBezierPath(arcCenter: arcCenter, radius: radius,
                                 startAngle: startAngle, endAngle: endAngle, clockwise: clockwise).cgPath
         
@@ -93,9 +94,10 @@ class JBDatePickerSelectionView: UIView {
         self.dayView = dayView
         self.isSemiSelected = isSemiSelected
         super.init(frame: frame)
-        backgroundColor = .clear
-        //shapeLayer().fillColor = UIColor .yellow.cgColor
-        shapeLayer().fillColor = UIColor(patternImage: UIImage(named: "circle")!).cgColor
+      //  backgroundColor = .red
+//        shapeLayer().fillColor = UIColor .yellow.cgColor
+           // shapeLayer().fillColor = UIColor .clear.cgColor
+//        shapeLayer().fillColor = UIColor(patternImage: UIImage(named: "circle")!).cgColor
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -108,7 +110,18 @@ class JBDatePickerSelectionView: UIView {
     
     private func shapeLayer() -> CAShapeLayer {
         
-        return layer as! CAShapeLayer
+        let imageLayer = CALayer()
+        imageLayer.backgroundColor = UIColor.clear.cgColor
+        imageLayer.bounds = CGRect(x: (frame.size.width/2) , y: frame.size.height/2 , width: 30, height: 30)
+        
+        imageLayer.position = CGPoint(x:19 ,y:frame.size.height/2)
+        imageLayer.contents = UIImage(named:"circle")?.cgImage
+        
+        self.layer.addSublayer(imageLayer)
+        let shape = CAShapeLayer(layer: layer)
+        shape.fillColor = UIColor .clear.cgColor
+        return shape
+        //return layer as! CAShapeLayer
     }
     
     // MARK: - Drawing
