@@ -916,6 +916,9 @@
                     <navigationItem key="navigationItem" title="Discover" id="IAX-1O-7PD">
                         <barButtonItem key="rightBarButtonItem" image="Daybar" id="W6f-Y5-iTf">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="calwndarBtnTap:" destination="g49-6b-baM" id="phe-yH-thF"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -1076,6 +1079,9 @@
                     <navigationItem key="navigationItem" title="Profile" id="ah5-Vo-JVR">
                         <barButtonItem key="rightBarButtonItem" image="Daybar" id="ptb-8Y-fu4">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="calendarBtnTap:" destination="ed7-Rb-IXt" id="4lv-3n-hkt"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -1281,6 +1287,9 @@
                     <navigationItem key="navigationItem" title="Activity" id="gRg-CF-BNW">
                         <barButtonItem key="rightBarButtonItem" image="Daybar" id="bH8-pQ-WE8">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="calendarBtnTap:" destination="obZ-IC-EI9" id="C0O-sx-IE0"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -1648,6 +1657,9 @@
                     <navigationItem key="navigationItem" title="Messages" id="Yas-CR-EIh">
                         <barButtonItem key="rightBarButtonItem" image="Daybar" id="qmJ-h5-IwW">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="calendarBtnTap:" destination="6jc-dT-dgd" id="iAj-nW-MUg"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>

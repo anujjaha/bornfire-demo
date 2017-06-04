@@ -14,6 +14,11 @@ class ActivityVC: UIViewController {
     @IBOutlet weak var clvwLeading: UICollectionView!
     @IBOutlet weak var clvwDiscover: UICollectionView!
 
+    @IBAction func calendarBtnTap(_ sender: Any) {
+        let datepicker =  DatePickerViewController .initViewController()
+        self.navigationController?.navigationBar.isTranslucent  = false
+        self.navigationController?.pushViewController(datepicker, animated: true)
+    }
     @IBAction func btnStartNewGrpTap(_ sender: UIButton)
     {
         let createGrpObj = CreateGroupVC.initViewController()

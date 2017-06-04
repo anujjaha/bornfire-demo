@@ -68,6 +68,11 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
             return 0
         }
     }
+    @IBAction func calendarBtnTap(_ sender: Any) {
+        let datepicker =  DatePickerViewController .initViewController()
+        self.navigationController?.navigationBar.isTranslucent  = false
+        self.navigationController?.pushViewController(datepicker, animated: true)
+    }
     
     func tagView(_ tagView: HTagView, titleOfTagAtIndex index: Int) -> String {
         switch tagView

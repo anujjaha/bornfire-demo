@@ -115,6 +115,11 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
       
     }
+    @IBAction func calendarBtnTap(_ sender: Any) {
+       let datepicker =  DatePickerViewController .initViewController()
+        self.navigationController?.navigationBar.isTranslucent  = false
+        self.navigationController?.pushViewController(datepicker, animated: true)
+    }
    
     @IBAction func buttonBackArrowTap(_ sender: Any) {
         self.txtAnythingTosay .resignFirstResponder()

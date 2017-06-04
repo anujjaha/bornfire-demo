@@ -26,6 +26,11 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
         
     }
 
+    @IBAction func calwndarBtnTap(_ sender: Any) {
+        let datepicker =  DatePickerViewController .initViewController()
+        self.navigationController?.navigationBar.isTranslucent  = false
+        self.navigationController?.pushViewController(datepicker, animated: true)
+    }
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
