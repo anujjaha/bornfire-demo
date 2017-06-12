@@ -32,14 +32,72 @@ class LoginViewController: UIViewController
         }
         else
         {
-            UserDefaults.standard.set(true, forKey: kkeyisUserLogin)
-            UserDefaults.standard.synchronize()
-            let storyTab = UIStoryboard(name: "Main", bundle: nil)
-            let tabbar = storyTab.instantiateViewController(withIdentifier: "TabBarViewController")
-            self.navigationController?.pushViewController(tabbar, animated: true)
+            self.view .endEditing(true)
+            self.callLoginAPI()
+
         }
     }
 
+    func callLoginAPI() {
+        
+            let url = kServerURL + kLogin
+            let parameters: [String: Any] = ["username": self.txtUserName.text!, "password": self.txtPassword.text!]
+            
+            showProgress(inView: self.view)
+            print("parameters:>\(parameters)")
+            request(url, method: .post, parameters:parameters).responseJSON { (response:DataResponse<Any>) in
+                
+                print(response.result.debugDescription)
+                
+                hideProgress()
+                switch(response.result)
+                {
+                case .success(_):
+                    if response.result.value != nil {
+                        print(response.result.value!)
+                        
+                        if let json = response.result.value {
+                            let dictemp = json as! NSDictionary
+                            print("dictemp :> \(dictemp)")
+                            
+                            if dictemp.count > 0 {
+                                
+                                if let err  =  dictemp.value(forKey: kkeyError) {
+                                    App_showAlert(withMessage: err as! String, inView: self)
+                                }else {
+                                    appDelegate.arrLoginData = dictemp
+                                    let data = NSKeyedArchiver.archivedData(withRootObject: appDelegate.arrLoginData)
+                                    UserDefaults.standard.set(data, forKey: kkeyLoginData)
+                                    
+                                    UserDefaults.standard.set(true, forKey: kkeyisUserLogin)
+                                    UserDefaults.standard.synchronize()
+                                    let storyTab = UIStoryboard(name: "Main", bundle: nil)
+                                    let tabbar = storyTab.instantiateViewController(withIdentifier: "TabBarViewController")
+                                    self.navigationController?.pushViewController(tabbar, animated: true)
+                                }
+                                
+                            }
+                            else
+                            {
+                                App_showAlert(withMessage: dictemp[kkeyError]! as! String, inView: self)
+                            }
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    print(response.result.error!)
+                    App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                    break
+                }
+            }
+            
+            /*request("\(kServerURL)login.php", method: .post, parameters:parameters).responseString{ response in
+             debugPrint(response)
+             }*/
+            
+        }
+    
     @IBAction func btnbackPressed()
     {
         _ = self.navigationController?.popViewController(animated: true)

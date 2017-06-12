@@ -14,7 +14,8 @@ class SignupViewController: UIViewController
     @IBOutlet weak var txtEmail : UITextField!
     @IBOutlet weak var txtUserName : UITextField!
     @IBOutlet weak var txtPassword : UITextField!
-
+    var campusID = String()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -41,12 +42,66 @@ class SignupViewController: UIViewController
         }
         else
         {
-            let storyTab = UIStoryboard(name: "Main", bundle: nil)
-            let objTourGuideVC = storyTab.instantiateViewController(withIdentifier: "TourGuideVC") as! TourGuideVC
-            self.navigationController?.pushViewController(objTourGuideVC, animated: true)
+            self.view .endEditing(true)
+            self.callSignUPAPI()
         }
     }
 
+    func callSignUPAPI() {
+        let url = kServerURL + kSignUP
+        let parameters: [String: Any] = ["name": self.txtFullName.text!, "email": self.txtEmail.text!, "password": self.txtPassword.text!,"username": self.txtUserName.text!,"campus_id":Int(campusID)!]
+        
+        showProgress(inView: self.view)
+        print("parameters:>\(parameters)")
+        request(url, method: .post, parameters:parameters).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value {
+                        let dictemp = json as! NSDictionary
+                        print("dictemp :> \(dictemp)")
+                        
+                        if dictemp.count > 0 {
+                            
+                            if let err  =  dictemp.value(forKey: kkeyError) {
+                                App_showAlert(withMessage: err as! String, inView: self)
+                            }else {
+                                let storyTab = UIStoryboard(name: "Main", bundle: nil)
+                                let objTourGuideVC = storyTab.instantiateViewController(withIdentifier: "TourGuideVC") as! TourGuideVC
+                                self.navigationController?.pushViewController(objTourGuideVC, animated: true)
+                            }
+                            
+                            // let data = NSKeyedArchiver.archivedData(withRootObject: appDelegate.arrLoginData)
+                            //UserDefaults.standard.set(data, forKey: kkeyLoginData)
+                            //UserDefaults.standard.set(true, forKey: kkeyisUserLogin)
+                        }
+                        else
+                        {
+                            App_showAlert(withMessage: dictemp[kkeyError]! as! String, inView: self)
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+        
+        /*request("\(kServerURL)login.php", method: .post, parameters:parameters).responseString{ response in
+         debugPrint(response)
+         }*/
+
+    }
     @IBAction func btnbackPressed()
     {
         _ = self.navigationController?.popViewController(animated: true)

@@ -10,9 +10,14 @@ import UIKit
 
 class SettingVC: UIViewController {
 
+    @IBOutlet weak var const_plusBtn_Top: NSLayoutConstraint!
+    @IBOutlet weak var scrollview: UIScrollView!
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var memberSearch: UITextField!
     @IBOutlet weak var leaderSearch: UITextField!
+    @IBOutlet weak var btnEditInterests: UIButton!
     
+    @IBOutlet weak var btnPlus: UIButton!
     @IBOutlet weak var textViewGrpDescription: UITextView!
     @IBOutlet weak var textViewEventDescription: UITextView!
     @IBOutlet weak var txtGrpName: UITextField!
@@ -31,7 +36,10 @@ class SettingVC: UIViewController {
     var search:String=""
     var  isSearchMember : Bool  = false
     var  isSearchLeader : Bool  = false
-    
+    var cnt = Int()
+    var prevView = UIView()
+    var textFieldDate = UITextField()
+    var textFieldTime = UITextField()
     
     @IBAction func removeChannelTap(_ sender: AnyObject) {
         let tag = sender.tag - 101;
@@ -39,6 +47,7 @@ class SettingVC: UIViewController {
         clvChannelList .reloadData()
     }
     
+    @IBOutlet weak var const_containerViewHeight: NSLayoutConstraint!
     
     var arrChannelList = [String]()
     var arrLeader = [String]()
@@ -50,12 +59,17 @@ class SettingVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        cnt = 1
         arrChannelList = ["channel"]
         arrLeader = ["leader","lead","leader1"]
         arrMember = ["member","user","test"]
         
-          self.leaderSearch .setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
-          self.memberSearch .setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
+        self.leaderSearch .setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
+        self.memberSearch .setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
+        
+        self.txtGrpName.setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
+        self.txtDate.setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
+        self.txtTime.setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
         
         self.leaderSearch.delegate = self
         self.memberSearch.delegate = self
@@ -63,12 +77,14 @@ class SettingVC: UIViewController {
         self.textViewEventDescription.delegate = self
         self.textViewGrpDescription.delegate = self
         
-        
+        prevView = self.textViewEventDescription
         
         // Do any additional setup after loading the view.
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+       
         
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.isHidden = true
@@ -82,8 +98,11 @@ class SettingVC: UIViewController {
         self.clvMember.dataSource = self
         self.clvMember.delegate = self
         
+        self.txtDate.delegate = self
+        self.txtTime.delegate = self
         
         self.setRoundCorner()
+        
         
         
     }
@@ -144,11 +163,8 @@ class SettingVC: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.isHidden = false
-        
-        
-      
-        
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -157,17 +173,183 @@ class SettingVC: UIViewController {
         return UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "SettingView") as! SettingVC
     }
 
-    @IBOutlet weak var btnEditInterests: UIButton!
+    func openDatePicker() -> UIDatePicker  {
+        let datepicker = UIDatePicker()
+        datepicker .setDate(NSDate() as Date, animated: true)
+        datepicker.datePickerMode = .date
+        datepicker.minimumDate = NSDate() as Date
+        return datepicker
+        
+    }
+    func openTimePicker() -> UIDatePicker  {
+        let datepicker = UIDatePicker()
+        datepicker .setDate(NSDate() as Date, animated: true)
+        datepicker.datePickerMode = .time
+        return datepicker
+    }
     
     @IBAction func btnPlusTap(_ sender: Any) {
+        self.adEventControl()
     }
+    
+    func adEventControl()  {
+        
+       // var previousTxtview = self.textViewEventDescription
+        
+        let viewtxt = UIView()
+//        viewtxt.backgroundColor = UIColor.red
+        viewtxt.translatesAutoresizingMaskIntoConstraints = false
+        viewtxt.tag = 16000 + cnt
+        containerView.addSubview(viewtxt)
+        
+    
+
+        self.const_plusBtn_Top.isActive = false
+        // Left constraint
+
+        containerView.addConstraint(NSLayoutConstraint(item: viewtxt, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self.containerView, attribute: NSLayoutAttribute.left, multiplier: 1.0, constant: 15))
+        
+        // Right constraint
+        containerView.addConstraint(NSLayoutConstraint(item: viewtxt, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self.containerView, attribute: NSLayoutAttribute.right, multiplier: 1.0, constant: -24))
+        
+        
+        // Top constraint
+        containerView.addConstraint(NSLayoutConstraint(item: viewtxt, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: prevView, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 20))
+        
+        // bottom constraint
+       let con =  NSLayoutConstraint(item: self.btnPlus, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: viewtxt, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 5)
+        self.const_plusBtn_Top = con
+        containerView.addConstraint(con)
+
+        
+        viewtxt.addConstraint(NSLayoutConstraint(item: viewtxt, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem:nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: 100))
+        
+//         : UITextField! = UITextField()
+        textFieldDate.placeholder  = "Date"
+        textFieldDate.borderStyle = UITextBorderStyle.roundedRect
+        textFieldDate.font = UIFont.systemFont(ofSize: 14)
+        textFieldDate.translatesAutoresizingMaskIntoConstraints = false
+        textFieldDate.delegate = self
+        
+        
+        textFieldDate.layer.cornerRadius = 15
+        textFieldDate.layer.masksToBounds  = true
+        textFieldDate.backgroundColor = UIColor .white
+        textFieldDate.layer.borderColor = UIColor.white.cgColor
+        textFieldDate.layer.borderWidth  = 1.0
+        
+        viewtxt.addSubview(textFieldDate)
+//        textFieldDate.backgroundColor = UIColor.yellow
+
+
+        // Left constraint
+        viewtxt.addConstraint(NSLayoutConstraint(item: textFieldDate, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: viewtxt, attribute: NSLayoutAttribute.left, multiplier: 1.0, constant: 0))
+
+
+        // Top constraint
+        viewtxt.addConstraint(NSLayoutConstraint(item: viewtxt, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem:textFieldDate, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 00))
+
+//                // bottom constraint
+       viewtxt.addConstraint(NSLayoutConstraint(item: textFieldDate, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem:nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: 168))
+
+        viewtxt.addConstraint(NSLayoutConstraint(item: textFieldDate, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem:nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: 30))
+        
+        
+        
+        
+//        let textFieldTime : UITextField! = UITextField()
+        textFieldTime.placeholder  = "Time"
+        textFieldTime.borderStyle = UITextBorderStyle.roundedRect
+        textFieldTime.font = UIFont.systemFont(ofSize: 14)
+        textFieldTime.translatesAutoresizingMaskIntoConstraints = false
+        textFieldTime.delegate = self
+        viewtxt.addSubview(textFieldTime)
+//        textFieldTime.backgroundColor = UIColor.green
+        
+        
+        // Left constraint
+        viewtxt.addConstraint(NSLayoutConstraint(item: textFieldTime, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: textFieldDate, attribute: NSLayoutAttribute.right, multiplier: 1.0, constant: 20))
+
+        
+        // Top constraint
+        viewtxt.addConstraint(NSLayoutConstraint(item: viewtxt, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem:textFieldTime, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 00))
+        
+        //width
+        viewtxt.addConstraint(NSLayoutConstraint(item: textFieldTime, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem:nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: 72))
+        
+//        viewtxt.addConstraint(NSLayoutConstraint(item: textFieldTime, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem:nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: 44))
+        
+     viewtxt.addConstraint(NSLayoutConstraint(item: textFieldTime, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem:nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: 30))
+        
+        let textview : UITextView! = UITextView()
+
+        textview.font = UIFont.systemFont(ofSize: 14)
+        textview.translatesAutoresizingMaskIntoConstraints = false
+        textview.delegate = self
+        viewtxt.addSubview(textview)
+//        textview.backgroundColor = UIColor.green
+        
+        textview.text = "Event Description"
+        // Left constraint
+        viewtxt.addConstraint(NSLayoutConstraint(item: textview, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: viewtxt, attribute: NSLayoutAttribute.left, multiplier: 1.0, constant: 0))
+        
+//         Right constraint
+        viewtxt.addConstraint(NSLayoutConstraint(item: textview, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem:viewtxt, attribute: NSLayoutAttribute.right, multiplier: 1.0, constant: 2))
+        
+        
+        // Top constraint
+        viewtxt.addConstraint(NSLayoutConstraint(item: textview, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem:textFieldDate, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 10))
+        
+        
+        viewtxt.addConstraint(NSLayoutConstraint(item: textview, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem:nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: 48))
+
+        prevView = viewtxt
+        cnt = cnt+1
+        
+        
+        self.view .layoutIfNeeded()
+        textFieldTime.layoutIfNeeded()
+        
+        textview.backgroundColor = UIColor .white
+        textview.layer.borderColor = UIColor.white.cgColor
+        textview.layer.borderWidth  = 1.0
+        
+
+        
+        textFieldTime.backgroundColor = UIColor .white
+        textFieldTime.layer.borderColor = UIColor.white.cgColor
+        textFieldTime.layer.borderWidth  = 1.0
+        
+        
+
+        textFieldTime.layer.masksToBounds = true
+        textview.layer.cornerRadius = 15
+        textFieldTime.layer.cornerRadius = 15
+        
+        //self.containerView .layoutSubviews()
+        
+        self.view .layoutIfNeeded()
+        //containerView .layoutIfNeeded()
+    self.view .layoutSubviews()
+        
+        
+        self.const_containerViewHeight.constant = self.const_containerViewHeight.constant + 100
+        self.view .layoutIfNeeded()
+        containerView .layoutIfNeeded()
+       
+        textFieldTime.setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
+        textFieldDate.setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
+    }
+    
     @IBAction func btnCoverPhotoTap(_ sender: Any) {
         self.openActionsheet()
     }
+    
     @IBAction func btnEditInterestTap(_ sender: Any) {
         let interst = InterestVC .initViewController()
         self.navigationController?.pushViewController(interst, animated: true)
     }
+    
     @IBAction func btnNewChannletap(_ sender: Any) {
         self .showPopUp()
     }
@@ -277,8 +459,11 @@ extension SettingVC : UITextFieldDelegate {
         textField .resignFirstResponder()
         return true
     }
+    
+
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
+    
         if textField == memberSearch {
             self.isSearchMember = true
         }else {
@@ -289,6 +474,20 @@ extension SettingVC : UITextFieldDelegate {
             self.isSearchLeader = true
         }else {
             self.isSearchLeader = false
+        }
+        
+        if textField == self.txtDate  {
+            textField.inputView = self .openDatePicker()
+        }
+        if textField == self.textFieldDate  {
+            textField.inputView = self .openDatePicker()
+        }
+        if textField == self.textFieldTime  {
+            textField.inputView = self .openDatePicker()
+        }
+
+        if textField == self.txtTime {
+            textField.inputView = self .openTimePicker()
         }
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

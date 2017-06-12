@@ -16,6 +16,7 @@ class LoginVC: UIViewController {
     {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+
     }
 
     @IBAction func btnLoginPressed()
@@ -29,6 +30,7 @@ class LoginVC: UIViewController {
     {
         let storyTab = UIStoryboard(name: "Main", bundle: nil)
         let objLoginVC = storyTab.instantiateViewController(withIdentifier: "SignupViewController") as! SignupViewController
+        objLoginVC.campusID = strCampusCode;
         self.navigationController?.pushViewController(objLoginVC, animated: true)
     }
 
