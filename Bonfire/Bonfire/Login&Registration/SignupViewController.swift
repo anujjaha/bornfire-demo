@@ -73,14 +73,22 @@ class SignupViewController: UIViewController
                             if let err  =  dictemp.value(forKey: kkeyError) {
                                 App_showAlert(withMessage: err as! String, inView: self)
                             }else {
-                                let storyTab = UIStoryboard(name: "Main", bundle: nil)
-                                let objTourGuideVC = storyTab.instantiateViewController(withIdentifier: "TourGuideVC") as! TourGuideVC
-                                self.navigationController?.pushViewController(objTourGuideVC, animated: true)
+//                                let storyTab = UIStoryboard(name: "Main", bundle: nil)
+//                                let objTourGuideVC = storyTab.instantiateViewController(withIdentifier: "TourGuideVC") as! TourGuideVC
+//                                self.navigationController?.pushViewController(objTourGuideVC, animated: true)
+             
+                                let data = NSKeyedArchiver.archivedData(withRootObject: dictemp)
+                                UserDefaults.standard.set(data, forKey: kkeyLoginData)
+                                UserDefaults.standard.synchronize()
+                                
+                                UserDefaults.standard.set(true, forKey: kkeyisUserLogin)
+                                UserDefaults.standard.synchronize()
+                                
+                                let interst = InterestVC .initViewController()
+                                self.navigationController?.navigationBar.isTranslucent  = false
+                                self.navigationController?.pushViewController(interst, animated: true)
                             }
-                            
-                            // let data = NSKeyedArchiver.archivedData(withRootObject: appDelegate.arrLoginData)
-                            //UserDefaults.standard.set(data, forKey: kkeyLoginData)
-                            //UserDefaults.standard.set(true, forKey: kkeyisUserLogin)
+                        
                         }
                         else
                         {

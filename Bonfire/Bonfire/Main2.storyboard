@@ -465,17 +465,17 @@
         <!--InterestVC-->
         <scene sceneID="SgK-rS-OHO">
             <objects>
-                <viewController storyboardIdentifier="InterestView" id="r0I-sN-kvF" customClass="InterestVC" customModule="Bonfire" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InterestView" automaticallyAdjustsScrollViewInsets="NO" id="r0I-sN-kvF" customClass="InterestVC" customModule="Bonfire" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="W2j-dp-0ZC"/>
                         <viewControllerLayoutGuide type="bottom" id="DAZ-QG-2sP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bpF-vc-QNs">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="31l-Ta-2ly" userLabel="bottomview">
-                                <rect key="frame" x="0.0" y="551" width="375" height="52"/>
+                                <rect key="frame" x="0.0" y="615" width="375" height="52"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="04d-BL-Vu1">
                                         <rect key="frame" x="128" y="11" width="50" height="30"/>
@@ -519,7 +519,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cWz-67-Q4L">
-                                <rect key="frame" x="15" y="15" width="345" height="536"/>
+                                <rect key="frame" x="15" y="35" width="345" height="580"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="5" id="vXM-bN-6bc">
                                     <size key="itemSize" width="75" height="78"/>
@@ -574,14 +574,13 @@
                             <constraint firstItem="31l-Ta-2ly" firstAttribute="leading" secondItem="bpF-vc-QNs" secondAttribute="leading" id="ztt-IO-V58"/>
                         </constraints>
                     </view>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="clvwInterest" destination="cWz-67-Q4L" id="nrz-fD-nTl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2dD-Nx-zf0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2214" y="949"/>
+            <point key="canvasLocation" x="2078" y="899"/>
         </scene>
         <!--GroupVC-->
         <scene sceneID="01B-nY-73d">

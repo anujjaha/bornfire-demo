@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         //IQKeyboardManager.sharedManager().enableAutoToolbar = false
         IQKeyboardManager.sharedManager().shouldHidePreviousNext = false
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
+        self.callGetAllCampusAPI()
         
         if (userDefaults.bool(forKey: kkeyisUserLogin))
         {
@@ -69,6 +70,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     func applicationWillTerminate(_ application: UIApplication)
     {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func callGetAllCampusAPI() {
+
+        
+        let url = kServerURL + kCampus
+        showProgress(inView: window?.rootViewController?.view)
+        
+
+        request(url, method: .get, parameters:nil).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp[0] as! NSDictionary
+                        let data  = temp .value(forKey: "data") as! NSArray
+                        
+                        hideProgress()
+                        if data.count > 0 {
+                            let final = data[0] as! NSDictionary
+                            if final.value(forKey: kkeyError) != nil {
+                                //App_showAlert(withMessage: err as! String, inView: self)
+                            }else {
+                                print("no error")
+                                UserDefaults.standard.set(data, forKey: "campusData")
+                                
+                            }
+                        }
+                        else
+                        {
+                          //  App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                break
+            }
+        }
+        
+        /*request("\(kServerURL)login.php", method: .post, parameters:parameters).responseString{ response in
+         debugPrint(response)
+         }*/
+        
     }
 }
 

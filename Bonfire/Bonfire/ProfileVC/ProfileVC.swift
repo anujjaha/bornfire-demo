@@ -13,6 +13,8 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
     @IBOutlet weak var tagViewInterest: HTagView!
     @IBOutlet weak var tagViewGroups: HTagView!
 
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var profileImgview: UIImageView!
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -45,14 +47,82 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
 
         tagViewInterest.reloadData()
         tagViewGroups.reloadData()
+        
+        
+        
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+       self.callProfileAPI()
+    }
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
     
+    // MARK: - API call
+    func callProfileAPI() {
+        
+
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        let userid = final .value(forKey: "userId")
+        
+        let url = kServerURL + kUserprofile + String(describing: userid!)
+        showProgress(inView: self.view)
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+    
+        request(url, method: .get, parameters:nil, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp.firstObject as! NSDictionary
+                        let data  = temp .value(forKey: "data") as! NSDictionary
+                      
+                        if data.count > 0 {
+                            
+                            if let err  =  data.value(forKey: kkeyError) {
+                                App_showAlert(withMessage: err as! String, inView: self)
+                            }else {
+                                print("no error")
+                                let url = data .value(forKey:"profile_picture") as! String
+                                let img = UIImage(named: "")
+                                
+                                self.profileImgview .sd_setImage(with:URL(string: url as String), placeholderImage:img)
+                                
+                                self.usernameLabel.text = data.value(forKey: "name") as! String?
+                            }
+                            
+                        }
+                        else
+                        {
+                            App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+
+    }
     // MARK: - Data
     let tagViewInterest_data = ["# interest","# interest","# interest","# interest","+"]
     var tagViewGroups_data = ["Group","Group","Group"]
@@ -71,7 +141,7 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
     @IBAction func calendarBtnTap(_ sender: Any) {
         let datepicker =  DatePickerViewController .initViewController()
         self.navigationController?.navigationBar.isTranslucent  = false
-        self.navigationController?.pushViewController(datepicker, animated: true)
+        self.navigationController?.pushViewController(datepicker, animated: true)        
     }
     
     func tagView(_ tagView: HTagView, titleOfTagAtIndex index: Int) -> String {

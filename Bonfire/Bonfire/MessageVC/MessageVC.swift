@@ -151,7 +151,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
 //        }
         
         cell.selectionStyle = .none
-        cell.lblMessageText.text = self.arrMessages[indexPath.row] as! String
+        cell.lblMessageText.text = self.arrMessages[indexPath.row] as? String
         return cell
     }
     
