@@ -17,19 +17,19 @@ class InterestVC: UIViewController
     {
         super.viewDidLoad()
         self.callInterestAPI()
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         // Do any additional setup after loading the view.
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
-        self.navigationController?.navigationBar.isHidden  = false
         self.tabBarController?.tabBar.isHidden = true
         self.navigationItem.hidesBackButton = true
         
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "event_sltbar"), for: .default)
+        let imag = UIImage(named: "event_sltbar")
+        self.navigationController?.navigationBar.setBackgroundImage(imag, for: .default)
         
         self.title = "Tap on your interests"
         let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white]
@@ -39,8 +39,9 @@ class InterestVC: UIViewController
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
-        
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
@@ -60,12 +61,11 @@ class InterestVC: UIViewController
         
         let url = kServerURL + kInterest
         showProgress(inView: self.view)
-        //        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
-        //        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
-        //let usertoken = final .value(forKey: "userToken")
+                let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+                let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        let usertoken = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(usertoken)"]
         
-//        let headers = ["Authorization":"Bearer \(usertoken!)"]
-                let headers = ["Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImlzcyI6Imh0dHA6XC9cLzUyLjY2LjczLjEyN1wvYm9uZmlyZVwvYm9uLWxhcmFcL3B1YmxpY1wvYXBpXC9sb2dpbiIsImlhdCI6MTQ5NzExNDYyMSwiZXhwIjoxNTI4NjUwNjIxLCJuYmYiOjE0OTcxMTQ2MjEsImp0aSI6IkpwbEs2YmNwdUM3ZFhZRkUifQ.T3n54pgk8VUfzCEV9sxfD4YDwrQEQoTCguybzhGyUck"]
         request(url, method: .get, parameters:nil, headers: headers).responseJSON { (response:DataResponse<Any>) in
             
             print(response.result.debugDescription)
