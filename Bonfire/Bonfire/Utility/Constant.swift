@@ -57,9 +57,11 @@ let kServerURL = "http://52.66.73.127/bonfire/bon-lara/public/api/"
 
 let kSignUP = "signup"
 let kLogin = "login"
-let kUserprofile = "user-profile/"
+let kUserprofile = "user-profile-with-interest/"
 let kCampus = "campus"
 let kInterest  = "interests"
+let kAddInterest = "user-interest/add-interest"
+
 //var CurrentUser : UserModel = UserModel()
 
 let kIdentifire_AddInterestToMsgView = "AddInterestToMsgView"

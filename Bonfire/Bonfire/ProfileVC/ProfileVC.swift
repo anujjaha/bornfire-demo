@@ -10,6 +10,7 @@ import UIKit
 
 class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
 
+    let tagViewInterest_data = NSMutableArray()
     @IBOutlet weak var tagViewInterest: HTagView!
     @IBOutlet weak var tagViewGroups: HTagView!
 
@@ -104,6 +105,11 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
                                 self.profileImgview .sd_setImage(with:URL(string: url as String), placeholderImage:img)
                                 
                                 self.usernameLabel.text = data.value(forKey: "name") as! String?
+                                
+                                var arrInterest = data .value(forKey:"interests") as! NSArray
+                                
+                                self.createInterestArr(arrInterest: arrInterest)
+                                
                             }
                             
                         }
@@ -123,8 +129,18 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
         }
 
     }
+    func createInterestArr(arrInterest : NSArray)  {
+       
+        for (index, item) in arrInterest.enumerated() {
+            print("Found \(item) at position \(index)")
+            let intName = (item as! NSDictionary).value(forKey: "name") as! String
+            tagViewInterest_data .add("#"+intName)
+            
+        }
+        tagViewInterest .reloadData()
+    }
     // MARK: - Data
-    let tagViewInterest_data = ["# interest","# interest","# interest","# interest","+"]
+    
     var tagViewGroups_data = ["Group","Group","Group"]
     
     // MARK: - HTagViewDataSource
@@ -148,7 +164,7 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
         switch tagView
         {
         case tagViewInterest:
-            return tagViewInterest_data[index]
+            return tagViewInterest_data[index] as! String
         case tagViewGroups:
             return tagViewGroups_data[index]
         default:

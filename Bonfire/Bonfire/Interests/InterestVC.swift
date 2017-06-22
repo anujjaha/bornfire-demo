@@ -57,6 +57,66 @@ class InterestVC: UIViewController
         
     }
 
+    func callAddInterestAPIWith(interestId: Int) {
+        
+        let url = kServerURL + kAddInterest
+        showProgress(inView: self.view)
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        let usertoken = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(usertoken!)"]
+        let param = ["interest_id":"\(interestId)"]
+        
+        request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp[0] as! NSDictionary
+                        let data  = temp .value(forKey: "data") as! NSDictionary
+                        //
+                        if data.count>0 {
+                            
+                            if let err  =  data.value(forKey: kkeyError) {
+                                App_showAlert(withMessage: err as! String, inView: self)
+                            }else {
+                                print("no error")
+                                let storyTab = UIStoryboard(name: "Main", bundle: nil)
+                                let objTourGuideVC = storyTab.instantiateViewController(withIdentifier: "TourGuideVC") as! TourGuideVC
+                                self.navigationController?.pushViewController(objTourGuideVC, animated: true)
+                            }
+                            
+                        }
+                        else
+                        {
+                            App_showAlert(withMessage: (data[0] as! NSDictionary).value(forKey: kkeyError) as! String, inView: self)
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+        
+        /*request("\(kServerURL)login.php", method: .post, parameters:parameters).responseString{ response in
+         debugPrint(response)
+         }*/
+        
+    }
+    
     func callInterestAPI() {
         
         let url = kServerURL + kInterest
@@ -138,9 +198,10 @@ extension InterestVC : UICollectionViewDelegate,UICollectionViewDataSource,UICol
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
     
         // call interest update api here
-        let storyTab = UIStoryboard(name: "Main", bundle: nil)
-        let objTourGuideVC = storyTab.instantiateViewController(withIdentifier: "TourGuideVC") as! TourGuideVC
-        self.navigationController?.pushViewController(objTourGuideVC, animated: true)
+        let interestdata =  self.interestData[indexPath.row] as! NSDictionary
+        let intId = interestdata .value(forKey: "interestId")
+        
+       callAddInterestAPIWith(interestId: intId as! Int)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell

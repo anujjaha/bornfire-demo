@@ -33,6 +33,8 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         tblMessages.estimatedRowHeight = 138.0
         tblMessages.rowHeight = UITableViewAutomaticDimension
         
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "updateSelectedGroup"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MessageVC.selectedGrpForMessage(notification:)), name:Notification.Name(rawValue: "updateSelectedGroup"), object: nil)
         
         self.txtAnythingTosay.setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
         self.txtAnythingTosay.delegate = self
@@ -49,6 +51,33 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.setTabbar()
         tblMessages.reloadData()
         
+    }
+    
+    func handleAction(action:UIAlertAction)  {
+        
+    }
+    func selectedGrpForMessage(notification:Notification){
+        let str =  notification.object
+        print(str!)
+    }
+    
+    @IBAction func btnGrpTap(_ sender: Any) {
+    }
+
+    @IBAction func btnMesssageTap(_ sender: Any) {
+        
+        let leadGrp = UIAlertController(title: "Leading group", message: "", preferredStyle: .actionSheet)
+        for i in ["interest1", "interest2", "interest3", "interest4","interest5","interest6","interest7","interest8","interest9","interest10","interest11"] {
+            
+            leadGrp.addAction(UIAlertAction(title: i, style: .default, handler: handleAction))
+        }
+        
+        leadGrp.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: handleAction))
+        
+        self .present(leadGrp, animated: true) {
+            
+        }
+
     }
     func setTabbar(){
         self.tabBarController?.tabBar.layer.zPosition = 0
@@ -95,24 +124,10 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     @IBAction func btnGTap(_ sender: AnyObject) {
 
-    
-        func handleAction(action: UIAlertAction) {
-            //Use action.title
-            if action.title == "Group1" {
-                NSLog("Group1 handler")
-            }
-        }
+        let  messagevc = MessageGroupListVC .initViewController()
+        messagevc.msgArr = ["Group1", "Group2", "Group3", "Group4"]
+        self.navigationController?.pushViewController(messagevc, animated: true)
         
-        let leadGrp = UIAlertController(title: "Leading group", message: "", preferredStyle: .actionSheet)
-        for i in ["Group1", "Group2", "Group3", "Group4"] {
-            leadGrp.addAction(UIAlertAction(title: i, style: .default, handler: handleAction))
-        }
-        
-        leadGrp.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: handleAction))
-        
-        self .present(leadGrp, animated: true) {
-
-        }
       
     }
     @IBAction func calendarBtnTap(_ sender: Any) {

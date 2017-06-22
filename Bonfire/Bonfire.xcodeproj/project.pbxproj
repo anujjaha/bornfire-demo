@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61162C841EFA9787009C5BB7 /* MessageGroupListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61162C831EFA9787009C5BB7 /* MessageGroupListVC.swift */; };
 		61EE66A21EF05CCE005C57B2 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EE667C1EF05CCE005C57B2 /* MKAnnotationView+WebCache.m */; };
 		61EE66A31EF05CCE005C57B2 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EE667E1EF05CCE005C57B2 /* NSData+ImageContentType.m */; };
 		61EE66A41EF05CCE005C57B2 /* NSImage+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EE66801EF05CCE005C57B2 /* NSImage+WebCache.m */; };
@@ -123,6 +124,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		61162C831EFA9787009C5BB7 /* MessageGroupListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageGroupListVC.swift; sourceTree = "<group>"; };
 		61EE667B1EF05CCE005C57B2 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		61EE667C1EF05CCE005C57B2 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		61EE667D1EF05CCE005C57B2 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -451,6 +453,7 @@
 			children = (
 				D3BAC62E1EB59B4F002745AC /* MessageVC.swift */,
 				92E51A931EC239A90022AC6A /* AddInterestToMsgVC.swift */,
+				61162C831EFA9787009C5BB7 /* MessageGroupListVC.swift */,
 			);
 			path = MessageVC;
 			sourceTree = "<group>";
@@ -748,6 +751,7 @@
 				61EE66AE1EF05CCE005C57B2 /* UIImage+GIF.m in Sources */,
 				D30D9E991EB4704F00245FE5 /* HTagView.swift in Sources */,
 				61EE66A21EF05CCE005C57B2 /* MKAnnotationView+WebCache.m in Sources */,
+				61162C841EFA9787009C5BB7 /* MessageGroupListVC.swift in Sources */,
 				D3C2CD181EA3B96100996D8F /* Timeline.swift in Sources */,
 				D3C2CD1F1EA3B96100996D8F /* IQUIViewController+Additions.swift in Sources */,
 				D3C2CD271EA3B96100996D8F /* IQPreviousNextView.swift in Sources */,
