@@ -35,6 +35,11 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "updateSelectedGroup"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(MessageVC.selectedGrpForMessage(notification:)), name:Notification.Name(rawValue: "updateSelectedGroup"), object: nil)
+       
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "selectedInterest"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MessageVC.selectedInterestForMessage(notification:)), name:Notification.Name(rawValue: "selectedInterest"), object: nil)
+        
+        
         
         self.txtAnythingTosay.setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
         self.txtAnythingTosay.delegate = self
@@ -56,6 +61,12 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     func handleAction(action:UIAlertAction)  {
         
     }
+    
+    func selectedInterestForMessage(notification:Notification){
+        let str =  notification.object
+        print(str!)
+    }
+    
     func selectedGrpForMessage(notification:Notification){
         let str =  notification.object
         print(str!)
@@ -108,12 +119,14 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     @IBAction func btnHasTagTap(_ sender: Any) {
           self.tabBarController?.tabBar.layer.zPosition = 0
-        if let viewController = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: kIdentifire_AddInterestToMsgView) as? AddInterestToMsgVC {
-            
-            viewController.bfromGroup = false
-            self .navigationController?.pushViewController(viewController, animated: true)
-            
-            }
+//        if let viewController = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: kIdentifire_AddInterestToMsgView) as? AddInterestToMsgVC {
+//            
+//            viewController.bfromGroup = false
+//            self .navigationController?.pushViewController(viewController, animated: true)
+//            
+//            }
+        var viewController = AddInterestToMessageVC .initViewController()
+        self .navigationController?.pushViewController(viewController, animated: true)
     }
   
     @IBAction func buttonUpArrowTap(_ sender: Any) {

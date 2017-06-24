@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		61162C841EFA9787009C5BB7 /* MessageGroupListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61162C831EFA9787009C5BB7 /* MessageGroupListVC.swift */; };
+		61EC15351EFD883600E15614 /* AddInterestToMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EC15341EFD883600E15614 /* AddInterestToMessageVC.swift */; };
 		61EE66A21EF05CCE005C57B2 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EE667C1EF05CCE005C57B2 /* MKAnnotationView+WebCache.m */; };
 		61EE66A31EF05CCE005C57B2 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EE667E1EF05CCE005C57B2 /* NSData+ImageContentType.m */; };
 		61EE66A41EF05CCE005C57B2 /* NSImage+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EE66801EF05CCE005C57B2 /* NSImage+WebCache.m */; };
@@ -125,6 +126,7 @@
 
 /* Begin PBXFileReference section */
 		61162C831EFA9787009C5BB7 /* MessageGroupListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageGroupListVC.swift; sourceTree = "<group>"; };
+		61EC15341EFD883600E15614 /* AddInterestToMessageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddInterestToMessageVC.swift; sourceTree = "<group>"; };
 		61EE667B1EF05CCE005C57B2 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		61EE667C1EF05CCE005C57B2 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		61EE667D1EF05CCE005C57B2 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -454,6 +456,7 @@
 				D3BAC62E1EB59B4F002745AC /* MessageVC.swift */,
 				92E51A931EC239A90022AC6A /* AddInterestToMsgVC.swift */,
 				61162C831EFA9787009C5BB7 /* MessageGroupListVC.swift */,
+				61EC15341EFD883600E15614 /* AddInterestToMessageVC.swift */,
 			);
 			path = MessageVC;
 			sourceTree = "<group>";
@@ -764,6 +767,7 @@
 				92082ACC1EE1CDFD00E3BA4E /* JBDatePickerEnums.swift in Sources */,
 				D3BAC6331EB59B6E002745AC /* ProfileVC.swift in Sources */,
 				73E2E2431ED2239800FA7F41 /* ChannelCell.swift in Sources */,
+				61EC15351EFD883600E15614 /* AddInterestToMessageVC.swift in Sources */,
 				D3C2CD261EA3B96100996D8F /* IQBarButtonItem.swift in Sources */,
 				61EE66B31EF05CCE005C57B2 /* UIView+WebCache.m in Sources */,
 				D31211931ED0521500DAE68C /* GroupEventDetailCell.swift in Sources */,

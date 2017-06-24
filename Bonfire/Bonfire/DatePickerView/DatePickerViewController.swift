@@ -22,6 +22,7 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
     @IBOutlet weak var datePickerView: JBDatePickerView!
     
     var dateToSelect: Date!
+    var eventArr = NSArray()
     
     static func initViewController() -> DatePickerViewController
     {
@@ -65,6 +66,7 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         UIApplication.shared.statusBarStyle = .lightContent
+        self .callEventApi()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -120,7 +122,65 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
     }
     
     
-
+    // MARK: - API call
+    func callEventApi() {
+        
+        
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        let userid = final .value(forKey: "userId")
+        
+        let url = kServerURL + kEvents
+        showProgress(inView: self.view)
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        
+        request(url, method: .get, parameters:nil, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp.firstObject as! NSDictionary
+                        let data  = temp .value(forKey: "data") as! NSArray
+                        
+                        if data.count > 0 {
+                            
+                            if let err  =  (data[0] as AnyObject).value(forKey: kkeyError) {
+                                App_showAlert(withMessage: err as! String, inView: self)
+                            }else {
+                                print("no error")
+                                self.eventArr = data
+                                 self.tableEvent .reloadData()
+                            }
+                            
+                        }
+                        else
+                        {
+                            if let err  =  (data[0] as AnyObject).value(forKey: kkeyError) {
+                                App_showAlert(withMessage: err as! String, inView: self)
+                            }
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+        
+    }
     
     // MARK: - Navigation
     
@@ -147,13 +207,14 @@ extension DatePickerViewController :UITableViewDataSource {
 //        imgview.contentMode = UIViewContentMode.scaleAspectFill
 //        cell.backgroundView = imgview
         
-        cell.eventTime.text = "11:30"
-        cell.eventTitle.text =  "Event title"
+        let dict = self.eventArr[indexPath.row] as! NSDictionary
+        cell.eventTitle.text = dict.value(forKey: "eventName") as? String
+        cell.eventTime.text = dict.value(forKey: "eventStartDate") as? String
         return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 4
+        return self.eventArr.count
     }
 
 }
