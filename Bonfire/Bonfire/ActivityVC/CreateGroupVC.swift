@@ -108,11 +108,16 @@ class CreateGroupVC: UIViewController {
     @IBAction func nextBtnTap(_ sender: Any)
     {
         bnextbuttontap = true
-        if let viewController = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: kIdentifire_AddInterestToMsgView) as? AddInterestToMsgVC
-        {
-            viewController.bfromGroup = true
-            self .navigationController?.pushViewController(viewController, animated: true)
-        }
+//        if let viewController = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: kIdentifire_AddInterestToMsgView) as? AddInterestToMsgVC
+//        {
+//            viewController.bfromGroup = true
+//            self .navigationController?.pushViewController(viewController, animated: true)
+//        }
+        
+        let viewController = AddInterestToMessageVC .initViewController()
+        viewController.isFromGrp = true
+        self .navigationController?.pushViewController(viewController, animated: true)
+        
 
     }
     
@@ -202,7 +207,7 @@ extension CreateGroupVC : UICollectionViewDataSource
             }
             else
             {
-                cell.imgView.image =  UIImage(named: "plus_leader")!
+                cell.imgView.image =  UIImage(named: "plus")!
             }
             return cell
         }

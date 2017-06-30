@@ -1390,7 +1390,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="137"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ma0-5b-Rtr" id="sKE-19-IOf">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="136.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="136"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_icon" translatesAutoresizingMaskIntoConstraints="NO" id="JsG-e8-lMj">
@@ -1475,7 +1475,7 @@
                                         <rect key="frame" x="0.0" y="165" width="375" height="101"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o7l-cX-Ba5" id="j2d-vE-tLz">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" image="avatar_icon" translatesAutoresizingMaskIntoConstraints="NO" id="ifT-yS-TUR">
@@ -1490,23 +1490,23 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NeO-7F-MDY">
-                                                    <rect key="frame" x="321" y="14" width="46" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NeO-7F-MDY">
+                                                    <rect key="frame" x="321" y="14" width="46" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="46" id="4mh-DB-W9i"/>
+                                                        <constraint firstAttribute="height" constant="28" id="cBY-bG-IMT"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Cabin-Regular" family="Cabin" pointSize="14"/>
-                                                    <state key="normal" title="Accept"/>
+                                                    <state key="normal" image="inviteaccept"/>
                                                     <connections>
                                                         <action selector="btnAcceptTap:" destination="6jc-dT-dgd" eventType="touchUpInside" id="R5U-UT-9xe"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYc-HH-cYl">
-                                                    <rect key="frame" x="321" y="45" width="46" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYc-HH-cYl">
+                                                    <rect key="frame" x="321" y="55" width="46" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="46" id="5b1-PY-nex"/>
                                                     </constraints>
-                                                    <state key="normal" title="Reject"/>
+                                                    <state key="normal" image="invitereject"/>
                                                     <connections>
                                                         <action selector="btnRejectTap:" destination="6jc-dT-dgd" eventType="touchUpInside" id="v5X-MV-otE"/>
                                                     </connections>
@@ -1522,7 +1522,7 @@
                                                 <constraint firstItem="ifT-yS-TUR" firstAttribute="top" secondItem="j2d-vE-tLz" secondAttribute="top" constant="14" id="6CJ-n4-s5H"/>
                                                 <constraint firstItem="RNv-f9-w3w" firstAttribute="top" secondItem="ifT-yS-TUR" secondAttribute="bottom" constant="4" id="IEM-5a-uhm"/>
                                                 <constraint firstItem="NeO-7F-MDY" firstAttribute="top" secondItem="j2d-vE-tLz" secondAttribute="top" constant="14" id="Kfa-JH-REY"/>
-                                                <constraint firstAttribute="bottom" secondItem="GYc-HH-cYl" secondAttribute="bottom" constant="25" id="Qiw-de-k7G"/>
+                                                <constraint firstAttribute="bottom" secondItem="GYc-HH-cYl" secondAttribute="bottom" constant="10" id="Qiw-de-k7G"/>
                                                 <constraint firstItem="ifT-yS-TUR" firstAttribute="leading" secondItem="j2d-vE-tLz" secondAttribute="leading" constant="8" id="QzB-J3-Y3i"/>
                                                 <constraint firstItem="RNv-f9-w3w" firstAttribute="leading" secondItem="j2d-vE-tLz" secondAttribute="leadingMargin" id="S9g-eV-tuj"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="RNv-f9-w3w" secondAttribute="bottom" constant="11" id="Sbf-p0-xeT"/>
@@ -1530,7 +1530,7 @@
                                                 <constraint firstItem="hwW-tY-v2U" firstAttribute="leading" secondItem="ifT-yS-TUR" secondAttribute="trailing" constant="9" id="YrT-Of-3Rs"/>
                                                 <constraint firstAttribute="trailing" secondItem="GYc-HH-cYl" secondAttribute="trailing" constant="8" id="lPh-vP-Xof"/>
                                                 <constraint firstItem="hwW-tY-v2U" firstAttribute="leading" secondItem="RNv-f9-w3w" secondAttribute="trailing" constant="9" id="pCa-bE-DuP"/>
-                                                <constraint firstItem="GYc-HH-cYl" firstAttribute="top" secondItem="NeO-7F-MDY" secondAttribute="bottom" constant="1" id="pne-j9-PZ2"/>
+                                                <constraint firstItem="GYc-HH-cYl" firstAttribute="top" secondItem="NeO-7F-MDY" secondAttribute="bottom" constant="13" id="pne-j9-PZ2"/>
                                                 <constraint firstItem="hwW-tY-v2U" firstAttribute="top" secondItem="j2d-vE-tLz" secondAttribute="top" constant="14" id="zi6-Ni-1Yf"/>
                                                 <constraint firstItem="NeO-7F-MDY" firstAttribute="leading" secondItem="hwW-tY-v2U" secondAttribute="trailing" constant="9" id="zvX-rq-PE9"/>
                                             </constraints>
@@ -1582,9 +1582,9 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gdn-Bx-8w1">
-                                        <rect key="frame" x="340" y="10" width="25" height="22"/>
+                                        <rect key="frame" x="340" y="10" width="28" height="28"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="r2M-vV-gMS"/>
+                                            <constraint firstAttribute="width" constant="28" id="r2M-vV-gMS"/>
                                         </constraints>
                                         <state key="normal" image="upArrow">
                                             <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1599,12 +1599,12 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C0w-Xe-TcV">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C0w-Xe-TcV">
                                         <rect key="frame" x="54" y="10" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="fij-ZY-PCw"/>
                                         </constraints>
-                                        <state key="normal" title="G"/>
+                                        <state key="normal" image="g-icon"/>
                                         <connections>
                                             <action selector="btnGTap:" destination="6jc-dT-dgd" eventType="touchUpInside" id="Brl-gc-gKz"/>
                                         </connections>
@@ -1636,9 +1636,9 @@
                                     <constraint firstItem="PmX-aP-Hck" firstAttribute="top" secondItem="8ux-UF-lah" secondAttribute="top" id="Zfw-Uj-bcr"/>
                                     <constraint firstItem="C0w-Xe-TcV" firstAttribute="leading" secondItem="je5-Lo-Jmi" secondAttribute="trailing" constant="9" id="Zka-WE-4E0"/>
                                     <constraint firstItem="je5-Lo-Jmi" firstAttribute="leading" secondItem="8ux-UF-lah" secondAttribute="leading" constant="15" id="jWW-Pi-SAK"/>
-                                    <constraint firstAttribute="bottom" secondItem="gdn-Bx-8w1" secondAttribute="bottom" constant="16" id="jty-Fs-FV5"/>
+                                    <constraint firstAttribute="bottom" secondItem="gdn-Bx-8w1" secondAttribute="bottom" constant="10" id="jty-Fs-FV5"/>
                                     <constraint firstAttribute="bottom" secondItem="kZe-wl-BgJ" secondAttribute="bottom" constant="8" id="llq-4i-T5D"/>
-                                    <constraint firstAttribute="trailing" secondItem="gdn-Bx-8w1" secondAttribute="trailing" constant="10" id="q7s-uZ-L3X"/>
+                                    <constraint firstAttribute="trailing" secondItem="gdn-Bx-8w1" secondAttribute="trailing" constant="7" id="q7s-uZ-L3X"/>
                                     <constraint firstItem="je5-Lo-Jmi" firstAttribute="top" secondItem="PmX-aP-Hck" secondAttribute="bottom" constant="9" id="ski-pK-enJ"/>
                                 </constraints>
                             </view>
@@ -1703,10 +1703,13 @@
         <image name="campus_image" width="303" height="267"/>
         <image name="campuscode_rectangle" width="358" height="138"/>
         <image name="closed-lock" width="8" height="13"/>
+        <image name="g-icon" width="30" height="30"/>
+        <image name="inviteaccept" width="28" height="28"/>
+        <image name="invitereject" width="28" height="28"/>
         <image name="login_bg" width="375" height="667"/>
         <image name="message" width="13" height="10"/>
         <image name="right_arrow" width="21" height="16"/>
-        <image name="upArrow" width="50" height="50"/>
+        <image name="upArrow" width="28" height="28"/>
         <image name="user" width="130" height="130"/>
     </resources>
 </document>

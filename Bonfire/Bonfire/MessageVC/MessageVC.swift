@@ -125,7 +125,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
 //            self .navigationController?.pushViewController(viewController, animated: true)
 //            
 //            }
-        var viewController = AddInterestToMessageVC .initViewController()
+        let viewController = AddInterestToMessageVC .initViewController()
         self .navigationController?.pushViewController(viewController, animated: true)
     }
   

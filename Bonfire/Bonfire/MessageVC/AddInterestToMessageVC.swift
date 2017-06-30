@@ -16,7 +16,9 @@ class AddInterestToMessageVC: UIViewController {
     var arrTemp = NSArray()
     
     var isSearch : Bool = false
+    var isFromGrp : Bool = false
     
+    @IBOutlet weak var btnSave: UIButton!
     @IBOutlet weak var segment: UISegmentedControl!
     @IBOutlet weak var searchbar: UISearchBar!
     @IBOutlet weak var tabelview: UITableView!
@@ -32,10 +34,19 @@ class AddInterestToMessageVC: UIViewController {
         
         arrTemp = self.arrInterestAll
         
+        if isFromGrp {
+            self.btnSave .setTitle("", for: .normal)
+            self.btnSave .setImage(UIImage(named:"right_arrow"), for: .normal)
+        }else {
+            self.btnSave .setTitle("Save", for: .normal)
+            self.btnSave .setImage(UIImage(named:""), for: .normal)
+        }
+        
     }
     @IBAction func backBtnTap(_ sender: Any) {
        _ =  self.navigationController?.popViewController(animated: true)
     }
+    
     
     @IBAction func segmentvalueChange(_ sender: Any) {
        
@@ -51,11 +62,22 @@ class AddInterestToMessageVC: UIViewController {
     }
     
     @IBAction func saveTap(_ sender: Any) {
-        NotificationCenter .default.post(name: NSNotification.Name(rawValue: "selectedInterest"), object: self.arrInterestSelected, userInfo: nil)
-       _ =  self.navigationController?.popViewController(animated: true)
+        if isFromGrp {
+            if let viewController = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: kIdentifire_GroupTitleVC) as? GroupTitleVC
+            {
+                self .navigationController?.pushViewController(viewController, animated: true)
+            }
+
+        } else {
+            NotificationCenter .default.post(name: NSNotification.Name(rawValue: "selectedInterest"), object: self.arrInterestSelected, userInfo: nil)
+            _ =  self.navigationController?.popViewController(animated: true)
+        }
+       
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
+        
+        self.title = "Select Interests"
     }
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false

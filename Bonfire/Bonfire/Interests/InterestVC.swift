@@ -12,7 +12,9 @@ class InterestVC: UIViewController
 {
    var interestData = NSArray()
     
+    @IBOutlet weak var const_bottomView_Height: NSLayoutConstraint!
     @IBOutlet weak var clvwInterest: UICollectionView!
+    var isFromSetting : Bool = false
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -23,6 +25,10 @@ class InterestVC: UIViewController
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if isFromSetting {
+            self.const_bottomView_Height.constant = 0
+        }
         
         self.tabBarController?.tabBar.isHidden = true
         self.navigationItem.hidesBackButton = true
@@ -90,9 +96,14 @@ class InterestVC: UIViewController
                                 App_showAlert(withMessage: err as! String, inView: self)
                             }else {
                                 print("no error")
-                                let storyTab = UIStoryboard(name: "Main", bundle: nil)
-                                let objTourGuideVC = storyTab.instantiateViewController(withIdentifier: "TourGuideVC") as! TourGuideVC
-                                self.navigationController?.pushViewController(objTourGuideVC, animated: true)
+                                
+                                if self.isFromSetting {
+                                  _ = self.navigationController?.popViewController(animated: true)
+                                }else {
+                                    let storyTab = UIStoryboard(name: "Main", bundle: nil)
+                                    let objTourGuideVC = storyTab.instantiateViewController(withIdentifier: "TourGuideVC") as! TourGuideVC
+                                    self.navigationController?.pushViewController(objTourGuideVC, animated: true)
+                                }
                             }
                             
                         }

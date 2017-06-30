@@ -40,6 +40,10 @@ class SettingVC: UIViewController {
     var prevView = UIView()
     var textFieldDate = UITextField()
     var textFieldTime = UITextField()
+    let textview = UITextView()
+    let viewtxt = UIView()
+    
+    var dictEventData = NSMutableDictionary()
     
     @IBAction func removeChannelTap(_ sender: AnyObject) {
         let tag = sender.tag - 101;
@@ -59,7 +63,12 @@ class SettingVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        cnt = 1
+        cnt = 2
+//        textFieldDate.tag = 201
+//        textFieldTime.tag = 301
+//        textview.tag = 401
+//        viewtxt.tag = 101
+        
         arrChannelList = ["channel"]
         arrLeader = ["leader","lead","leader1"]
         arrMember = ["member","user","test"]
@@ -78,6 +87,7 @@ class SettingVC: UIViewController {
         self.textViewGrpDescription.delegate = self
         
         prevView = self.textViewEventDescription
+        
         
         // Do any additional setup after loading the view.
     }
@@ -199,9 +209,9 @@ class SettingVC: UIViewController {
         let viewtxt = UIView()
 //        viewtxt.backgroundColor = UIColor.red
         viewtxt.translatesAutoresizingMaskIntoConstraints = false
-        viewtxt.tag = 16000 + cnt
+        viewtxt.tag = 100 + cnt
         containerView.addSubview(viewtxt)
-        
+       // viewtxt.backgroundColor = UIColor.red
     
 
         self.const_plusBtn_Top.isActive = false
@@ -220,17 +230,17 @@ class SettingVC: UIViewController {
        let con =  NSLayoutConstraint(item: self.btnPlus, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: viewtxt, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 5)
         self.const_plusBtn_Top = con
         containerView.addConstraint(con)
-
+        //self.const_plusBtn_Top.isActive = true
         
         viewtxt.addConstraint(NSLayoutConstraint(item: viewtxt, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem:nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: 100))
         
-//         : UITextField! = UITextField()
+        textFieldDate  = UITextField()
         textFieldDate.placeholder  = "Date"
         textFieldDate.borderStyle = UITextBorderStyle.roundedRect
         textFieldDate.font = UIFont.systemFont(ofSize: 14)
         textFieldDate.translatesAutoresizingMaskIntoConstraints = false
         textFieldDate.delegate = self
-        
+        textFieldDate.tag = 200 + cnt
         
         textFieldDate.layer.cornerRadius = 15
         textFieldDate.layer.masksToBounds  = true
@@ -257,12 +267,13 @@ class SettingVC: UIViewController {
         
         
         
-//        let textFieldTime : UITextField! = UITextField()
+        let textFieldTime : UITextField! = UITextField()
         textFieldTime.placeholder  = "Time"
         textFieldTime.borderStyle = UITextBorderStyle.roundedRect
         textFieldTime.font = UIFont.systemFont(ofSize: 14)
         textFieldTime.translatesAutoresizingMaskIntoConstraints = false
         textFieldTime.delegate = self
+        textFieldTime.tag = 300 + cnt
         viewtxt.addSubview(textFieldTime)
 //        textFieldTime.backgroundColor = UIColor.green
         
@@ -288,7 +299,7 @@ class SettingVC: UIViewController {
         textview.delegate = self
         viewtxt.addSubview(textview)
 //        textview.backgroundColor = UIColor.green
-        
+        textview.tag = 400 + cnt
         textview.text = "Event Description"
         // Left constraint
         viewtxt.addConstraint(NSLayoutConstraint(item: textview, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: viewtxt, attribute: NSLayoutAttribute.left, multiplier: 1.0, constant: 0))
@@ -323,14 +334,15 @@ class SettingVC: UIViewController {
         
 
         textFieldTime.layer.masksToBounds = true
-        textview.layer.cornerRadius = 15
+        //textview.layer.cornerRadius = 15
         textFieldTime.layer.cornerRadius = 15
         
         //self.containerView .layoutSubviews()
-        
+
+        //self.view .layoutSubviews()
         self.view .layoutIfNeeded()
         //containerView .layoutIfNeeded()
-    self.view .layoutSubviews()
+
         
         
         self.const_containerViewHeight.constant = self.const_containerViewHeight.constant + 100
@@ -347,6 +359,7 @@ class SettingVC: UIViewController {
     
     @IBAction func btnEditInterestTap(_ sender: Any) {
         let interst = InterestVC .initViewController()
+        interst.isFromSetting = true
         self.navigationController?.pushViewController(interst, animated: true)
     }
     
@@ -460,7 +473,21 @@ extension SettingVC : UITextFieldDelegate {
         return true
     }
     
-
+    func textFieldDidEndEditing(_ textField: UITextField){
+        
+        let tag = textField.superview?.tag
+    
+        if let dict1  = dictEventData .value(forKey: String(describing: tag)) as! NSDictionary? {
+            dict1.setValue(textField.text, forKey: String(textField.tag))
+            dictEventData .setValue(dict1, forKey: String(describing: tag))
+        }else{
+            let dict = NSMutableDictionary()
+            dict.setValue(textField.text, forKey: String(textField.tag))
+            dictEventData .setValue(dict, forKey: String(describing: tag))
+        }
+    
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
     
@@ -557,7 +584,7 @@ extension SettingVC : UITextViewDelegate {
         }
        
     }
-     public func textViewDidEndEditing(_ textView: UITextView) {
+    func textViewDidEndEditing(_ textView: UITextView) {
         if textView == textViewGrpDescription {
             if textView.text == "" {
                 textView.text = "Group Description"
@@ -565,6 +592,19 @@ extension SettingVC : UITextViewDelegate {
         } else {
             if textView.text == "" {
                 textView.text = "Event Description"
+            }
+            
+            var tag = textView.superview?.tag
+            if tag == 0 {
+                tag = 100
+            }
+            if let dict1  = dictEventData .value(forKey: String(describing: tag)) as! NSDictionary? {
+                dict1.setValue(textView.text, forKey: String(textView.tag))
+                dictEventData .setValue(dict1, forKey: String(describing: tag))
+            }else{
+                let dict = NSMutableDictionary()
+                dict.setValue(textView.text, forKey: String(textView.tag))
+                dictEventData .setValue(dict, forKey: String(describing: tag))
             }
         }
     }
@@ -601,17 +641,15 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        
-        
-        
         if collectionView == clvChannelList {
             
             var calCulateSizze: CGSize? = (self.arrChannelList[indexPath.row]).size(attributes: nil)
+            
             //print("\(calCulateSizze?.height)\(calCulateSizze?.width)")
             let num = Int((calCulateSizze?.width)!)
             
             if num <= 42 {
-                calCulateSizze?.width = (calCulateSizze?.width)! + 45
+                calCulateSizze?.width = (calCulateSizze?.width)! + 40
             } else{
                 calCulateSizze?.width = (calCulateSizze?.width)! + 50
             }
