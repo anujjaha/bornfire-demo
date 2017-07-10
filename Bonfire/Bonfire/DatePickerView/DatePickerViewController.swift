@@ -36,12 +36,24 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = "Calendar"
+        
+        let button = UIButton()
+        button.frame = CGRect(x: 0, y: 0, width: 22, height: 35)
+        let img = UIImage(named: "Daybar")
+        button.setImage(img, for: .normal)
+        button.setImage(img, for: .highlighted)
+        
+        button.addTarget(self, action: #selector(DatePickerViewController.rightSideBtntap), for: .touchUpInside)
+        
+        let barButton = UIBarButtonItem()
+        barButton.customView = button
+        
+        let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        space.width = -20 // adjust as needed
         
         
-        let rightBtn = UIBarButtonItem(image: UIImage(named: "Daybar"), style: .plain, target: self, action: #selector(DatePickerViewController.rightSideBtntap))
-        self.navigationItem.rightBarButtonItem = rightBtn
-        
-        self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationItem.rightBarButtonItems = [barButton,space]
         self.tableEvent.dataSource  = self
        
         let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: navigationController, action: nil)

@@ -82,6 +82,9 @@ public final class JBDatePickerWeekDaysView: UIStackView {
             
             let weekDayLabel = UILabel()
             weekDayLabel.textAlignment = .center
+            
+
+            
             weekDayLabel.text = weekdayNameSymbols[i].uppercased()
             weekDayLabel.textColor = weekdayLabelTextColor
             weekDayLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -120,9 +123,10 @@ public final class JBDatePickerWeekDaysView: UIStackView {
 
         //get font to be used
         let fontToUse: UIFont
+        
         switch preferredFont.fontName.isEmpty {
         case true:
-            fontToUse = UIFont.systemFont(ofSize: sizeOfFont, weight: UIFontWeightRegular)
+            fontToUse = UIFont.systemFont(ofSize: min(frame.size.width, frame.size.height) / 1.8, weight: UIFontWeightSemibold)
         case false:
             if let customFont = UIFont(name: preferredFont.fontName, size: sizeOfFont) {
                 fontToUse = customFont

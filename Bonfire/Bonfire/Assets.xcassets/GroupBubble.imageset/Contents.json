@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "addmessage.png",
+      "filename" : "GroupBubble.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "addmessage@2x.png",
+      "filename" : "GroupBubble@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "addmessage@3x.png",
+      "filename" : "GroupBubble@3x.png",
       "scale" : "3x"
     }
   ],

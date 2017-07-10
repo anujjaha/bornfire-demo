@@ -598,7 +598,7 @@
             <objects>
                 <navigationController navigationBarHidden="YES" id="3gs-nl-cuE" sceneMemberID="viewController">
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ce0-hE-PKn">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ce0-hE-PKn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.85098039219999999" green="0.73333333329999995" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -683,7 +683,7 @@
             <objects>
                 <navigationController id="aEp-aF-Q6S" userLabel="DiscoveNavigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="fjc-t3-fQx"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="blv-K7-kXP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="blv-K7-kXP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -714,7 +714,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="601"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For You" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qrg-0G-zcX">
-                                                <rect key="frame" x="8" y="8" width="53.5" height="21"/>
+                                                <rect key="frame" x="8" y="8" width="54" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="zOq-YB-IFE"/>
                                                 </constraints>
@@ -913,14 +913,7 @@
                     <tabBarItem key="tabBarItem" title="" image="Rocket_tabbar" id="hLD-SI-HQ2">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" title="Discover" id="IAX-1O-7PD">
-                        <barButtonItem key="rightBarButtonItem" image="Daybar" id="W6f-Y5-iTf">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="calwndarBtnTap:" destination="g49-6b-baM" id="phe-yH-thF"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Discover" id="IAX-1O-7PD"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -939,7 +932,7 @@
             <objects>
                 <navigationController id="hOR-Zj-W6e" userLabel="ActivityNavigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="91b-uJ-bSN"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="C2b-on-2h0">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="C2b-on-2h0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -956,7 +949,7 @@
             <objects>
                 <navigationController id="MAm-QC-EtE" userLabel="ProfileNavigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="aXz-mB-fgR"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="5CT-LY-qwH">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5CT-LY-qwH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -966,7 +959,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rrq-Ni-2Kd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4245" y="1355"/>
+            <point key="canvasLocation" x="4245" y="1519"/>
         </scene>
         <!--Profile-->
         <scene sceneID="5BR-Bo-ZPP">
@@ -994,7 +987,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iCg-vp-ZCq">
-                                                <rect key="frame" x="171.5" y="121" width="33.5" height="21"/>
+                                                <rect key="frame" x="172.5" y="121" width="31.5" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="1bI-dg-crT"/>
                                                 </constraints>
@@ -1003,7 +996,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INTERESTS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDE-Pa-66J">
-                                                <rect key="frame" x="145" y="150" width="85.5" height="21"/>
+                                                <rect key="frame" x="148.5" y="150" width="78.5" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="rub-i3-xVZ"/>
                                                 </constraints>
@@ -1019,7 +1012,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GROUPS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAk-ND-jgS">
-                                                <rect key="frame" x="153.5" y="267" width="68" height="21"/>
+                                                <rect key="frame" x="156" y="267" width="63" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="zZh-2O-UBL"/>
                                                 </constraints>
@@ -1076,14 +1069,7 @@
                     <tabBarItem key="tabBarItem" title="" image="Monocle_tabbar" id="5xz-D2-Bo2">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" title="Profile" id="ah5-Vo-JVR">
-                        <barButtonItem key="rightBarButtonItem" image="Daybar" id="ptb-8Y-fu4">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="calendarBtnTap:" destination="ed7-Rb-IXt" id="4lv-3n-hkt"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Profile" id="ah5-Vo-JVR"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="profileImgview" destination="Its-xe-Eyt" id="Mui-vs-ZeG"/>
@@ -1094,7 +1080,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kgA-PL-bXS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4882.5" y="1355"/>
+            <point key="canvasLocation" x="4918" y="1425"/>
         </scene>
         <!--Activity-->
         <scene sceneID="yyc-1V-z1W">
@@ -1220,27 +1206,13 @@
                                             </collectionView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yt2-5c-zhF">
                                                 <rect key="frame" x="187" y="456" width="180" height="35"/>
-                                                <color key="backgroundColor" red="0.90980392156862744" green="0.87450980392156863" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="DVC-XS-Z0V"/>
                                                     <constraint firstAttribute="width" constant="180" id="oGh-4B-9aI"/>
                                                 </constraints>
-                                                <state key="normal">
-                                                    <attributedString key="attributedTitle">
-                                                        <fragment content="Start a new group! ">
-                                                            <attributes>
-                                                                <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <font key="NSFont" metaFont="system" size="18"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content="+">
-                                                            <attributes>
-                                                                <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <font key="NSFont" size="18" name=".AppleSystemUIFont"/>
-                                                                <font key="NSOriginalFont" size="18" name=".AppleSystemUIFont"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
+                                                <state key="normal" image="startgroup">
+                                                    <attributedString key="attributedTitle"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="btnStartNewGrpTap:" destination="obZ-IC-EI9" eventType="touchUpInside" id="dwa-X2-y18"/>
@@ -1286,14 +1258,7 @@
                     <tabBarItem key="tabBarItem" title="" image="Penny Farthing_tabbar" id="T8J-7p-47n">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" title="Activity" id="gRg-CF-BNW">
-                        <barButtonItem key="rightBarButtonItem" image="Daybar" id="bH8-pQ-WE8">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="calendarBtnTap:" destination="obZ-IC-EI9" id="C0O-sx-IE0"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Activity" id="gRg-CF-BNW"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="btnStartNewGroup" destination="yt2-5c-zhF" id="vIN-aE-ahV"/>
@@ -1310,7 +1275,7 @@
             <objects>
                 <navigationController id="ydP-Yq-gOb" userLabel="MessageNavigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="WCW-yd-dkV"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GZh-a9-1Q9">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GZh-a9-1Q9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1419,13 +1384,13 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Og-ic-zcl">
                                                     <rect key="frame" x="225" y="98" width="70" height="30"/>
-                                                    <color key="backgroundColor" red="0.71764705882352942" green="0.87058823529411766" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="gkw-gd-4CY"/>
                                                         <constraint firstAttribute="width" constant="70" id="qRc-5h-rRS"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Cabin-Regular" family="Cabin" pointSize="14"/>
-                                                    <state key="normal" title="# interest">
+                                                    <state key="normal" title="# interest" backgroundImage="InterestBubble">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -1434,13 +1399,13 @@
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOf-Uq-hPe">
                                                     <rect key="frame" x="303" y="97" width="64" height="30"/>
-                                                    <color key="backgroundColor" red="0.86666666670000003" green="1" blue="0.70980392160000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="GBE-mY-KfI"/>
                                                         <constraint firstAttribute="width" constant="64" id="fRZ-9J-OjI"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Cabin-Regular" family="Cabin" pointSize="14"/>
-                                                    <state key="normal" title="# Group">
+                                                    <state key="normal" title="# Group" backgroundImage="GroupBubble">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -1662,14 +1627,7 @@
                     <tabBarItem key="tabBarItem" title="" image="Bonfire_tabbar" id="EQf-0c-7ii">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" title="Messages" id="Yas-CR-EIh">
-                        <barButtonItem key="rightBarButtonItem" image="Daybar" id="qmJ-h5-IwW">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="calendarBtnTap:" destination="6jc-dT-dgd" id="iAj-nW-MUg"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Messages" id="Yas-CR-EIh"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -1691,7 +1649,8 @@
     </scenes>
     <resources>
         <image name="Bonfire_tabbar" width="23" height="30"/>
-        <image name="Daybar" width="22" height="35"/>
+        <image name="GroupBubble" width="62" height="26"/>
+        <image name="InterestBubble" width="82" height="26"/>
         <image name="Monocle_tabbar" width="25" height="32"/>
         <image name="Penny Farthing_tabbar" width="33" height="30"/>
         <image name="Rocket_tabbar" width="25" height="31"/>
@@ -1709,6 +1668,7 @@
         <image name="login_bg" width="375" height="667"/>
         <image name="message" width="13" height="10"/>
         <image name="right_arrow" width="21" height="16"/>
+        <image name="startgroup" width="177" height="29"/>
         <image name="upArrow" width="28" height="28"/>
         <image name="user" width="130" height="130"/>
     </resources>

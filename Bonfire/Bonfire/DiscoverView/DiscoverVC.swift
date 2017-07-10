@@ -24,6 +24,23 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
         self.clvwyour.dataSource = self
         scrlvMain.delegate = self
         
+        let button = UIButton()
+        button.frame = CGRect(x: 0, y: 0, width: 22, height: 35)
+        let img = UIImage(named: "Daybar")
+        button.setImage(img, for: .normal)
+        button.setImage(img, for: .highlighted)
+
+        button.addTarget(self, action: #selector(DiscoverVC.calwndarBtnTap(_:)), for: .touchUpInside)
+        
+        let barButton = UIBarButtonItem()
+        barButton.customView = button
+        
+        let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        space.width = -20 // adjust as needed
+        
+        
+        self.navigationItem.rightBarButtonItems = [barButton,space]
+        
     }
 
     @IBAction func calwndarBtnTap(_ sender: Any) {

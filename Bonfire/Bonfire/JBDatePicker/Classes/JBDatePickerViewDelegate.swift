@@ -216,7 +216,7 @@ public extension JBDatePickerViewDelegate {
     public var colorForSelelectedDayLabel: UIColor { return .black }
 //    public var colorForWeekDaysViewBackground: UIColor { return  UIColor(red: 81.0/255.0, green: 182.0/255.0, blue: 185.0/255.0, alpha: 1.0) }
       public var colorForWeekDaysViewBackground: UIColor { return  UIColor .clear }
-//    public var colorForWeekDaysViewText: UIColor { return .darkGray }
+//    public var colorForWeekDaysViewText: UIColor { return .red }
     
     public var colorForWeekDaysViewText: UIColor { return  UIColor(red: 207.0/255.0, green: 207.0/255.0, blue: 207.0/255.0, alpha: 1.0) }
     

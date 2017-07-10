@@ -8,21 +8,50 @@
 
 import UIKit
 
-class TabBarViewController: UITabBarController
+class TabBarViewController: UITabBarController,UITabBarControllerDelegate
 {
     override func viewDidLoad()
     {
         // Do any additional setup after loading the view.
         self.navigationController?.navigationBar.isHidden = true
-
     }
     override func viewDidAppear(_ animated: Bool)
     {
-        
+        self.delegate = self
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController)
     {
+        if selectedIndex == 0 {
+            let nav = viewController as! UINavigationController
+            
+            if !(nav.visibleViewController?.isKind(of:DiscoverVC.self))! {
+                nav.popToRootViewController(animated: true)
+            }
+        }
+        
+        else if selectedIndex == 1 {
+            let nav = viewController as! UINavigationController
+            
+            if !(nav.visibleViewController?.isKind(of:MessageVC.self))! {
+                nav.popToRootViewController(animated: true)
+            }
+        }
+        
+        else if selectedIndex == 2 {
+            let nav = viewController as! UINavigationController
+            
+            if !(nav.visibleViewController?.isKind(of:ActivityVC.self))! {
+                nav.popToRootViewController(animated: true)
+            }
+        }
+        else if selectedIndex == 3 {
+            let nav = viewController as! UINavigationController
+            
+            if !(nav.visibleViewController?.isKind(of:ProfileVC.self))! {
+                nav.popToRootViewController(animated: true)
+            }
+        }
         
     }
 

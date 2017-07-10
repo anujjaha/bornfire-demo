@@ -214,7 +214,7 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource {
         return 0.0
     }
     func  tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "10 march 2017"
+        return "MAR 10"
     }
      func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if (view is UITableViewHeaderFooterView) {

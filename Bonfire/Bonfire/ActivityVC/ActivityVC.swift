@@ -33,6 +33,24 @@ class ActivityVC: UIViewController {
 
         // Do any additional setup after loading the view.
         btnStartNewGroup.layer.cornerRadius = 10.0
+        
+        let button = UIButton()
+        button.frame = CGRect(x: 0, y: 0, width: 22, height: 35)
+        let img = UIImage(named: "Daybar")
+        button.setImage(img, for: .normal)
+        button.setImage(img, for: .highlighted)
+
+        
+        button.addTarget(self, action: #selector(ActivityVC.calendarBtnTap(_:)), for: .touchUpInside)
+        
+        let barButton = UIBarButtonItem()
+        barButton.customView = button
+        
+        let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        space.width = -20 // adjust as needed
+        
+        
+        self.navigationItem.rightBarButtonItems = [barButton,space]
     }
 
     override func didReceiveMemoryWarning() {

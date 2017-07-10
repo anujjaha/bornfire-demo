@@ -50,6 +50,24 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
         
         
+        let button = UIButton()
+        button.frame = CGRect(x: 0, y: 0, width: 22, height: 35)
+        let img = UIImage(named: "Daybar")
+        button.setImage(img, for: .normal)
+        button.setImage(img, for: .highlighted)
+
+        
+        button.addTarget(self, action: #selector(MessageVC.calendarBtnTap(_:)), for: .touchUpInside)
+        
+        let barButton = UIBarButtonItem()
+        barButton.customView = button
+        
+        let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        space.width = -20 // adjust as needed
+    
+        
+        self.navigationItem.rightBarButtonItems = [barButton,space]
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         
@@ -143,7 +161,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         
       
     }
-    @IBAction func calendarBtnTap(_ sender: Any) {
+     func calendarBtnTap(_ sender: Any) {
        let datepicker =  DatePickerViewController .initViewController()
         self.navigationController?.navigationBar.isTranslucent  = false
         self.navigationController?.pushViewController(datepicker, animated: true)
