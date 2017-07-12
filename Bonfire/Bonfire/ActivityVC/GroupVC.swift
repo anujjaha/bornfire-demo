@@ -74,6 +74,9 @@ class GroupVC: UIViewController {
         
         // Do any additional setup after loading the view.
         
+        self.tblviewListing.estimatedRowHeight = 80;
+        self.tblviewListing.rowHeight = UITableViewAutomaticDimension;
+        
         self.profileCollectonview.dataSource = self
         self.profileCollectonview.delegate = self
         self.profileCollectonview.reloadData()
@@ -181,11 +184,15 @@ extension GroupVC : UITextFieldDelegate {
     }
 }
 extension GroupVC : UITableViewDelegate,UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! GroupCell
         cell.imgView.backgroundColor = UIColor.gray
-        cell.labelDetail?.text = tableData[indexPath.row] as! String
-        
+        cell.lblDetail?.text = tableData[indexPath.row] as? String
+        cell.lblName.text = "Ryan"
         
         if indexPath.row == 1 {
             cell.Const_LinkBtn_height.constant = 10
@@ -206,6 +213,7 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30

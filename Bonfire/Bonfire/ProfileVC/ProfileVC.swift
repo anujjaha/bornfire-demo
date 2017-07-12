@@ -13,6 +13,7 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
     let tagViewInterest_data = NSMutableArray()
     @IBOutlet weak var tagViewInterest: HTagView!
     @IBOutlet weak var tagViewGroups: HTagView!
+    var picker:UIImagePickerController?=UIImagePickerController()
 
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var profileImgview: UIImageView!
@@ -20,7 +21,8 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
     {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        picker?.delegate=self
+
         tagViewInterest.delegate = self
         tagViewInterest.dataSource = self
         tagViewInterest.multiselect = false
@@ -67,17 +69,73 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
         
         self.navigationItem.rightBarButtonItems = [barButton,space]
         
+        profileImgview.layer.borderWidth = 1
+        profileImgview.layer.masksToBounds = false
+        profileImgview.layer.borderColor = UIColor.lightGray.cgColor
+        profileImgview.layer.cornerRadius = profileImgview.frame.height/2
+        profileImgview.clipsToBounds = true
+        //profileImgview.layer.cornerRadius = 50
+        //profileImgview.layer.masksToBounds = true
+        
+        self.callProfileAPI()
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
-       self.callProfileAPI()
     }
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func openGallary()
+    {
+        picker!.allowsEditing = false
+        picker!.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        present(picker!, animated: true, completion: nil)
+    }
+    
+    func openActionsheet()
+    {
+        let optionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
+        
+        // 2
+        let libraryAction = UIAlertAction(title: "Photo Library", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self .openGallary()
+        })
+        let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self .openCamera()
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+        })
+        optionMenu.addAction(libraryAction)
+        optionMenu.addAction(cameraAction)
+        optionMenu.addAction(cancelAction)
+        self.present(optionMenu, animated: true, completion: nil)
+    }
 
+    func openCamera()
+    {
+        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)){
+            picker!.allowsEditing = false
+            picker!.sourceType = UIImagePickerControllerSourceType.camera
+            picker!.cameraCaptureMode = .photo
+            present(picker!, animated: true, completion: nil)
+        }else{
+            let alert = UIAlertController(title: "Camera Not Found", message: "This device has no Camera", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style:.default, handler: nil)
+            alert.addAction(ok)
+            present(alert, animated: true, completion: nil)
+        }
+    }
+    @IBAction func profileTap(_ sender: Any) {
+        self.openActionsheet()
+    }
     
     // MARK: - API call
     func callProfileAPI() {
@@ -147,11 +205,19 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
     }
     func createInterestArr(arrInterest : NSArray)  {
        
-        for (index, item) in arrInterest.enumerated() {
-            print("Found \(item) at position \(index)")
-            let intName = (item as! NSDictionary).value(forKey: "name") as! String
-            tagViewInterest_data .add("#"+intName)
+        if arrInterest.count > 0 {
+            for (index, item) in arrInterest.enumerated() {
+                print("Found \(item) at position \(index)")
+                let intName = (item as! NSDictionary).value(forKey: "name") as! String
+                tagViewInterest_data .add("#"+intName)
+                
+            }
+    
+        } else{
             
+//            var img = UIImage(named: "adinterest")
+//            tagViewInterest_data .add(img)
+
         }
         tagViewInterest .reloadData()
     }
@@ -224,4 +290,19 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
     }
     */
 
+}
+extension ProfileVC : UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
+    {
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        self.profileImgview.image = chosenImage
+        self.profileImgview.contentMode = .scaleToFill
+        dismiss(animated: true, completion: nil)
+    }
 }

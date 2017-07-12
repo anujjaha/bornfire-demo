@@ -13,6 +13,7 @@ class GroupCell: UITableViewCell {
     @IBOutlet weak var imgView: UIImageView!
     
     @IBOutlet weak var btnLink: UIButton!
+    @IBOutlet weak var lblDetail: UILabel!
     @IBOutlet weak var Const_LinkBtn_height: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,7 +22,7 @@ class GroupCell: UITableViewCell {
         self.imgView.clipsToBounds = true
         // Initialization code
     }
-    @IBOutlet weak var labelDetail: UILabel!
+    @IBOutlet weak var lblName: UILabel!
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

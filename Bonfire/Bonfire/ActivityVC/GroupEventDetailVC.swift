@@ -10,6 +10,7 @@ import UIKit
 
 class GroupEventDetailVC: UIViewController {
 
+    @IBOutlet weak var profileCollectonview: UICollectionView!
     @IBOutlet weak var channelTblView: UITableView!
     @IBOutlet weak var tableEventDesc: UITableView!
     override func viewDidLoad() {
@@ -23,14 +24,22 @@ class GroupEventDetailVC: UIViewController {
         self.channelTblView .dataSource = self
         self.channelTblView .delegate = self
         self.channelTblView .reloadData()
+        
+        self.profileCollectonview.delegate = self
+        self.profileCollectonview.dataSource = self
+        
         // Do any additional setup after loading the view.
     }
 
     @IBAction func channelTap(_ sender: Any) {
             }
     
+    @IBAction func backTap(_ sender: Any) {
+        _ = self.navigationController?.popViewController(animated: false)
+        
+    }
     @IBAction func buttonLeaveGrp(_ sender: Any) {
-        _ = self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: false)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -114,5 +123,45 @@ extension GroupEventDetailVC : UITableViewDataSource , UITableViewDelegate{
     }
     
     
+}
+extension GroupEventDetailVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        let identifier = "profileCell"
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! profileCollectonviewCell
+        
+        cell.imgView.layer.cornerRadius = 11.0;
+        cell.imgView.layoutIfNeeded() //This is important line
+        //cell.imgView.layer.masksToBounds = true
+        cell.imgView.clipsToBounds = true
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        let flowLayout = (collectionViewLayout as! UICollectionViewFlowLayout)
+        let cellSpacing = flowLayout.minimumInteritemSpacing
+        let cellWidth = flowLayout.itemSize.width
+        let cellCount = CGFloat(collectionView.numberOfItems(inSection: section))
+        
+        let collectionViewWidth = collectionView.bounds.size.width
+        
+        let totalCellWidth = cellCount * cellWidth
+        let totalCellSpacing = cellSpacing * (cellCount - 1)
+        
+        let totalCellsWidth = totalCellWidth + totalCellSpacing
+        
+        let edgeInsets = (collectionViewWidth - totalCellsWidth) / 2.0
+        
+        return edgeInsets > 0 ? UIEdgeInsetsMake(0, edgeInsets, 0, edgeInsets) : UIEdgeInsetsMake(0, cellSpacing, 0, cellSpacing)
+    }
 }
 
