@@ -72,7 +72,7 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
         profileImgview.layer.borderWidth = 1
         profileImgview.layer.masksToBounds = false
         profileImgview.layer.borderColor = UIColor.lightGray.cgColor
-        profileImgview.layer.cornerRadius = profileImgview.frame.height/2
+        profileImgview.layer.cornerRadius = 50
         profileImgview.clipsToBounds = true
         //profileImgview.layer.cornerRadius = 50
         //profileImgview.layer.masksToBounds = true

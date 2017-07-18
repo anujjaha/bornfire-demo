@@ -941,7 +941,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "57847d90-9953-48e1-8508-21cb4e0d700c";
 				PROVISIONING_PROFILE_SPECIFIER = "Bonfire Dev";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Hardik-WorkSpace/Project/IPH_Bonfire/Bonfire/Bonfire/Bonfire-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Projects/Anuj Projects/Bonfire/LatestCode/bornfire-demo/Bonfire/Bonfire/Bonfire-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -959,7 +959,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1b513719-c29f-4fcf-8401-fac7d1d89e02";
 				PROVISIONING_PROFILE_SPECIFIER = "Bonfire Dist";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Hardik-WorkSpace/Project/IPH_Bonfire/Bonfire/Bonfire/Bonfire-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Projects/Anuj Projects/Bonfire/LatestCode/bornfire-demo/Bonfire/Bonfire/Bonfire-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
