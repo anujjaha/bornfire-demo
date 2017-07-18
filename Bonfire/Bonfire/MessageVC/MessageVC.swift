@@ -289,7 +289,7 @@ class MessageCell: UITableViewCell
     override func awakeFromNib() {
         self .layoutIfNeeded()
         self.imgUser.layer.masksToBounds = false
-        self.imgUser.layer.cornerRadius = self.imgUser.frame.height/2
+        self.imgUser.layer.cornerRadius = 21
         self.imgUser.clipsToBounds = true
         self .layoutIfNeeded()
     }
@@ -306,7 +306,7 @@ class InviteCell: UITableViewCell
     override func awakeFromNib() {
         self .layoutIfNeeded()
         self.imgUser.layer.masksToBounds = false
-        self.imgUser.layer.cornerRadius = self.imgUser.frame.height/2
+        self.imgUser.layer.cornerRadius = 21.0
         self.imgUser.clipsToBounds = true
         self .layoutIfNeeded()
     }

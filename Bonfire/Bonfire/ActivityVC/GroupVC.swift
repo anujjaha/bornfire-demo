@@ -17,6 +17,7 @@ class GroupVC: UIViewController {
     
      var channelArr = NSArray()
     
+    @IBOutlet weak var dropDownIcon: UIImageView!
     @IBOutlet var menuButton: UIButton!
     @IBOutlet weak var txtAnythingTosay: UITextField!
     @IBOutlet var profileCollectonview: UICollectionView!
@@ -30,6 +31,7 @@ class GroupVC: UIViewController {
     }
     
     @IBAction func channelBtnTap(_ sender: Any) {
+        
         let groupEventObj  = GroupEventDetailVC .initViewController()
         groupEventObj.channelArr = self.channelArr
         self.navigationController?.pushViewController(groupEventObj, animated: false)
@@ -153,8 +155,11 @@ class GroupVC: UIViewController {
         
         if self.isFromLeadingGrp {
             self.menuButton.isHidden = true
+            self.dropDownIcon.isHidden = false
         } else {
             self.menuButton.isHidden = false
+            self.dropDownIcon.isHidden = true
+            
         }
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = true
