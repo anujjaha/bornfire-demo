@@ -20,8 +20,11 @@ class CreateGroupVC: UIViewController {
     @IBOutlet weak var clvLeaderList: UICollectionView!
     @IBOutlet weak var txtFindLeader: UITextField!
     
+    @IBOutlet weak var switchPrivate: UISwitch!
+    @IBOutlet weak var txtGrpName: UITextField!
     var search:String=""
     var arrLeaderSearch = [String]()
+    var arrLeaderSelected = [String]()
     var arrLeader = ["member","user","test"]
     var  isSearchLeader : Bool  = false
         
@@ -113,15 +116,91 @@ class CreateGroupVC: UIViewController {
 //            viewController.bfromGroup = true
 //            self .navigationController?.pushViewController(viewController, animated: true)
 //        }
-        
-        let viewController = AddInterestToMessageVC .initViewController()
-        viewController.isFromGrp = true
-        self .navigationController?.pushViewController(viewController, animated: true)
-        
+        self .callCreateGroupAPI()
 
     }
     
+    func callCreateGroupAPI(){
+        
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        
+        let url = kServerURL + kCreateGroup
+        showProgress(inView: self.view)
+        let grpname = self.txtGrpName.text?.trimmingCharacters(in: .whitespacesAndNewlines)
 
+        var switchstr = String()
+        if self.switchPrivate.isOn {
+            switchstr = "1"
+        } else {
+            switchstr = "0"
+        }
+        
+        let parameters = [
+            "name" : grpname,
+            "is_private": switchstr]
+        
+
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+    
+//        let imgData = UIImagePNGRepresentation(imageViewCoverPhoto.image!)
+        let imgData = UIImageJPEGRepresentation(imageViewCoverPhoto.image!, 0.5)
+        
+        upload(multipartFormData:{ multipartFormData in
+            
+            for (key, value) in parameters {
+                multipartFormData.append((value?.data(using: String.Encoding.utf8)!)!, withName: key)
+            }
+            
+            multipartFormData.append(imgData!, withName: "image", fileName: "test.jpg", mimeType: "image/jpeg")
+            
+            
+        },
+              usingThreshold:UInt64.init(),
+              to:url,
+              method:.post,
+              headers:headers,
+              
+              encodingCompletion: { encodingResult in
+                
+                switch encodingResult {
+                    
+                case .success(let upload, _, _):
+//                    upload.responseJSON(completionHandler: { (response) in
+//                        hideProgress()
+//                        debugPrint(response)
+//                    })
+                    upload.responseString(completionHandler: { (response) in
+                        hideProgress()
+                        debugPrint(response)
+                        let jsondata = response.result.value?.toJSON()
+//                        let arr = jsondata as! Array<Any>
+//                        let dict = arr.first as? Dictionary<String, AnyObject>
+//                        (dict!["message"]!)
+
+                        
+                        let optionMenu = UIAlertController(title: "Bonfire", message: "Group is Created Successfully", preferredStyle: .alert)
+                        
+                        // 2
+                        let libraryAction = UIAlertAction(title: "OK", style: .default, handler: {
+                            (alert: UIAlertAction!) -> Void in
+                            let viewController = AddInterestToMessageVC .initViewController()
+                            viewController.isFromGrp = true
+                            self .navigationController?.pushViewController(viewController, animated: true)
+
+                        })
+                        
+                        optionMenu.addAction(libraryAction)
+                        self.present(optionMenu, animated: true, completion: nil)
+                    
+                    })
+                case .failure(let encodingError):
+                    hideProgress()
+                    print(encodingError)
+                }
+        })
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -193,7 +272,24 @@ extension CreateGroupVC : UICollectionViewDataSource
         {
             let identifier = "leadercell"
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! LeaderCell
-            cell.lblUserName.text = arrLeader[indexPath.row]
+            if isSearchLeader {
+                if self.arrLeaderSelected .contains(arrLeaderSearch[indexPath.row]) {
+                    cell.imgView.image = UIImage(named: "memberselect")
+                } else {
+                    cell.imgView.image = UIImage(named: "circle_leader")
+                }
+                cell.lblUserName.text = arrLeaderSearch[indexPath.row]
+            }else{
+                
+                if self.arrLeaderSelected .contains(arrLeader[indexPath.row]) {
+                    cell.imgView.image = UIImage(named: "memberselect")
+                } else {
+                    cell.imgView.image = UIImage(named: "circle_leader")
+                }
+                
+                cell.lblUserName.text = arrLeader[indexPath.row]
+            }
+            
             return cell
         }
         else
@@ -214,6 +310,16 @@ extension CreateGroupVC : UICollectionViewDataSource
     }
 }
 
+extension UIImage {
+    
+    func isEqualToImage(image: UIImage) -> Bool {
+        let data1: NSData = UIImagePNGRepresentation(self)! as NSData
+        let data2: NSData = UIImagePNGRepresentation(image)! as NSData
+        return data1.isEqual(data2)
+    }
+    
+}
+
 // MARK:- UICollectionViewDelegate Methods
 extension CreateGroupVC : UICollectionViewDelegate
 {
@@ -221,6 +327,39 @@ extension CreateGroupVC : UICollectionViewDelegate
     {
         if collectionView  == clviewLeader
         {
+//            memberselect
+            let cell = collectionView .cellForItem(at: indexPath) as! LeaderCell
+            
+            
+            if (cell.imgView.image?.isEqualToImage(image: UIImage(named: "memberselect")!))! {
+                cell.imgView.image = UIImage(named: "circle_leader")
+                
+                if isSearchLeader {
+                    self.arrLeaderSelected .append(arrLeaderSearch[indexPath.row])
+                } else{
+                    self.arrLeaderSelected .append(arrLeader[indexPath.row])
+                }
+                
+                
+                
+            }else{
+                if !self.arrLeaderSelected .contains(arrLeader[indexPath.row]) {
+                    
+                    if isSearchLeader {
+                        self.arrLeaderSelected .append(arrLeaderSearch[indexPath.row])
+                    } else{
+                        self.arrLeaderSelected .append(arrLeader[indexPath.row])
+                    }
+                    
+                } else {
+                    if let indexsel = self.arrLeader .index(of: arrLeader[indexPath.row]) {
+                        self.arrLeaderSelected .remove(at: indexsel)
+                    }
+                }
+                
+
+                cell.imgView.image = UIImage(named: "memberselect")
+            }
         }
         else
         {
@@ -228,6 +367,10 @@ extension CreateGroupVC : UICollectionViewDelegate
             {
                 self.leaderView.isHidden = false
                 self.coverView.isHidden = true
+                self.isSearchLeader = false
+                self.txtFindLeader.text = nil
+                arrLeaderSearch .removeAll()
+                arrLeaderSelected .removeAll()
                 clviewLeader .reloadData()
             }
         }
@@ -268,12 +411,14 @@ extension CreateGroupVC : UITextFieldDelegate
             
             if arr.count > 0
             {
+                isSearchLeader = true
                 self.arrLeaderSearch.removeAll()
                 self.arrLeaderSearch = arr as! [String]
             }
             else
             {
-                self.arrLeaderSearch = self.arrLeader
+                isSearchLeader = false
+//                self.arrLeaderSearch = self.arrLeader
             }
             
             clviewLeader .reloadData()
@@ -292,7 +437,7 @@ extension CreateGroupVC : UIImagePickerControllerDelegate,UINavigationController
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
     {
-        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage
         self.imageViewCoverPhoto.image = chosenImage
         self.imageViewCoverPhoto.contentMode = .scaleAspectFit
         dismiss(animated: true, completion: nil)
@@ -307,5 +452,12 @@ class LeaderCell: UICollectionViewCell
     override func awakeFromNib()
     {
         super.awakeFromNib()
+    }
+}
+
+extension String {
+    func toJSON()-> Any? {
+        guard let data = self.data(using: .utf8, allowLossyConversion: false) else { return nil }
+        return try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
     }
 }

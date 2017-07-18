@@ -10,10 +10,12 @@ import UIKit
 
 class GroupVC: UIViewController {
 
+    @IBOutlet weak var lblChannel: UILabel!
     
     @IBOutlet weak var const_topview_height: NSLayoutConstraint!
     var isFromLeadingGrp = false
     
+     var channelArr = NSArray()
     
     @IBOutlet var menuButton: UIButton!
     @IBOutlet weak var txtAnythingTosay: UITextField!
@@ -29,6 +31,7 @@ class GroupVC: UIViewController {
     
     @IBAction func channelBtnTap(_ sender: Any) {
         let groupEventObj  = GroupEventDetailVC .initViewController()
+        groupEventObj.channelArr = self.channelArr
         self.navigationController?.pushViewController(groupEventObj, animated: false)
     }
    
@@ -59,6 +62,57 @@ class GroupVC: UIViewController {
         }
     }
     
+    func callGellChannelWS() {
+        
+        
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        let userid = final .value(forKey: "userId")
+        
+        let url = kServerURL + kGetAllChannel
+        
+        showProgress(inView: self.view)
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        
+        request(url, method: .get, parameters:nil, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp.firstObject as! NSDictionary
+                        let data  = temp .value(forKey: "data") as! NSArray
+                        
+                        if data.count > 0 {
+                            self.channelArr = data
+                            self.lblChannel.text = (self.channelArr.firstObject as! NSDictionary) .value(forKey: "channelName") as? String
+                        }
+                        else
+                        {
+                            //App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -80,7 +134,8 @@ class GroupVC: UIViewController {
         self.profileCollectonview.dataSource = self
         self.profileCollectonview.delegate = self
         self.profileCollectonview.reloadData()
-
+        self.callGellChannelWS()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

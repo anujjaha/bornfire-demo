@@ -13,6 +13,8 @@ class GroupEventDetailVC: UIViewController {
     @IBOutlet weak var profileCollectonview: UICollectionView!
     @IBOutlet weak var channelTblView: UITableView!
     @IBOutlet weak var tableEventDesc: UITableView!
+    var channelArr = NSArray()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableEventDesc .dataSource = self
@@ -28,6 +30,7 @@ class GroupEventDetailVC: UIViewController {
         self.profileCollectonview.delegate = self
         self.profileCollectonview.dataSource = self
         
+//        self.callGellChannelWS()
         // Do any additional setup after loading the view.
     }
 
@@ -59,6 +62,9 @@ class GroupEventDetailVC: UIViewController {
     static func initViewController() -> GroupEventDetailVC {
         return UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "GroupEventDetailView") as! GroupEventDetailVC
     }
+    
+    
+    
 
 }
 
@@ -85,7 +91,7 @@ extension GroupEventDetailVC : UITableViewDataSource , UITableViewDelegate{
         
         if tableView == self.channelTblView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! GroupEventDetailCell
-            cell.channelName.text = "Channel"
+            cell.channelName.text = (self.channelArr .object(at: indexPath.row) as! NSDictionary) .value(forKey: "channelName") as? String
             
             if indexPath.row == 0{
                 cell.downiconImage.isHidden = false
@@ -119,7 +125,7 @@ extension GroupEventDetailVC : UITableViewDataSource , UITableViewDelegate{
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 5
+        return self.channelArr.count
     }
     
     

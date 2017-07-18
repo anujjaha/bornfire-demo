@@ -59,9 +59,13 @@ let kSignUP = "signup"
 let kLogin = "login"
 let kUserprofile = "user-profile-with-interest/"
 let kCampus = "campus"
+let kCreateGroup = "groups/create"
 let kInterest  = "interests"
 let kEvents  = "events"
 let kAddInterest = "user-interest/add-interest"
+let kGetAllChannel = "get-channels"
+
+let kCreateNewChannel = "create-new-channel"
 
 //var CurrentUser : UserModel = UserModel()
 

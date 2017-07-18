@@ -199,7 +199,9 @@ class SettingVC: UIViewController {
     }
     
     @IBAction func btnPlusTap(_ sender: Any) {
-        self.adEventControl()
+//        self.adEventControl()
+        self.callAddChannelWs()
+        
     }
     
     func adEventControl()  {
@@ -439,6 +441,62 @@ class SettingVC: UIViewController {
         }
     }
 
+    func callAddChannelWs() {
+        
+        
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        let userid = final .value(forKey: "userId")
+        let campuscode = UserDefaults.standard.value(forKey: kkeyCampusCode)
+        
+        
+        let url = kServerURL + kCreateNewChannel
+        showProgress(inView: self.view)
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        
+//        arrChannelList
+        let param = ["name":"test create","user_id":userid as! String,"campus_id":campuscode as! String]
+        let param1 = [["name":"test create1","user_id":userid as! String,"campus_id":campuscode as! String],["name":"test create1","user_id":userid as! String,"campus_id":campuscode as! String]]
+        
+        request(url, method: .get, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp.firstObject as! NSDictionary
+                        let data  = temp .value(forKey: "data") as! NSArray
+                        
+                        if data.count > 0 {
+//                            self.channelArr = data
+//                            self.lblChannel.text = (self.channelArr.firstObject as! NSDictionary) .value(forKey: "channelName") as? String
+                        }
+                        else
+                        {
+                            //App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+        
+    }
+    
     /*
     // MARK: - Navigation
 
