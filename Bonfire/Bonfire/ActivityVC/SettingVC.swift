@@ -199,9 +199,7 @@ class SettingVC: UIViewController {
     }
     
     @IBAction func btnPlusTap(_ sender: Any) {
-//        self.adEventControl()
-        self.callAddChannelWs()
-        
+        self.adEventControl()        
     }
     
     func adEventControl()  {
@@ -373,10 +371,14 @@ class SettingVC: UIViewController {
         let alertController = UIAlertController(title: "New Channel", message: "Please enter name:", preferredStyle: .alert)
         
         let confirmAction = UIAlertAction(title: "Add", style: .default) { (_) in
-            if let field = alertController.textFields![0] as? UITextField {
+         
+            if let field = alertController.textFields?.first {
                 // store your data
               self.arrChannelList.append(field.text!)
-                self.clvChannelList .reloadData()
+            self.callAddChannelWs(name: field.text!)
+                
+            self.clvChannelList .reloadData()
+                
             } else {
                 // user did not fill field
             }
@@ -441,9 +443,10 @@ class SettingVC: UIViewController {
         }
     }
 
-    func callAddChannelWs() {
+    func callAddChannelWs(name:String) {
         
-        
+        showProgress(inView: self.view)
+
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         let userid = final .value(forKey: "userId")
@@ -451,13 +454,17 @@ class SettingVC: UIViewController {
         
         
         let url = kServerURL + kCreateNewChannel
-        showProgress(inView: self.view)
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
         
 //        arrChannelList
-        let param = ["name":"test create","user_id":userid as! String,"campus_id":campuscode as! String]
-        let param1 = [["name":"test create1","user_id":userid as! String,"campus_id":campuscode as! String],["name":"test create1","user_id":userid as! String,"campus_id":campuscode as! String]]
+        
+        let param = ["name":name,"user_id":String(describing: userid!),"campus_id":String(describing: campuscode)]
+        
+//        request(url, method: .get, parameters:param, headers: headers).responseString { (response) in
+//        print(response)
+//        }
+        
         
         request(url, method: .get, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
             
@@ -477,8 +484,7 @@ class SettingVC: UIViewController {
                         let data  = temp .value(forKey: "data") as! NSArray
                         
                         if data.count > 0 {
-//                            self.channelArr = data
-//                            self.lblChannel.text = (self.channelArr.firstObject as! NSDictionary) .value(forKey: "channelName") as? String
+                            hideProgress()
                         }
                         else
                         {

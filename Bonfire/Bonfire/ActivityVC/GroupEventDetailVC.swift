@@ -38,7 +38,8 @@ class GroupEventDetailVC: UIViewController {
             }
     
     @IBAction func backTap(_ sender: Any) {
-        _ = self.navigationController?.popViewController(animated: false)
+//        _ = self.navigationController?.popViewController(animated: false)
+        _ = self.navigationController?.popToRootViewController(animated: true)
         
     }
     @IBAction func buttonLeaveGrp(_ sender: Any) {
@@ -83,7 +84,7 @@ extension GroupEventDetailVC : UITableViewDataSource , UITableViewDelegate{
             
             let dict = [ "isShowHeader" : isShowHeader]
             let notificationName = Notification.Name("updateTopHeader")
-            NotificationCenter.default.post(name: notificationName, object: dict)
+           // NotificationCenter.default.post(name: notificationName, object: dict)
             _ = self.navigationController?.popViewController(animated: false)
         }
     }

@@ -155,10 +155,10 @@ class GroupVC: UIViewController {
         
         if self.isFromLeadingGrp {
             self.menuButton.isHidden = true
-            self.dropDownIcon.isHidden = false
+            self.dropDownIcon.isHidden = true
         } else {
             self.menuButton.isHidden = false
-            self.dropDownIcon.isHidden = true
+            self.dropDownIcon.isHidden = false
             
         }
         self.navigationItem.hidesBackButton = true

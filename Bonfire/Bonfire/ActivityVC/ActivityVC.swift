@@ -52,7 +52,10 @@ class ActivityVC: UIViewController {
         
         self.navigationItem.rightBarButtonItems = [barButton,space]
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

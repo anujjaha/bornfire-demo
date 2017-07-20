@@ -137,6 +137,17 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
         self.openActionsheet()
     }
     
+    @IBAction func logoutTap(_ sender: Any) {
+        
+        let appdelegate = UIApplication.shared.delegate as! AppDelegate
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        let nav = UINavigationController(rootViewController: homeViewController)
+        nav.isNavigationBarHidden = true
+        appdelegate.window!.rootViewController = nav
+        
+        
+    }
     // MARK: - API call
     func callProfileAPI() {
         
