@@ -148,6 +148,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
   
     @IBAction func buttonUpArrowTap(_ sender: Any) {
+        
         self.txtAnythingTosay .resignFirstResponder()
         self.setTabbar()
         
@@ -259,8 +260,11 @@ extension MessageVC : UITextFieldDelegate
         
         self.const_TxtAnything_leading.constant = 10
         
-        arrMessages .add(textField.text)
-        self.tblMessages .reloadData()
+        if (textField.text?.characters.count)! > 0 {
+            arrMessages .add(textField.text! as String)
+            self.tblMessages .reloadData()
+        }
+        
         
         self.setTabbar()
     }
