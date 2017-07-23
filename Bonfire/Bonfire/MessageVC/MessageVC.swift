@@ -10,6 +10,8 @@ import UIKit
 
 class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
 {
+    @IBOutlet weak var const_collecview_top: NSLayoutConstraint!
+    @IBOutlet weak var const_tbl_top: NSLayoutConstraint!
     @IBOutlet weak var clvwMessage: UICollectionView!
     @IBOutlet weak var tblMessages: UITableView!
 
@@ -20,6 +22,9 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     @IBOutlet var btnG: UIButton!
     var arrMessages = NSMutableArray()
+    var currentOffset = CGFloat()
+    var selectedGrpForMessage = String()
+    var arrInterestForMessage = NSArray()
     
     @IBOutlet var btnBackBtn: UIButton!
     
@@ -68,11 +73,13 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         self.navigationItem.rightBarButtonItems = [barButton,space]
         
+        self.setTabbar()
+        tblMessages.reloadData()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         
-        self.setTabbar()
-        tblMessages.reloadData()
+        
         
     }
     
@@ -82,11 +89,13 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func selectedInterestForMessage(notification:Notification){
         let str =  notification.object
+        arrInterestForMessage = NSArray(array: str as! NSArray)
         print(str!)
     }
     
     func selectedGrpForMessage(notification:Notification){
         let str =  notification.object
+        selectedGrpForMessage = str as! String
         print(str!)
     }
     
@@ -149,8 +158,9 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
   
     @IBAction func buttonUpArrowTap(_ sender: Any) {
         
+        
         self.txtAnythingTosay .resignFirstResponder()
-        self.setTabbar()
+        
         
     }
     
@@ -162,7 +172,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         
       
     }
-     func calendarBtnTap(_ sender: Any) {
+     func calendarBtnTap(_ sender: Any)  {
        let datepicker =  DatePickerViewController .initViewController()
         self.navigationController?.navigationBar.isTranslucent  = false
         self.navigationController?.pushViewController(datepicker, animated: true)
@@ -246,6 +256,44 @@ extension MessageVC : UICollectionViewDelegate
         
     }
 }
+
+extension MessageVC : UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == tblMessages {
+            
+            if scrollView.panGestureRecognizer .translation(in: scrollView.superview).y < 0{
+                print("up")
+                let scrollPos: CGFloat = clvwMessage.frame.origin.y
+                
+                if scrollPos > 0 {
+
+                    print(scrollPos)
+                    UIView .animate(withDuration: 0.25, animations: { 
+                        self.const_collecview_top.constant -= 50
+                        self.const_tbl_top.constant -= 50
+                    })
+                    
+                }
+                
+            } else {
+                
+                let scrollPos: CGFloat = clvwMessage.frame.origin.y
+                if scrollPos < 0 {
+                    
+                    self.const_collecview_top.constant += 100
+                    self.const_tbl_top.constant += 100
+                    print("down")
+                }
+            }
+        }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
+    }
+}
+
 extension MessageVC : UITextFieldDelegate
 {
 
@@ -261,8 +309,18 @@ extension MessageVC : UITextFieldDelegate
         self.const_TxtAnything_leading.constant = 10
         
         if (textField.text?.characters.count)! > 0 {
-            arrMessages .add(textField.text! as String)
-            self.tblMessages .reloadData()
+            
+            if selectedGrpForMessage.characters.count > 0 &&  arrInterestForMessage.count > 0 {
+                arrMessages .add(textField.text! as String)
+                self.tblMessages .reloadData()
+                self.setTabbar()
+                
+            } else {
+                
+                App_showAlert(withMessage: "Please select all details", inView: self)
+            }
+        } else {
+                //App_showAlert(withMessage: "Please select all details", inView: self)
         }
         
         
@@ -292,8 +350,12 @@ class MessageCell: UITableViewCell
 {
     override func awakeFromNib() {
         self .layoutIfNeeded()
+        
+        self.imgUser.layer.borderWidth = 1
         self.imgUser.layer.masksToBounds = false
+        self.imgUser.layer.borderColor = UIColor.lightGray.cgColor
         self.imgUser.layer.cornerRadius = 21
+        
         self.imgUser.clipsToBounds = true
         self .layoutIfNeeded()
     }
@@ -308,10 +370,17 @@ class MessageCell: UITableViewCell
 class InviteCell: UITableViewCell
 {
     override func awakeFromNib() {
+        
         self .layoutIfNeeded()
+        self .layoutSubviews()
+        
+        self.imgUser.layer.borderWidth = 1
         self.imgUser.layer.masksToBounds = false
-        self.imgUser.layer.cornerRadius = 21.0
+        self.imgUser.layer.borderColor = UIColor.lightGray.cgColor
+        self.imgUser.layer.cornerRadius = 21
         self.imgUser.clipsToBounds = true
+        
+        self .layoutSubviews()
         self .layoutIfNeeded()
     }
     

@@ -42,6 +42,9 @@ class SettingVC: UIViewController {
     var textFieldTime = UITextField()
     let textview = UITextView()
     let viewtxt = UIView()
+
+    var arrLeaderSearch = [String]()
+    var arrLeaderSelected = [String]()
     
     var dictEventData = NSMutableDictionary()
     
@@ -58,7 +61,8 @@ class SettingVC: UIViewController {
     var arrMember = [String]()
     
     var arrMemberSearch = [String]()
-    var arrLeaderSearch = [String]()
+    var arrMemberSelected = [String]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -374,7 +378,6 @@ class SettingVC: UIViewController {
          
             if let field = alertController.textFields?.first {
                 // store your data
-              self.arrChannelList.append(field.text!)
             self.callAddChannelWs(name: field.text!)
                 
             self.clvChannelList .reloadData()
@@ -459,14 +462,14 @@ class SettingVC: UIViewController {
         
 //        arrChannelList
         
-        let param = ["name":name,"user_id":String(describing: userid!),"campus_id":String(describing: campuscode)]
+        let param = ["name":name,"user_id":userid!,"campus_id":campuscode!]
         
 //        request(url, method: .get, parameters:param, headers: headers).responseString { (response) in
 //        print(response)
 //        }
         
         
-        request(url, method: .get, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+        request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
             
             print(response.result.debugDescription)
             
@@ -481,14 +484,18 @@ class SettingVC: UIViewController {
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
-                        let data  = temp .value(forKey: "data") as! NSArray
+                       // let data  = temp .value(forKey: "data") as! NSArray
                         
-                        if data.count > 0 {
+                        if temp.count > 0 {
                             hideProgress()
+                            self.arrChannelList.append(name)
+                            self.clvChannelList .reloadData()
+                            App_showAlert(withMessage: (temp .value(forKey: "message") as? String)!, inView: self)
                         }
                         else
                         {
-                            //App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
+                            hideProgress()
+                            
                         }
                     }
                 }
@@ -675,6 +682,81 @@ extension SettingVC : UITextViewDelegate {
     
 }
 extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if collectionView == clvMember {
+
+            //            memberselect
+            let cell = collectionView .cellForItem(at: indexPath) as! MemberCell
+            
+            
+            if (cell.imgViewMember.image == nil) {
+                let img = UIImage(named: "memberselect")!
+                cell.imgViewMember.image = img
+                
+                if isSearchMember {
+                    self.arrMemberSelected .append(arrMemberSearch[indexPath.row])
+                } else{
+                    self.arrMemberSelected .append(arrLeader[indexPath.row])
+                }
+                
+                
+                
+            }else{
+                if !self.arrMemberSelected .contains(arrMember[indexPath.row]) {
+                    
+                    if isSearchMember {
+                        self.arrMemberSelected .append(arrMemberSearch[indexPath.row])
+                    } else{
+                        self.arrMemberSelected .append(arrMember[indexPath.row])
+                    }
+                    
+                } else {
+                    if let indexsel = self.arrMember .index(of: arrMember[indexPath.row]) {
+                        self.arrMemberSelected .remove(at: indexsel)
+                        cell.imgViewMember.image = nil
+                    }
+                }
+
+            }
+        } else{
+                //            memberselect
+                let cell = collectionView .cellForItem(at: indexPath) as! MemberCell
+                
+                
+                if (cell.imgViewLeader.image == nil) {
+                    let img = UIImage(named: "memberselect")!
+                    cell.imgViewLeader.image = img
+                    
+                    if isSearchLeader {
+                        self.arrLeaderSelected .append(arrLeaderSearch[indexPath.row])
+                    } else{
+                        self.arrLeaderSelected .append(arrLeader[indexPath.row])
+                    }
+                    
+                }else{
+                    if !self.arrLeaderSelected .contains(arrLeader[indexPath.row]) {
+                        
+                        if isSearchLeader {
+                            self.arrLeaderSelected .append(arrLeaderSearch[indexPath.row])
+                        } else{
+                            self.arrLeaderSelected .append(arrLeader[indexPath.row])
+                        }
+                        
+                    } else {
+                        if let indexsel = self.arrLeader .index(of: arrLeader[indexPath.row]) {
+                            self.arrLeaderSelected .remove(at: indexsel)
+                            cell.imgViewLeader.image = nil
+                        }
+                    }
+                    
+                }
+            }
+        
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
         if collectionView == clvChannelList {
@@ -743,13 +825,32 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             return cell
         }
         else if collectionView == clvMember {
+            
+            
+            
             let identifier = "memberCell"
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! MemberCell
             if isSearchMember {
                 cell.labelMemberName.text = self.arrMemberSearch[indexPath.row]
+                
+                if self.arrMemberSelected .contains(arrMemberSearch[indexPath.row]) {
+                    cell.imgViewMember.image = UIImage(named: "memberselect")
+                } else {
+                    cell.imgViewMember.image = nil
+                }
             } else {
                 cell.labelMemberName.text = self.arrMember[indexPath.row]
+                
+                if self.arrMemberSelected .contains(arrMember[indexPath.row]) {
+                    cell.imgViewMember.image = nil
+                } else {
+//                    cell.imgViewMember.image = UIImage(named: "circle_leader")
+                }
+                
             }
+            
+    
+            
             
             cell.layoutIfNeeded()
             cell.imgViewMember.backgroundColor = UIColor .gray
@@ -763,10 +864,24 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! MemberCell
             
             if isSearchLeader {
-                cell.labelLeaderName.text =  self.arrLeaderSearch[indexPath.row]
+                cell.labelLeaderName.text = self.arrLeaderSearch[indexPath.row]
+                
+                if self.arrLeaderSelected .contains(arrLeaderSearch[indexPath.row]) {
+                    cell.imgViewLeader.image = UIImage(named: "memberselect")
+                } else {
+                    cell.imgViewLeader.image = nil
+                }
             } else {
                 cell.labelLeaderName.text = self.arrLeader[indexPath.row]
+                
+                if self.arrLeaderSelected .contains(arrLeader[indexPath.row]) {
+                    cell.imgViewLeader.image = nil
+                } else {
+                    //                    cell.imgViewMember.image = UIImage(named: "circle_leader")
+                }
+                
             }
+
             
             cell.layoutIfNeeded()
             cell.imgViewLeader.backgroundColor = UIColor .gray

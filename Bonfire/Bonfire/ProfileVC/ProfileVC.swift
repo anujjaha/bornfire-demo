@@ -10,6 +10,10 @@ import UIKit
 
 class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
 
+    @IBOutlet weak var clviewGrp: UICollectionView!
+    @IBOutlet weak var clviewInterest: UICollectionView!
+    
+    
     let tagViewInterest_data = NSMutableArray()
     @IBOutlet weak var tagViewInterest: HTagView!
     @IBOutlet weak var tagViewGroups: HTagView!
@@ -23,40 +27,56 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
         // Do any additional setup after loading the view.
         picker?.delegate=self
 
-        tagViewInterest.delegate = self
-        tagViewInterest.dataSource = self
-        tagViewInterest.multiselect = false
-        tagViewInterest.marg = 0
-        tagViewInterest.btwTags = 10
-        tagViewInterest.btwLines = 8
-        tagViewInterest.fontSize = 15
-        tagViewInterest.tagMainBackColor = UIColor(red: 204.0/255.0, green: 228.0/255.0, blue: 254.0/255.0, alpha: 1)
-        tagViewInterest.tagMainTextColor = UIColor.black
-        tagViewInterest.tagSecondBackColor = UIColor(red: 204.0/255.0, green: 228.0/255.0, blue: 254.0/255.0, alpha: 1)
-        tagViewInterest.tagSecondTextColor = UIColor.black
         
-        tagViewGroups.delegate = self
-        tagViewGroups.dataSource = self
-        tagViewGroups.multiselect = false
-        tagViewGroups.marg = 0
-        tagViewGroups.btwTags = 10
-        tagViewGroups.btwLines = 8
-        tagViewGroups.fontSize = 15
-        tagViewGroups.tagMainBackColor = UIColor(red: 234.0/255.0, green: 255.0/255.0, blue: 196.0/255.0, alpha: 1)
-        tagViewGroups.tagMainTextColor = UIColor.black
-        tagViewGroups.tagSecondBackColor =  UIColor(red: 234.0/255.0, green: 255.0/255.0, blue: 196.0/255.0, alpha: 1)
-        tagViewGroups.tagSecondTextColor = UIColor.black
-                
+        clviewGrp.dataSource = self
+        clviewGrp.delegate = self
+        
+        
+        clviewInterest.dataSource = self
+        clviewInterest.delegate = self
+        
+        
+//        tagViewInterest.delegate = self
+//        tagViewInterest.dataSource = self
+//        tagViewInterest.multiselect = false
+//        tagViewInterest.marg = 0
+//        tagViewInterest.btwTags = 10
+//        tagViewInterest.btwLines = 8
+//        tagViewInterest.fontSize = 15
+//        tagViewInterest.tagMainBackColor = UIColor(red: 204.0/255.0, green: 228.0/255.0, blue: 254.0/255.0, alpha: 1)
+//        tagViewInterest.tagMainTextColor = UIColor.black
+//        tagViewInterest.tagSecondBackColor = UIColor(red: 204.0/255.0, green: 228.0/255.0, blue: 254.0/255.0, alpha: 1)
+//        tagViewInterest.tagSecondTextColor = UIColor.black
+//        
+//        tagViewGroups.delegate = self
+//        tagViewGroups.dataSource = self
+//        tagViewGroups.multiselect = false
+//        tagViewGroups.marg = 0
+//        tagViewGroups.btwTags = 10
+//        tagViewGroups.btwLines = 8
+//        tagViewGroups.fontSize = 15
+//        tagViewGroups.tagMainBackColor = UIColor(red: 234.0/255.0, green: 255.0/255.0, blue: 196.0/255.0, alpha: 1)
+//        tagViewGroups.tagMainTextColor = UIColor.black
+//        tagViewGroups.tagSecondBackColor =  UIColor(red: 234.0/255.0, green: 255.0/255.0, blue: 196.0/255.0, alpha: 1)
+//        tagViewGroups.tagSecondTextColor = UIColor.black
+//                
+//
+//        tagViewInterest.reloadData()
+//        tagViewGroups.reloadData()
+        
+        self .profileImgSetup()
+        //self.callProfileAPI()
 
-        tagViewInterest.reloadData()
-        tagViewGroups.reloadData()
-        
+    }
+
+    func profileImgSetup()
+    {
         let button = UIButton()
         button.frame = CGRect(x: 0, y: 0, width: 22, height: 35)
         let img = UIImage(named: "Daybar")
         button.setImage(img, for: .normal)
         button.setImage(img, for: .highlighted)
-
+        
         
         button.addTarget(self, action: #selector(ProfileVC.calendarBtnTap(_:)), for: .touchUpInside)
         
@@ -76,11 +96,8 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
         profileImgview.clipsToBounds = true
         //profileImgview.layer.cornerRadius = 50
         //profileImgview.layer.masksToBounds = true
-        
-        self.callProfileAPI()
 
     }
-
     override func viewWillAppear(_ animated: Bool) {
     }
     override func didReceiveMemoryWarning()
@@ -230,11 +247,11 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
 //            tagViewInterest_data .add(img)
 
         }
-        tagViewInterest .reloadData()
+       // tagViewInterest .reloadData()
     }
     // MARK: - Data
     
-    var tagViewGroups_data = ["Group","Group","Group"]
+    var tagViewGroups_data = ["Group"]
     
     // MARK: - HTagViewDataSource
     func numberOfTags(_ tagView: HTagView) -> Int {
@@ -302,6 +319,78 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
     */
 
 }
+
+extension ProfileVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        if collectionView == self.clviewGrp {
+            return 10
+        } else{
+            return 2
+        }
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        if collectionView == self.clviewGrp {
+            let identifier = "grpcell"
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! interestAndGrpCell
+            
+            cell.btnGrp .setTitle("test", for: .normal)
+            
+            return cell
+        } else {
+            let identifier = "intCell"
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! profileInterestCell
+            
+            cell.btnIntereset .setTitle("testIntereset", for: .normal)
+            
+            if indexPath.row == 1 {
+                
+//                cell.btnIntereset .setTitle("", for: .normal)
+//                cell.btnIntereset .setImage(UIImage(named: "addinterest"), for: .normal)
+            }
+            return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 80, height: 28.0)
+
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 5.0
+    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+//    }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        let flowLayout = (collectionViewLayout as! UICollectionViewFlowLayout)
+        let cellSpacing = flowLayout.minimumInteritemSpacing
+        let cellWidth = flowLayout.itemSize.width
+        let cellCount = CGFloat(collectionView.numberOfItems(inSection: section))
+        
+        let collectionViewWidth = collectionView.bounds.size.width
+        
+        let totalCellWidth = cellCount * cellWidth
+        let totalCellSpacing = cellSpacing * (cellCount - 1)
+        
+        let totalCellsWidth = totalCellWidth + totalCellSpacing
+        
+        let edgeInsets = (collectionViewWidth - totalCellsWidth) / 2.0
+        
+        return edgeInsets > 0 ? UIEdgeInsetsMake(0, edgeInsets, 0, edgeInsets) : UIEdgeInsetsMake(0, cellSpacing, 0, cellSpacing)
+    }
+}
+
+
 extension ProfileVC : UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -316,4 +405,16 @@ extension ProfileVC : UIImagePickerControllerDelegate,UINavigationControllerDele
         self.profileImgview.contentMode = .scaleToFill
         dismiss(animated: true, completion: nil)
     }
+}
+
+class interestAndGrpCell : UICollectionViewCell
+{
+    @IBOutlet weak var btnGrp: UIButton!
+    
+}
+
+class profileInterestCell : UICollectionViewCell
+{
+    @IBOutlet weak var btnIntereset: UIButton!
+    
 }

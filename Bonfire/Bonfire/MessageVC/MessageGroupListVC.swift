@@ -22,7 +22,7 @@ class MessageGroupListVC: UIViewController {
 
     @IBAction func btnBackTap(_ sender: Any) {
         
-        var grpname = self.msgArr[selectedIndex]
+        let grpname = self.msgArr[selectedIndex]
         NotificationCenter.default.post(name: Notification.Name(rawValue: "updateSelectedGroup"), object: grpname)
       _ =  self.navigationController?.popViewController(animated: true)
     }

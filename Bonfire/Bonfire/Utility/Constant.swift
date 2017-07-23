@@ -65,7 +65,11 @@ let kEvents  = "events"
 let kAddInterest = "user-interest/add-interest"
 let kGetAllChannel = "get-channels"
 
+let kGetAllFeed = "get-all-feeds"
+
 let kCreateNewChannel = "create-new-channel"
+let kCreateNewFeed = "create-new-feed"
+let kAddGrpMember = "add-member"
 
 //var CurrentUser : UserModel = UserModel()
 

@@ -64,6 +64,59 @@ class GroupVC: UIViewController {
         }
     }
     
+    @IBAction func plusBtnTap(_ sender: Any) {
+        self.callApiToCreateNewChannelFeed()
+    }
+    
+    
+    
+    func callApiToCreateNewChannelFeed() {
+        
+        
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        
+        let intid:[String] = ["1"]
+        
+        let param:[String:Any] = ["group_id" : "1","channel_id" : "1","description":"this is from appside","interests": intid]
+        
+        
+        let url = kServerURL + kCreateNewFeed
+        
+        showProgress(inView: self.view)
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        
+        request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value {
+                        
+                    }else {
+                        
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+        
+    }
+    
+    
+    
     func callGellChannelWS() {
         
         
