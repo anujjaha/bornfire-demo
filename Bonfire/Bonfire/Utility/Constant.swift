@@ -37,6 +37,8 @@ let kkeylat = "lat"
 let kkeylon = "lon"
 let kkeyuser = "user"
 let kkeyLoginData = "LoginData"
+let kkeyAllCampusUser = "AllCampusUser"
+
 let kkeyisUserLogin = "UserLogin"
 let kkeyError = "error"
 let kkeyCampusCode = "CampusCode"
@@ -65,11 +67,16 @@ let kEvents  = "events"
 let kAddInterest = "user-interest/add-interest"
 let kGetAllChannel = "get-channels"
 
-let kGetAllFeed = "get-all-feeds"
+let kGetAppGroup = "groups"
+let kGetForYouFeed = "get-for-you-groups"
 
 let kCreateNewChannel = "create-new-channel"
 let kCreateNewFeed = "create-new-feed"
 let kAddGrpMember = "add-member"
+let kGetAllChannelFeed = "get-all-channel-feeds"
+let kGetMessagesFeed = "get-home-feeds"
+let kGetGrpEvents = "get-group-events"
+let kGetAllCampusUser = "campus-users"
 
 //var CurrentUser : UserModel = UserModel()
 

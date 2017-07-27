@@ -33,6 +33,8 @@ class SettingVC: UIViewController {
 
     var picker:UIImagePickerController?=UIImagePickerController()
     
+    var grpDetail = NSDictionary()
+    
     var search:String=""
     var  isSearchMember : Bool  = false
     var  isSearchLeader : Bool  = false
@@ -43,6 +45,7 @@ class SettingVC: UIViewController {
     let textview = UITextView()
     let viewtxt = UIView()
 
+    var arrallUser = NSArray()
     var arrLeaderSearch = [String]()
     var arrLeaderSelected = [String]()
     
@@ -73,9 +76,13 @@ class SettingVC: UIViewController {
 //        textview.tag = 401
 //        viewtxt.tag = 101
         
-        arrChannelList = ["channel"]
-        arrLeader = ["leader","lead","leader1"]
-        arrMember = ["member","user","test"]
+        arrChannelList = []
+        
+        var alluser = AppDelegate .shared.allCampusUser()
+        arrallUser = alluser .value(forKey: "name") as! NSArray
+        
+        arrLeader = ["leader","lead","leader1","leader","lead","leader1","leader","lead","leader1","leader","lead","leader1"]
+        arrMember = ["member","user","test","member","user","test","member","user","test","member","user","test"]
         
         self.leaderSearch .setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
         self.memberSearch .setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
@@ -99,6 +106,10 @@ class SettingVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
        
+        
+        self.txtGrpName.text = self.grpDetail .value(forKey: "groupName") as! String
+        
+        self.textViewGrpDescription.text = self.grpDetail .value(forKey: "groupDescription") as! String
         
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.isHidden = true
@@ -715,8 +726,8 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
                     }
                     
                 } else {
-                    if let indexsel = self.arrMember .index(of: arrMember[indexPath.row]) {
-                        self.arrMemberSelected .remove(at: indexsel)
+                    if  let indextoremove = self.arrMemberSelected .index(of: arrMember[indexPath.row]) {
+                        self.arrMemberSelected .remove(at: indextoremove)
                         cell.imgViewMember.image = nil
                     }
                 }
@@ -747,8 +758,9 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
                         }
                         
                     } else {
-                        if let indexsel = self.arrLeader .index(of: arrLeader[indexPath.row]) {
-                            self.arrLeaderSelected .remove(at: indexsel)
+                        
+                        if  let indextoremove = self.arrLeaderSelected .index(of: arrLeader[indexPath.row]) {
+                            self.arrLeaderSelected .remove(at: indextoremove)
                             cell.imgViewLeader.image = nil
                         }
                     }
@@ -768,7 +780,8 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             if self.isSearchMember {
                 return self.arrMemberSearch.count
             }
-            return self.arrMember.count
+//            return self.arrMember.count
+               return 10
             
         } else if collectionView == clvLeader {
             
@@ -839,9 +852,9 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
                     cell.imgViewMember.image = nil
                 }
             } else {
-                cell.labelMemberName.text = self.arrMember[indexPath.row]
+                cell.labelMemberName.text = self.arrallUser[indexPath.row] as? String
                 
-                if self.arrMemberSelected .contains(arrMember[indexPath.row]) {
+                if self.arrMemberSelected .contains((self.arrallUser[indexPath.row] as? String)!) {
                     cell.imgViewMember.image = nil
                 } else {
 //                    cell.imgViewMember.image = UIImage(named: "circle_leader")

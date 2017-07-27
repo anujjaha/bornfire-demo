@@ -13,7 +13,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 {
     var window: UIWindow?
     var arrLoginData = NSDictionary()
-    
+    var arrInterestData = NSArray()
+   static let shared = UIApplication.shared.delegate as! AppDelegate
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
     {
         // Override point for customization after application launch.
@@ -22,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         IQKeyboardManager.sharedManager().shouldHidePreviousNext = false
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
         self.callGetAllCampusAPI()
+        self.getAllcampusUser()
         
         if (userDefaults.bool(forKey: kkeyisUserLogin))
         {
@@ -126,5 +129,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate
          }*/
         
     }
-}
 
+
+
+    func allCampusUser() -> NSArray {
+        let dic = UserDefaults.standard.value(forKey: kkeyAllCampusUser)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSArray
+        return final
+    }
+
+    func getAllcampusUser() {
+        
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        
+        let url = kServerURL + kGetAllCampusUser
+    
+            
+            request(url, method: .get, parameters:nil, headers: headers).responseJSON { (response:DataResponse<Any>) in
+                
+                print(response.result.debugDescription)
+                
+                hideProgress()
+                switch(response.result)
+                {
+                case .success(_):
+                    if response.result.value != nil {
+                        print(response.result.value!)
+                        
+                        if let json = response.result.value {
+                            let dictemp = json as! NSArray
+                            print("dictemp :> \(dictemp)")
+                            let temp  = dictemp.firstObject as! NSDictionary
+                            let data  = temp .value(forKey: "data") as! NSArray
+                            
+                            if data.count > 0 {
+                                let data = NSKeyedArchiver.archivedData(withRootObject:data)
+                                UserDefaults.standard.set(data, forKey: kkeyAllCampusUser)
+                                
+                            }
+                            else
+                            {
+                                //                            App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
+                            }
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    print(response.result.error!)
+                    break
+                }
+            }
+            
+        }
+        
+}

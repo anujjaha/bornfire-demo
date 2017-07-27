@@ -12,8 +12,10 @@ class AddInterestToMessageVC: UIViewController {
 
    var arrInterestAll = NSArray()
    var arrInterestSelected = NSMutableArray()
+    var arrInterestSelectedId = NSMutableArray()
    var arrInterestSearching = NSArray()
     var arrTemp = NSArray()
+    var arrInterestWithId = NSArray()
     
     var isSearch : Bool = false
     var isFromGrp : Bool = false
@@ -29,8 +31,10 @@ class AddInterestToMessageVC: UIViewController {
         self.tabelview.delegate = self
         self.searchbar.delegate = self
         // Do any additional setup after loading the view.
+        arrInterestWithId  = userDefaults .value(forKey: "allInterest") as! NSArray
+        arrInterestAll = arrInterestWithId.value(forKey: "name") as! NSArray
         
-        arrInterestAll = ["interest1", "test", "allow", "interest4","interest5","demo","interest7","new","file","interest10","interest11"]
+//        arrInterestAll = ["interest1", "test", "allow", "interest4","interest5","demo","interest7","new","file","interest10","interest11"]
         
         arrTemp = self.arrInterestAll
         
@@ -69,7 +73,7 @@ class AddInterestToMessageVC: UIViewController {
             }
 
         } else {
-            NotificationCenter .default.post(name: NSNotification.Name(rawValue: "selectedInterest"), object: self.arrInterestSelected, userInfo: nil)
+            NotificationCenter .default.post(name: NSNotification.Name(rawValue: "selectedInterest"), object: self.arrInterestSelectedId, userInfo: nil)
             _ =  self.navigationController?.popViewController(animated: true)
         }
        
@@ -171,10 +175,22 @@ extension AddInterestToMessageVC :UITableViewDataSource,UITableViewDelegate {
         if self.segment.selectedSegmentIndex == 0 {
             if !self.arrInterestSelected .contains(self.arrInterestAll[indexPath.row] as! String) {
                 self.arrInterestSelected.add(self.arrInterestAll[indexPath.row] as! String)
+                
+                let dict = self.arrInterestWithId .object(at: indexPath.row) as! NSDictionary
+        
+                self.arrInterestSelectedId .add(dict .value(forKey: "interestId"))
+                
+                
                 tableView.cellForRow(at: indexPath as IndexPath)?.accessoryType = .checkmark
                 
             } else{
                 self.arrInterestSelected .remove(self.arrInterestAll[indexPath.row] as! String)
+                
+                
+                let dict = self.arrInterestWithId .object(at: indexPath.row) as! NSDictionary
+                
+                self.arrInterestSelectedId .remove(dict .value(forKey: "interestId"))
+                
                 tableView.cellForRow(at: indexPath as IndexPath)?.accessoryType = .none
             }
             

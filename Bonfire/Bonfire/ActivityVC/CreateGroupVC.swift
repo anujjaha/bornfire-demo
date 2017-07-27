@@ -22,28 +22,34 @@ class CreateGroupVC: UIViewController {
     
     @IBOutlet weak var switchPrivate: UISwitch!
     @IBOutlet weak var txtGrpName: UITextField!
+    
     var search:String=""
     var arrLeaderSearch = [String]()
     var arrLeaderSelected = [String]()
-    var arrLeader = ["member","user","test"]
+    var arrLeader = ["member","user","test","member","user","test","member","user","test","member","user","test"]
     var  isSearchLeader : Bool  = false
-        
+    var arrAllCampusUser = NSArray()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
         picker?.delegate=self
         // Do any additional setup after loading the view.
+   
+        
+        self.btnAddCoverPhoto.layer.cornerRadius = 14.0
+        self.btnAddCoverPhoto.clipsToBounds = true
+        
+        self.txtFindLeader.delegate = self
+        let allusr =  AppDelegate .shared .allCampusUser()
+    
+        self.arrAllCampusUser =  allusr .value(forKey: "name") as! NSArray
         
         self.clvLeaderList.dataSource = self
         self.clvLeaderList.delegate = self
         
         self.clviewLeader.dataSource = self
         self.clviewLeader.delegate = self
-        
-        self.btnAddCoverPhoto.layer.cornerRadius = 14.0
-        self.btnAddCoverPhoto.clipsToBounds = true
-        
-        self.txtFindLeader.delegate = self
     }
 
     @IBOutlet weak var clviewLeader: UICollectionView!
@@ -116,7 +122,11 @@ class CreateGroupVC: UIViewController {
 //            viewController.bfromGroup = true
 //            self .navigationController?.pushViewController(viewController, animated: true)
 //        }
-        self .callCreateGroupAPI()
+        let viewController = AddInterestToMessageVC .initViewController()
+        viewController.isFromGrp = true
+        self .navigationController?.pushViewController(viewController, animated: true)
+        
+        //self .callCreateGroupAPI()
 
     }
     
@@ -259,7 +269,8 @@ extension CreateGroupVC : UICollectionViewDataSource
             if isSearchLeader {
                 return self.arrLeaderSearch.count
             }
-          return arrLeader.count
+//          return arrLeader.count
+            return 10
         }else {
             return 2
         }

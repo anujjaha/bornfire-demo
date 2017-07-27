@@ -328,7 +328,7 @@ extension ProfileVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         if collectionView == self.clviewGrp {
             return 10
         } else{
-            return 2
+            return 10
         }
         
     }

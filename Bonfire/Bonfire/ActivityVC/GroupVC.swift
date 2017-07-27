@@ -10,12 +10,17 @@ import UIKit
 
 class GroupVC: UIViewController {
 
+    @IBOutlet weak var blGrpMember: UILabel!
+    @IBOutlet weak var lblGrpName: UILabel!
     @IBOutlet weak var lblChannel: UILabel!
     
     @IBOutlet weak var const_topview_height: NSLayoutConstraint!
     var isFromLeadingGrp = false
+    var grpDetail = NSDictionary()
+    var grpMemeber = NSArray()
     
      var channelArr = NSArray()
+     var arrChannelFeed = NSArray()
     
     @IBOutlet weak var dropDownIcon: UIImageView!
     @IBOutlet var menuButton: UIButton!
@@ -49,19 +54,27 @@ class GroupVC: UIViewController {
     @IBAction func menuBtnTap(_ sender: Any) {
         
         let createGrpObj = SettingVC.initViewController()
+        createGrpObj.grpDetail = grpDetail
         self.navigationController?.pushViewController(createGrpObj, animated: true)
     }
     
     func updateHeader (notification : NSNotification) {
 
-      let dict =  notification .value(forKey: "object") as! NSDictionary
-      let isShow =   dict .value(forKey: "isShowHeader") as! Bool
+        let dict =  notification .value(forKey: "object") as! NSDictionary
+        let selectedChannel =   dict .value(forKey: "isShowHeader")
+        let selectedChannelID =   dict .value(forKey: "channelId") as! Int
         
-        if isShow {
-            self.const_topview_height.constant  = 130
-        } else {
-            self.const_topview_height.constant  = 0
-        }
+        
+        self.lblChannel.text = selectedChannel as? String
+
+        self .getAllChannelfeed(channelId: selectedChannelID)
+//      let isShow =   dict .value(forKey: "isShowHeader") as! Bool
+//        
+//        if isShow {
+//            self.const_topview_height.constant  = 130
+//        } else {
+//            self.const_topview_height.constant  = 0
+//        }
     }
     
     @IBAction func plusBtnTap(_ sender: Any) {
@@ -78,7 +91,8 @@ class GroupVC: UIViewController {
         
         let intid:[String] = ["1"]
         
-        let param:[String:Any] = ["group_id" : "1","channel_id" : "1","description":"this is from appside","interests": intid]
+        let grpId = self.grpDetail .value(forKey: "groupId") as! Int
+        let param:[String:Any] = ["is_campus_feed" : "0","group_id" : grpId ,"channel_id" : "1","description":"this is from appside","interests": intid]
         
         
         let url = kServerURL + kCreateNewFeed
@@ -100,7 +114,81 @@ class GroupVC: UIViewController {
                     
                     if let json = response.result.value {
                         
-                    }else {
+                    }
+                    else {
+                        
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+        
+    }
+    
+    
+    
+    func getAllChannelfeed(channelId:Int) {
+        
+        
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        
+        
+        let param:[String:Any] = ["channel_id" : channelId]
+        
+        
+        let url = kServerURL + kGetAllChannelFeed
+        
+        showProgress(inView: self.view)
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        
+        request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp.firstObject as! NSDictionary
+                        
+                        if (temp.value(forKey: "error") != nil) {
+                            
+                            let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
+                            
+                            App_showAlert(withMessage: msg as! String, inView: self)
+                            
+                        } else {
+                            let data  = temp .value(forKey: "data") as! NSArray
+                            
+                            if data.count > 0 {
+                                print(data)
+                                self.arrChannelFeed = data as NSArray
+                                
+                                self.tblviewListing.dataSource = self
+                                self.tblviewListing.delegate = self
+                                self.tblviewListing.reloadData()
+                            }
+                            else
+                            {
+                                //                            App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
+                            }
+                        }
+                        
+                    }
+                    else {
                         
                     }
                 }
@@ -170,6 +258,7 @@ class GroupVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.automaticallyAdjustsScrollViewInsets = false
         
         self.txtAnythingTosay.delegate = self
         self.txtAnythingTosay .setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
@@ -178,23 +267,30 @@ class GroupVC: UIViewController {
         self.tblviewListing.rowHeight = UITableViewAutomaticDimension
         self.tblviewListing.estimatedRowHeight = 88.0
         
-        self.tblviewListing.dataSource = self
-        self.tblviewListing.delegate = self
         
         // Do any additional setup after loading the view.
         
         self.tblviewListing.estimatedRowHeight = 80;
         self.tblviewListing.rowHeight = UITableViewAutomaticDimension;
         
-        self.profileCollectonview.dataSource = self
-        self.profileCollectonview.delegate = self
-        self.profileCollectonview.reloadData()
+        
         self.callGellChannelWS()
+        self.getAllChannelfeed(channelId: 1)
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.lblGrpName.text = self.grpDetail .value(forKey: "groupName") as?    String
+        
+         grpMemeber = self.grpDetail .value(forKey: "group_members") as! NSArray
+        self.blGrpMember.text = String(grpMemeber.count) + " members"
+        
+        self.profileCollectonview.dataSource = self
+        self.profileCollectonview.delegate = self
+        self.profileCollectonview.reloadData()
+        
         
         let notificationName = Notification.Name("updateTopHeader")
         //        // Stop listening notification
@@ -234,7 +330,7 @@ class GroupVC: UIViewController {
 extension GroupVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return 10
+        return grpMemeber.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -242,9 +338,12 @@ extension GroupVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollec
         let identifier = "profileCell"
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! profileCollectonviewCell
         
+        let dic = self.grpMemeber .object(at: indexPath.row) as! NSDictionary
+        
+        
+        cell.imgView .sd_setImage(with: URL(string:dic .value(forKey: "profile_picture") as! String), placeholderImage: nil)
         cell.imgView.layer.cornerRadius = 11.0;
         cell.imgView.layoutIfNeeded() //This is important line
-        //cell.imgView.layer.masksToBounds = true
         cell.imgView.clipsToBounds = true
         
         return cell
@@ -304,8 +403,8 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! GroupCell
         cell.imgView.backgroundColor = UIColor.gray
-        cell.lblDetail?.text = tableData[indexPath.row] as? String
-        cell.lblName.text = "Ryan"
+//        cell.lblDetail?.text = tableData[indexPath.row] as? String
+//        cell.lblName.text = "Ryan"
         
         if indexPath.row == 1 {
             cell.Const_LinkBtn_height.constant = 10
@@ -315,12 +414,23 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource {
             cell.btnLink.isHidden = true
         }
         
+        let dict = self.arrChannelFeed[indexPath.row] as! NSDictionary
+        
+        cell.lblDetail.text = dict .value(forKey: "description") as! String?
+        
+        let feeddict = dict  .value(forKey: "feedCreator") as? NSDictionary
+        cell.lblName.text = feeddict? .value(forKey: "name") as? String
+        
+        
+        let profileurl = feeddict? .value(forKey: "profile_picture") as? String
+        cell.imgView .sd_setImage(with: URL(string: (profileurl)!), placeholderImage: nil)
+        
         cell.selectionStyle = .none
         return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return tableData.count
+        return self.arrChannelFeed.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

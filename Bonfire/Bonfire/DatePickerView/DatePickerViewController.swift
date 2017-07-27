@@ -222,6 +222,18 @@ extension DatePickerViewController :UITableViewDataSource {
         let dict = self.eventArr[indexPath.row] as! NSDictionary
         cell.eventTitle.text = dict.value(forKey: "eventName") as? String
         cell.eventTime.text = dict.value(forKey: "eventStartDate") as? String
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date = formatter .date(from: cell.eventTime.text!)
+    
+        let formatternew = DateFormatter()
+        formatternew.dateFormat = "hh:mm"
+        let time = formatternew .string(from: date!)
+        
+        cell.eventTime.text = time
+        
+        
         return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

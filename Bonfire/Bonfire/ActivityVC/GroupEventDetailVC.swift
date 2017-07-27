@@ -14,6 +14,7 @@ class GroupEventDetailVC: UIViewController {
     @IBOutlet weak var channelTblView: UITableView!
     @IBOutlet weak var tableEventDesc: UITableView!
     var channelArr = NSArray()
+    var arrGrpEvent = NSArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,7 @@ class GroupEventDetailVC: UIViewController {
         
 //        self.callGellChannelWS()
         // Do any additional setup after loading the view.
+        self .getAllGrpEvents()
     }
 
     @IBAction func channelTap(_ sender: Any) {
@@ -65,6 +67,66 @@ class GroupEventDetailVC: UIViewController {
     }
     
     
+    func getAllGrpEvents() {
+        
+        // get all home feed api calling
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        
+        
+        let url = kServerURL + kGetGrpEvents
+        showProgress(inView: self.view)
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        let param = ["group_id" : "1"]
+        
+        request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp.firstObject as! NSDictionary
+                        
+                        if (temp.value(forKey: "error") != nil) {
+                            
+                        } else {
+                            let data  = temp .value(forKey: "data") as! NSArray
+                            
+                            if data.count > 0 {
+                                print(data)
+                                self.arrGrpEvent = data
+                                self.tableEventDesc .reloadData()
+                            }
+                            else
+                            {
+                                //                            App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
+                            }
+                        }
+                        
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+        
+    }
+    
+    
+    
     
 
 }
@@ -82,9 +144,13 @@ extension GroupEventDetailVC : UITableViewDataSource , UITableViewDelegate{
                 isShowHeader = false
             }
             
-            let dict = [ "isShowHeader" : isShowHeader]
+            
+            let chanelName = (self.channelArr .object(at: indexPath.row) as! NSDictionary) .value(forKey: "channelName") as? String
+            let chanelId = (self.channelArr .object(at: indexPath.row) as! NSDictionary) .value(forKey: "channelId") 
+            
+            let dict = [ "isShowHeader" : chanelName,"channelId" :chanelId]
             let notificationName = Notification.Name("updateTopHeader")
-           // NotificationCenter.default.post(name: notificationName, object: dict)
+            NotificationCenter.default.post(name: notificationName, object: dict)
             _ = self.navigationController?.popViewController(animated: false)
         }
     }
@@ -99,8 +165,9 @@ extension GroupEventDetailVC : UITableViewDataSource , UITableViewDelegate{
                 cell.channelBadgeNo.isHidden = true
             } else {
                 if indexPath.row == 1 {
-                    cell.channelBadgeNo .setTitle("11", for: .normal)
-                    cell.channelBadgeNo.backgroundColor = UIColor .init(colorLiteralRed: 255.0/255.0, green: 0.0/255.0, blue: 103.0/255.0, alpha: 1.0)
+//                    cell.channelBadgeNo .setTitle("11", for: .normal)
+                cell.channelBadgeNo.backgroundColor = UIColor.clear
+//                    cell.channelBadgeNo.backgroundColor = UIColor .init(colorLiteralRed: 255.0/255.0, green: 0.0/255.0, blue: 103.0/255.0, alpha: 1.0)
                     
                 } else {
                     cell.channelBadgeNo .setTitle("", for: .normal)
@@ -119,17 +186,20 @@ extension GroupEventDetailVC : UITableViewDataSource , UITableViewDelegate{
             return cell
             
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "groupEventDetailCell")
-            return cell!
+            let cell = tableView.dequeueReusableCell(withIdentifier: "groupEventDetailCell") as! grpEventCell
+            var dict = self.arrGrpEvent .object(at: indexPath.row) as! NSDictionary
+            cell.lblDescription.text = dict .value(forKey: "eventName") as! String?
+            return cell
         }
         
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return self.channelArr.count
+        if tableView == self.channelTblView {
+            return self.channelArr.count
+        } else {
+            return self.arrGrpEvent.count
+        }
     }
-    
-    
 }
 extension GroupEventDetailVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -172,3 +242,10 @@ extension GroupEventDetailVC : UICollectionViewDelegate,UICollectionViewDataSour
     }
 }
 
+
+class grpEventCell: UITableViewCell {
+    
+    @IBOutlet weak var lblDescription: UILabel!
+    @IBOutlet weak var lblDayName: UILabel!
+    @IBOutlet weak var lblMonName: UILabel!
+}

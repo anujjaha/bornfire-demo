@@ -161,6 +161,8 @@ class InterestVC: UIViewController
                             }else {
                                 print("no error")
                                 self.interestData = data
+                                userDefaults .set(data, forKey: "allInterest")
+                                userDefaults .synchronize()
                                 self.clvwInterest.dataSource = self;
                                 self.clvwInterest.delegate = self;
                                 self.clvwInterest .reloadData()
