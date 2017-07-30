@@ -14,6 +14,9 @@ class ActivityVC: UIViewController {
     @IBOutlet weak var clvwLeading: UICollectionView!
     @IBOutlet weak var clvwDiscover: UICollectionView!
 
+    var arrLeaderingGrp = NSArray()
+    var arrYourGrp = NSArray()
+    
     @IBAction func calendarBtnTap(_ sender: Any) {
         let datepicker =  DatePickerViewController .initViewController()
         self.navigationController?.navigationBar.isTranslucent  = false
@@ -23,8 +26,7 @@ class ActivityVC: UIViewController {
     {
         let createGrpObj = CreateGroupVC.initViewController()
         self.navigationController?.pushViewController(createGrpObj, animated: true)
-
-        
+   
     }
     
     override func viewDidLoad()
@@ -55,6 +57,16 @@ class ActivityVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = false
+        
+        let namePredicate = NSPredicate(format: "%K = %d", "isLeader",0)
+        self.arrLeaderingGrp = AppDelegate .shared.arrAllGrpData.filter { namePredicate.evaluate(with: $0) } as NSArray
+        
+    
+        let namePredicate1 = NSPredicate(format: "%K = %d", "isMember",0)
+        self.arrYourGrp = AppDelegate .shared.arrAllGrpData.filter { namePredicate1.evaluate(with: $0) } as NSArray
+        
+        
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -75,34 +87,70 @@ class ActivityVC: UIViewController {
 }
 extension ActivityVC : UICollectionViewDataSource
 {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return 5
+        if collectionView == self.clvwLeading {
+            return self.arrLeaderingGrp.count
+        }else{
+            return self.arrYourGrp.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
+        
         let identifier = "DiscoverCell"
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! DiscoverCell
+        
+        if collectionView == self.clvwLeading {
+            let dic = self.arrLeaderingGrp .object(at: indexPath.row) as! NSDictionary
+            
+            cell.imageView .sd_setImage(with: URL.init(string:dic .value(forKey: "groupImage") as! String), placeholderImage: nil)
+            
+        }else {
+            let dic = self.arrYourGrp .object(at: indexPath.row) as! NSDictionary
+            cell.imageView .sd_setImage(with: URL.init(string:dic .value(forKey: "groupImage") as! String), placeholderImage: nil)
+            
+        }
         return cell
+        
     }
 }
 
 // MARK:- UICollectionViewDelegate Methods
-extension ActivityVC : UICollectionViewDelegate
+extension ActivityVC : UICollectionViewDelegate ,UICollectionViewDelegateFlowLayout
 {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView != self.clvwLeading {
+            if UIScreen.main.bounds.size.height<=568 {
+                return CGSize(width: 145, height: 140)
+            }
+            return CGSize(width: 170, height: 170)
+        }
+        return CGSize(width: 170, height: 220)
+        
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         let grpVcOBj = GroupVC.initViewController()
-        
-        if collectionView == self.clvwLeading
-        {
+        var dic = NSDictionary()
+      
+        if collectionView == self.clvwLeading {
+            
+            dic = self.arrLeaderingGrp[indexPath.row] as! NSDictionary
             grpVcOBj.isFromLeadingGrp = true
         }
         else
         {
+            dic = self.arrYourGrp[indexPath.row] as! NSDictionary
             grpVcOBj.isFromLeadingGrp = false
         }
+        
+        grpVcOBj.grpDetail = dic
         self.navigationController?.pushViewController(grpVcOBj, animated: true)
     }
 }

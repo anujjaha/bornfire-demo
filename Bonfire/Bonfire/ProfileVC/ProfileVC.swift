@@ -13,6 +13,8 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
     @IBOutlet weak var clviewGrp: UICollectionView!
     @IBOutlet weak var clviewInterest: UICollectionView!
     
+    var arrInterest = NSArray()
+    var arrGrp = NSArray()
     
     let tagViewInterest_data = NSMutableArray()
     @IBOutlet weak var tagViewInterest: HTagView!
@@ -65,7 +67,7 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
 //        tagViewGroups.reloadData()
         
         self .profileImgSetup()
-        //self.callProfileAPI()
+        self.callProfileAPI()
 
     }
 
@@ -208,10 +210,18 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
                                 
                                 self.usernameLabel.text = data.value(forKey: "name") as! String?
                                 
-                                var arrInterest = data .value(forKey:"interests") as! NSArray
+                                if (data .value(forKey:"interests")) != nil {
+                                    self.arrInterest = data .value(forKey:"interests") as! NSArray
+                                }
                                 
-                                self.createInterestArr(arrInterest: arrInterest)
+                                if (data .value(forKey:"group")) != nil {
+                                        self.arrGrp = data .value(forKey:"group") as! NSArray
+                                }
+
+//                                self.createInterestArr(arrInterest: arrInterest)
                                 
+                                self.clviewGrp .reloadData()
+                                self.clviewInterest.reloadData()
                             }
                             
                         }
@@ -238,7 +248,6 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
                 print("Found \(item) at position \(index)")
                 let intName = (item as! NSDictionary).value(forKey: "name") as! String
                 tagViewInterest_data .add("#"+intName)
-                
             }
     
         } else{
@@ -308,6 +317,13 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
     }
 
 
+    @IBAction func addInterestTap(_ sender: Any) {
+        
+        let viewController = AddInterestToMessageVC .initViewController()
+        viewController.isfromProfile = true
+        self .navigationController?.pushViewController(viewController, animated: true)
+        
+    }
     /*
     // MARK: - Navigation
 
@@ -326,9 +342,9 @@ extension ProfileVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
         if collectionView == self.clviewGrp {
-            return 10
+            return self.arrGrp.count
         } else{
-            return 10
+            return self.arrInterest.count
         }
         
     }
@@ -346,13 +362,10 @@ extension ProfileVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             let identifier = "intCell"
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! profileInterestCell
             
-            cell.btnIntereset .setTitle("testIntereset", for: .normal)
-            
-            if indexPath.row == 1 {
-                
-//                cell.btnIntereset .setTitle("", for: .normal)
-//                cell.btnIntereset .setImage(UIImage(named: "addinterest"), for: .normal)
-            }
+                let name = ((self.arrInterest .object(at: indexPath.row) as! NSDictionary) .value(forKey: "name")) as! String
+                cell.btnIntereset .setTitle(name, for: .normal)
+                cell.btnIntereset.titleLabel?.lineBreakMode = .byTruncatingTail
+
             return cell
         }
     }

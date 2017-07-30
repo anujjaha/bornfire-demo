@@ -12,6 +12,7 @@ class GroupCell: UITableViewCell {
 
     @IBOutlet weak var imgView: UIImageView!
     
+    @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var btnLink: UIButton!
     @IBOutlet weak var lblDetail: UILabel!
     @IBOutlet weak var Const_LinkBtn_height: NSLayoutConstraint!

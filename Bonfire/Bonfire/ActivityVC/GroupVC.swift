@@ -14,6 +14,13 @@ class GroupVC: UIViewController {
     @IBOutlet weak var lblGrpName: UILabel!
     @IBOutlet weak var lblChannel: UILabel!
     
+    @IBOutlet weak var btnImage: UIButton!
+    var selectedChannelID = Int()
+    
+    var picker:UIImagePickerController?=UIImagePickerController()
+    
+    var imagview = UIImageView()
+    
     @IBOutlet weak var const_topview_height: NSLayoutConstraint!
     var isFromLeadingGrp = false
     var grpDetail = NSDictionary()
@@ -29,10 +36,21 @@ class GroupVC: UIViewController {
     
     @IBOutlet weak var tblviewListing: UITableView!
     
+    @IBAction func upArrowTap(_ sender: Any) {
+        
+        if !(self.txtAnythingTosay.text?.isEmpty)! && selectedChannelID != 0 {
+            self.callApiToCreateNewChannelFeed()
+        }
+
+        
+    }
     var tableData :NSMutableArray  = ["Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing ","Lorem Ipsum is simply dummy text of the printing  Lorem Ipsum is simply dummy text of the printing and typesetting industry","Lorem Ipsum is simply dummy text of the printing  Lorem Ipsum is simply dummy text of the printing"]
     
     static func initViewController() -> GroupVC {
         return UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "GroupView") as! GroupVC
+    }
+    @IBAction func BtnimageTap(_ sender: Any) {
+        self .openActionsheet()
     }
     
     @IBAction func channelBtnTap(_ sender: Any) {
@@ -62,7 +80,7 @@ class GroupVC: UIViewController {
 
         let dict =  notification .value(forKey: "object") as! NSDictionary
         let selectedChannel =   dict .value(forKey: "isShowHeader")
-        let selectedChannelID =   dict .value(forKey: "channelId") as! Int
+        selectedChannelID =   dict .value(forKey: "channelId") as! Int
         
         
         self.lblChannel.text = selectedChannel as? String
@@ -78,10 +96,54 @@ class GroupVC: UIViewController {
     }
     
     @IBAction func plusBtnTap(_ sender: Any) {
-        self.callApiToCreateNewChannelFeed()
+        
+            }
+    
+    func openCamera()
+    {
+        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)){
+            picker!.allowsEditing = false
+            picker!.sourceType = UIImagePickerControllerSourceType.camera
+            picker!.cameraCaptureMode = .photo
+            present(picker!, animated: true, completion: nil)
+        }else{
+            let alert = UIAlertController(title: "Camera Not Found", message: "This device has no Camera", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style:.default, handler: nil)
+            alert.addAction(ok)
+            present(alert, animated: true, completion: nil)
+        }
     }
     
+    func openGallary()
+    {
+        picker!.allowsEditing = false
+        picker!.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        present(picker!, animated: true, completion: nil)
+    }
     
+    func openActionsheet()
+    {
+        let optionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
+        
+        // 2
+        let libraryAction = UIAlertAction(title: "Photo Library", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self .openGallary()
+        })
+        let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self .openCamera()
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+        })
+        optionMenu.addAction(libraryAction)
+        optionMenu.addAction(cameraAction)
+        optionMenu.addAction(cancelAction)
+        self.present(optionMenu, animated: true, completion: nil)
+    }
     
     func callApiToCreateNewChannelFeed() {
         
@@ -89,10 +151,10 @@ class GroupVC: UIViewController {
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         
-        let intid:[String] = ["1"]
+//        let intid:[String] = ["1"]
         
         let grpId = self.grpDetail .value(forKey: "groupId") as! Int
-        let param:[String:Any] = ["is_campus_feed" : "0","group_id" : grpId ,"channel_id" : "1","description":"this is from appside","interests": intid]
+        let param = ["is_campus_feed" : "0","group_id" : String(grpId) ,"channel_id" : String(selectedChannelID),"description":self.txtAnythingTosay.text!]
         
         
         let url = kServerURL + kCreateNewFeed
@@ -101,36 +163,59 @@ class GroupVC: UIViewController {
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
         
-        request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+        
+        let imgData = UIImageJPEGRepresentation(imagview.image!, 0.5)
+        
+        upload(multipartFormData:{ multipartFormData in
             
-            print(response.result.debugDescription)
+            for (key, value) in param {
+                multipartFormData.append((value.data(using: String.Encoding.utf8)!), withName: key)
+            }
             
-            hideProgress()
-            switch(response.result)
-            {
-            case .success(_):
-                if response.result.value != nil {
-                    print(response.result.value!)
-                    
+            multipartFormData.append(imgData!, withName: "attachment", fileName: "test.jpg", mimeType: "image/jpeg")
+            
+            
+        } ,usingThreshold:UInt64.init(),
+         to:url,
+         method:.post,
+         headers:headers,
+         
+         encodingCompletion: { encodingResult in
+            
+            switch encodingResult {
+                
+            case .success(let upload, _, _):
+                upload .responseJSON(completionHandler: { (response) in
+                    hideProgress()
+                    debugPrint(response)
+//                    self .getAllChannelfeed(channelId: self.selectedChannelID)
                     if let json = response.result.value {
                         
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp.firstObject as! NSDictionary
+                        let data  = temp .value(forKey: "data") as! NSDictionary
+                        
+                    self.txtAnythingTosay.text = nil
+                        
+                    if data.count > 0 {
+//                        let tempconvert = self.arrChannelFeed .mutableCopy() as! NSMutableArray
+//                        tempconvert .insert(tempconvert.firstObject as! NSDictionary, at: 0)
+//                        self.arrChannelFeed = tempconvert as NSArray
+//                        self.tblviewListing .reloadData()
+                        self .getAllChannelfeed(channelId: self.selectedChannelID)
                     }
-                    else {
                         
                     }
-                }
-                break
+                })
                 
-            case .failure(_):
-                print(response.result.error!)
-                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
-                break
+            case .failure(let encodingError):
+                hideProgress()
+                print(encodingError)
             }
-        }
+        })
         
     }
-    
-    
     
     func getAllChannelfeed(channelId:Int) {
         
@@ -238,6 +323,12 @@ class GroupVC: UIViewController {
                         if data.count > 0 {
                             self.channelArr = data
                             self.lblChannel.text = (self.channelArr.firstObject as! NSDictionary) .value(forKey: "channelName") as? String
+                            
+                            if let channel = (self.channelArr.firstObject) {
+                                self.selectedChannelID =  (self.channelArr.firstObject as! NSDictionary) .   value(forKey: "channelId") as! Int
+                                
+                                self.getAllChannelfeed(channelId: self.selectedChannelID)   
+                            }
                         }
                         else
                         {
@@ -263,7 +354,8 @@ class GroupVC: UIViewController {
         self.txtAnythingTosay.delegate = self
         self.txtAnythingTosay .setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
         
-       
+        picker?.delegate=self
+
         self.tblviewListing.rowHeight = UITableViewAutomaticDimension
         self.tblviewListing.estimatedRowHeight = 88.0
         
@@ -273,10 +365,8 @@ class GroupVC: UIViewController {
         self.tblviewListing.estimatedRowHeight = 80;
         self.tblviewListing.rowHeight = UITableViewAutomaticDimension;
         
-        
         self.callGellChannelWS()
-        self.getAllChannelfeed(channelId: 1)
-        
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -284,8 +374,13 @@ class GroupVC: UIViewController {
         
         self.lblGrpName.text = self.grpDetail .value(forKey: "groupName") as?    String
         
-         grpMemeber = self.grpDetail .value(forKey: "group_members") as! NSArray
-        self.blGrpMember.text = String(grpMemeber.count) + " members"
+        self.blGrpMember.text = ""
+        if let member = self.grpDetail .value(forKey: "group_members")  {
+            grpMemeber = self.grpDetail .value(forKey: "group_members") as! NSArray
+            self.blGrpMember.text = String(grpMemeber.count) + " members"
+        }
+        
+    
         
         self.profileCollectonview.dataSource = self
         self.profileCollectonview.delegate = self
@@ -384,12 +479,12 @@ extension GroupVC : UITextFieldDelegate {
        
         //IQKeyboardManager.sharedManager().enableAutoToolbar = true
         if (textField.text?.characters.count)! > 0 {
-            tableData .add(textField.text) 
-            self.tblviewListing .reloadData()
+//            tableData .add(textField.text) 
+//            self.tblviewListing .reloadData()
         }
         
-        textField.text = nil
-        self.txtAnythingTosay .placeholder = "Anything to say?"
+//        textField.text = nil
+//        self.txtAnythingTosay .placeholder = "Anything to say?"
         self.view .layoutIfNeeded()
         self.view .layoutSubviews()
         self.tblviewListing .layoutIfNeeded()
@@ -415,6 +510,17 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource {
         }
         
         let dict = self.arrChannelFeed[indexPath.row] as! NSDictionary
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
+        let dateinstr = dict .value(forKey: "createdAt")
+        let date = formatter .date(from: dateinstr! as! String)
+        
+        let formatternew = DateFormatter()
+        formatternew.dateFormat = "hh:mm"
+        let time = formatternew .string(from: date!)
+        
+        cell.lblTime.text = time
         
         cell.lblDetail.text = dict .value(forKey: "description") as! String?
         
@@ -453,5 +559,20 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource {
             tableViewHeaderFooterView?.textLabel?.textAlignment = .center
             tableViewHeaderFooterView?.backgroundColor = UIColor .clear
         }
+    }
+}
+
+extension GroupVC : UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
+    {
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        self.imagview.image = chosenImage
+        dismiss(animated: true, completion: nil)
     }
 }

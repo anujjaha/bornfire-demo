@@ -425,35 +425,35 @@ extension MessageVC : UICollectionViewDelegate
 
 extension MessageVC : UIScrollViewDelegate {
     
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if scrollView == tblMessages {
-//            
-//            if scrollView.panGestureRecognizer .translation(in: scrollView.superview).y < 0{
-//                print("up")
-//                let scrollPos: CGFloat = clvwMessage.frame.origin.y
-//                
-//                if scrollPos > 0 {
-//
-//                    print(scrollPos)
-//                    UIView .animate(withDuration: 0.25, animations: { 
-//                        self.const_collecview_top.constant -= 50
-//                        self.const_tbl_top.constant -= 50
-//                    })
-//                    
-//                }
-//                
-//            } else {
-//                
-//                let scrollPos: CGFloat = clvwMessage.frame.origin.y
-//                if scrollPos < 0 {
-//                    
-//                    self.const_collecview_top.constant += 100
-//                    self.const_tbl_top.constant += 100
-//                    print("down")
-//                }
-//            }
-//        }
-//    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == tblMessages {
+            
+            if scrollView.panGestureRecognizer .translation(in: scrollView.superview).y < 0{
+                print("up")
+                let scrollPos: CGFloat = clvwMessage.frame.origin.y
+                
+                if scrollPos > 0 {
+
+                    print(scrollPos)
+                    UIView .animate(withDuration: 0.25, animations: { 
+                        self.const_collecview_top.constant -= 50
+                        self.const_tbl_top.constant -= 50
+                    })
+                    
+                }
+                
+            } else {
+                
+                let scrollPos: CGFloat = clvwMessage.frame.origin.y
+                if scrollPos < 0 {
+                    
+                    self.const_collecview_top.constant += 100
+                    self.const_tbl_top.constant += 100
+                    print("down")
+                }
+            }
+        }
+    }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         

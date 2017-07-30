@@ -457,6 +457,56 @@ class SettingVC: UIViewController {
         }
     }
 
+    func addMemberToGrp() {
+        
+        
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        let userid = final .value(forKey: "userId")
+        
+        let url = kServerURL + kAddGrpMember
+        
+        showProgress(inView: self.view)
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        
+        request(url, method: .get, parameters:nil, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp.firstObject as! NSDictionary
+                        let data  = temp .value(forKey: "data") as! NSArray
+                        
+                        if data.count > 0 {
+                            
+                        }
+                        else
+                        {
+                            //App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+        
+    }
+    
     func callAddChannelWs(name:String) {
         
         showProgress(inView: self.view)
@@ -711,7 +761,7 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
                 if isSearchMember {
                     self.arrMemberSelected .append(arrMemberSearch[indexPath.row])
                 } else{
-                    self.arrMemberSelected .append(arrLeader[indexPath.row])
+                    self.arrMemberSelected .append(arrallUser[indexPath.row] as! String)
                 }
                 
                 

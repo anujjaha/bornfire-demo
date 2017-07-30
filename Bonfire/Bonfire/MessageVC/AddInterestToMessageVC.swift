@@ -10,13 +10,21 @@ import UIKit
 
 class AddInterestToMessageVC: UIViewController {
 
-   var arrInterestAll = NSArray()
-   var arrInterestSelected = NSMutableArray()
+    var arrInterestAll = NSArray()
+    var arrInterestSelected = NSMutableArray()
     var arrInterestSelectedId = NSMutableArray()
-   var arrInterestSearching = NSArray()
+    var arrInterestSearching = NSArray()
     var arrTemp = NSArray()
     var arrInterestWithId = NSArray()
     
+    
+    var name = String()
+    var switchstr = String()
+    var grpImage = UIImage()
+    
+    var dictGrpDetailsTosend = [String:String]()
+
+    var isfromProfile : Bool = false
     var isSearch : Bool = false
     var isFromGrp : Bool = false
     
@@ -65,15 +73,69 @@ class AddInterestToMessageVC: UIViewController {
         self.tabelview .reloadData()
     }
     
-    @IBAction func saveTap(_ sender: Any) {
-        if isFromGrp {
-            if let viewController = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: kIdentifire_GroupTitleVC) as? GroupTitleVC
+    func addMemberToGrp() {
+        
+        
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        let userid = final .value(forKey: "userId")
+        
+        let url = kServerURL + kAddGrpMember
+        
+        showProgress(inView: self.view)
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        
+        request(url, method: .get, parameters:nil, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
             {
-                self .navigationController?.pushViewController(viewController, animated: true)
+            case .success(_):
+                if response.result.value != nil {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp.firstObject as! NSDictionary
+                        let data  = temp .value(forKey: "data") as! NSArray
+                        
+                        if data.count > 0 {
+                            
+                        }
+                        else
+                        {
+                            //App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
             }
+        }
+        
+    }
+    
+    @IBAction func saveTap(_ sender: Any) {
+        
+        if isFromGrp {
 
+            self .callCreateGroupAPI()
+        
         } else {
-            NotificationCenter .default.post(name: NSNotification.Name(rawValue: "selectedInterest"), object: self.arrInterestSelectedId, userInfo: nil)
+            
+            if !isfromProfile {
+                
+                NotificationCenter .default.post(name: NSNotification.Name(rawValue: "selectedInterest"), object: self.arrInterestSelectedId, userInfo: nil)
+            }
+            
             _ =  self.navigationController?.popViewController(animated: true)
         }
        
@@ -91,9 +153,98 @@ class AddInterestToMessageVC: UIViewController {
         return UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "AddInterestToMessageView") as! AddInterestToMessageVC
     }
     
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    func callCreateGroupAPI(){
+        
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        
+        let url = kServerURL + kCreateGroup
+        showProgress(inView: self.view)
+
+        
+        var imgData = Data()
+        imgData = UIImageJPEGRepresentation(grpImage, 0.5)!
+        
+        
+        
+        
+        let param = [
+            "name" : name,
+            "is_private": switchstr,
+            ]
+        
+        
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        
+        //        let imgData = UIImagePNGRepresentation(imageViewCoverPhoto.image!)
+        
+        
+        upload(multipartFormData:{ multipartFormData in
+            
+            for (key, value) in param {
+                
+                multipartFormData.append((value.data(using: String.Encoding.utf8)!), withName: key)
+            }
+            
+            
+            let strint = self.arrInterestSelectedId.componentsJoined(by: ",")
+            
+            multipartFormData.append((strint.data(using: String.Encoding.utf8)!), withName: "interests")
+            
+            
+            multipartFormData.append(imgData, withName: "image", fileName: "test.jpg", mimeType: "image/jpeg")
+            
+            
+        },
+               usingThreshold:UInt64.init(),
+               to:url,
+               method:.post,
+               headers:headers,
+               
+               encodingCompletion: { encodingResult in
+                
+                switch encodingResult {
+                    
+                case .success(let upload, _, _):
+                    
+                    upload.responseString(completionHandler: { (response) in
+                        hideProgress()
+                        debugPrint(response)
+                        //                        let jsondata = response.result.value?.toJSON()
+                        //                        let arr = jsondata as! Array<Any>
+                        //                        let dict = arr.first as? Dictionary<String, AnyObject>
+                        //                        (dict!["message"]!)
+                        
+                        
+                        let optionMenu = UIAlertController(title: "Bonfire", message: "Group is Created Successfully", preferredStyle: .alert)
+                        
+                        // 2
+                        let libraryAction = UIAlertAction(title: "OK", style: .default, handler: {
+                            (alert: UIAlertAction!) -> Void in
+                            
+                            if let viewController = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: kIdentifire_GroupTitleVC) as? GroupTitleVC
+                            {
+                                self .navigationController?.pushViewController(viewController, animated: true)
+                            }
+                            
+                        })
+                        
+                        optionMenu.addAction(libraryAction)
+                        self.present(optionMenu, animated: true, completion: nil)
+                        
+                    })
+                case .failure(let encodingError):
+                    hideProgress()
+                    print(encodingError)
+                }
+        })
     }
 
 }
