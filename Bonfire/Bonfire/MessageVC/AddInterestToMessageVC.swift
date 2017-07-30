@@ -86,7 +86,7 @@ class AddInterestToMessageVC: UIViewController {
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
         
-        request(url, method: .get, parameters:nil, headers: headers).responseJSON { (response:DataResponse<Any>) in
+        request(url, method: .post, parameters:nil, headers: headers).responseJSON { (response:DataResponse<Any>) in
             
             print(response.result.debugDescription)
             

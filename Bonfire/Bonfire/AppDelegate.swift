@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         IQKeyboardManager.sharedManager().shouldHidePreviousNext = false
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
         self.callGetAllCampusAPI()
-        self.getAllcampusUser()
+        
         
         if (userDefaults.bool(forKey: kkeyisUserLogin))
         {
@@ -34,7 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: "TabBarViewController")
             let nav = UINavigationController(rootViewController: homeViewController)
+            
             appdelegate.window!.rootViewController = nav
+            
         }
         else
         {
@@ -44,6 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
             let nav = UINavigationController(rootViewController: homeViewController)
             nav.isNavigationBarHidden = true
             appdelegate.window!.rootViewController = nav
+    
+
         }
 
         UIApplication.shared.statusBarStyle = .lightContent

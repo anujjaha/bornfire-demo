@@ -75,6 +75,8 @@ class LoginViewController: UIViewController
                                     let storyTab = UIStoryboard(name: "Main", bundle: nil)
                                     let tabbar = storyTab.instantiateViewController(withIdentifier: "TabBarViewController")
                                     self.navigationController?.pushViewController(tabbar, animated: true)
+                                    
+                                    AppDelegate .shared.getAllcampusUser()
                                 }
                                 
                             }

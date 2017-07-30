@@ -56,6 +56,9 @@ class GroupVC: UIViewController {
     @IBAction func channelBtnTap(_ sender: Any) {
         
         let groupEventObj  = GroupEventDetailVC .initViewController()
+        
+        groupEventObj.grpname = self.lblGrpName.text!
+        groupEventObj.grpMember = self.grpMemeber
         groupEventObj.channelArr = self.channelArr
         self.navigationController?.pushViewController(groupEventObj, animated: false)
     }

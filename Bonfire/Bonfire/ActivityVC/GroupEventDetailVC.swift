@@ -10,11 +10,16 @@ import UIKit
 
 class GroupEventDetailVC: UIViewController {
 
+    @IBOutlet weak var lblMember: UILabel!
     @IBOutlet weak var profileCollectonview: UICollectionView!
     @IBOutlet weak var channelTblView: UITableView!
     @IBOutlet weak var tableEventDesc: UITableView!
+    @IBOutlet weak var lblGrpName: UILabel!
     var channelArr = NSArray()
     var arrGrpEvent = NSArray()
+    var grpname = String()
+    
+    var grpMember = NSArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +60,15 @@ class GroupEventDetailVC: UIViewController {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.isHidden = true
+        
+        self.lblGrpName.text = self.grpname
+        
+        self.lblMember.text = ""
+        self.lblMember.text = String(self.grpMember.count) + " members"
+    
+        
+        
+        self.profileCollectonview .reloadData()
     }
     override  func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -204,7 +218,7 @@ extension GroupEventDetailVC : UITableViewDataSource , UITableViewDelegate{
 extension GroupEventDetailVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return 10
+        return self.grpMember.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -212,6 +226,9 @@ extension GroupEventDetailVC : UICollectionViewDelegate,UICollectionViewDataSour
         let identifier = "profileCell"
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! profileCollectonviewCell
         
+        let dic = self.grpMember .object(at: indexPath.row) as! NSDictionary
+        cell.imgView .sd_setImage(with: URL(string:dic .value(forKey: "profile_picture") as! String), placeholderImage: nil)
+
         cell.imgView.layer.cornerRadius = 11.0;
         cell.imgView.layoutIfNeeded() //This is important line
         //cell.imgView.layer.masksToBounds = true
