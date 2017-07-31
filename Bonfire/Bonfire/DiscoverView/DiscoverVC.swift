@@ -151,10 +151,6 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                             self.const_foryouCollview_height.constant = 0
                             self.cosnt_foryouLabel_height.constant = 0
                             
-                            self.clvwyour.dataSource = self
-                            self.clvwGroups.dataSource = self
-                            
-            
                             
                             
                         } else {
@@ -166,6 +162,17 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                                 
                                 self.const_foryouCollview_height.constant = 220
                                 self.cosnt_foryouLabel_height.constant = 21
+                              
+                                
+                                
+                                self.clvwyour.dataSource = self
+                                self.clvwGroups.dataSource = self
+                                self.clvwDiscover.dataSource = self
+                                
+                                self.clvwyour.delegate = self
+                                self.clvwGroups.delegate = self
+                                self.clvwDiscover.delegate = self
+                                
                                 
                                 self.clvwGroups .reloadData()
                                 self.clvwyour .reloadData()
@@ -268,6 +275,12 @@ extension DiscoverVC : UICollectionViewDataSource
             cell.imageView.sd_setImage(with: url, placeholderImage: nil)
         } else{
             print("test1")
+            
+            let dic = self.arrForYouGrp[indexPath.row] as! NSDictionary
+            let strurl = dic["groupImage"] as! String
+            let url  = URL.init(string: strurl)
+            cell.imageView.sd_setImage(with: url, placeholderImage: nil)
+            
         }
         
         return cell
@@ -292,6 +305,8 @@ extension DiscoverVC : UICollectionViewDelegate
             
         } else{
             print("test1")
+            
+            dic = self.arrForYouGrp[indexPath.row] as! NSDictionary
         }
         
         let grpVcOBj = GroupVC.initViewController()
