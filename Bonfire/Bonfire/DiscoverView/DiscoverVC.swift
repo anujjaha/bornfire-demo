@@ -48,7 +48,6 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
         self.navigationItem.rightBarButtonItems = [barButton,space]
         
         self .GetAllfeed()
-        self.callForYouGrpFeed()
         
     }
 
@@ -60,9 +59,8 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
 
         
         let url = kServerURL + kGetAppGroup
-        DispatchQueue.main.async {
-            showProgress(inView: self.view)
-        }
+        showProgress(inView: self.view)
+
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
         
@@ -70,7 +68,6 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
             
             print(response.result.debugDescription)
             
-            hideProgress()
             switch(response.result)
             {
             case .success(_):
@@ -87,16 +84,14 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                             self.arrAllFeedData = data as! Array<Any>
                             AppDelegate .shared.arrAllGrpData = self.arrAllFeedData as NSArray
                             
+                            
+
+                            
                             let namePredicate = NSPredicate(format: "%K = %d", "isDiscovery",0)
                     
                             self.arrDiscovery = self.arrAllFeedData.filter { namePredicate.evaluate(with: $0) };
                             
-                            self.clvwyour.dataSource = self
-                            self.clvwGroups.dataSource = self
-                        
-                            self.clvwGroups .reloadData()
-                            self.clvwyour .reloadData()
-                            self.clvwDiscover .reloadData()
+                            
                             
                         }
                         else
@@ -112,6 +107,8 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                 App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
                 break
             }
+            self.callForYouGrpFeed()
+    
         }
         
     }
@@ -136,7 +133,7 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
             
             print(response.result.debugDescription)
             
-//            hideProgress()
+            hideProgress()
             switch(response.result)
             {
             case .success(_):
@@ -153,12 +150,26 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
 //                            let msg = errdic .value(forKey: "reason") as? String
                             self.const_foryouCollview_height.constant = 0
                             self.cosnt_foryouLabel_height.constant = 0
+                            
+                            self.clvwyour.dataSource = self
+                            self.clvwGroups.dataSource = self
+                            
+            
+                            
+                            
                         } else {
                             let data  = temp .value(forKey: "data") as! NSArray
                             
                             if data.count > 0 {
+                                
+                                self.arrForYouGrp = data as! Array<Any>
+                                
                                 self.const_foryouCollview_height.constant = 220
                                 self.cosnt_foryouLabel_height.constant = 21
+                                
+                                self.clvwGroups .reloadData()
+                                self.clvwyour .reloadData()
+                                self.clvwDiscover .reloadData()
                             }
                             else {
                                 
@@ -174,6 +185,8 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                 App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
                 break
             }
+            
+            
         }
         
     }
