@@ -32,6 +32,74 @@ class AddInterestToMessageVC: UIViewController {
     @IBOutlet weak var segment: UISegmentedControl!
     @IBOutlet weak var searchbar: UISearchBar!
     @IBOutlet weak var tabelview: UITableView!
+    
+    
+    func callInterestAPI() {
+        
+        let url = kServerURL + kInterest
+        showProgress(inView: self.view)
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        let usertoken = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(usertoken)"]
+        
+        request(url, method: .get, parameters:nil, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp[0] as! NSDictionary
+                        let data  = temp .value(forKey: "data") as! NSArray
+                        //
+                        if data.count > 0 {
+                            
+                            if let err  =  (data[0] as! NSDictionary).value(forKey: kkeyError) {
+                                App_showAlert(withMessage: err as! String, inView: self)
+                            }else {
+                                print("no error")
+                                
+                                userDefaults .set(data, forKey: "allInterest")
+                                userDefaults .synchronize()
+                                
+                                
+                                self.arrInterestWithId  = userDefaults .value(forKey: "allInterest") as! NSArray
+                                self.arrInterestAll = self.arrInterestWithId.value(forKey: "name") as! NSArray
+                                
+                                self.tabelview .reloadData()
+                                
+                            }
+                            
+                        }
+                        else
+                        {
+                            App_showAlert(withMessage: (data[0] as! NSDictionary).value(forKey: kkeyError) as! String, inView: self)
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+        
+        /*request("\(kServerURL)login.php", method: .post, parameters:parameters).responseString{ response in
+         debugPrint(response)
+         }*/
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,10 +107,15 @@ class AddInterestToMessageVC: UIViewController {
         self.tabelview.delegate = self
         self.searchbar.delegate = self
         // Do any additional setup after loading the view.
-        arrInterestWithId  = userDefaults .value(forKey: "allInterest") as! NSArray
-        arrInterestAll = arrInterestWithId.value(forKey: "name") as! NSArray
+        if (UserDefaults.standard.object(forKey: "allInterest") as? NSArray) != nil {
+            arrInterestWithId  = userDefaults .value(forKey: "allInterest") as! NSArray
+            arrInterestAll = arrInterestWithId.value(forKey: "name") as! NSArray
+        } else {
+            // fetch interest here
+            self .callInterestAPI()
+        }
         
-//        arrInterestAll = ["interest1", "test", "allow", "interest4","interest5","demo","interest7","new","file","interest10","interest11"]
+
         
         arrTemp = self.arrInterestAll
         

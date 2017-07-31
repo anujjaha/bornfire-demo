@@ -454,7 +454,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cf9-ZT-2mx">
-                                                    <rect key="frame" x="17" y="30" width="34" height="40.5"/>
+                                                    <rect key="frame" x="17" y="30" width="34" height="41"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="33"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -973,7 +973,10 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bOy-vk-l5H">
                                         <rect key="frame" x="39" y="5" width="54" height="30"/>
-                                        <state key="normal" title="image ">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="54" id="SwJ-Tf-TxW"/>
+                                        </constraints>
+                                        <state key="normal" image="images_placeholder">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -2117,6 +2120,7 @@
         <image name="close" width="10" height="10"/>
         <image name="down_icon" width="12" height="6"/>
         <image name="event_sltbar" width="375" height="435"/>
+        <image name="images_placeholder" width="25" height="25"/>
         <image name="menu_icon" width="30" height="20"/>
         <image name="newchannel" width="139" height="29"/>
         <image name="newevent" width="28" height="28"/>

@@ -139,10 +139,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 
 
     func allCampusUser() -> NSArray {
-        let dic = UserDefaults.standard.value(forKey: kkeyAllCampusUser)
-        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSArray
-        return final
+        
+        if let dic = UserDefaults.standard.value(forKey: kkeyAllCampusUser) {
+            let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSArray
+            return final
+        }
+        return NSArray()
+        
     }
+    
 
     func getAllcampusUser() {
         
