@@ -83,10 +83,7 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                         if data.count > 0 {
                             self.arrAllFeedData = data as! Array<Any>
                             AppDelegate .shared.arrAllGrpData = self.arrAllFeedData as NSArray
-                            
-                            
-
-                            
+                  
                             let namePredicate = NSPredicate(format: "%K = %d", "isDiscovery",0)
                     
                             self.arrDiscovery = self.arrAllFeedData.filter { namePredicate.evaluate(with: $0) };

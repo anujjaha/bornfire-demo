@@ -25,6 +25,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     var currentOffset = CGFloat()
     var selectedGrpForMessage = String()
     var arrInterestForMessage = NSArray()
+    var arrAllFeedData = NSArray()
     
     
     @IBOutlet var btnBackBtn: UIButton!
@@ -82,8 +83,6 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     override func viewWillAppear(_ animated: Bool) {
         
-        
-        
     }
     
     func handleAction(action:UIAlertAction)  {
@@ -133,10 +132,19 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func setTabbar(){
-        self.tabBarController?.tabBar.layer.zPosition = 0
+    
+//        self.tabBarController?.tabBar.layer.zPosition = 0
+//        self.buttonPlus.isHidden = false
+//        self.tabBarController?.tabBar.isUserInteractionEnabled = true
+//        self.tabBarController?.tabBar.isHidden = false
+        
+        
         self.buttonPlus.isHidden = false
-        self.tabBarController?.tabBar.isUserInteractionEnabled = true
+        self.tabBarController?.tabBar.layer.zPosition = 0
+        self.tabBarController?.tabBar.isUserInteractionEnabled = true;
         self.tabBarController?.tabBar.isHidden = false
+        
+        
     }
     override func didReceiveMemoryWarning()
     {
@@ -180,7 +188,6 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             if selectedGrpForMessage.characters.count > 0 &&  arrInterestForMessage.count > 0 {
                 //arrMessages .add(textField.text! as String)
                 self .callApiToCreateNewChannelFeed()
-                self.tblMessages .reloadData()
                 self.setTabbar()
                 
             } else {
@@ -196,7 +203,9 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBAction func btnGTap(_ sender: AnyObject) {
 
         let  messagevc = MessageGroupListVC .initViewController()
-        messagevc.msgArr = ["Group1", "Group2", "Group3", "Group4"]
+        
+        messagevc.msgArr = self.arrAllFeedData
+        
         self.navigationController?.pushViewController(messagevc, animated: true)
         
       
@@ -222,6 +231,61 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.txtAnythingTosay.text = nil
     }
    
+    func GetAllfeed() {
+        
+        
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        
+        
+        let url = kServerURL + kGetAppGroup
+        
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        
+        request(url, method: .get, parameters:nil, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp.firstObject as! NSDictionary
+                        let data  = temp .value(forKey: "data") as! NSArray
+                        
+                        hideProgress()
+                        
+                        if data.count > 0 {
+                            self.arrAllFeedData = data 
+                            
+                            self.clvwMessage.dataSource = self
+                            self.clvwMessage.delegate = self
+                            self.clvwMessage .reloadData()
+                        }
+                        else
+                        {
+                            //                            App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+
+        }
+        
+    }
+    
     func callApiToCreateNewChannelFeed() {
         
         
@@ -253,6 +317,8 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                     
                     if let json = response.result.value {
                         
+                        self.tblMessages .reloadData()
+                        self.txtAnythingTosay.text = "Anything to say?"
                     }else {
                         
                     }
@@ -282,8 +348,6 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         request(url, method: .get, parameters:nil, headers: headers).responseJSON { (response:DataResponse<Any>) in
             
             print(response.result.debugDescription)
-            
-            hideProgress()
             switch(response.result)
             {
             case .success(_):
@@ -320,6 +384,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
                 break
             }
+            self .GetAllfeed()
         }
         
     }
@@ -354,7 +419,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
 
         
         cell.btnGroup.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
-        cell.btnGroup.titleLabel?.numberOfLines = 2;
+//        cell.btnGroup.titleLabel?.numberOfLines = 2;
         cell.btnGroup.titleLabel?.lineBreakMode = .byTruncatingTail
         
         let grpDetail = dict .value(forKey: "groupDetails") as? NSDictionary
@@ -402,13 +467,21 @@ extension MessageVC : UICollectionViewDataSource
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return 5
+        return self.arrAllFeedData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let identifier = "DiscoverCell"
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! DiscoverCell
+        
+        
+        let dic = self.arrAllFeedData[indexPath.row] as! NSDictionary
+        let strurl = dic["groupImage"] as! String
+        let url  = URL.init(string: strurl)
+        cell.imageView.sd_setImage(with: url, placeholderImage: nil)
+        
+        
         
         return cell
     }
@@ -419,7 +492,11 @@ extension MessageVC : UICollectionViewDelegate
 {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        
+        let dic = self.arrAllFeedData[indexPath.row] as! NSDictionary
+        let grpVcOBj = GroupVC.initViewController()
+        grpVcOBj.grpDetail = dic
+        grpVcOBj.isFromLeadingGrp = false
+        self.navigationController?.pushViewController(grpVcOBj, animated: true)
     }
 }
 

@@ -166,8 +166,11 @@ class GroupVC: UIViewController {
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
         
+//        UIImageJPEGRepresentation(imagview.image!, 1.0)
+//        if imagview.image != nil {
+//            let imgData = UIImagePNGRepresentation(imagview.image!)
+//        }
         
-        let imgData = UIImageJPEGRepresentation(imagview.image!, 0.5)
         
         upload(multipartFormData:{ multipartFormData in
             
@@ -175,7 +178,14 @@ class GroupVC: UIViewController {
                 multipartFormData.append((value.data(using: String.Encoding.utf8)!), withName: key)
             }
             
-            multipartFormData.append(imgData!, withName: "attachment", fileName: "test.jpg", mimeType: "image/jpeg")
+            if self.imagview.image != nil {
+
+                //                let imgData = UIImagePNGRepresentation(self.imagview.image!)
+                let imgData = UIImageJPEGRepresentation(self.imagview.image!, 0.5)
+                multipartFormData.append((imgData)!, withName: "attachment", fileName: "test.jpg", mimeType: "image/jpeg")
+            }
+            
+            
             
             
         } ,usingThreshold:UInt64.init(),
@@ -199,7 +209,7 @@ class GroupVC: UIViewController {
                         let temp  = dictemp.firstObject as! NSDictionary
                         let data  = temp .value(forKey: "data") as! NSDictionary
                         
-                    self.txtAnythingTosay.text = nil
+                    
                         
                     if data.count > 0 {
 //                        let tempconvert = self.arrChannelFeed .mutableCopy() as! NSMutableArray
@@ -241,6 +251,8 @@ class GroupVC: UIViewController {
             print(response.result.debugDescription)
             
             hideProgress()
+            self.txtAnythingTosay.text = "Anythig to say?"
+            
             switch(response.result)
             {
             case .success(_):
