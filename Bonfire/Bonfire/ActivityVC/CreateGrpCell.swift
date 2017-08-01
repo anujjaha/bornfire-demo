@@ -3,7 +3,7 @@
 //  Bonfire
 //
 //  Created by Gaurav Parmar on 19/05/17.
-//  Copyright © 2017 Niyati. All rights reserved.
+//  Copyright © 2017 Kevin. All rights reserved.
 //
 
 import UIKit

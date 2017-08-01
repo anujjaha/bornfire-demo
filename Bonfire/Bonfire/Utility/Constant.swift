@@ -39,6 +39,9 @@ let kkeyuser = "user"
 let kkeyLoginData = "LoginData"
 let kkeyAllCampusUser = "AllCampusUser"
 
+let kkeyisMember = "isMember"
+
+
 let kkeyisUserLogin = "UserLogin"
 let kkeyError = "error"
 let kkeyCampusCode = "CampusCode"

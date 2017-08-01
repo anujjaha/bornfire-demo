@@ -2,8 +2,8 @@
 //  MessageVC.swift
 //  Bonfire
 //
-//  Created by Yash on 30/04/17.
-//  Copyright © 2017 Niyati. All rights reserved.
+//  Created by Kevin on 30/04/17.
+//  Copyright © 2017 Kevin. All rights reserved.
 //
 
 import UIKit

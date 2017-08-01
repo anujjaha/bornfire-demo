@@ -3,7 +3,7 @@
 //  Bonfire
 //
 //  Created by Ios User on 09/05/17.
-//  Copyright © 2017 Niyati. All rights reserved.
+//  Copyright © 2017 Kevin. All rights reserved.
 //
 
 import UIKit

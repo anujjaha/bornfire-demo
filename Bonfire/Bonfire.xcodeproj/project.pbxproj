@@ -77,6 +77,7 @@
 		D3BAC62F1EB59B4F002745AC /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BAC62E1EB59B4F002745AC /* MessageVC.swift */; };
 		D3BAC6311EB59B61002745AC /* ActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BAC6301EB59B61002745AC /* ActivityVC.swift */; };
 		D3BAC6331EB59B6E002745AC /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BAC6321EB59B6E002745AC /* ProfileVC.swift */; };
+		D3BF9A561F30E86400302412 /* JoingGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BF9A551F30E86400302412 /* JoingGroupVC.swift */; };
 		D3C2CCBD1EA3B39A00996D8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C2CCBC1EA3B39A00996D8F /* AppDelegate.swift */; };
 		D3C2CCBF1EA3B39A00996D8F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C2CCBE1EA3B39A00996D8F /* ViewController.swift */; };
 		D3C2CCC21EA3B39A00996D8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3C2CCC01EA3B39A00996D8F /* Main.storyboard */; };
@@ -217,6 +218,7 @@
 		D3BAC62E1EB59B4F002745AC /* MessageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
 		D3BAC6301EB59B61002745AC /* ActivityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityVC.swift; sourceTree = "<group>"; };
 		D3BAC6321EB59B6E002745AC /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		D3BF9A551F30E86400302412 /* JoingGroupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoingGroupVC.swift; sourceTree = "<group>"; };
 		D3C2CCB91EA3B39A00996D8F /* Bonfire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bonfire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3C2CCBC1EA3B39A00996D8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3C2CCBE1EA3B39A00996D8F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -395,6 +397,7 @@
 			children = (
 				D35522311EB5EBD000E0608C /* DiscoverCell.swift */,
 				D30D9EA81EB4C64800245FE5 /* DiscoverVC.swift */,
+				D3BF9A551F30E86400302412 /* JoingGroupVC.swift */,
 			);
 			path = DiscoverView;
 			sourceTree = "<group>";
@@ -785,6 +788,7 @@
 				92E51A941EC239A90022AC6A /* AddInterestToMsgVC.swift in Sources */,
 				92082AD01EE1CDFD00E3BA4E /* JBDatePickerView.swift in Sources */,
 				D3C2CD151EA3B96100996D8F /* SessionDelegate.swift in Sources */,
+				D3BF9A561F30E86400302412 /* JoingGroupVC.swift in Sources */,
 				61EE66A71EF05CCE005C57B2 /* SDWebImageCompat.m in Sources */,
 				D3C2CD1E1EA3B96100996D8F /* IQUIView+Hierarchy.swift in Sources */,
 				D3C2CD141EA3B96100996D8F /* ServerTrustPolicy.swift in Sources */,
@@ -946,7 +950,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d4d47f98-a48e-4719-9280-63d2022a0aa8";
 				PROVISIONING_PROFILE_SPECIFIER = "Bonfire Dist";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Hardik-WorkSpace/Project/IPH_Bonfire/Bonfire/Bonfire/Bonfire-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Projects/Anuj Projects/Bonfire/LatestCode/bornfire-demo/Bonfire/Bonfire/Bonfire-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -965,7 +969,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d4d47f98-a48e-4719-9280-63d2022a0aa8";
 				PROVISIONING_PROFILE_SPECIFIER = "Bonfire Dist";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Hardik-WorkSpace/Project/IPH_Bonfire/Bonfire/Bonfire/Bonfire-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Projects/Anuj Projects/Bonfire/LatestCode/bornfire-demo/Bonfire/Bonfire/Bonfire-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

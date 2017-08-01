@@ -2,8 +2,8 @@
 //  GroupTitleVC.swift
 //  Bonfire
 //
-//  Created by Yash on 21/05/17.
-//  Copyright © 2017 Niyati. All rights reserved.
+//  Created by Kevin on 21/05/17.
+//  Copyright © 2017 Kevin. All rights reserved.
 //
 
 import UIKit

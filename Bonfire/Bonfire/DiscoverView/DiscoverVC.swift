@@ -2,8 +2,8 @@
 //  DiscoverVC.swift
 //  Bonfire
 //
-//  Created by Yash on 29/04/17.
-//  Copyright © 2017 Niyati. All rights reserved.
+//  Created by Kevin on 29/04/17.
+//  Copyright © 2017 Kevin. All rights reserved.
 //
 
 import UIKit
@@ -255,29 +255,27 @@ extension DiscoverVC : UICollectionViewDataSource
         let identifier = "DiscoverCell"
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! DiscoverCell
         
-        if  collectionView == self.clvwDiscover {
-
+        if  collectionView == self.clvwDiscover
+        {
             let dic = self.arrDiscovery[indexPath.row] as! NSDictionary
             let strurl = dic["groupImage"] as! String
             let url  = URL.init(string: strurl)
             cell.imageView.sd_setImage(with: url, placeholderImage: nil)
 
-            
-        } else if(collectionView == self.clvwGroups) {
-            print("test")
-            
+        }
+        else if(collectionView == self.clvwGroups)
+        {
             let dic = self.arrAllFeedData[indexPath.row] as! NSDictionary
             let strurl = dic["groupImage"] as! String
             let url  = URL.init(string: strurl)
             cell.imageView.sd_setImage(with: url, placeholderImage: nil)
-        } else{
-            print("test1")
-            
+        }
+        else
+        {
             let dic = self.arrForYouGrp[indexPath.row] as! NSDictionary
             let strurl = dic["groupImage"] as! String
             let url  = URL.init(string: strurl)
             cell.imageView.sd_setImage(with: url, placeholderImage: nil)
-            
         }
         
         return cell
@@ -291,25 +289,51 @@ extension DiscoverVC : UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         var dic = NSDictionary()
-        if  collectionView == self.clvwDiscover {
+        
+        if  collectionView == self.clvwDiscover
+        {
+            dic = self.arrDiscovery[indexPath.row] as! NSDictionary
+            print(dic)
             
-             dic = self.arrDiscovery[indexPath.row] as! NSDictionary
-    
-            
-        } else if(collectionView == self.clvwGroups) {
-            print("test")
-             dic = self.arrAllFeedData[indexPath.row] as! NSDictionary
-            
-        } else{
-            print("test1")
-            
-            dic = self.arrForYouGrp[indexPath.row] as! NSDictionary
+            if dic.object(forKey: kkeyisMember) as! Int == 0
+            {
+                let objJoinGroupVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "JoingGroupVC") as! JoingGroupVC
+                objJoinGroupVC.dicGroupDetail = dic
+                self.navigationController?.pushViewController(objJoinGroupVC, animated: true)
+            }
+            else
+            {
+                let grpVcOBj = GroupVC.initViewController()
+                grpVcOBj.grpDetail = dic
+                grpVcOBj.isFromLeadingGrp = false
+                self.navigationController?.pushViewController(grpVcOBj, animated: true)
+            }
         }
-        
-        let grpVcOBj = GroupVC.initViewController()
-        grpVcOBj.grpDetail = dic
-        grpVcOBj.isFromLeadingGrp = false
-        self.navigationController?.pushViewController(grpVcOBj, animated: true)
-        
+        else if(collectionView == self.clvwGroups)
+        {
+            dic = self.arrAllFeedData[indexPath.row] as! NSDictionary
+            if dic.object(forKey: kkeyisMember) as! Int == 0
+            {
+                let objJoinGroupVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "JoingGroupVC") as! JoingGroupVC
+                objJoinGroupVC.dicGroupDetail = dic
+                self.navigationController?.pushViewController(objJoinGroupVC, animated: true)
+            }
+            else
+            {
+                let grpVcOBj = GroupVC.initViewController()
+                grpVcOBj.grpDetail = dic
+                grpVcOBj.isFromLeadingGrp = false
+                self.navigationController?.pushViewController(grpVcOBj, animated: true)
+            }
+        }
+        else
+        {
+            dic = self.arrForYouGrp[indexPath.row] as! NSDictionary
+            let grpVcOBj = GroupVC.initViewController()
+            grpVcOBj.grpDetail = dic
+            grpVcOBj.isFromLeadingGrp = false
+            self.navigationController?.pushViewController(grpVcOBj, animated: true)
+            
+        }
     }
 }
