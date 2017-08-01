@@ -69,7 +69,9 @@ class GroupVC: UIViewController {
         print("tap")
     }
     @IBAction func backBtnTap(_ sender: Any) {
-        _ = self.navigationController?.popViewController(animated: true)
+//        _ = self.navigationController?.popViewController(animated: true)
+
+        _ = self.navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func menuBtnTap(_ sender: Any) {

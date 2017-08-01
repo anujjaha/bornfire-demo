@@ -15,12 +15,10 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var clvwMessage: UICollectionView!
     @IBOutlet weak var tblMessages: UITableView!
 
-    @IBOutlet var const_TxtAnything_leading: NSLayoutConstraint!
     @IBOutlet var buttonUpArrow: UIButton!
     @IBOutlet var buttonPlus: UIButton!
     @IBOutlet var btnHashTag: UIButton!
     
-    @IBOutlet var btnG: UIButton!
     var arrMessages = NSMutableArray()
     var currentOffset = CGFloat()
     var selectedGrpForMessage = String()
@@ -78,7 +76,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.setTabbar()
         tblMessages.reloadData()
         
-        self .getAllMessagesFeed()
+        self.getAllMessagesFeed()
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -104,9 +102,9 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBAction func btnGrpTap(_ sender: Any) {
     }
 
-    @IBAction func btnMesssageTap(_ sender: Any) {
-        
-        var btn = sender as! UIButton
+    @IBAction func btnMesssageTap(_ sender: Any)
+    {
+        let btn = sender as! UIButton
         
         let dict = self.arrMessages[btn.tag - 100] as! NSDictionary
         
@@ -116,8 +114,8 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             let allinterest = interestArr .value(forKey: "name") as! NSArray
             print(allinterest)
             
-         
-            let leadGrp = UIAlertController(title: "Leading group", message: "", preferredStyle: .actionSheet)
+            
+            let leadGrp = UIAlertController(title: "Interests List", message: "", preferredStyle: .actionSheet)
             for i in allinterest {
                 
                 leadGrp.addAction(UIAlertAction(title: i as? String, style: .default, handler: handleAction))
@@ -185,38 +183,33 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.txtAnythingTosay .resignFirstResponder()
         if (txtAnythingTosay.text?.characters.count)! > 0 {
             
-            if selectedGrpForMessage.characters.count > 0 &&  arrInterestForMessage.count > 0 {
+            if  arrInterestForMessage.count > 0
+            {
                 //arrMessages .add(textField.text! as String)
-                self .callApiToCreateNewChannelFeed()
+                self.callApiToCreateNewChannelFeed()
                 self.setTabbar()
-                
-            } else {
-                
+            }
+            else
+            {
                 App_showAlert(withMessage: "Please select all details", inView: self)
             }
-        } else {
+        }
+        else
+        {
             //App_showAlert(withMessage: "Please select all details", inView: self)
             setTabbar()
         }
     }
     
-    @IBAction func btnGTap(_ sender: AnyObject) {
-
-        let  messagevc = MessageGroupListVC .initViewController()
-        
-        messagevc.msgArr = self.arrAllFeedData
-        
-        self.navigationController?.pushViewController(messagevc, animated: true)
-        
-      
-    }
-     func calendarBtnTap(_ sender: Any)  {
+     func calendarBtnTap(_ sender: Any)
+     {
        let datepicker =  DatePickerViewController .initViewController()
         self.navigationController?.navigationBar.isTranslucent  = false
         self.navigationController?.pushViewController(datepicker, animated: true)
     }
    
-    @IBAction func buttonBackArrowTap(_ sender: Any) {
+    @IBAction func buttonBackArrowTap(_ sender: Any)
+    {
         self.txtAnythingTosay .resignFirstResponder()
 //        self.txtAnythingTosay.text = nil
         
@@ -286,19 +279,14 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         
     }
     
-    func callApiToCreateNewChannelFeed() {
-        
-        
+    func callApiToCreateNewChannelFeed()
+    {
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
-        
-        
-        
-        let param:[String:Any] = ["group_id" : "1","is_campus_feed" : "1","description": self.txtAnythingTosay.text!,"interests": arrInterestForMessage as Array]
-        
-        
+        let param:[String:Any] = ["is_campus_feed" : "1","description": self.txtAnythingTosay.text!,"interests": arrInterestForMessage as Array]
         let url = kServerURL + kCreateNewFeed
-        
+        print("parameters Message Post:>\(param)")
+
         showProgress(inView: self.view)
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
@@ -312,15 +300,18 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             {
             
             case .success(_):
-                if response.result.value != nil {
+                if response.result.value != nil
+                {
                     print(response.result.value!)
                     
-                    if let json = response.result.value {
-                        
-                        self.tblMessages .reloadData()
+                    if let json = response.result.value
+                    {
+//                        self.tblMessages .reloadData()
                         self.txtAnythingTosay.text = "Anything to say?"
-                    }else {
-                        
+                        self.getAllMessagesFeed()
+                    }
+                    else
+                    {
                     }
                 }
                 break
@@ -374,7 +365,6 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                                 //                            App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
                             }
                         }
-                        
                     }
                 }
                 break
@@ -384,9 +374,8 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
                 break
             }
-            self .GetAllfeed()
+            self.GetAllfeed()
         }
-        
     }
     
     
@@ -395,7 +384,6 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageCell
       
         cell.btnInterest.layer.cornerRadius = 10.0
-        cell.btnGroup.layer.cornerRadius = 10.0
        
         // For Testign Purpose i have  set cell here
 //        if indexPath.row == 1 || indexPath.row == 2 {
@@ -416,41 +404,28 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         let profileurl = feeddict? .value(forKey: "profile_picture") as? String
         cell.imgUser .sd_setImage(with: URL(string: (profileurl)!), placeholderImage: nil)
         
-
-        
-        cell.btnGroup.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
-//        cell.btnGroup.titleLabel?.numberOfLines = 2;
-        cell.btnGroup.titleLabel?.lineBreakMode = .byTruncatingTail
-        
-        let grpDetail = dict .value(forKey: "groupDetails") as? NSDictionary
-        let grpname = grpDetail? .value(forKey: "groupName") as? String
-        cell.btnGroup .setTitle(grpname, for:.normal)
-    
         let interestArr = dict.value(forKey: "interests") as! NSArray
-        
-        if interestArr.count > 0 {
+        if interestArr.count > 0
+        {
             let firstdict = interestArr.firstObject as! NSDictionary
             let firstname = firstdict .value(forKey: "name") as? String
             cell.btnInterest .setTitle("#" + firstname!, for: .normal)
-    
-            let allinterest = interestArr .value(forKey: "name")
-            print(allinterest)
-            
-            
         }
-        
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
+        let dict = self.arrMessages[indexPath.row] as! NSDictionary
+        if (dict.value(forKey: "description") as! NSString).length < 100
+        {
+            return 120
+        }
         return UITableViewAutomaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        
     }
     
     /*
@@ -542,14 +517,13 @@ extension MessageVC : UITextFieldDelegate
 
     func textFieldDidEndEditing(_ textField: UITextField)
     {
-        self.btnG.isHidden = false
         self.btnHashTag.isHidden = false
         self.buttonUpArrow.isHidden = false
         IQKeyboardManager.sharedManager().enableAutoToolbar = true
         self.txtAnythingTosay.placeholder = "Anything to say?"
         self.btnBackBtn.isHidden = true
         
-        self.const_TxtAnything_leading.constant = 10
+//        self.const_TxtAnything_leading.constant = 10
         
         
 //        self.setTabbar()
@@ -557,9 +531,7 @@ extension MessageVC : UITextFieldDelegate
     
     func textFieldDidBeginEditing(_ textField: UITextField)
     {
-        
-        self.const_TxtAnything_leading.constant = -20
-        self.btnG.isHidden = true
+//        self.const_TxtAnything_leading.constant = -20
         self.btnHashTag.isHidden = true
         self.buttonUpArrow.isHidden = false
         IQKeyboardManager.sharedManager().enableAutoToolbar = false
@@ -570,13 +542,13 @@ extension MessageVC : UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
         textField .resignFirstResponder()
-        
         return true
     }
 }
 class MessageCell: UITableViewCell
 {
-    override func awakeFromNib() {
+    override func awakeFromNib()
+    {
         self .layoutIfNeeded()
         
         self.imgUser.layer.borderWidth = 1

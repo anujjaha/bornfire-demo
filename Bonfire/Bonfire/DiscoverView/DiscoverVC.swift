@@ -44,16 +44,17 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
         let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         space.width = -20 // adjust as needed
         
-        
         self.navigationItem.rightBarButtonItems = [barButton,space]
-        
-        self .GetAllfeed()
-        
     }
 
-    func GetAllfeed() {
-        
-        
+    override func viewWillAppear(_ animated: Bool)
+    {
+        self .GetAllfeed()
+    }
+    
+    
+    func GetAllfeed()
+    {
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
 
@@ -71,25 +72,25 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
             switch(response.result)
             {
             case .success(_):
-                if response.result.value != nil {
+                if response.result.value != nil
+                {
                     print(response.result.value!)
                     
-                    if let json = response.result.value {
+                    if let json = response.result.value
+                    {
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
                         let data  = temp .value(forKey: "data") as! NSArray
                         
-                        if data.count > 0 {
+                        if data.count > 0
+                        {
                             self.arrAllFeedData = data as! Array<Any>
                             AppDelegate .shared.arrAllGrpData = self.arrAllFeedData as NSArray
                   
                             let namePredicate = NSPredicate(format: "%K = %d", "isDiscovery",0)
                     
                             self.arrDiscovery = self.arrAllFeedData.filter { namePredicate.evaluate(with: $0) };
-                            
-                            
-                            
                         }
                         else
                         {
@@ -105,15 +106,11 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                 break
             }
             self.callForYouGrpFeed()
-    
         }
-        
     }
     
-    
-    func callForYouGrpFeed() {
-        
-        
+    func callForYouGrpFeed()
+    {
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         
@@ -142,41 +139,27 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
                         
-                        if (temp.value(forKey: "error") != nil) {
+                        if (temp.value(forKey: "error") != nil)
+                        {
                             let errdic = temp.value(forKey: "error") as! NSDictionary
 //                            let msg = errdic .value(forKey: "reason") as? String
                             self.const_foryouCollview_height.constant = 0
                             self.cosnt_foryouLabel_height.constant = 0
-                            
-                            
-                            
-                        } else {
+                        }
+                        else
+                        {
                             let data  = temp .value(forKey: "data") as! NSArray
                             
-                            if data.count > 0 {
+                            if data.count > 0
+                            {
                                 
                                 self.arrForYouGrp = data as! Array<Any>
                                 
                                 self.const_foryouCollview_height.constant = 220
                                 self.cosnt_foryouLabel_height.constant = 21
-                              
-                                
-                                
-                                self.clvwyour.dataSource = self
-                                self.clvwGroups.dataSource = self
-                                self.clvwDiscover.dataSource = self
-                                
-                                self.clvwyour.delegate = self
-                                self.clvwGroups.delegate = self
-                                self.clvwDiscover.delegate = self
-                                
-                                
-                                self.clvwGroups .reloadData()
-                                self.clvwyour .reloadData()
-                                self.clvwDiscover .reloadData()
                             }
-                            else {
-                                
+                            else
+                            {
                             }
                         }
                         
@@ -190,14 +173,23 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                 break
             }
             
+            self.clvwyour.dataSource = self
+            self.clvwGroups.dataSource = self
+            self.clvwDiscover.dataSource = self
             
+            self.clvwyour.delegate = self
+            self.clvwGroups.delegate = self
+            self.clvwDiscover.delegate = self
+            
+            
+            self.clvwGroups .reloadData()
+            self.clvwyour .reloadData()
+            self.clvwDiscover .reloadData()
         }
-        
     }
     
-    
-    
-    @IBAction func calwndarBtnTap(_ sender: Any) {
+    @IBAction func calwndarBtnTap(_ sender: Any)
+    {
         let datepicker =  DatePickerViewController .initViewController()
         self.navigationController?.navigationBar.isTranslucent  = false
         self.navigationController?.pushViewController(datepicker, animated: true)

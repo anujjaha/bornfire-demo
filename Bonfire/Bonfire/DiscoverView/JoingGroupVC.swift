@@ -30,6 +30,11 @@ class JoingGroupVC: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = true
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
     }
     
     override func viewWillDisappear(_ animated: Bool)
@@ -70,25 +75,30 @@ class JoingGroupVC: UIViewController {
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
-                        let data  = temp .value(forKey: "data") as! NSDictionary
                         
-                        if data.count > 0
+                        if (temp.value(forKey: "error") != nil)
                         {
-                            if let err  =  data.value(forKey: kkeyError)
-                            {
-                                App_showAlert(withMessage: err as! String, inView: self)
-                            }
-                            else
-                            {
-                                let grpVcOBj = GroupVC.initViewController()
-                                grpVcOBj.grpDetail = self.dicGroupDetail
-                                grpVcOBj.isFromLeadingGrp = false
-                                self.navigationController?.pushViewController(grpVcOBj, animated: true)
-                            }
+                            let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
+                            App_showAlert(withMessage: msg as! String, inView: self)
                         }
                         else
                         {
-                            App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
+                            let data  = temp .value(forKey: "data") as! NSDictionary
+                            
+                            if data.count > 0
+                            {
+                                if let err  =  data.value(forKey: kkeyError)
+                                {
+                                    App_showAlert(withMessage: err as! String, inView: self)
+                                }
+                                else
+                                {
+                                    let grpVcOBj = GroupVC.initViewController()
+                                    grpVcOBj.grpDetail = self.dicGroupDetail
+                                    grpVcOBj.isFromLeadingGrp = false
+                                    self.navigationController?.pushViewController(grpVcOBj, animated: true)
+                                }
+                            }
                         }
                     }
                 }
