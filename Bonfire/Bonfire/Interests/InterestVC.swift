@@ -2,8 +2,8 @@
 //  InterestVC.swift
 //  Bonfire
 //
-//  Created by Yash on 29/04/17.
-//  Copyright © 2017 Niyati. All rights reserved.
+//  Created by Kevin on 29/04/17.
+//  Copyright © 2017 Kevin. All rights reserved.
 //
 
 import UIKit

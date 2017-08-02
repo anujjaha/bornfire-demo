@@ -3,7 +3,7 @@
 //  Bonfire
 //
 //  Created by Hardik on 14/06/17.
-//  Copyright © 2017 Niyati. All rights reserved.
+//  Copyright © 2017 Kevin. All rights reserved.
 //
 
 #ifndef Bonfire_Bridging_Header_h

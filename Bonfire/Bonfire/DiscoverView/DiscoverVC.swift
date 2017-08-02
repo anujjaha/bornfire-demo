@@ -2,8 +2,8 @@
 //  DiscoverVC.swift
 //  Bonfire
 //
-//  Created by Yash on 29/04/17.
-//  Copyright © 2017 Niyati. All rights reserved.
+//  Created by Kevin on 29/04/17.
+//  Copyright © 2017 Kevin. All rights reserved.
 //
 
 import UIKit
@@ -44,16 +44,17 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
         let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         space.width = -20 // adjust as needed
         
-        
         self.navigationItem.rightBarButtonItems = [barButton,space]
-        
-        self .GetAllfeed()
-        
     }
 
-    func GetAllfeed() {
-        
-        
+    override func viewWillAppear(_ animated: Bool)
+    {
+        self .GetAllfeed()
+    }
+    
+    
+    func GetAllfeed()
+    {
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
 
@@ -71,25 +72,25 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
             switch(response.result)
             {
             case .success(_):
-                if response.result.value != nil {
+                if response.result.value != nil
+                {
                     print(response.result.value!)
                     
-                    if let json = response.result.value {
+                    if let json = response.result.value
+                    {
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
                         let data  = temp .value(forKey: "data") as! NSArray
                         
-                        if data.count > 0 {
+                        if data.count > 0
+                        {
                             self.arrAllFeedData = data as! Array<Any>
                             AppDelegate .shared.arrAllGrpData = self.arrAllFeedData as NSArray
                   
                             let namePredicate = NSPredicate(format: "%K = %d", "isDiscovery",0)
                     
                             self.arrDiscovery = self.arrAllFeedData.filter { namePredicate.evaluate(with: $0) };
-                            
-                            
-                            
                         }
                         else
                         {
@@ -105,15 +106,11 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                 break
             }
             self.callForYouGrpFeed()
-    
         }
-        
     }
     
-    
-    func callForYouGrpFeed() {
-        
-        
+    func callForYouGrpFeed()
+    {
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         
@@ -137,46 +134,30 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                 if response.result.value != nil {
                     print(response.result.value!)
                     
-                    if let json = response.result.value {
+                    if let json = response.result.value
+                    {
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
                         
-                        if (temp.value(forKey: "error") != nil) {
+                        if (temp.value(forKey: "error") != nil)
+                        {
                             let errdic = temp.value(forKey: "error") as! NSDictionary
 //                            let msg = errdic .value(forKey: "reason") as? String
                             self.const_foryouCollview_height.constant = 0
                             self.cosnt_foryouLabel_height.constant = 0
-                            
-                            
-                            
-                        } else {
+                        }
+                        else
+                        {
                             let data  = temp .value(forKey: "data") as! NSArray
-                            
-                            if data.count > 0 {
-                                
+                            if data.count > 0
+                            {
                                 self.arrForYouGrp = data as! Array<Any>
-                                
                                 self.const_foryouCollview_height.constant = 220
                                 self.cosnt_foryouLabel_height.constant = 21
-                              
-                                
-                                
-                                self.clvwyour.dataSource = self
-                                self.clvwGroups.dataSource = self
-                                self.clvwDiscover.dataSource = self
-                                
-                                self.clvwyour.delegate = self
-                                self.clvwGroups.delegate = self
-                                self.clvwDiscover.delegate = self
-                                
-                                
-                                self.clvwGroups .reloadData()
-                                self.clvwyour .reloadData()
-                                self.clvwDiscover .reloadData()
                             }
-                            else {
-                                
+                            else
+                            {
                             }
                         }
                         
@@ -190,14 +171,23 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                 break
             }
             
+            self.clvwyour.dataSource = self
+            self.clvwGroups.dataSource = self
+            self.clvwDiscover.dataSource = self
             
+            self.clvwyour.delegate = self
+            self.clvwGroups.delegate = self
+            self.clvwDiscover.delegate = self
+            
+            
+            self.clvwGroups .reloadData()
+            self.clvwyour .reloadData()
+            self.clvwDiscover .reloadData()
         }
-        
     }
     
-    
-    
-    @IBAction func calwndarBtnTap(_ sender: Any) {
+    @IBAction func calwndarBtnTap(_ sender: Any)
+    {
         let datepicker =  DatePickerViewController .initViewController()
         self.navigationController?.navigationBar.isTranslucent  = false
         self.navigationController?.pushViewController(datepicker, animated: true)
@@ -211,8 +201,8 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
     // MARK: - UITableView
     
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
+    {
         if scrollView == scrlvMain {
             currentOffset = self.scrlvMain.contentOffset.y
             
@@ -255,29 +245,27 @@ extension DiscoverVC : UICollectionViewDataSource
         let identifier = "DiscoverCell"
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! DiscoverCell
         
-        if  collectionView == self.clvwDiscover {
-
+        if  collectionView == self.clvwDiscover
+        {
             let dic = self.arrDiscovery[indexPath.row] as! NSDictionary
             let strurl = dic["groupImage"] as! String
             let url  = URL.init(string: strurl)
             cell.imageView.sd_setImage(with: url, placeholderImage: nil)
 
-            
-        } else if(collectionView == self.clvwGroups) {
-            print("test")
-            
+        }
+        else if(collectionView == self.clvwGroups)
+        {
             let dic = self.arrAllFeedData[indexPath.row] as! NSDictionary
             let strurl = dic["groupImage"] as! String
             let url  = URL.init(string: strurl)
             cell.imageView.sd_setImage(with: url, placeholderImage: nil)
-        } else{
-            print("test1")
-            
+        }
+        else
+        {
             let dic = self.arrForYouGrp[indexPath.row] as! NSDictionary
             let strurl = dic["groupImage"] as! String
             let url  = URL.init(string: strurl)
             cell.imageView.sd_setImage(with: url, placeholderImage: nil)
-            
         }
         
         return cell
@@ -291,25 +279,51 @@ extension DiscoverVC : UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         var dic = NSDictionary()
-        if  collectionView == self.clvwDiscover {
+        
+        if  collectionView == self.clvwDiscover
+        {
+            dic = self.arrDiscovery[indexPath.row] as! NSDictionary
+            print(dic)
             
-             dic = self.arrDiscovery[indexPath.row] as! NSDictionary
-    
-            
-        } else if(collectionView == self.clvwGroups) {
-            print("test")
-             dic = self.arrAllFeedData[indexPath.row] as! NSDictionary
-            
-        } else{
-            print("test1")
-            
-            dic = self.arrForYouGrp[indexPath.row] as! NSDictionary
+            if dic.object(forKey: kkeyisMember) as! Int == 0
+            {
+                let objJoinGroupVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "JoingGroupVC") as! JoingGroupVC
+                objJoinGroupVC.dicGroupDetail = dic
+                self.navigationController?.pushViewController(objJoinGroupVC, animated: true)
+            }
+            else
+            {
+                let grpVcOBj = GroupVC.initViewController()
+                grpVcOBj.grpDetail = dic
+                grpVcOBj.isFromLeadingGrp = false
+                self.navigationController?.pushViewController(grpVcOBj, animated: true)
+            }
         }
-        
-        let grpVcOBj = GroupVC.initViewController()
-        grpVcOBj.grpDetail = dic
-        grpVcOBj.isFromLeadingGrp = false
-        self.navigationController?.pushViewController(grpVcOBj, animated: true)
-        
+        else if(collectionView == self.clvwGroups)
+        {
+            dic = self.arrAllFeedData[indexPath.row] as! NSDictionary
+            if dic.object(forKey: kkeyisMember) as! Int == 0
+            {
+                let objJoinGroupVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "JoingGroupVC") as! JoingGroupVC
+                objJoinGroupVC.dicGroupDetail = dic
+                self.navigationController?.pushViewController(objJoinGroupVC, animated: true)
+            }
+            else
+            {
+                let grpVcOBj = GroupVC.initViewController()
+                grpVcOBj.grpDetail = dic
+                grpVcOBj.isFromLeadingGrp = false
+                self.navigationController?.pushViewController(grpVcOBj, animated: true)
+            }
+        }
+        else
+        {
+            dic = self.arrForYouGrp[indexPath.row] as! NSDictionary
+            let grpVcOBj = GroupVC.initViewController()
+            grpVcOBj.grpDetail = dic
+            grpVcOBj.isFromLeadingGrp = false
+            self.navigationController?.pushViewController(grpVcOBj, animated: true)
+            
+        }
     }
 }

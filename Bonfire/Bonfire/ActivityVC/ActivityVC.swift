@@ -2,8 +2,8 @@
 //  ActivityVC.swift
 //  Bonfire
 //
-//  Created by Yash on 30/04/17.
-//  Copyright © 2017 Niyati. All rights reserved.
+//  Created by Kevin on 30/04/17.
+//  Copyright © 2017 Kevin. All rights reserved.
 //
 
 import UIKit
@@ -54,18 +54,16 @@ class ActivityVC: UIViewController {
         
         self.navigationItem.rightBarButtonItems = [barButton,space]
     }
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = false
         
-        let namePredicate = NSPredicate(format: "%K = %d", "isLeader",0)
+        let namePredicate = NSPredicate(format: "%K = %d", "isLeader",1)
         self.arrLeaderingGrp = AppDelegate .shared.arrAllGrpData.filter { namePredicate.evaluate(with: $0) } as NSArray
-        
     
-        let namePredicate1 = NSPredicate(format: "%K = %d", "isMember",0)
+        let namePredicate1 = NSPredicate(format: "%K = %d", "isMember",1)
         self.arrYourGrp = AppDelegate .shared.arrAllGrpData.filter { namePredicate1.evaluate(with: $0) } as NSArray
-        
-        
         
     }
     override func didReceiveMemoryWarning() {

@@ -3,7 +3,7 @@
 //  Bonfire
 //
 //  Created by IOS User on 12/05/17.
-//  Copyright © 2017 Niyati. All rights reserved.
+//  Copyright © 2017 Kevin. All rights reserved.
 //
 
 import UIKit
@@ -69,7 +69,9 @@ class GroupVC: UIViewController {
         print("tap")
     }
     @IBAction func backBtnTap(_ sender: Any) {
-        _ = self.navigationController?.popViewController(animated: true)
+//        _ = self.navigationController?.popViewController(animated: true)
+
+        _ = self.navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func menuBtnTap(_ sender: Any) {

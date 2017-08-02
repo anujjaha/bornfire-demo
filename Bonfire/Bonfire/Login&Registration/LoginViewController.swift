@@ -2,8 +2,8 @@
 //  LoginViewController.swift
 //  Bonfire
 //
-//  Created by Yash on 17/04/17.
-//  Copyright © 2017 Niyati. All rights reserved.
+//  Created by Kevin on 17/04/17.
+//  Copyright © 2017 Kevin. All rights reserved.
 //
 
 import UIKit
