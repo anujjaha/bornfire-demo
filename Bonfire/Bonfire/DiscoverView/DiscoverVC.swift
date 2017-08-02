@@ -134,7 +134,8 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                 if response.result.value != nil {
                     print(response.result.value!)
                     
-                    if let json = response.result.value {
+                    if let json = response.result.value
+                    {
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
@@ -149,12 +150,9 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                         else
                         {
                             let data  = temp .value(forKey: "data") as! NSArray
-                            
                             if data.count > 0
                             {
-                                
                                 self.arrForYouGrp = data as! Array<Any>
-                                
                                 self.const_foryouCollview_height.constant = 220
                                 self.cosnt_foryouLabel_height.constant = 21
                             }
@@ -203,8 +201,8 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
     // MARK: - UITableView
     
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
+    {
         if scrollView == scrlvMain {
             currentOffset = self.scrlvMain.contentOffset.y
             

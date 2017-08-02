@@ -28,14 +28,16 @@ class ViewController: UIViewController,UITextFieldDelegate
         {
             let arr = UserDefaults.standard.value(forKey: "campusData") as! NSArray
             
-            if arr.count>0 {
+            if arr.count>0
+            {
                 let code = self.txtCampusCode.text!
                 
                 let campus = NSPredicate(format: "%K = %@", "campusCode",code)
                 let arrcampusdata = arr .filtered(using: campus);
                 print(arrcampusdata)
                 
-                if arrcampusdata.count > 0 {
+                if arrcampusdata.count > 0
+                {
                     UserDefaults.standard.set(self.txtCampusCode.text!, forKey: kkeyCampusCode)
                     UserDefaults.standard.synchronize()
                     
@@ -45,11 +47,12 @@ class ViewController: UIViewController,UITextFieldDelegate
                     let objLoginVC = storyTab.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
                     objLoginVC.strCampusCode = self.txtCampusCode.text!
                     self.navigationController?.pushViewController(objLoginVC, animated: true)
-                }else {
+                }
+                else
+                {
                     App_showAlert(withMessage: "Please enter valid campus code", inView: self)
                 }
             }
-            
         }
     }
     
