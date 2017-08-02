@@ -251,7 +251,7 @@ class GroupVC: UIViewController {
             print(response.result.debugDescription)
             
             hideProgress()
-            self.txtAnythingTosay.text = "Anythig to say?"
+            self.txtAnythingTosay.placeholder = "Anythig to say?"
             
             switch(response.result)
             {
