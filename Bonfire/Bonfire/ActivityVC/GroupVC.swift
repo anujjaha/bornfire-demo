@@ -314,13 +314,19 @@ class GroupVC: UIViewController {
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         let userid = final .value(forKey: "userId")
         
-        let url = kServerURL + kGetAllChannel
-        
+//        let url = kServerURL + kGetAllChannel
+
+        let url = kServerURL + kGetChannelByGroupID
+
         showProgress(inView: self.view)
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
         
-        request(url, method: .get, parameters:nil, headers: headers).responseJSON { (response:DataResponse<Any>) in
+        let param = [
+            "group_id" : "\(grpDetail.object(forKey: "groupId")!)"
+        ]
+        
+        request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
             
             print(response.result.debugDescription)
             
@@ -331,25 +337,38 @@ class GroupVC: UIViewController {
                 if response.result.value != nil {
                     print(response.result.value!)
                     
-                    if let json = response.result.value {
+                    if let json = response.result.value
+                    {
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
-                        let data  = temp .value(forKey: "data") as! NSArray
                         
-                        if data.count > 0 {
-                            self.channelArr = data
-                            self.lblChannel.text = (self.channelArr.firstObject as! NSDictionary) .value(forKey: "channelName") as? String
-                            
-                            if let channel = (self.channelArr.firstObject) {
-                                self.selectedChannelID =  (self.channelArr.firstObject as! NSDictionary) .   value(forKey: "channelId") as! Int
-                                
-                                self.getAllChannelfeed(channelId: self.selectedChannelID)   
-                            }
+                        if (temp.value(forKey: "error") != nil)
+                        {
+                            let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
+                            App_showAlert(withMessage: msg as! String, inView: self)
                         }
                         else
                         {
-                            //App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
+                            let dictemp = json as! NSArray
+                            print("dictemp :> \(dictemp)")
+                            let temp  = dictemp.firstObject as! NSDictionary
+                            let data  = temp .value(forKey: "data") as! NSArray
+                            
+                            if data.count > 0 {
+                                self.channelArr = data
+                                self.lblChannel.text = (self.channelArr.firstObject as! NSDictionary) .value(forKey: "channelName") as? String
+                                
+                                if let channel = (self.channelArr.firstObject) {
+                                    self.selectedChannelID =  (self.channelArr.firstObject as! NSDictionary) .   value(forKey: "channelId") as! Int
+                                    
+                                    self.getAllChannelfeed(channelId: self.selectedChannelID)
+                                }
+                            }
+                            else
+                            {
+                                //App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
+                            }
                         }
                     }
                 }

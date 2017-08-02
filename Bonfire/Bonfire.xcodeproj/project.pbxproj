@@ -62,6 +62,9 @@
 		D31211951ED0521500DAE68C /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D312118C1ED0521500DAE68C /* SettingCell.swift */; };
 		D31211961ED0521500DAE68C /* SettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D312118D1ED0521500DAE68C /* SettingVC.swift */; };
 		D312119A1ED0527E00DAE68C /* InterestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31211991ED0527E00DAE68C /* InterestCell.swift */; };
+		D330C5341F3244D600C73A84 /* JVFloatLabeledTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D330C52F1F3244D600C73A84 /* JVFloatLabeledTextField.m */; };
+		D330C5351F3244D600C73A84 /* JVFloatLabeledTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D330C5311F3244D600C73A84 /* JVFloatLabeledTextView.m */; };
+		D330C5361F3244D600C73A84 /* NSString+TextDirectionality.m in Sources */ = {isa = PBXBuildFile; fileRef = D330C5331F3244D600C73A84 /* NSString+TextDirectionality.m */; };
 		D35522321EB5EBD000E0608C /* DiscoverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35522311EB5EBD000E0608C /* DiscoverCell.swift */; };
 		D3599A101EA52B5000EC1D9B /* Cabin-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3599A081EA52B5000EC1D9B /* Cabin-Bold.ttf */; };
 		D3599A111EA52B5000EC1D9B /* Cabin-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3599A091EA52B5000EC1D9B /* Cabin-Regular.ttf */; };
@@ -203,6 +206,12 @@
 		D312118C1ED0521500DAE68C /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		D312118D1ED0521500DAE68C /* SettingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingVC.swift; sourceTree = "<group>"; };
 		D31211991ED0527E00DAE68C /* InterestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestCell.swift; sourceTree = "<group>"; };
+		D330C52E1F3244D600C73A84 /* JVFloatLabeledTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVFloatLabeledTextField.h; sourceTree = "<group>"; };
+		D330C52F1F3244D600C73A84 /* JVFloatLabeledTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVFloatLabeledTextField.m; sourceTree = "<group>"; };
+		D330C5301F3244D600C73A84 /* JVFloatLabeledTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVFloatLabeledTextView.h; sourceTree = "<group>"; };
+		D330C5311F3244D600C73A84 /* JVFloatLabeledTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVFloatLabeledTextView.m; sourceTree = "<group>"; };
+		D330C5321F3244D600C73A84 /* NSString+TextDirectionality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TextDirectionality.h"; sourceTree = "<group>"; };
+		D330C5331F3244D600C73A84 /* NSString+TextDirectionality.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TextDirectionality.m"; sourceTree = "<group>"; };
 		D35522311EB5EBD000E0608C /* DiscoverCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverCell.swift; sourceTree = "<group>"; };
 		D3599A081EA52B5000EC1D9B /* Cabin-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cabin-Bold.ttf"; sourceTree = "<group>"; };
 		D3599A091EA52B5000EC1D9B /* Cabin-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cabin-Regular.ttf"; sourceTree = "<group>"; };
@@ -402,6 +411,19 @@
 			path = DiscoverView;
 			sourceTree = "<group>";
 		};
+		D330C52D1F3244D600C73A84 /* JVFloatLabeledTextField */ = {
+			isa = PBXGroup;
+			children = (
+				D330C52E1F3244D600C73A84 /* JVFloatLabeledTextField.h */,
+				D330C52F1F3244D600C73A84 /* JVFloatLabeledTextField.m */,
+				D330C5301F3244D600C73A84 /* JVFloatLabeledTextView.h */,
+				D330C5311F3244D600C73A84 /* JVFloatLabeledTextView.m */,
+				D330C5321F3244D600C73A84 /* NSString+TextDirectionality.h */,
+				D330C5331F3244D600C73A84 /* NSString+TextDirectionality.m */,
+			);
+			path = JVFloatLabeledTextField;
+			sourceTree = "<group>";
+		};
 		D3599A071EA52B5000EC1D9B /* fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -483,6 +505,7 @@
 		D3C2CCBB1EA3B39A00996D8F /* Bonfire */ = {
 			isa = PBXGroup;
 			children = (
+				D330C52D1F3244D600C73A84 /* JVFloatLabeledTextField */,
 				92082AD61EE1CFCC00E3BA4E /* DatePickerView */,
 				92082AB71EE1CDFD00E3BA4E /* JBDatePicker */,
 				D3BAC62B1EB59B3A002745AC /* ProfileVC */,
@@ -752,6 +775,7 @@
 				61EE66B01EF05CCE005C57B2 /* UIImage+WebP.m in Sources */,
 				61EE66A61EF05CCE005C57B2 /* SDImageCacheConfig.m in Sources */,
 				D3C2CD0A1EA3B96100996D8F /* DispatchQueue+Alamofire.swift in Sources */,
+				D330C5341F3244D600C73A84 /* JVFloatLabeledTextField.m in Sources */,
 				61EE66AD1EF05CCE005C57B2 /* UIButton+WebCache.m in Sources */,
 				92082AC91EE1CDFD00E3BA4E /* JBDateExtension.swift in Sources */,
 				D3C2CD121EA3B96100996D8F /* ResponseSerialization.swift in Sources */,
@@ -759,7 +783,9 @@
 				D30D9E991EB4704F00245FE5 /* HTagView.swift in Sources */,
 				61EE66A21EF05CCE005C57B2 /* MKAnnotationView+WebCache.m in Sources */,
 				61162C841EFA9787009C5BB7 /* MessageGroupListVC.swift in Sources */,
+				D330C5361F3244D600C73A84 /* NSString+TextDirectionality.m in Sources */,
 				D3C2CD181EA3B96100996D8F /* Timeline.swift in Sources */,
+				D330C5351F3244D600C73A84 /* JVFloatLabeledTextView.m in Sources */,
 				D3C2CD1F1EA3B96100996D8F /* IQUIViewController+Additions.swift in Sources */,
 				D3C2CD271EA3B96100996D8F /* IQPreviousNextView.swift in Sources */,
 				D3C2CD131EA3B96100996D8F /* Result.swift in Sources */,

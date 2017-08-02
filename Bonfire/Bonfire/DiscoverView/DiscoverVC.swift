@@ -88,7 +88,7 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                             self.arrAllFeedData = data as! Array<Any>
                             AppDelegate .shared.arrAllGrpData = self.arrAllFeedData as NSArray
                   
-                            let namePredicate = NSPredicate(format: "%K = %d", "isDiscovery",0)
+                            let namePredicate = NSPredicate(format: "%K = %d", "isDiscovery",1)
                     
                             self.arrDiscovery = self.arrAllFeedData.filter { namePredicate.evaluate(with: $0) };
                         }
@@ -285,7 +285,7 @@ extension DiscoverVC : UICollectionViewDelegate
             dic = self.arrDiscovery[indexPath.row] as! NSDictionary
             print(dic)
             
-            if dic.object(forKey: kkeyisMember) as! Int == 0
+            if dic.object(forKey: kkeyisMember) as! Int == 0 && dic.object(forKey: kkeyisLeader) as! Int == 0
             {
                 let objJoinGroupVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "JoingGroupVC") as! JoingGroupVC
                 objJoinGroupVC.dicGroupDetail = dic
@@ -302,7 +302,7 @@ extension DiscoverVC : UICollectionViewDelegate
         else if(collectionView == self.clvwGroups)
         {
             dic = self.arrAllFeedData[indexPath.row] as! NSDictionary
-            if dic.object(forKey: kkeyisMember) as! Int == 0
+            if dic.object(forKey: kkeyisMember) as! Int == 0 && dic.object(forKey: kkeyisLeader) as! Int == 0
             {
                 let objJoinGroupVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "JoingGroupVC") as! JoingGroupVC
                 objJoinGroupVC.dicGroupDetail = dic

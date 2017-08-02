@@ -10,4 +10,8 @@
 #define Bonfire_Bridging_Header_h
 
 #import "UIImageView+WebCache.h"
+#import "JVFloatLabeledTextView.h"
+#import "JVFloatLabeledTextField.h"
+
+
 #endif /* Bonfire_Bridging_Header_h */

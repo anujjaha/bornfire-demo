@@ -40,7 +40,7 @@ let kkeyLoginData = "LoginData"
 let kkeyAllCampusUser = "AllCampusUser"
 
 let kkeyisMember = "isMember"
-
+let kkeyisLeader = "isLeader"
 
 let kkeyisUserLogin = "UserLogin"
 let kkeyError = "error"
@@ -69,6 +69,7 @@ let kInterest  = "interests"
 let kEvents  = "events"
 let kAddInterest = "user-interest/add-interest"
 let kGetAllChannel = "get-channels"
+let kGetChannelByGroupID = "channels/get-channels-by-group-id"
 
 let kGetAppGroup = "groups"
 let kGetForYouFeed = "get-for-you-groups"

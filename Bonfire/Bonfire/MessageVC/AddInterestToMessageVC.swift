@@ -21,6 +21,7 @@ class AddInterestToMessageVC: UIViewController {
     var name = String()
     var switchstr = String()
     var grpImage = UIImage()
+    var strGroupDescription = String()
     
     var dictGrpDetailsTosend = [String:String]()
 
@@ -232,7 +233,8 @@ class AddInterestToMessageVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func callCreateGroupAPI(){
+    func callCreateGroupAPI()
+    {
         
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
@@ -240,29 +242,104 @@ class AddInterestToMessageVC: UIViewController {
         let url = kServerURL + kCreateGroup
         showProgress(inView: self.view)
 
-        
         var imgData = Data()
         imgData = UIImageJPEGRepresentation(grpImage, 0.5)!
         
-        
-        
+        let strint = self.arrInterestSelectedId.componentsJoined(by: ",")
         
         let param = [
             "name" : name,
             "is_private": switchstr,
+            "description": strGroupDescription,
+            "interests": strint
             ]
-        
         
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
         
-        //        let imgData = UIImagePNGRepresentation(imageViewCoverPhoto.image!)
         
-        
-        upload(multipartFormData:{ multipartFormData in
-            
-            for (key, value) in param {
+        upload(multipartFormData:
+            { (multipartFormData) in
                 
+                multipartFormData.append(imgData, withName: "image", fileName: "test.jpg", mimeType: "image/jpeg")
+                
+                for (key, value) in param
+                {
+                    multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+                }
+                
+                
+        }, to: url, method: .post, headers: headers, encodingCompletion:
+            {
+                (result) in
+                switch result
+                {
+                case .success(let upload, _, _):
+                    upload.responseJSON
+                        {
+                            response in
+                            hideProgress()
+                            
+                            print(response.request) // original URL request
+                            print(response.response) // URL response
+                            print(response.data) // server data
+                            print(response.result) // result of response serialization
+
+                            
+                            if let json = response.result.value
+                            {
+                                print("json :> \(json)")
+                                let dictemp = json as! NSArray
+                                print("dictemp :> \(dictemp)")
+                                let temp  = dictemp.firstObject as! NSDictionary
+                                
+                                if (temp.value(forKey: "error") != nil)
+                                {
+                                    let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
+                                    App_showAlert(withMessage: msg as! String, inView: self)
+                                }
+                                else
+                                {
+                                    let data  = temp .value(forKey: "data") as! NSDictionary
+                                    
+                                    if data.count > 0
+                                    {
+                                        if let err  =  data.value(forKey: kkeyError)
+                                        {
+                                            App_showAlert(withMessage: err as! String, inView: self)
+                                        }
+                                        else
+                                        {
+                                            let optionMenu = UIAlertController(title: "Bonfire", message: "Group is Created Successfully", preferredStyle: .alert)
+                                            
+                                            let libraryAction = UIAlertAction(title: "OK", style: .default, handler:
+                                            {
+                                                (alert: UIAlertAction!) -> Void in
+                                                
+                                                if let viewController = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: kIdentifire_GroupTitleVC) as? GroupTitleVC
+                                                {
+                                                    self .navigationController?.pushViewController(viewController, animated: true)
+                                                }
+                                            })
+                                            optionMenu.addAction(libraryAction)
+                                            self.present(optionMenu, animated: true, completion: nil)
+                                        }
+                                    }
+                                }
+                            }
+                    }
+                    
+                case .failure(let encodingError):
+                    hideProgress()
+                    print(encodingError)
+                }
+        })
+
+        
+       /* upload(multipartFormData:{ multipartFormData in
+         
+            for (key, value) in param {
+         
                 multipartFormData.append((value.data(using: String.Encoding.utf8)!), withName: key)
             }
             
@@ -317,7 +394,7 @@ class AddInterestToMessageVC: UIViewController {
                     hideProgress()
                     print(encodingError)
                 }
-        })
+        })*/
     }
 
 }

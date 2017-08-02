@@ -22,7 +22,8 @@ class CreateGroupVC: UIViewController {
     
     @IBOutlet weak var switchPrivate: UISwitch!
     @IBOutlet weak var txtGrpName: UITextField!
-    
+    @IBOutlet weak var txtGroupDescription: UITextView!
+
     var search:String=""
     var arrLeaderSearch =  NSMutableArray()
     var arrLeaderSelected = NSMutableArray()
@@ -122,48 +123,55 @@ class CreateGroupVC: UIViewController {
 //            viewController.bfromGroup = true
 //            self .navigationController?.pushViewController(viewController, animated: true)
 //        }
-        if !(self.txtGrpName.text?.isEmpty)! {
-            
-            var leaderIds = self.arrLeaderSelected .value(forKey: "userId")
-            
-            let grpname = self.txtGrpName.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-            var switchstr = String()
-            if self.switchPrivate.isOn {
-                switchstr = "1"
-            } else {
-                switchstr = "0"
-            }
-            
-            let viewController = AddInterestToMessageVC .initViewController()
-            
-            if imageViewCoverPhoto.image == nil {
+        if !(self.txtGrpName.text?.isEmpty)!
+        {
+            if !(self.txtGroupDescription.text?.isEmpty)!
+            {
+                var leaderIds = self.arrLeaderSelected .value(forKey: "userId")
+                let grpname = self.txtGrpName.text?.trimmingCharacters(in: .whitespacesAndNewlines)
                 
+                var switchstr = String()
+                if self.switchPrivate.isOn
+                {
+                    switchstr = "1"
+                }
+                else
+                {
+                    switchstr = "0"
+                }
+                
+                let viewController = AddInterestToMessageVC .initViewController()
                 viewController.switchstr  = switchstr
                 viewController.name = grpname!
-                viewController.grpImage = UIImage(named: "placeholderGrp")!
+                viewController.strGroupDescription = self.txtGroupDescription.text!
+
+                if imageViewCoverPhoto.image == nil
+                {
+                    viewController.grpImage = UIImage(named: "placeholderGrp")!
+                }
+                else
+                {
+                    viewController.grpImage = imageViewCoverPhoto.image!
+                }
                 
-            } else {
-                
-                viewController.switchstr  = switchstr
-                viewController.name = grpname!
-                viewController.grpImage = imageViewCoverPhoto.image!
+                viewController.isFromGrp = true
+                self .navigationController?.pushViewController(viewController, animated: true)
             }
-            
-            
-            viewController.isFromGrp = true
-            self .navigationController?.pushViewController(viewController, animated: true)
-        }else{
+            else
+            {
+                App_showAlert(withMessage: "Please enter group description", inView: self)
+            }
+        }
+        else
+        {
             App_showAlert(withMessage: "Please enter group name", inView: self)
         }
-
-        
         //self .callCreateGroupAPI()
-
     }
     
     
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
