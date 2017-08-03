@@ -19,15 +19,14 @@ class SettingVC: UIViewController {
     
     @IBOutlet weak var btnPlus: UIButton!
     @IBOutlet weak var textViewGrpDescription: UITextView!
-    @IBOutlet weak var textViewEventDescription: UITextView!
     @IBOutlet weak var txtGrpName: UITextField!
     
-    @IBOutlet weak var txtTime: UITextField!
-    @IBOutlet weak var txtDate: UITextField!
     @IBOutlet weak var clvChannelList: UICollectionView!
     
     @IBOutlet weak var btnNewChannel: UIButton!
     @IBOutlet weak var btncoverPhoto: UIButton!
+    @IBOutlet weak var btngoToEvents: UIButton!
+
     @IBOutlet weak var clvMember: UICollectionView!
     @IBOutlet weak var clvLeader: UICollectionView!
 
@@ -36,7 +35,6 @@ class SettingVC: UIViewController {
     var grpDetail = NSMutableDictionary()
     
     var search:String=""
-    var  isSearchMember : Bool  = false
     var cnt = Int()
     var prevView = UIView()
     var textFieldDate = UITextField()
@@ -45,9 +43,17 @@ class SettingVC: UIViewController {
     let viewtxt = UIView()
 
     var arrallUser = NSArray()
-    var arrLeaderSelected = NSMutableArray()
     
     var dictEventData = NSMutableDictionary()
+    
+    
+    @IBOutlet weak var const_containerViewHeight: NSLayoutConstraint!
+    
+    var arrChannelList = [String]()
+    var arrLeader = NSMutableArray()
+    var arrMember = NSMutableArray()
+
+    //MARK: View Life Cycle
     
     @IBAction func removeChannelTap(_ sender: AnyObject)
     {
@@ -55,17 +61,7 @@ class SettingVC: UIViewController {
         self.arrChannelList .remove(at: tag)
         clvChannelList .reloadData()
     }
-    
-    @IBOutlet weak var const_containerViewHeight: NSLayoutConstraint!
-    
-    var arrChannelList = [String]()
-    var arrLeader = NSMutableArray()
-    var arrMember = [String]()
-    
-    var arrMemberSearch = [String]()
-    var arrMemberSelected = [String]()
 
-    //MARK: View Life Cycle
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -87,22 +83,24 @@ class SettingVC: UIViewController {
             arrLeader = (self.grpDetail.value(forKey: "group_members") as! NSArray).filter { namePredicate.evaluate(with: $0) } as! NSMutableArray
         }
 
-        arrMember = ["member","user","test","member","user","test","member","user","test","member","user","test"]
+        
+        if self.grpDetail.value(forKey: "group_members") != nil
+        {
+            let namePredicate = NSPredicate(format: "%K = %d", "isMember",1)
+            arrMember = (self.grpDetail.value(forKey: "group_members") as! NSArray).filter { namePredicate.evaluate(with: $0) } as! NSMutableArray
+        }
+
         
         self.leaderSearch .setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
         self.memberSearch .setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
         
         self.txtGrpName.setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
-        self.txtDate.setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
-        self.txtTime.setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
         
         self.leaderSearch.delegate = self
         self.memberSearch.delegate = self
         
-        self.textViewEventDescription.delegate = self
         self.textViewGrpDescription.delegate = self
         
-        prevView = self.textViewEventDescription
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateGroupDetails(notification:)), name:Notification.Name(rawValue: "updateGroupDetails"), object: nil)
 
@@ -129,9 +127,6 @@ class SettingVC: UIViewController {
         self.clvMember.dataSource = self
         self.clvMember.delegate = self
         
-        self.txtDate.delegate = self
-        self.txtTime.delegate = self
-        
         self.setRoundCorner()
         
         
@@ -147,40 +142,40 @@ class SettingVC: UIViewController {
             let namePredicate = NSPredicate(format: "%K = %d", "isLeader",1)
             arrLeader = (self.grpDetail.value(forKey: "group_members") as! NSArray).filter { namePredicate.evaluate(with: $0) } as! NSMutableArray
         }
+        
+        if self.grpDetail.value(forKey: "group_members") != nil
+        {
+            let namePredicate = NSPredicate(format: "%K = %d", "isMember",1)
+            arrMember = (self.grpDetail.value(forKey: "group_members") as! NSArray).filter { namePredicate.evaluate(with: $0) } as! NSMutableArray
+        }
+
         self.clvLeader.reloadData()
+        self.clvMember.reloadData()
+
     }
 
     
-    @IBAction func menuButtonClick(_ sender: AnyObject) {
+    @IBAction func menuButtonClick(_ sender: AnyObject)
+    {
         _ = self.navigationController?.popViewController(animated: true)
     }
     
-    func setRoundCorner() {
+    func setRoundCorner()
+    {
         self.view .layoutIfNeeded()
         self.btnNewChannel.layer.cornerRadius = self.btnNewChannel.bounds.size.height/2;
         
         self.btncoverPhoto.layer.cornerRadius = self.btncoverPhoto.bounds.size.height/2;
         self.btnEditInterests.layer.cornerRadius = self.btnEditInterests.bounds.size.height/2;
         
+        self.btngoToEvents.layer.cornerRadius =  self.btngoToEvents.bounds.size.height/2;
+        
         self.view .layoutIfNeeded()
         
         self.memberSearch.layer.cornerRadius = 15
         self.leaderSearch.layer.cornerRadius = 15
         self.textViewGrpDescription.layer.cornerRadius = 15
-        self.textViewEventDescription.layer.cornerRadius = 15
         self.txtGrpName.layer.cornerRadius = 15
-        self.txtTime.layer.cornerRadius = 15
-        self.txtDate.layer.cornerRadius = 15
-        
-        self.txtTime.backgroundColor = UIColor .white
-        self.txtTime.layer.borderColor = UIColor.white.cgColor
-        self.txtTime.layer.borderWidth  = 1.0
-        
-        
-        self.txtDate.backgroundColor = UIColor .white
-        self.txtDate.layer.borderColor = UIColor.white.cgColor
-        self.txtDate.layer.borderWidth  = 1.0
-        
         
         self.txtGrpName.backgroundColor = UIColor .white
         self.txtGrpName.layer.borderColor = UIColor.white.cgColor
@@ -198,9 +193,6 @@ class SettingVC: UIViewController {
         self.textViewGrpDescription.layer.borderColor = UIColor.white.cgColor
         self.textViewGrpDescription.layer.borderWidth  = 1.0
         
-        self.textViewEventDescription.backgroundColor = UIColor .white
-        self.textViewEventDescription.layer.borderColor = UIColor.white.cgColor
-        self.textViewEventDescription.layer.borderWidth  = 1.0
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -593,9 +585,25 @@ class SettingVC: UIViewController {
         let objSelectLeader = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "SelectLeaderVC") as! SelectLeaderVC
         objSelectLeader.strGroupID = "\(grpDetail.object(forKey: "groupId")!)"
         objSelectLeader.dicGroupDetail = grpDetail
+        objSelectLeader.isfromMember = false
+        self.navigationController?.pushViewController(objSelectLeader, animated: true)
+    }
+    
+    @IBAction func btnGoToMember(_ sender: Any)
+    {
+        let objSelectLeader = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "SelectLeaderVC") as! SelectLeaderVC
+        objSelectLeader.strGroupID = "\(grpDetail.object(forKey: "groupId")!)"
+        objSelectLeader.dicGroupDetail = grpDetail
+        objSelectLeader.isfromMember = true
         self.navigationController?.pushViewController(objSelectLeader, animated: true)
     }
 
+    @IBAction func btnGoEventListingandCreate(_ sender: Any)
+    {
+        let objEventListAddVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "EventListAddVC") as! EventListAddVC
+        objEventListAddVC.dicGroupDetail = grpDetail
+        self.navigationController?.pushViewController(objEventListAddVC, animated: true)
+    }
     
     /*
     // MARK: - Navigation
@@ -650,11 +658,6 @@ extension SettingVC : UITextFieldDelegate {
     {
         if textField == memberSearch
         {
-            self.isSearchMember = true
-        }
-        else
-        {
-            self.isSearchMember = false
         }
         
         if textField == leaderSearch
@@ -662,19 +665,11 @@ extension SettingVC : UITextFieldDelegate {
             
         }
         
-        if textField == self.txtDate
-        {
-            textField.inputView = self .openDatePicker()
-        }
         if textField == self.textFieldDate  {
             textField.inputView = self .openDatePicker()
         }
         if textField == self.textFieldTime  {
             textField.inputView = self .openDatePicker()
-        }
-
-        if textField == self.txtTime {
-            textField.inputView = self .openTimePicker()
         }
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
@@ -688,24 +683,6 @@ extension SettingVC : UITextFieldDelegate {
             search=textField.text!+string
         }
         
-        if textField == memberSearch {
-            print(search)
-            let predicate = NSPredicate(format: "SELF CONTAINS[cd] %@", search)
-            let arr=(self.arrMember as NSArray).filtered(using: predicate)
-            
-            if arr.count > 0
-            {
-                self.arrMemberSearch.removeAll()
-                self.arrMemberSearch = arr as! [String]
-            }
-            else
-            {
-                self.arrMemberSearch = self.arrMember
-            }
-            
-            self.clvMember .reloadData()
-            
-        }
         return true
     }
     
@@ -752,63 +729,18 @@ extension SettingVC : UITextViewDelegate {
     }
     
 }
-extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
-    
-    
-    
+extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout
+{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        
         if collectionView == clvMember
         {
-
-            //            memberselect
             let cell = collectionView .cellForItem(at: indexPath) as! MemberCell
-            
-            
-            if (cell.imgViewMember.image == nil)
-            {
-                let img = UIImage(named: "memberselect")!
-                cell.imgViewMember.image = img
-                
-                if isSearchMember
-                {
-                    self.arrMemberSelected .append(arrMemberSearch[indexPath.row])
-                }
-                else
-                {
-                    self.arrMemberSelected .append(arrallUser[indexPath.row] as! String)
-                }
-            }
-            else
-            {
-                if !self.arrMemberSelected .contains(arrMember[indexPath.row])
-                {
-                    if isSearchMember
-                    {
-                        self.arrMemberSelected .append(arrMemberSearch[indexPath.row])
-                    }
-                    else
-                    {
-                        self.arrMemberSelected .append(arrMember[indexPath.row])
-                    }
-                }
-                else
-                {
-                    if  let indextoremove = self.arrMemberSelected .index(of: arrMember[indexPath.row])
-                    {
-                        self.arrMemberSelected .remove(at: indextoremove)
-                        cell.imgViewMember.image = nil
-                    }
-                }
-            }
         }
         else
         {
-            //            memberselect
             let cell = collectionView .cellForItem(at: indexPath) as! MemberCell
         }
-        
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
@@ -819,12 +751,7 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         }
         else if collectionView == clvMember
         {
-            if self.isSearchMember
-            {
-                return self.arrMemberSearch.count
-            }
-//            return self.arrMember.count
-               return 10
+               return self.arrMember.count
         }
         else if collectionView == clvLeader
         {
@@ -836,7 +763,6 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         }
         
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -881,29 +807,14 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             
             let identifier = "memberCell"
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! MemberCell
-            if isSearchMember {
-                cell.labelMemberName.text = self.arrMemberSearch[indexPath.row]
-                
-                if self.arrMemberSelected .contains(arrMemberSearch[indexPath.row]) {
-                    cell.imgViewMember.image = UIImage(named: "memberselect")
-                } else {
-                    cell.imgViewMember.image = nil
-                }
-            } else {
-                cell.labelMemberName.text = self.arrallUser[indexPath.row] as? String
-                
-                if self.arrMemberSelected .contains((self.arrallUser[indexPath.row] as? String)!) {
-                    cell.imgViewMember.image = nil
-                } else {
-//                    cell.imgViewMember.image = UIImage(named: "circle_leader")
-                }
-                
-            }
             
-            cell.imgViewMember.backgroundColor = UIColor .gray
+            let dic = self.arrMember[indexPath.row] as! NSDictionary
+            cell.labelMemberName.text = dic["name"] as? String
+            cell.imgViewMember.sd_setImage(with: URL(string:dic .value(forKey: "profile_picture") as! String), placeholderImage: nil)
+            
             cell.imgViewMember.layer.cornerRadius = cell.imgViewMember.frame.height/2
             cell.imgViewMember.clipsToBounds = true
-
+            
             cell.layoutIfNeeded()
             return cell
             

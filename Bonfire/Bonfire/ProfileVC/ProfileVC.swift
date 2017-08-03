@@ -19,7 +19,7 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
     @IBOutlet weak var btnAddInterest: UIButton!
     @IBOutlet weak var btnLogout: UIButton!
 
-    
+
     let tagViewInterest_data = NSMutableArray()
     @IBOutlet weak var tagViewInterest: HTagView!
     @IBOutlet weak var tagViewGroups: HTagView!

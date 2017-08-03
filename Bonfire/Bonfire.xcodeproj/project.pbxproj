@@ -125,6 +125,7 @@
 		D3C2CD2A1EA3B96100996D8F /* IQUIView+IQKeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C2CD021EA3B96100996D8F /* IQUIView+IQKeyboardToolbar.swift */; };
 		D3C2CD2B1EA3B96100996D8F /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D3C2CD041EA3B96100996D8F /* IQKeyboardManager.bundle */; };
 		D3C2CD321EA3C87B00996D8F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C2CD311EA3C87B00996D8F /* LoginVC.swift */; };
+		D3CB726B1F33A8E4004DBBD5 /* EventListAddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB726A1F33A8E4004DBBD5 /* EventListAddVC.swift */; };
 		D3D49AFC1ED152530000ED81 /* GroupTitleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D49AFB1ED152530000ED81 /* GroupTitleVC.swift */; };
 		D3E315971F336121005128CA /* SelectLeaderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E315961F336121005128CA /* SelectLeaderVC.swift */; };
 /* End PBXBuildFile section */
@@ -278,6 +279,7 @@
 		D3C2CD021EA3B96100996D8F /* IQUIView+IQKeyboardToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIView+IQKeyboardToolbar.swift"; sourceTree = "<group>"; };
 		D3C2CD041EA3B96100996D8F /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
 		D3C2CD311EA3C87B00996D8F /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		D3CB726A1F33A8E4004DBBD5 /* EventListAddVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventListAddVC.swift; sourceTree = "<group>"; };
 		D3D49AFB1ED152530000ED81 /* GroupTitleVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTitleVC.swift; sourceTree = "<group>"; };
 		D3E315961F336121005128CA /* SelectLeaderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLeaderVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -454,6 +456,7 @@
 			children = (
 				D3BAC6321EB59B6E002745AC /* ProfileVC.swift */,
 				D3E315961F336121005128CA /* SelectLeaderVC.swift */,
+				D3CB726A1F33A8E4004DBBD5 /* EventListAddVC.swift */,
 			);
 			path = ProfileVC;
 			sourceTree = "<group>";
@@ -823,6 +826,7 @@
 				D3C2CD1E1EA3B96100996D8F /* IQUIView+Hierarchy.swift in Sources */,
 				D3C2CD141EA3B96100996D8F /* ServerTrustPolicy.swift in Sources */,
 				61EE66AA1EF05CCE005C57B2 /* SDWebImageDownloaderOperation.m in Sources */,
+				D3CB726B1F33A8E4004DBBD5 /* EventListAddVC.swift in Sources */,
 				D30D9E9E1EB470B700245FE5 /* InterestVC.swift in Sources */,
 				61EE66B21EF05CCE005C57B2 /* UIImageView+WebCache.m in Sources */,
 				D39749E61EA67CAB00E41482 /* SignupViewController.swift in Sources */,

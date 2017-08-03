@@ -16,10 +16,21 @@ class SelectLeaderVC: UIViewController
     var strGroupID = String()
     var dicGroupDetail = NSDictionary()
     var isfromMember : Bool = false
+    @IBOutlet weak var lblTitle: UILabel!
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        if (self.isfromMember == true)
+        {
+            lblTitle.text = "Select Member"
+        }
+        else
+        {
+            lblTitle.text = "Select Leader"
+        }
+        
         self.getAllLeaders()
     }
     override func viewWillAppear(_ animated: Bool)
@@ -75,14 +86,30 @@ class SelectLeaderVC: UIViewController
                                 self.arrLeader = NSMutableArray(array: data)
                                 if self.dicGroupDetail.value(forKey: "group_members") != nil
                                 {
-                                    let namePredicate = NSPredicate(format: "%K = %d", "isLeader",1)
-                                    let temp = (self.dicGroupDetail.value(forKey: "group_members") as! NSArray).filter { namePredicate.evaluate(with: $0) } as! NSMutableArray
-                                    if (temp.count > 0)
+                                    if (self.isfromMember == true)
                                     {
-                                        for i in 0..<temp.count
+                                        let namePredicate = NSPredicate(format: "%K = %d", "isMember",1)
+                                        let temp = (self.dicGroupDetail.value(forKey: "group_members") as! NSArray).filter { namePredicate.evaluate(with: $0) } as! NSMutableArray
+                                        if (temp.count > 0)
                                         {
-                                            let dic = temp[i] as! NSDictionary
-                                            self.arrSelectedLeader.add(dic.value(forKey: "userId")!)
+                                            for i in 0..<temp.count
+                                            {
+                                                let dic = temp[i] as! NSDictionary
+                                                self.arrSelectedLeader.add(dic.value(forKey: "userId")!)
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        let namePredicate = NSPredicate(format: "%K = %d", "isLeader",1)
+                                        let temp = (self.dicGroupDetail.value(forKey: "group_members") as! NSArray).filter { namePredicate.evaluate(with: $0) } as! NSMutableArray
+                                        if (temp.count > 0)
+                                        {
+                                            for i in 0..<temp.count
+                                            {
+                                                let dic = temp[i] as! NSDictionary
+                                                self.arrSelectedLeader.add(dic.value(forKey: "userId")!)
+                                            }
                                         }
                                     }
                                 }
@@ -123,7 +150,16 @@ class SelectLeaderVC: UIViewController
         
         let arrid = self.arrSelectedLeader as NSArray
         
-        let param = ["group_id" : strGroupID ,"user_id" : arrid ,"is_leader" : "1","sync" : "1"] as [String : Any]
+        var param = [String : Any]()
+        
+        if (self.isfromMember == true)
+        {
+            param = ["group_id" : strGroupID ,"user_id" : arrid ,"is_leader" : "0","sync" : "1"] as [String : Any]
+        }
+        else
+        {
+            param = ["group_id" : strGroupID ,"user_id" : arrid ,"is_leader" : "1","sync" : "1"] as [String : Any]
+        }
         
         request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
             
