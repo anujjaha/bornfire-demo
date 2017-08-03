@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate
@@ -15,7 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     var arrLoginData = NSDictionary()
     var arrInterestData = NSArray()
     var arrAllGrpData = NSArray()
-   
+    var bisUserProfile = Bool()
+    var strDeviceToken = NSString()
+
     static let shared = UIApplication.shared.delegate as! AppDelegate
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
@@ -46,9 +49,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate
             let nav = UINavigationController(rootViewController: homeViewController)
             nav.isNavigationBarHidden = true
             appdelegate.window!.rootViewController = nav
-    
 
         }
+        
+        
+        //Push Notification Setting Code 
+        if #available(iOS 10.0, *)
+        {
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+                
+                // Enable or disable features based on authorization.
+                if granted == true
+                {
+                    print("Allow")
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+                else
+                {
+                    print("Don't Allow")
+                }
+            }
+        }
+        else
+        {
+            // Fallback on earlier versions
+            let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+            application.registerForRemoteNotifications()
+        }
+
 
         UIApplication.shared.statusBarStyle = .default
 
@@ -99,6 +129,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         return date! as NSDate
     }
     
+    //MARK: Push Notification Service
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
+    {
+        print(deviceToken)
+        let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+        print(deviceTokenString)
+        strDeviceToken = deviceTokenString as NSString
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any])
+    {
+        print("Push Notification Info:>%@", userInfo)
+        var apsInfo: [AnyHashable: Any]? = (userInfo["aps"] as? [AnyHashable: Any])
+        let alert: NSDictionary? = (apsInfo?["alert"] as? NSDictionary)
+        let state:UIApplicationState = application.applicationState
+        if (state == UIApplicationState.active) // active --- forground
+        {
+            if alert != nil
+            {
+                let strmessage = alert!["body"] as! String
+                App_showAlert(withMessage: strmessage, inView: (self.window?.rootViewController)!)
+            }
+        }        
+    }
+
     //MARK: Function Calling
     func callGetAllCampusAPI() {
 

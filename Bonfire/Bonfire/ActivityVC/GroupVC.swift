@@ -515,6 +515,18 @@ extension GroupVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollec
         
         return edgeInsets > 0 ? UIEdgeInsetsMake(0, edgeInsets, 0, edgeInsets) : UIEdgeInsetsMake(0, cellSpacing, 0, cellSpacing)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+        let dic = self.grpMemeber.object(at: indexPath.row) as! NSDictionary
+        print("memebers dict -> \(dic)")
+        
+        appDelegate.bisUserProfile = false
+        let objProfileVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
+        objProfileVC.strotheruserID = "\(dic.value(forKey: "userId")!)"
+        self.navigationController?.pushViewController(objProfileVC, animated: true)
+    }
+
 }
 
 extension GroupVC : UITextFieldDelegate {

@@ -887,6 +887,10 @@
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="ed7-Rb-IXt" id="j3i-wk-an0"/>
+                                                    <outlet property="delegate" destination="ed7-Rb-IXt" id="Tlk-S7-Vuk"/>
+                                                </connections>
                                             </collectionView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zsY-4l-M8c">
                                                 <rect key="frame" x="282" y="211" width="30" height="30"/>
@@ -955,6 +959,8 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="600"/>
                     <connections>
+                        <outlet property="btnAddInterest" destination="zsY-4l-M8c" id="NEJ-ZI-oIm"/>
+                        <outlet property="btnLogout" destination="baZ-IB-q77" id="Jzm-T9-p0Y"/>
                         <outlet property="clviewGrp" destination="upa-AT-ytw" id="ZTe-jb-ALx"/>
                         <outlet property="clviewInterest" destination="YOj-gR-6nH" id="3SO-xP-og6"/>
                         <outlet property="profileImgview" destination="Its-xe-Eyt" id="Mui-vs-ZeG"/>

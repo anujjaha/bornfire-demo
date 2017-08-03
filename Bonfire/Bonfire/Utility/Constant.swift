@@ -81,6 +81,8 @@ let kGetAllChannelFeed = "get-all-channel-feeds"
 let kGetMessagesFeed = "get-home-feeds"
 let kGetGrpEvents = "get-group-events"
 let kGetAllCampusUser = "campus-users"
+let kRemoveGroup = "groups/exit"
+let kUserInterestUpdate = "user-interest/add-bulk-interest"
 
 //var CurrentUser : UserModel = UserModel()
 

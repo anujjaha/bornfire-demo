@@ -229,8 +229,80 @@ class AddInterestToMessageVC: UIViewController {
             if !isfromProfile
             {
                 NotificationCenter .default.post(name: NSNotification.Name(rawValue: "selectedInterest"), object: self.arrInterestSelectedId, userInfo: nil)
+                _ =  self.navigationController?.popViewController(animated: true)
+             }
+            else
+            {
+                /*
+                    Add bulk Int
+                    POST :  http://bonfire.dev/api/user-interest/add-bulk-interest
+                 interest_id
+                 */
+                
+                let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+                let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+                
+                let url = kServerURL + kUserInterestUpdate
+                showProgress(inView: self.view)
+                let token = final .value(forKey: "userToken")
+                let headers = ["Authorization":"Bearer \(token!)"]
+                
+                let strint = self.arrInterestSelectedId.componentsJoined(by: ",")
+                let param = [
+                    "interest_id": strint
+                ]
+
+                request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+                    
+                    print(response.result.debugDescription)
+                    
+                    hideProgress()
+                    switch(response.result)
+                    {
+                    case .success(_):
+                        if response.result.value != nil
+                        {
+                            print(response.result.value!)
+                            
+                            if let json = response.result.value
+                            {
+                                let dictemp = json as! NSArray
+                                print("dictProfile :> \(dictemp)")
+                                let temp  = dictemp.firstObject as! NSDictionary
+                                let data  = temp .value(forKey: "data") as! NSDictionary
+                                
+                                if data.count > 0
+                                {
+                                    if let err  =  data.value(forKey: kkeyError)
+                                    {
+                                        App_showAlert(withMessage: err as! String, inView: self)
+                                    }
+                                    else
+                                    {
+                                        let alertView = UIAlertController(title: Application_Name, message: "Interests Updated Successfully", preferredStyle: .alert)
+                                        let OKAction = UIAlertAction(title: "OK", style: .default)
+                                        { (action) in
+                                            _ =  self.navigationController?.popViewController(animated: true)
+                                        }
+                                        alertView.addAction(OKAction)
+                                        
+                                        self.present(alertView, animated: true, completion: nil)
+                                    }
+                                }
+                                else
+                                {
+                                    App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
+                                }
+                            }
+                        }
+                        break
+                    case .failure(_):
+                        print(response.result.error!)
+                        App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                        break
+                    }
+                }
             }
-            _ =  self.navigationController?.popViewController(animated: true)
         }
         
     }

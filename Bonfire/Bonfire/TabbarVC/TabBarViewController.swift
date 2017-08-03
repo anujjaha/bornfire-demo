@@ -45,8 +45,12 @@ class TabBarViewController: UITabBarController,UITabBarControllerDelegate
                 nav.popToRootViewController(animated: true)
             }
         }
-        else if selectedIndex == 3 {
+        else if selectedIndex == 3
+        {
+            appDelegate.bisUserProfile = true
+
             let nav = viewController as! UINavigationController
+            
             
             if !(nav.visibleViewController?.isKind(of:ProfileVC.self))! {
                 nav.popToRootViewController(animated: true)

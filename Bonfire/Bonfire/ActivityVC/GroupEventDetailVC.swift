@@ -50,10 +50,80 @@ class GroupEventDetailVC: UIViewController {
         _ = self.navigationController?.popToRootViewController(animated: true)
         
     }
-    @IBAction func buttonLeaveGrp(_ sender: Any) {
-        _ = self.navigationController?.popViewController(animated: false)
+    @IBAction func buttonLeaveGrp(_ sender: Any)
+    {
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        
+        var userid = String()
+            userid = "\(final.value(forKey: "userId")!)"
+        
+        let url = kServerURL + kRemoveGroup
+        showProgress(inView: self.view)
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        let param = [
+            "group_id" :  "\(groupDetails.object(forKey: "groupId")!)",
+            "user_id" : userid
+        ]
+
+        request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil
+                {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value
+                    {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp.firstObject as! NSDictionary
+                        if (temp.value(forKey: "error") != nil)
+                        {
+                            let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
+                            App_showAlert(withMessage: msg as! String, inView: self)
+                        }
+                        else
+                        {
+                            let data  = temp .value(forKey: "data") as! NSDictionary
+                            if data.count > 0
+                            {
+                                let msg = (data.value(forKey: "success"))
+//                                App_showAlert(withMessage: msg as! String, inView: self)
+                                
+                                let alertView = UIAlertController(title: Application_Name, message: msg as! String, preferredStyle: .alert)
+                                let OKAction = UIAlertAction(title: "OK", style: .default)
+                                { (action) in
+                                    
+                                    _ = self.navigationController?.popToRootViewController(animated: true)
+                                }
+                                alertView.addAction(OKAction)
+                                
+                                self.present(alertView, animated: true, completion: nil)
+
+                            }
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+
+//        _ = self.navigationController?.popViewController(animated: false)
     }
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
@@ -68,8 +138,6 @@ class GroupEventDetailVC: UIViewController {
         self.lblMember.text = ""
         self.lblMember.text = String(self.grpMember.count) + " members"
     
-        
-        
         self.profileCollectonview .reloadData()
     }
     override  func viewWillDisappear(_ animated: Bool)
@@ -77,16 +145,14 @@ class GroupEventDetailVC: UIViewController {
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.isHidden = false
-        
     }
     static func initViewController() -> GroupEventDetailVC
     {
         return UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "GroupEventDetailView") as! GroupEventDetailVC
     }
     
-    
-    func getAllGrpEvents() {
-        
+    func getAllGrpEvents()
+    {
         // get all home feed api calling
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
@@ -105,20 +171,25 @@ class GroupEventDetailVC: UIViewController {
             switch(response.result)
             {
             case .success(_):
-                if response.result.value != nil {
+                if response.result.value != nil
+                {
                     print(response.result.value!)
                     
-                    if let json = response.result.value {
+                    if let json = response.result.value
+                    {
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
                         
-                        if (temp.value(forKey: "error") != nil) {
-                            
-                        } else {
+                        if (temp.value(forKey: "error") != nil)
+                        {
+                        }
+                        else
+                        {
                             let data  = temp .value(forKey: "data") as! NSArray
                             
-                            if data.count > 0 {
+                            if data.count > 0
+                            {
                                 print(data)
                                 self.arrGrpEvent = data
                                 self.tableEventDesc .reloadData()
@@ -128,7 +199,6 @@ class GroupEventDetailVC: UIViewController {
                                 //                            App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
                             }
                         }
-                        
                     }
                 }
                 break
@@ -139,13 +209,7 @@ class GroupEventDetailVC: UIViewController {
                 break
             }
         }
-        
     }
-    
-    
-    
-    
-
 }
 
 extension GroupEventDetailVC : UITableViewDataSource , UITableViewDelegate{
