@@ -12,6 +12,7 @@ class GroupEventDetailCell: UITableViewCell {
     @IBOutlet weak var channelBadgeNo: UIButton!
     @IBOutlet weak var downiconImage: UIImageView!
     @IBOutlet weak var channelName: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

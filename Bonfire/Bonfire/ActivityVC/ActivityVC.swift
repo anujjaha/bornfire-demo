@@ -17,7 +17,8 @@ class ActivityVC: UIViewController {
     var arrLeaderingGrp = NSArray()
     var arrYourGrp = NSArray()
     
-    @IBAction func calendarBtnTap(_ sender: Any) {
+    @IBAction func calendarBtnTap(_ sender: Any)
+    {
         let datepicker =  DatePickerViewController .initViewController()
         self.navigationController?.navigationBar.isTranslucent  = false
         self.navigationController?.pushViewController(datepicker, animated: true)

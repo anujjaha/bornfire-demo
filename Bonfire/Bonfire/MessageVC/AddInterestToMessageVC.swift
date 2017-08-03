@@ -28,13 +28,14 @@ class AddInterestToMessageVC: UIViewController {
     var isfromProfile : Bool = false
     var isSearch : Bool = false
     var isFromGrp : Bool = false
+    var isfromChannel : Bool = false
     
     @IBOutlet weak var btnSave: UIButton!
     @IBOutlet weak var segment: UISegmentedControl!
     @IBOutlet weak var searchbar: UISearchBar!
     @IBOutlet weak var tabelview: UITableView!
     
-    
+    //MARK: API Calling
     func callInterestAPI() {
         
         let url = kServerURL + kInterest
@@ -52,10 +53,12 @@ class AddInterestToMessageVC: UIViewController {
             switch(response.result)
             {
             case .success(_):
-                if response.result.value != nil {
+                if response.result.value != nil
+                {
                     print(response.result.value!)
                     
-                    if let json = response.result.value {
+                    if let json = response.result.value
+                    {
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp[0] as! NSDictionary
@@ -63,22 +66,21 @@ class AddInterestToMessageVC: UIViewController {
                         //
                         if data.count > 0 {
                             
-                            if let err  =  (data[0] as! NSDictionary).value(forKey: kkeyError) {
+                            if let err  =  (data[0] as! NSDictionary).value(forKey: kkeyError)
+                            {
                                 App_showAlert(withMessage: err as! String, inView: self)
-                            }else {
+                            }
+                            else
+                            {
                                 print("no error")
-                                
                                 userDefaults .set(data, forKey: "allInterest")
                                 userDefaults .synchronize()
-                                
                                 
                                 self.arrInterestWithId  = userDefaults .value(forKey: "allInterest") as! NSArray
                                 self.arrInterestAll = self.arrInterestWithId.value(forKey: "name") as! NSArray
                                 
                                 self.tabelview .reloadData()
-                                
                             }
-                            
                         }
                         else
                         {
@@ -101,29 +103,40 @@ class AddInterestToMessageVC: UIViewController {
         
     }
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         
         self.tabelview.dataSource  = self
         self.tabelview.delegate = self
         self.searchbar.delegate = self
         // Do any additional setup after loading the view.
-        if (UserDefaults.standard.object(forKey: "allInterest") as? NSArray) != nil {
+        if (UserDefaults.standard.object(forKey: "allInterest") as? NSArray) != nil
+        {
             arrInterestWithId  = userDefaults .value(forKey: "allInterest") as! NSArray
             arrInterestAll = arrInterestWithId.value(forKey: "name") as! NSArray
-        } else {
+        }
+        else
+        {
             // fetch interest here
             self .callInterestAPI()
         }
         
-
-        
         arrTemp = self.arrInterestAll
         
-        if isFromGrp {
+        if isFromGrp
+        {
             self.btnSave .setTitle("", for: .normal)
             self.btnSave .setImage(UIImage(named:"right_arrow"), for: .normal)
-        }else {
+        }
+        else if isfromChannel
+        {
+            self.btnSave .setTitle("Save", for: .normal)
+            self.btnSave .setImage(UIImage(named:""), for: .normal)
+
+        }
+        else
+        {
             self.btnSave .setTitle("Save", for: .normal)
             self.btnSave .setImage(UIImage(named:""), for: .normal)
         }
@@ -134,14 +147,14 @@ class AddInterestToMessageVC: UIViewController {
     }
     
     
-    @IBAction func segmentvalueChange(_ sender: Any) {
-       
-        
-        if self.segment.selectedSegmentIndex == 1 {
-            
+    @IBAction func segmentvalueChange(_ sender: Any)
+    {
+        if self.segment.selectedSegmentIndex == 1
+        {
             self.arrInterestAll = self.arrInterestSelected
-            
-        } else{
+        }
+        else
+        {
             self.arrInterestAll = arrTemp
         }
         self.tabelview .reloadData()
@@ -197,29 +210,38 @@ class AddInterestToMessageVC: UIViewController {
         
     }
     
-    @IBAction func saveTap(_ sender: Any) {
-        
-        if isFromGrp {
-
+    @IBAction func saveTap(_ sender: Any)
+    {
+        if isFromGrp
+        {
             self .callCreateGroupAPI()
-        
-        } else {
+        }
+        else if isfromChannel
+        {
+            self.btnSave .setTitle("Save", for: .normal)
+            self.btnSave .setImage(UIImage(named:""), for: .normal)
             
-            if !isfromProfile {
-                
-                NotificationCenter .default.post(name: NSNotification.Name(rawValue: "selectedInterest"), object: self.arrInterestSelectedId, userInfo: nil)
-            }
-            
+            NotificationCenter .default.post(name: NSNotification.Name(rawValue: "selectedInterestforChannel"), object: self.arrInterestSelectedId, userInfo: nil)
             _ =  self.navigationController?.popViewController(animated: true)
         }
-       
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = true
+        else
+        {
+            if !isfromProfile
+            {
+                NotificationCenter .default.post(name: NSNotification.Name(rawValue: "selectedInterest"), object: self.arrInterestSelectedId, userInfo: nil)
+            }
+            _ =  self.navigationController?.popViewController(animated: true)
+        }
         
+    }
+    override func viewWillAppear(_ animated: Bool)
+    {
+        self.navigationController?.navigationBar.isHidden = true
         self.title = "Select Interests"
     }
-    override func viewWillDisappear(_ animated: Bool) {
+    
+    override func viewWillDisappear(_ animated: Bool)
+    {
         self.navigationController?.navigationBar.isHidden = false
     }
     static func initViewController() -> AddInterestToMessageVC

@@ -28,38 +28,47 @@ class GroupVC: UIViewController {
     
      var channelArr = NSArray()
      var arrChannelFeed = NSArray()
-    
+    var arrInterestForMessage = NSArray()
+
     @IBOutlet weak var dropDownIcon: UIImageView!
     @IBOutlet var menuButton: UIButton!
     @IBOutlet weak var txtAnythingTosay: UITextField!
     @IBOutlet var profileCollectonview: UICollectionView!
     
     @IBOutlet weak var tblviewListing: UITableView!
+    var isInterestTap = false
+
     
-    @IBAction func upArrowTap(_ sender: Any) {
-        
-        if !(self.txtAnythingTosay.text?.isEmpty)! && selectedChannelID != 0 {
+    var tableData :NSMutableArray  = ["Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing ","Lorem Ipsum is simply dummy text of the printing  Lorem Ipsum is simply dummy text of the printing and typesetting industry","Lorem Ipsum is simply dummy text of the printing  Lorem Ipsum is simply dummy text of the printing"]
+
+    //MARK: Channel Feed Posting
+    @IBAction func upArrowTap(_ sender: Any)
+    {
+        if !(self.txtAnythingTosay.text?.isEmpty)! && selectedChannelID != 0
+        {
             self.callApiToCreateNewChannelFeed()
         }
-
-        
     }
-    var tableData :NSMutableArray  = ["Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing ","Lorem Ipsum is simply dummy text of the printing  Lorem Ipsum is simply dummy text of the printing and typesetting industry","Lorem Ipsum is simply dummy text of the printing  Lorem Ipsum is simply dummy text of the printing"]
     
-    static func initViewController() -> GroupVC {
+    static func initViewController() -> GroupVC
+    {
         return UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "GroupView") as! GroupVC
     }
-    @IBAction func BtnimageTap(_ sender: Any) {
+    
+    @IBAction func BtnimageTap(_ sender: Any)
+    {
         self .openActionsheet()
     }
     
-    @IBAction func channelBtnTap(_ sender: Any) {
-        
+    //MARK: Go to Channel Listing
+    @IBAction func channelBtnTap(_ sender: Any)
+    {
         let groupEventObj  = GroupEventDetailVC .initViewController()
-        
         groupEventObj.grpname = self.lblGrpName.text!
         groupEventObj.grpMember = self.grpMemeber
         groupEventObj.channelArr = self.channelArr
+        groupEventObj.groupDetails = grpDetail
+
         self.navigationController?.pushViewController(groupEventObj, animated: false)
     }
    
@@ -100,9 +109,13 @@ class GroupVC: UIViewController {
 //        }
     }
     
-    @IBAction func plusBtnTap(_ sender: Any) {
-        
-            }
+    @IBAction func plusBtnTap(_ sender: Any)
+    {
+        isInterestTap = true
+        let viewController = AddInterestToMessageVC .initViewController()
+        viewController.isfromChannel = true
+        self .navigationController?.pushViewController(viewController, animated: true)
+    }
     
     func openCamera()
     {
@@ -150,16 +163,16 @@ class GroupVC: UIViewController {
         self.present(optionMenu, animated: true, completion: nil)
     }
     
-    func callApiToCreateNewChannelFeed() {
-        
-        
+    func callApiToCreateNewChannelFeed()
+    {
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         
-//        let intid:[String] = ["1"]
-        
         let grpId = self.grpDetail .value(forKey: "groupId") as! Int
-        let param = ["is_campus_feed" : "0","group_id" : String(grpId) ,"channel_id" : String(selectedChannelID),"description":self.txtAnythingTosay.text!]
+        
+        let strint = self.arrInterestForMessage.componentsJoined(by: ",")
+
+        let param = ["is_campus_feed" : "0","group_id" : String(grpId) ,"channel_id" : String(selectedChannelID),"description":self.txtAnythingTosay.text!,"interests": strint]
         
         
         let url = kServerURL + kCreateNewFeed
@@ -187,9 +200,6 @@ class GroupVC: UIViewController {
                 multipartFormData.append((imgData)!, withName: "attachment", fileName: "test.jpg", mimeType: "image/jpeg")
             }
             
-            
-            
-            
         } ,usingThreshold:UInt64.init(),
          to:url,
          method:.post,
@@ -204,23 +214,18 @@ class GroupVC: UIViewController {
                     hideProgress()
                     debugPrint(response)
 //                    self .getAllChannelfeed(channelId: self.selectedChannelID)
-                    if let json = response.result.value {
-                        
+                    if let json = response.result.value
+                    {
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
                         let data  = temp .value(forKey: "data") as! NSDictionary
-                        
-                    
-                        
-                    if data.count > 0 {
-//                        let tempconvert = self.arrChannelFeed .mutableCopy() as! NSMutableArray
-//                        tempconvert .insert(tempconvert.firstObject as! NSDictionary, at: 0)
-//                        self.arrChannelFeed = tempconvert as NSArray
-//                        self.tblviewListing .reloadData()
-                        self .getAllChannelfeed(channelId: self.selectedChannelID)
-                    }
-                        
+                        if data.count > 0
+                        {
+                            self.txtAnythingTosay.text = ""
+                            self.imagview.image = UIImage()
+                            self .getAllChannelfeed(channelId: self.selectedChannelID)
+                        }
                     }
                 })
                 
@@ -261,24 +266,26 @@ class GroupVC: UIViewController {
                 if response.result.value != nil {
                     print(response.result.value!)
                     
-                    if let json = response.result.value {
+                    if let json = response.result.value
+                    {
                         let dictemp = json as! NSArray
-                        print("dictemp :> \(dictemp)")
+                        print("dictemp Channelfeed :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
                         
-                        if (temp.value(forKey: "error") != nil) {
-                            
+                        if (temp.value(forKey: "error") != nil)
+                        {
                             let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
-                            
                             App_showAlert(withMessage: msg as! String, inView: self)
-                            
-                        } else {
+                        }
+                        else
+                        {
                             let data  = temp .value(forKey: "data") as! NSArray
-                            
-                            if data.count > 0 {
+                            if data.count > 0
+                            {
                                 print(data)
                                 self.arrChannelFeed = data as NSArray
-                                
+                                print("self.arrChannelFeed :> \(self.arrChannelFeed)")
+
                                 self.tblviewListing.dataSource = self
                                 self.tblviewListing.delegate = self
                                 self.tblviewListing.reloadData()
@@ -288,10 +295,9 @@ class GroupVC: UIViewController {
                                 //                            App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
                             }
                         }
-                        
                     }
-                    else {
-                        
+                    else
+                    {
                     }
                 }
                 break
@@ -302,14 +308,9 @@ class GroupVC: UIViewController {
                 break
             }
         }
-        
     }
-    
-    
-    
-    func callGellChannelWS() {
-        
-        
+    func callGellChannelWS()
+    {
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         let userid = final .value(forKey: "userId")
@@ -359,9 +360,9 @@ class GroupVC: UIViewController {
                                 self.channelArr = data
                                 self.lblChannel.text = (self.channelArr.firstObject as! NSDictionary) .value(forKey: "channelName") as? String
                                 
-                                if let channel = (self.channelArr.firstObject) {
+                                if let channel = (self.channelArr.firstObject)
+                                {
                                     self.selectedChannelID =  (self.channelArr.firstObject as! NSDictionary) .   value(forKey: "channelId") as! Int
-                                    
                                     self.getAllChannelfeed(channelId: self.selectedChannelID)
                                 }
                             }
@@ -383,40 +384,47 @@ class GroupVC: UIViewController {
         
     }
     
-    override func viewDidLoad() {
+    //MARK: View Lif Cycle
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false
         
         self.txtAnythingTosay.delegate = self
-        self.txtAnythingTosay .setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
+//        self.txtAnythingTosay .setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
         
         picker?.delegate=self
+        
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "selectedInterestforChannel"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.selectedInterestForChannel(notification:)), name:Notification.Name(rawValue: "selectedInterestforChannel"), object: nil)
 
-        self.tblviewListing.rowHeight = UITableViewAutomaticDimension
-        self.tblviewListing.estimatedRowHeight = 88.0
-        
-        
+
         // Do any additional setup after loading the view.
-        
         self.tblviewListing.estimatedRowHeight = 80;
         self.tblviewListing.rowHeight = UITableViewAutomaticDimension;
         
         self.callGellChannelWS()
-    
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    func selectedInterestForChannel(notification:Notification)
+    {
+        let str =  notification.object
+        arrInterestForMessage = NSArray(array: str as! NSArray)
+        print(str!)
+    }
+
+    override func viewWillAppear(_ animated: Bool)
+    {
         super.viewWillAppear(animated)
         
-        self.lblGrpName.text = self.grpDetail .value(forKey: "groupName") as?    String
+        self.lblGrpName.text = self.grpDetail .value(forKey: "groupName") as? String
         
         self.blGrpMember.text = ""
-        if let member = self.grpDetail .value(forKey: "group_members")  {
+        if let member = self.grpDetail .value(forKey: "group_members")
+        {
             grpMemeber = self.grpDetail .value(forKey: "group_members") as! NSArray
             self.blGrpMember.text = String(grpMemeber.count) + " members"
         }
-        
-    
         
         self.profileCollectonview.dataSource = self
         self.profileCollectonview.delegate = self
@@ -428,28 +436,33 @@ class GroupVC: UIViewController {
         NotificationCenter.default.removeObserver(self, name: notificationName, object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(updateHeader), name: notificationName, object: nil)
         
-        
         self.navigationController?.navigationBar.isHidden = true
         
-        
-        
-        if self.isFromLeadingGrp {
+        if self.isFromLeadingGrp
+        {
             self.menuButton.isHidden = true
             self.dropDownIcon.isHidden = true
-        } else {
+        }
+        else
+        {
             self.menuButton.isHidden = false
             self.dropDownIcon.isHidden = false
-            
         }
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = true
-        
-        
     }
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool)
+    {
         super.viewWillDisappear(animated)
+        if(isInterestTap)
+        {
+            isInterestTap = false
+        }
+        else
+        {
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = false
+        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -458,7 +471,8 @@ class GroupVC: UIViewController {
 
 }
 
-extension GroupVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+extension GroupVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout
+{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
         return grpMemeber.count
@@ -473,7 +487,7 @@ extension GroupVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollec
         
         
         cell.imgView .sd_setImage(with: URL(string:dic .value(forKey: "profile_picture") as! String), placeholderImage: nil)
-        cell.imgView.layer.cornerRadius = 11.0;
+        cell.imgView.layer.cornerRadius = 20.0;
         cell.imgView.layoutIfNeeded() //This is important line
         cell.imgView.clipsToBounds = true
         
@@ -482,23 +496,24 @@ extension GroupVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollec
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAt section: Int) -> UIEdgeInsets {
-    
-    let flowLayout = (collectionViewLayout as! UICollectionViewFlowLayout)
-    let cellSpacing = flowLayout.minimumInteritemSpacing
-    let cellWidth = flowLayout.itemSize.width
-    let cellCount = CGFloat(collectionView.numberOfItems(inSection: section))
-    
-    let collectionViewWidth = collectionView.bounds.size.width
-    
-    let totalCellWidth = cellCount * cellWidth
-    let totalCellSpacing = cellSpacing * (cellCount - 1)
-    
-    let totalCellsWidth = totalCellWidth + totalCellSpacing
-    
-    let edgeInsets = (collectionViewWidth - totalCellsWidth) / 2.0
-    
-    return edgeInsets > 0 ? UIEdgeInsetsMake(0, edgeInsets, 0, edgeInsets) : UIEdgeInsetsMake(0, cellSpacing, 0, cellSpacing)
+                        insetForSectionAt section: Int) -> UIEdgeInsets
+    {
+        
+        let flowLayout = (collectionViewLayout as! UICollectionViewFlowLayout)
+        let cellSpacing = flowLayout.minimumInteritemSpacing
+        let cellWidth = flowLayout.itemSize.width
+        let cellCount = CGFloat(collectionView.numberOfItems(inSection: section))
+        
+        let collectionViewWidth = collectionView.bounds.size.width
+        
+        let totalCellWidth = cellCount * cellWidth
+        let totalCellSpacing = cellSpacing * (cellCount - 1)
+        
+        let totalCellsWidth = totalCellWidth + totalCellSpacing
+        
+        let edgeInsets = (collectionViewWidth - totalCellsWidth) / 2.0
+        
+        return edgeInsets > 0 ? UIEdgeInsetsMake(0, edgeInsets, 0, edgeInsets) : UIEdgeInsetsMake(0, cellSpacing, 0, cellSpacing)
     }
 }
 
@@ -507,14 +522,15 @@ extension GroupVC : UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         //delegate method
   
-        self.txtAnythingTosay .placeholder = nil
+//        self.txtAnythingTosay .placeholder = nil
         //IQKeyboardManager.sharedManager().enableAutoToolbar = false
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-       
+    func textFieldDidEndEditing(_ textField: UITextField)
+    {
         //IQKeyboardManager.sharedManager().enableAutoToolbar = true
-        if (textField.text?.characters.count)! > 0 {
+        if (textField.text?.characters.count)! > 0
+        {
 //            tableData .add(textField.text) 
 //            self.tblviewListing .reloadData()
         }
@@ -526,26 +542,29 @@ extension GroupVC : UITextFieldDelegate {
         self.tblviewListing .layoutIfNeeded()
     }
 }
-extension GroupVC : UITableViewDelegate,UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+extension GroupVC : UITableViewDelegate,UITableViewDataSource
+{
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat
+    {
         return UITableViewAutomaticDimension
     }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! GroupCell
         cell.imgView.backgroundColor = UIColor.gray
-//        cell.lblDetail?.text = tableData[indexPath.row] as? String
-//        cell.lblName.text = "Ryan"
         
-        if indexPath.row == 1 {
+        if indexPath.row == 1
+        {
             cell.Const_LinkBtn_height.constant = 10
             cell.btnLink.isHidden = false
-        }else {
+        }
+        else
+        {
            // cell.Const_LinkBtn_height.constant = 0
             cell.btnLink.isHidden = true
         }
-        
-        let dict = self.arrChannelFeed[indexPath.row] as! NSDictionary
+        let dataarray = ((self.arrChannelFeed[indexPath.section] as AnyObject).object(forKey: "values") as! NSArray)
+        let dict = dataarray[indexPath.row] as! NSDictionary
         
         let formatter = DateFormatter()
         formatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
@@ -563,34 +582,39 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource {
         let feeddict = dict  .value(forKey: "feedCreator") as? NSDictionary
         cell.lblName.text = feeddict? .value(forKey: "name") as? String
         
-        
         let profileurl = feeddict? .value(forKey: "profile_picture") as? String
         cell.imgView .sd_setImage(with: URL(string: (profileurl)!), placeholderImage: nil)
         
         cell.selectionStyle = .none
         return cell
     }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return ((self.arrChannelFeed[section] as AnyObject).object(forKey: "values") as! NSArray).count
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int
+    {
         return self.arrChannelFeed.count
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
         return 30
     }
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
+    {
         return 0.0
     }
-    func  tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "MAR 10"
+    func  tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    {
+        return "\((self.arrChannelFeed[section] as AnyObject).object(forKey: "dataMonthKey")!)"
     }
-     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        if (view is UITableViewHeaderFooterView) {
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        if (view is UITableViewHeaderFooterView)
+        {
             let tableViewHeaderFooterView: UITableViewHeaderFooterView? = (view as? UITableViewHeaderFooterView)
             tableViewHeaderFooterView?.textLabel?.textAlignment = .center
             tableViewHeaderFooterView?.backgroundColor = UIColor .clear

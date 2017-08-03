@@ -23,6 +23,9 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
     
     var dateToSelect: Date!
     var eventArr = NSArray()
+    var arrCurrentdateData = NSMutableArray()
+    var dttoday = NSDate()
+    
     
     static func initViewController() -> DatePickerViewController
     {
@@ -69,6 +72,11 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
         navigationController?.navigationBar.setBackgroundImage(UIImage(named: "GreenPixel"), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage(named: "TransparentPixel")
         
+        
+        let strdate = appDelegate.convertdatetoString(adte: NSDate())
+        dttoday = appDelegate.convertStringtoDate(astrdate: strdate)
+
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -76,19 +84,41 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        UIApplication.shared.statusBarStyle = .lightContent
-        self .callEventApi()
+    override func viewWillAppear(_ animated: Bool)
+    {
+//        UIApplication.shared.statusBarStyle = .lightContent
+        showProgress(inView: self.view)
+
+        self.callEventApi()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        UIApplication.shared.statusBarStyle = .default
+//        UIApplication.shared.statusBarStyle = .default
     }
     
     
     // MARK: - JBDatePickerViewDelegate
     
     func didSelectDay(_ dayView: JBDatePickerDayView) {
+
+        print("date selected: \(String(describing: dayView.date))")
+        
+        self.arrCurrentdateData = NSMutableArray()
+
+        for i in 0..<self.eventArr.count
+        {
+            let dict = self.eventArr[i] as! NSDictionary
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let date = formatter.date(from: (dict.value(forKey: "eventStartDate") as? String)!)! as NSDate
+            
+            if(date.equalToDate(dateToCompare: dayView.date! as NSDate))
+            {
+                self.arrCurrentdateData.add(dict)
+            }
+        }
+
+        self.tableEvent.reloadData()
 
         //self.performSegue(withIdentifier: "unwindFromDatepicker", sender: self)
        // _ = self.navigationController?.popViewController(animated: true)
@@ -143,7 +173,6 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
         let userid = final .value(forKey: "userId")
         
         let url = kServerURL + kEvents
-        showProgress(inView: self.view)
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
         
@@ -164,16 +193,39 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
                         let temp  = dictemp.firstObject as! NSDictionary
                         let data  = temp .value(forKey: "data") as! NSArray
                         
-                        if data.count > 0 {
-                            
-                            if let err  =  (data[0] as AnyObject).value(forKey: kkeyError) {
+                        if data.count > 0
+                        {
+                            if let err  =  (data[0] as AnyObject).value(forKey: kkeyError)
+                            {
                                 App_showAlert(withMessage: err as! String, inView: self)
-                            }else {
+                            }
+                            else
+                            {
                                 print("no error")
                                 self.eventArr = data
-                                 self.tableEvent .reloadData()
+                                print("self.eventArr -> \(self.eventArr)")
+                                
+                                self.arrCurrentdateData = NSMutableArray()
+
+                                for i in 0..<self.eventArr.count
+                                {
+                                    let dict = self.eventArr[i] as! NSDictionary
+                                    let formatter = DateFormatter()
+                                    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                                    let date = formatter.date(from: (dict.value(forKey: "eventStartDate") as? String)!)! as NSDate
+                                    
+                                    
+                                    if(date.equalToDate(dateToCompare: self.dttoday))
+                                    {
+                                        self.arrCurrentdateData.add(dict)
+                                    }
+
+                                }
+                                
+//                                let namePredicate = NSPredicate(format: "%K = %d", "isLeader",1)
+//                                self.arrLeaderingGrp = AppDelegate .shared.arrAllGrpData.filter { namePredicate.evaluate(with: $0) } as NSArray
+                                 self.tableEvent.reloadData()
                             }
-                            
                         }
                         else
                         {
@@ -219,7 +271,7 @@ extension DatePickerViewController :UITableViewDataSource {
 //        imgview.contentMode = UIViewContentMode.scaleAspectFill
 //        cell.backgroundView = imgview
         
-        let dict = self.eventArr[indexPath.row] as! NSDictionary
+        let dict = self.arrCurrentdateData[indexPath.row] as! NSDictionary
         cell.eventTitle.text = dict.value(forKey: "eventName") as? String
         cell.eventTime.text = dict.value(forKey: "eventStartDate") as? String
         
@@ -238,7 +290,7 @@ extension DatePickerViewController :UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.eventArr.count
+        return self.arrCurrentdateData.count
     }
 
 }

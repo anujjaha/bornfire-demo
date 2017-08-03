@@ -17,6 +17,7 @@ class GroupEventDetailVC: UIViewController {
     @IBOutlet weak var lblGrpName: UILabel!
     var channelArr = NSArray()
     var arrGrpEvent = NSArray()
+    var groupDetails = NSDictionary()
     var grpname = String()
     
     var grpMember = NSArray()
@@ -56,7 +57,8 @@ class GroupEventDetailVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.isHidden = true
@@ -70,13 +72,15 @@ class GroupEventDetailVC: UIViewController {
         
         self.profileCollectonview .reloadData()
     }
-    override  func viewWillDisappear(_ animated: Bool) {
+    override  func viewWillDisappear(_ animated: Bool)
+    {
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.isHidden = false
         
     }
-    static func initViewController() -> GroupEventDetailVC {
+    static func initViewController() -> GroupEventDetailVC
+    {
         return UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "GroupEventDetailView") as! GroupEventDetailVC
     }
     
@@ -87,12 +91,11 @@ class GroupEventDetailVC: UIViewController {
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         
-        
         let url = kServerURL + kGetGrpEvents
         showProgress(inView: self.view)
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
-        let param = ["group_id" : "1"]
+        let param = ["group_id" :  "\(groupDetails.object(forKey: "groupId")!)"]
         
         request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
             
@@ -174,11 +177,14 @@ extension GroupEventDetailVC : UITableViewDataSource , UITableViewDelegate{
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! GroupEventDetailCell
             cell.channelName.text = (self.channelArr .object(at: indexPath.row) as! NSDictionary) .value(forKey: "channelName") as? String
             
-            if indexPath.row == 0{
+            if indexPath.row == 0
+            {
                 cell.downiconImage.isHidden = false
                 cell.channelBadgeNo.isHidden = true
-            } else {
-                if indexPath.row == 1 {
+            } else
+            {
+                if indexPath.row == 1
+                {
 //                    cell.channelBadgeNo .setTitle("11", for: .normal)
                 cell.channelBadgeNo.backgroundColor = UIColor.clear
 //                    cell.channelBadgeNo.backgroundColor = UIColor .init(colorLiteralRed: 255.0/255.0, green: 0.0/255.0, blue: 103.0/255.0, alpha: 1.0)
@@ -199,10 +205,16 @@ extension GroupEventDetailVC : UITableViewDataSource , UITableViewDelegate{
             cell.selectionStyle = .none
             return cell
             
-        } else {
+        }
+        else
+        {
             let cell = tableView.dequeueReusableCell(withIdentifier: "groupEventDetailCell") as! grpEventCell
-            var dict = self.arrGrpEvent .object(at: indexPath.row) as! NSDictionary
+            let dict = self.arrGrpEvent .object(at: indexPath.row) as! NSDictionary
             cell.lblDescription.text = dict .value(forKey: "eventName") as! String?
+            cell.lblMonName.text = dict .value(forKey: "eventMonth") as! String?
+            cell.lblDayName.text = dict .value(forKey: "eventDate") as! String?
+            cell.lblEventTitle.text = dict .value(forKey: "eventTitle") as! String?
+            cell.selectionStyle = .none
             return cell
         }
         
@@ -265,4 +277,5 @@ class grpEventCell: UITableViewCell {
     @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var lblDayName: UILabel!
     @IBOutlet weak var lblMonName: UILabel!
+    @IBOutlet weak var lblEventTitle : UILabel!
 }

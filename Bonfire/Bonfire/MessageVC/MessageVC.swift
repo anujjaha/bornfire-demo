@@ -283,7 +283,11 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     {
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
-        let param:[String:Any] = ["is_campus_feed" : "1","description": self.txtAnythingTosay.text!,"interests": arrInterestForMessage as Array]
+        
+        let strint = self.arrInterestForMessage.componentsJoined(by: ",")
+//        let param:[String:Any] = ["is_campus_feed" : "1","description": self.txtAnythingTosay.text!,"interests": arrInterestForMessage as Array]
+        let param:[String:Any] = ["is_campus_feed" : "1","description": self.txtAnythingTosay.text!,"interests": strint]
+
         let url = kServerURL + kCreateNewFeed
         print("parameters Message Post:>\(param)")
 
