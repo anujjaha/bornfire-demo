@@ -15,6 +15,7 @@ class SelectLeaderVC: UIViewController
     @IBOutlet weak var tabelview: UITableView!
     var strGroupID = String()
     var dicGroupDetail = NSDictionary()
+    var isfromMember : Bool = false
 
     override func viewDidLoad()
     {
@@ -112,7 +113,61 @@ class SelectLeaderVC: UIViewController
     
     @IBAction func saveTap(_ sender: Any)
     {
+        let url = kServerURL + kAddMemberAPI
+        showProgress(inView: self.view)
+
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
         
+        let arrid = self.arrSelectedLeader as NSArray
+        
+        let param = ["group_id" : strGroupID ,"user_id" : arrid ,"is_leader" : "1","sync" : "1"] as [String : Any]
+        
+        request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil
+                {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value
+                    {
+                        let dictemp = json as! NSArray
+                        print("dictempkAddMemberAPI :> \(dictemp)")
+                        let temp  = dictemp[0] as! NSDictionary
+                        
+                        if (temp.value(forKey: "error") != nil)
+                        {
+                            let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
+                            App_showAlert(withMessage: msg as! String, inView: self)
+                        }
+                        else
+                        {
+                            let data  = temp .value(forKey: "data") as! NSDictionary
+                            if data.count > 0
+                            {
+                                let tempobject = NSMutableDictionary(dictionary: data)
+                                NotificationCenter .default.post(name: NSNotification.Name(rawValue: "updateGroupDetails"), object: tempobject, userInfo: nil)
+                                _ =  self.navigationController?.popViewController(animated: true)
+                            }
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
     }
 
 

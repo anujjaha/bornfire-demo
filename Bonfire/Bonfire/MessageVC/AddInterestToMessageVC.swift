@@ -410,7 +410,7 @@ class AddInterestToMessageVC: UIViewController {
                                                 (alert: UIAlertAction!) -> Void in
                                                 
                                                 let createGrpObj = SettingVC.initViewController()
-                                                createGrpObj.grpDetail = data
+                                                createGrpObj.grpDetail = NSMutableDictionary(dictionary: data)
                                                 self.navigationController?.pushViewController(createGrpObj, animated: true)
 
                                                 /*

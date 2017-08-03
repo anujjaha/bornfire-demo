@@ -33,7 +33,7 @@ class SettingVC: UIViewController {
 
     var picker:UIImagePickerController?=UIImagePickerController()
     
-    var grpDetail = NSDictionary()
+    var grpDetail = NSMutableDictionary()
     
     var search:String=""
     var  isSearchMember : Bool  = false
@@ -104,7 +104,8 @@ class SettingVC: UIViewController {
         
         prevView = self.textViewEventDescription
         
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateGroupDetails(notification:)), name:Notification.Name(rawValue: "updateGroupDetails"), object: nil)
+
         // Do any additional setup after loading the view.
     }
     
@@ -136,7 +137,19 @@ class SettingVC: UIViewController {
         
         
     }
-  
+    func updateGroupDetails(notification:Notification)
+    {
+        let str =  notification.object
+        grpDetail = str as! NSMutableDictionary
+        
+        if self.grpDetail.value(forKey: "group_members") != nil
+        {
+            let namePredicate = NSPredicate(format: "%K = %d", "isLeader",1)
+            arrLeader = (self.grpDetail.value(forKey: "group_members") as! NSArray).filter { namePredicate.evaluate(with: $0) } as! NSMutableArray
+        }
+        self.clvLeader.reloadData()
+    }
+
     
     @IBAction func menuButtonClick(_ sender: AnyObject) {
         _ = self.navigationController?.popViewController(animated: true)
@@ -847,7 +860,7 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         {
 //            let cell = clvLeader.cellForItem(at: indexPath) as! MemberCell
 //            return CGSize(width: cell.frame.size.width, height: cell.frame.size.height)
-            return CGSize(width: 62, height: 69)
+            return CGSize(width: 62, height: 100)
         }
        // return CGSize.zero
     }
@@ -865,8 +878,6 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         }
         else if collectionView == clvMember
         {
-            
-            
             
             let identifier = "memberCell"
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! MemberCell
@@ -889,12 +900,10 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
                 
             }
             
-    
-            
-            
-            cell.layoutIfNeeded()
             cell.imgViewMember.backgroundColor = UIColor .gray
             cell.imgViewMember.layer.cornerRadius = cell.imgViewMember.frame.height/2
+            cell.imgViewMember.clipsToBounds = true
+
             cell.layoutIfNeeded()
             return cell
             
@@ -904,20 +913,14 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             let identifier = "leaderCell"
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! MemberCell
             
-            if self.arrLeaderSelected.contains(self.arrLeader[indexPath.row])
-            {
-                cell.imgViewLeader.image = UIImage(named: "memberselect")
-            }
-            else
-            {
-                cell.imgViewLeader.image = nil
-            }
 
             let dic = self.arrLeader[indexPath.row] as! NSDictionary
-            cell.labelLeaderName.text = dic["name"] as! String
+            cell.labelLeaderName.text = dic["name"] as? String
+            cell.imgViewLeader.sd_setImage(with: URL(string:dic .value(forKey: "profile_picture") as! String), placeholderImage: nil)
 
-            cell.imgViewLeader.backgroundColor = UIColor .gray
-            cell.imgViewLeader.layer.cornerRadius = 20.0
+            cell.imgViewLeader.layer.cornerRadius = cell.imgViewLeader.frame.height/2
+            cell.imgViewLeader.clipsToBounds = true
+
             cell.layoutIfNeeded()
             return cell
         }

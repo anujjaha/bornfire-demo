@@ -94,7 +94,7 @@ class JoingGroupVC: UIViewController {
                                 else
                                 {
                                     let grpVcOBj = GroupVC.initViewController()
-                                    grpVcOBj.grpDetail = self.dicGroupDetail
+                                    grpVcOBj.grpDetail = NSMutableDictionary(dictionary: self.dicGroupDetail)
                                     grpVcOBj.isFromLeadingGrp = false
                                     self.navigationController?.pushViewController(grpVcOBj, animated: true)
                                 }

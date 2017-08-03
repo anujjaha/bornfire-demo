@@ -86,7 +86,7 @@ class GroupVC: UIViewController {
     @IBAction func menuBtnTap(_ sender: Any) {
         
         let createGrpObj = SettingVC.initViewController()
-        createGrpObj.grpDetail = grpDetail
+        createGrpObj.grpDetail = NSMutableDictionary(dictionary: grpDetail)
         self.navigationController?.pushViewController(createGrpObj, animated: true)
     }
     
@@ -405,8 +405,6 @@ class GroupVC: UIViewController {
         self.tblviewListing.estimatedRowHeight = 80;
         self.tblviewListing.rowHeight = UITableViewAutomaticDimension;
         
-        showProgress(inView: self.view)
-        self.callGellChannelWS()
     }
     
     func selectedInterestForChannel(notification:Notification)
@@ -452,6 +450,12 @@ class GroupVC: UIViewController {
         }
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = true
+        
+        
+        
+        showProgress(inView: self.view)
+        self.callGellChannelWS()
+        
     }
     override func viewWillDisappear(_ animated: Bool)
     {
