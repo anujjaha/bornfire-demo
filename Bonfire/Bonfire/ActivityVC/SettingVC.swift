@@ -37,7 +37,6 @@ class SettingVC: UIViewController {
     
     var search:String=""
     var  isSearchMember : Bool  = false
-    var  isSearchLeader : Bool  = false
     var cnt = Int()
     var prevView = UIView()
     var textFieldDate = UITextField()
@@ -46,12 +45,12 @@ class SettingVC: UIViewController {
     let viewtxt = UIView()
 
     var arrallUser = NSArray()
-    var arrLeaderSearch = [String]()
-    var arrLeaderSelected = [String]()
+    var arrLeaderSelected = NSMutableArray()
     
     var dictEventData = NSMutableDictionary()
     
-    @IBAction func removeChannelTap(_ sender: AnyObject) {
+    @IBAction func removeChannelTap(_ sender: AnyObject)
+    {
         let tag = sender.tag - 101;
         self.arrChannelList .remove(at: tag)
         clvChannelList .reloadData()
@@ -60,14 +59,15 @@ class SettingVC: UIViewController {
     @IBOutlet weak var const_containerViewHeight: NSLayoutConstraint!
     
     var arrChannelList = [String]()
-    var arrLeader = [String]()
+    var arrLeader = NSMutableArray()
     var arrMember = [String]()
     
     var arrMemberSearch = [String]()
     var arrMemberSelected = [String]()
 
-    
-    override func viewDidLoad() {
+    //MARK: View Life Cycle
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         
         cnt = 2
@@ -81,7 +81,12 @@ class SettingVC: UIViewController {
         var alluser = AppDelegate .shared.allCampusUser()
         arrallUser = alluser .value(forKey: "name") as! NSArray
         
-        arrLeader = ["leader","lead","leader1","leader","lead","leader1","leader","lead","leader1","leader","lead","leader1"]
+        if self.grpDetail.value(forKey: "group_members") != nil
+        {
+            let namePredicate = NSPredicate(format: "%K = %d", "isLeader",1)
+            arrLeader = (self.grpDetail.value(forKey: "group_members") as! NSArray).filter { namePredicate.evaluate(with: $0) } as! NSMutableArray
+        }
+
         arrMember = ["member","user","test","member","user","test","member","user","test","member","user","test"]
         
         self.leaderSearch .setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
@@ -213,11 +218,13 @@ class SettingVC: UIViewController {
         return datepicker
     }
     
-    @IBAction func btnPlusTap(_ sender: Any) {
+    @IBAction func btnPlusTap(_ sender: Any)
+    {
         self.adEventControl()        
     }
     
-    func adEventControl()  {
+    func adEventControl()
+    {
         
        // var previousTxtview = self.textViewEventDescription
         
@@ -368,21 +375,25 @@ class SettingVC: UIViewController {
         textFieldDate.setValue(UIColor .black, forKeyPath: "_placeholderLabel.textColor")
     }
     
-    @IBAction func btnCoverPhotoTap(_ sender: Any) {
+    @IBAction func btnCoverPhotoTap(_ sender: Any)
+    {
         self.openActionsheet()
     }
     
-    @IBAction func btnEditInterestTap(_ sender: Any) {
+    @IBAction func btnEditInterestTap(_ sender: Any)
+    {
         let interst = InterestVC .initViewController()
         interst.isFromSetting = true
         self.navigationController?.pushViewController(interst, animated: true)
     }
     
-    @IBAction func btnNewChannletap(_ sender: Any) {
+    @IBAction func btnNewChannletap(_ sender: Any)
+    {
         self .showPopUp()
     }
     
-    func showPopUp(){
+    func showPopUp()
+    {
         let alertController = UIAlertController(title: "New Channel", message: "Please enter name:", preferredStyle: .alert)
         
         let confirmAction = UIAlertAction(title: "Add", style: .default) { (_) in
@@ -516,19 +527,11 @@ class SettingVC: UIViewController {
         let userid = final .value(forKey: "userId")
         let campuscode = UserDefaults.standard.value(forKey: kkeyCampusCode)
         
-        
         let url = kServerURL + kCreateNewChannel
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
         
-//        arrChannelList
-        
-        let param = ["name":name,"user_id":userid!,"campus_id":campuscode!]
-        
-//        request(url, method: .get, parameters:param, headers: headers).responseString { (response) in
-//        print(response)
-//        }
-        
+        let param = ["name":name,"user_id":userid!,"campus_id":campuscode!,"group_id":"\(grpDetail.object(forKey: "groupId")!)"]
         
         request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
             
@@ -570,6 +573,16 @@ class SettingVC: UIViewController {
         }
         
     }
+    
+    //MARK: Go To Member Screen
+    @IBAction func btnGoToLeader(_ sender: Any)
+    {
+        let objSelectLeader = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "SelectLeaderVC") as! SelectLeaderVC
+        objSelectLeader.strGroupID = "\(grpDetail.object(forKey: "groupId")!)"
+        objSelectLeader.dicGroupDetail = grpDetail
+        self.navigationController?.pushViewController(objSelectLeader, animated: true)
+    }
+
     
     /*
     // MARK: - Navigation
@@ -620,22 +633,24 @@ extension SettingVC : UITextFieldDelegate {
     
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        
-    
-        if textField == memberSearch {
+    func textFieldDidBeginEditing(_ textField: UITextField)
+    {
+        if textField == memberSearch
+        {
             self.isSearchMember = true
-        }else {
+        }
+        else
+        {
             self.isSearchMember = false
         }
         
-        if textField == leaderSearch {
-            self.isSearchLeader = true
-        }else {
-            self.isSearchLeader = false
+        if textField == leaderSearch
+        {
+            
         }
         
-        if textField == self.txtDate  {
+        if textField == self.txtDate
+        {
             textField.inputView = self .openDatePicker()
         }
         if textField == self.textFieldDate  {
@@ -649,8 +664,8 @@ extension SettingVC : UITextFieldDelegate {
             textField.inputView = self .openTimePicker()
         }
     }
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
         if string.isEmpty
         {
             search = String(search.characters.dropLast())
@@ -676,27 +691,9 @@ extension SettingVC : UITextFieldDelegate {
             }
             
             self.clvMember .reloadData()
-
-        }
-        else {
-            print(search)
-            let predicate = NSPredicate(format: "SELF CONTAINS[cd] %@", search)
-            let arr=(self.arrLeader as NSArray).filtered(using: predicate)
             
-            if arr.count > 0
-            {
-                self.arrLeaderSearch.removeAll()
-                self.arrLeaderSearch = arr as! [String]
-            }
-            else
-            {
-                self.arrLeaderSearch = self.arrLeader
-            }
-            
-            self.clvLeader .reloadData()
-
         }
-                return true
+        return true
     }
     
 }
@@ -746,102 +743,82 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     
     
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
         
-        if collectionView == clvMember {
+        if collectionView == clvMember
+        {
 
             //            memberselect
             let cell = collectionView .cellForItem(at: indexPath) as! MemberCell
             
             
-            if (cell.imgViewMember.image == nil) {
+            if (cell.imgViewMember.image == nil)
+            {
                 let img = UIImage(named: "memberselect")!
                 cell.imgViewMember.image = img
                 
-                if isSearchMember {
+                if isSearchMember
+                {
                     self.arrMemberSelected .append(arrMemberSearch[indexPath.row])
-                } else{
+                }
+                else
+                {
                     self.arrMemberSelected .append(arrallUser[indexPath.row] as! String)
                 }
-                
-                
-                
-            }else{
-                if !self.arrMemberSelected .contains(arrMember[indexPath.row]) {
-                    
-                    if isSearchMember {
+            }
+            else
+            {
+                if !self.arrMemberSelected .contains(arrMember[indexPath.row])
+                {
+                    if isSearchMember
+                    {
                         self.arrMemberSelected .append(arrMemberSearch[indexPath.row])
-                    } else{
+                    }
+                    else
+                    {
                         self.arrMemberSelected .append(arrMember[indexPath.row])
                     }
-                    
-                } else {
-                    if  let indextoremove = self.arrMemberSelected .index(of: arrMember[indexPath.row]) {
+                }
+                else
+                {
+                    if  let indextoremove = self.arrMemberSelected .index(of: arrMember[indexPath.row])
+                    {
                         self.arrMemberSelected .remove(at: indextoremove)
                         cell.imgViewMember.image = nil
                     }
                 }
-
             }
-        } else{
-                //            memberselect
-                let cell = collectionView .cellForItem(at: indexPath) as! MemberCell
-                
-                
-                if (cell.imgViewLeader.image == nil) {
-                    let img = UIImage(named: "memberselect")!
-                    cell.imgViewLeader.image = img
-                    
-                    if isSearchLeader {
-                        self.arrLeaderSelected .append(arrLeaderSearch[indexPath.row])
-                    } else{
-                        self.arrLeaderSelected .append(arrLeader[indexPath.row])
-                    }
-                    
-                }else{
-                    if !self.arrLeaderSelected .contains(arrLeader[indexPath.row]) {
-                        
-                        if isSearchLeader {
-                            self.arrLeaderSelected .append(arrLeaderSearch[indexPath.row])
-                        } else{
-                            self.arrLeaderSelected .append(arrLeader[indexPath.row])
-                        }
-                        
-                    } else {
-                        
-                        if  let indextoremove = self.arrLeaderSelected .index(of: arrLeader[indexPath.row]) {
-                            self.arrLeaderSelected .remove(at: indextoremove)
-                            cell.imgViewLeader.image = nil
-                        }
-                    }
-                    
-                }
-            }
+        }
+        else
+        {
+            //            memberselect
+            let cell = collectionView .cellForItem(at: indexPath) as! MemberCell
+        }
         
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        if collectionView == clvChannelList {
+        if collectionView == clvChannelList
+        {
             return self.arrChannelList.count
             //return 2
         }
-        else if collectionView == clvMember {
-            
-            if self.isSearchMember {
+        else if collectionView == clvMember
+        {
+            if self.isSearchMember
+            {
                 return self.arrMemberSearch.count
             }
 //            return self.arrMember.count
                return 10
-            
-        } else if collectionView == clvLeader {
-            
-            if self.isSearchLeader {
-                return self.arrLeaderSearch.count
-            }
-            
-            return self.arrMember.count
         }
-        else {
+        else if collectionView == clvLeader
+        {
+            return self.arrLeader.count
+        }
+        else
+        {
             return 3
         }
         
@@ -850,23 +827,24 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if collectionView == clvChannelList {
-            
+        if collectionView == clvChannelList
+        {
             var calCulateSizze: CGSize? = (self.arrChannelList[indexPath.row]).size(attributes: nil)
-            
-            //print("\(calCulateSizze?.height)\(calCulateSizze?.width)")
             let num = Int((calCulateSizze?.width)!)
             
-            if num <= 42 {
+            if num <= 42
+            {
                 calCulateSizze?.width = (calCulateSizze?.width)! + 40
-            } else{
+            }
+            else
+            {
                 calCulateSizze?.width = (calCulateSizze?.width)! + 50
             }
-            
             calCulateSizze?.height = (calCulateSizze?.height)! + 10
             return calCulateSizze!
-        } else {
-        
+        }
+        else
+        {
 //            let cell = clvLeader.cellForItem(at: indexPath) as! MemberCell
 //            return CGSize(width: cell.frame.size.width, height: cell.frame.size.height)
             return CGSize(width: 62, height: 69)
@@ -876,10 +854,8 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-    
-        
-        if collectionView == clvChannelList {
-            
+        if collectionView == clvChannelList
+        {
             let identifier = "channelCell"
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! ChannelCell
             cell.channelName.text = self.arrChannelList[indexPath.row]
@@ -887,7 +863,8 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             
             return cell
         }
-        else if collectionView == clvMember {
+        else if collectionView == clvMember
+        {
             
             
             
@@ -921,42 +898,31 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             cell.layoutIfNeeded()
             return cell
             
-        } else if collectionView == clvLeader {
-            
+        }
+        else if collectionView == clvLeader
+        {
             let identifier = "leaderCell"
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! MemberCell
             
-            if isSearchLeader {
-                cell.labelLeaderName.text = self.arrLeaderSearch[indexPath.row]
-                
-                if self.arrLeaderSelected .contains(arrLeaderSearch[indexPath.row]) {
-                    cell.imgViewLeader.image = UIImage(named: "memberselect")
-                } else {
-                    cell.imgViewLeader.image = nil
-                }
-            } else {
-                cell.labelLeaderName.text = self.arrLeader[indexPath.row]
-                
-                if self.arrLeaderSelected .contains(arrLeader[indexPath.row]) {
-                    cell.imgViewLeader.image = nil
-                } else {
-                    //                    cell.imgViewMember.image = UIImage(named: "circle_leader")
-                }
-                
+            if self.arrLeaderSelected.contains(self.arrLeader[indexPath.row])
+            {
+                cell.imgViewLeader.image = UIImage(named: "memberselect")
+            }
+            else
+            {
+                cell.imgViewLeader.image = nil
             }
 
-            
-            cell.layoutIfNeeded()
+            let dic = self.arrLeader[indexPath.row] as! NSDictionary
+            cell.labelLeaderName.text = dic["name"] as! String
+
             cell.imgViewLeader.backgroundColor = UIColor .gray
-            cell.imgViewLeader.layer.cornerRadius = cell.imgViewLeader.frame.height/2
-            
+            cell.imgViewLeader.layer.cornerRadius = 20.0
             cell.layoutIfNeeded()
-            
-            //cell.imgViewLeader.clipsToBounds = true
-            
             return cell
         }
-        else {
+        else
+        {
             let identifier = "settingCell"
 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! profileCollectonviewCell

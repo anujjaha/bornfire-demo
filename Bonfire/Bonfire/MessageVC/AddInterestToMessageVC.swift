@@ -126,21 +126,21 @@ class AddInterestToMessageVC: UIViewController {
         
         if isFromGrp
         {
-            self.btnSave .setTitle("", for: .normal)
-            self.btnSave .setImage(UIImage(named:"right_arrow"), for: .normal)
+//            self.btnSave .setTitle("", for: .normal)
+//            self.btnSave .setImage(UIImage(named:"right_arrow"), for: .normal)
+            self.btnSave .setTitle("Save", for: .normal)
+            self.btnSave .setImage(UIImage(named:""), for: .normal)
         }
         else if isfromChannel
         {
             self.btnSave .setTitle("Save", for: .normal)
             self.btnSave .setImage(UIImage(named:""), for: .normal)
-
         }
         else
         {
             self.btnSave .setTitle("Save", for: .normal)
             self.btnSave .setImage(UIImage(named:""), for: .normal)
         }
-        
     }
     @IBAction func backBtnTap(_ sender: Any) {
        _ =  self.navigationController?.popViewController(animated: true)
@@ -214,6 +214,7 @@ class AddInterestToMessageVC: UIViewController {
     {
         if isFromGrp
         {
+            showProgress(inView: self.view)
             self .callCreateGroupAPI()
         }
         else if isfromChannel
@@ -334,7 +335,6 @@ class AddInterestToMessageVC: UIViewController {
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         
         let url = kServerURL + kCreateGroup
-        showProgress(inView: self.view)
 
         var imgData = Data()
         imgData = UIImageJPEGRepresentation(grpImage, 0.5)!
@@ -346,7 +346,7 @@ class AddInterestToMessageVC: UIViewController {
             "is_private": switchstr,
             "description": strGroupDescription,
             "interests": strint
-            ]
+        ]
         
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
@@ -362,10 +362,10 @@ class AddInterestToMessageVC: UIViewController {
                     multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
                 }
                 
-                
         }, to: url, method: .post, headers: headers, encodingCompletion:
             {
                 (result) in
+                
                 switch result
                 {
                 case .success(let upload, _, _):
@@ -373,18 +373,17 @@ class AddInterestToMessageVC: UIViewController {
                         {
                             response in
                             hideProgress()
-                            
+
                             print(response.request) // original URL request
                             print(response.response) // URL response
                             print(response.data) // server data
                             print(response.result) // result of response serialization
-
                             
                             if let json = response.result.value
                             {
                                 print("json :> \(json)")
                                 let dictemp = json as! NSArray
-                                print("dictemp :> \(dictemp)")
+                                print("dictemp Group Detail :> \(dictemp)")
                                 let temp  = dictemp.firstObject as! NSDictionary
                                 
                                 if (temp.value(forKey: "error") != nil)
@@ -410,10 +409,15 @@ class AddInterestToMessageVC: UIViewController {
                                             {
                                                 (alert: UIAlertAction!) -> Void in
                                                 
+                                                let createGrpObj = SettingVC.initViewController()
+                                                createGrpObj.grpDetail = data
+                                                self.navigationController?.pushViewController(createGrpObj, animated: true)
+
+                                                /*
                                                 if let viewController = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: kIdentifire_GroupTitleVC) as? GroupTitleVC
                                                 {
                                                     self .navigationController?.pushViewController(viewController, animated: true)
-                                                }
+                                                }*/
                                             })
                                             optionMenu.addAction(libraryAction)
                                             self.present(optionMenu, animated: true, completion: nil)
@@ -427,6 +431,7 @@ class AddInterestToMessageVC: UIViewController {
                     hideProgress()
                     print(encodingError)
                 }
+                
         })
 
         

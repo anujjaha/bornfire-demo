@@ -126,6 +126,7 @@
 		D3C2CD2B1EA3B96100996D8F /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D3C2CD041EA3B96100996D8F /* IQKeyboardManager.bundle */; };
 		D3C2CD321EA3C87B00996D8F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C2CD311EA3C87B00996D8F /* LoginVC.swift */; };
 		D3D49AFC1ED152530000ED81 /* GroupTitleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D49AFB1ED152530000ED81 /* GroupTitleVC.swift */; };
+		D3E315971F336121005128CA /* SelectLeaderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E315961F336121005128CA /* SelectLeaderVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -278,6 +279,7 @@
 		D3C2CD041EA3B96100996D8F /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
 		D3C2CD311EA3C87B00996D8F /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		D3D49AFB1ED152530000ED81 /* GroupTitleVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTitleVC.swift; sourceTree = "<group>"; };
+		D3E315961F336121005128CA /* SelectLeaderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLeaderVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -451,6 +453,7 @@
 			isa = PBXGroup;
 			children = (
 				D3BAC6321EB59B6E002745AC /* ProfileVC.swift */,
+				D3E315961F336121005128CA /* SelectLeaderVC.swift */,
 			);
 			path = ProfileVC;
 			sourceTree = "<group>";
@@ -764,6 +767,7 @@
 				D3C2CD281EA3B96100996D8F /* IQTitleBarButtonItem.swift in Sources */,
 				D3C2CD291EA3B96100996D8F /* IQToolbar.swift in Sources */,
 				D35522321EB5EBD000E0608C /* DiscoverCell.swift in Sources */,
+				D3E315971F336121005128CA /* SelectLeaderVC.swift in Sources */,
 				92082ACB1EE1CDFD00E3BA4E /* JBDatePickerDayView.swift in Sources */,
 				D3C2CD161EA3B96100996D8F /* SessionManager.swift in Sources */,
 				61EE66A51EF05CCE005C57B2 /* SDImageCache.m in Sources */,

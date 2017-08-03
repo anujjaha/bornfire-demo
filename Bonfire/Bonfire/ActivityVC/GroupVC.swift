@@ -319,7 +319,6 @@ class GroupVC: UIViewController {
 
         let url = kServerURL + kGetChannelByGroupID
 
-        showProgress(inView: self.view)
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
         
@@ -332,6 +331,7 @@ class GroupVC: UIViewController {
             print(response.result.debugDescription)
             
             hideProgress()
+            
             switch(response.result)
             {
             case .success(_):
@@ -377,6 +377,8 @@ class GroupVC: UIViewController {
                 
             case .failure(_):
                 print(response.result.error!)
+                hideProgress()
+
                 App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
                 break
             }
@@ -403,6 +405,7 @@ class GroupVC: UIViewController {
         self.tblviewListing.estimatedRowHeight = 80;
         self.tblviewListing.rowHeight = UITableViewAutomaticDimension;
         
+        showProgress(inView: self.view)
         self.callGellChannelWS()
     }
     
@@ -432,7 +435,6 @@ class GroupVC: UIViewController {
         
         
         let notificationName = Notification.Name("updateTopHeader")
-        //        // Stop listening notification
         NotificationCenter.default.removeObserver(self, name: notificationName, object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(updateHeader), name: notificationName, object: nil)
         

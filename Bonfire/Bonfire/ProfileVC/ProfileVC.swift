@@ -402,7 +402,6 @@ extension ProfileVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! interestAndGrpCell
             let name = ((self.arrGrp .object(at: indexPath.row) as! NSDictionary) .value(forKey: "groupName")) as! String
             cell.btnGrp.setTitle(name, for: .normal)
-            cell.btnGrp.titleLabel?.lineBreakMode = .byTruncatingTail
             cell.btnGrp.tag = indexPath.row
             cell.btnGrp.addTarget(self, action: #selector(btnGroupDetailAction(_:)), for: .touchUpInside)
 
@@ -459,23 +458,38 @@ extension ProfileVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
 //    }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAt section: Int) -> UIEdgeInsets {
-        
-            let flowLayout = (collectionViewLayout as! UICollectionViewFlowLayout)
-            let cellSpacing = flowLayout.minimumInteritemSpacing
-            let cellWidth = flowLayout.itemSize.width
-            let cellCount = CGFloat(collectionView.numberOfItems(inSection: section))
+                        insetForSectionAt section: Int) -> UIEdgeInsets
+    {
+        if collectionView == self.clviewGrp
+        {
+            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
+        else
+        {
+            if (self.arrInterest.count > 2)
+            {
+                return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            }
+            else
+            {
+                let flowLayout = (collectionViewLayout as! UICollectionViewFlowLayout)
+                let cellSpacing = flowLayout.minimumInteritemSpacing
+                let cellWidth = flowLayout.itemSize.width
+                let cellCount = CGFloat(collectionView.numberOfItems(inSection: section))
+                
+                let collectionViewWidth = collectionView.bounds.size.width
+                
+                let totalCellWidth = cellCount * cellWidth
+                let totalCellSpacing = cellSpacing * (cellCount - 1)
+                
+                let totalCellsWidth = totalCellWidth + totalCellSpacing
+                
+                let edgeInsets = (collectionViewWidth - totalCellsWidth) / 2.0
+                
+                return edgeInsets > 0 ? UIEdgeInsetsMake(0, edgeInsets, 0, edgeInsets) : UIEdgeInsetsMake(0, cellSpacing, 0, cellSpacing)
+            }
             
-            let collectionViewWidth = collectionView.bounds.size.width
-            
-            let totalCellWidth = cellCount * cellWidth
-            let totalCellSpacing = cellSpacing * (cellCount - 1)
-            
-            let totalCellsWidth = totalCellWidth + totalCellSpacing
-            
-            let edgeInsets = (collectionViewWidth - totalCellsWidth) / 2.0
-            
-            return edgeInsets > 0 ? UIEdgeInsetsMake(0, edgeInsets, 0, edgeInsets) : UIEdgeInsetsMake(0, cellSpacing, 0, cellSpacing)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)

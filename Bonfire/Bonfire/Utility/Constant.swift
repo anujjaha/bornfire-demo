@@ -83,6 +83,7 @@ let kGetGrpEvents = "get-group-events"
 let kGetAllCampusUser = "campus-users"
 let kRemoveGroup = "groups/exit"
 let kUserInterestUpdate = "user-interest/add-bulk-interest"
+let kLeadersofGroup = "groups/get-member-suggestions"
 
 //var CurrentUser : UserModel = UserModel()
 
