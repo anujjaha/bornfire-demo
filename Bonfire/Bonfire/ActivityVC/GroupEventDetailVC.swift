@@ -26,9 +26,10 @@ class GroupEventDetailVC: UIViewController {
         super.viewDidLoad()
         self.tableEventDesc .dataSource = self
         self.tableEventDesc .reloadData()
-        tableEventDesc.separatorColor = UIColor .clear
-        tableEventDesc.separatorStyle = UITableViewCellSeparatorStyle.none
-        tableEventDesc.separatorInset = UIEdgeInsets.zero
+        
+//        tableEventDesc.separatorColor = UIColor .clear
+//        tableEventDesc.separatorStyle = UITableViewCellSeparatorStyle.none
+//        tableEventDesc.separatorInset = UIEdgeInsets.zero
         
         self.channelTblView .dataSource = self
         self.channelTblView .delegate = self
@@ -305,7 +306,7 @@ extension GroupEventDetailVC : UICollectionViewDelegate,UICollectionViewDataSour
         let dic = self.grpMember .object(at: indexPath.row) as! NSDictionary
         cell.imgView .sd_setImage(with: URL(string:dic .value(forKey: "profile_picture") as! String), placeholderImage: nil)
 
-        cell.imgView.layer.cornerRadius = 11.0;
+        cell.imgView.layer.cornerRadius = 20.0
         cell.imgView.layoutIfNeeded() //This is important line
         //cell.imgView.layer.masksToBounds = true
         cell.imgView.clipsToBounds = true

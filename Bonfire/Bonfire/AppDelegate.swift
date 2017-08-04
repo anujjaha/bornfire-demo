@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
         self.callGetAllCampusAPI()
         
+        strDeviceToken = "424442253525"
         
         if (userDefaults.bool(forKey: kkeyisUserLogin))
         {

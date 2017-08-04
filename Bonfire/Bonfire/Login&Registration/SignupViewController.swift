@@ -84,9 +84,9 @@ class SignupViewController: UIViewController
                                 UserDefaults.standard.set(true, forKey: kkeyisUserLogin)
                                 UserDefaults.standard.synchronize()
                                 
-                                let interst = InterestVC .initViewController()
-                                self.navigationController?.navigationBar.isTranslucent  = false
-                                self.navigationController?.pushViewController(interst, animated: true)
+//                                let interst = InterestVC .initViewController()
+//                                self.navigationController?.navigationBar.isTranslucent  = false
+//                                self.navigationController?.pushViewController(interst, animated: true)
                             }
                         
                         }
@@ -114,6 +114,48 @@ class SignupViewController: UIViewController
     {
         _ = self.navigationController?.popViewController(animated: true)
     }
+    
+    func RegisterDeviceToken()
+    {
+        // get all home feed api calling
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        let url = kServerURL + kkeySetDeviceToken
+        showProgress(inView: self.view)
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        let param = ["device_token" :  "\(appDelegate.strDeviceToken)"]
+        
+        request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil
+                {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value
+                    {
+                        let interst = InterestVC .initViewController()
+                        self.navigationController?.navigationBar.isTranslucent  = false
+                        self.navigationController?.pushViewController(interst, animated: true)
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+        
+    }
+
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {   //delegate method

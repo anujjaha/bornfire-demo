@@ -39,67 +39,117 @@ class LoginViewController: UIViewController
         }
     }
 
-    func callLoginAPI() {
+    func callLoginAPI()
+    {
         
-            let url = kServerURL + kLogin
-            let parameters: [String: Any] = ["username": self.txtUserName.text!, "password": self.txtPassword.text!]
+        let url = kServerURL + kLogin
+        let parameters: [String: Any] = ["username": self.txtUserName.text!, "password": self.txtPassword.text!]
+        
+        showProgress(inView: self.view)
+        print("parameters:>\(parameters)")
+        request(url, method: .post, parameters:parameters).responseJSON { (response:DataResponse<Any>) in
             
-            showProgress(inView: self.view)
-            print("parameters:>\(parameters)")
-            request(url, method: .post, parameters:parameters).responseJSON { (response:DataResponse<Any>) in
-                
-                print(response.result.debugDescription)
-                
-                hideProgress()
-                switch(response.result)
-                {
-                case .success(_):
-                    if response.result.value != nil {
-                        print(response.result.value!)
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value {
+                        let dictemp = json as! NSDictionary
+                        print("dictemp :> \(dictemp)")
                         
-                        if let json = response.result.value {
-                            let dictemp = json as! NSDictionary
-                            print("dictemp :> \(dictemp)")
-                            
-                            if dictemp.count > 0 {
-                                
-                                if let err  =  dictemp.value(forKey: kkeyError) {
-                                    App_showAlert(withMessage: err as! String, inView: self)
-                                }else {
-                                    appDelegate.arrLoginData = dictemp
-                                    let data = NSKeyedArchiver.archivedData(withRootObject: appDelegate.arrLoginData)
-                                    UserDefaults.standard.set(data, forKey: kkeyLoginData)
-                                    
-                                    UserDefaults.standard.set(true, forKey: kkeyisUserLogin)
-                                    UserDefaults.standard.synchronize()
-                                    let storyTab = UIStoryboard(name: "Main", bundle: nil)
-                                    let tabbar = storyTab.instantiateViewController(withIdentifier: "TabBarViewController")
-                                    self.navigationController?.pushViewController(tabbar, animated: true)
-                                    
-                                    AppDelegate .shared.getAllcampusUser()
-                                }
-                                
+                        if dictemp.count > 0
+                        {
+                            if let err  =  dictemp.value(forKey: kkeyError)
+                            {
+                                App_showAlert(withMessage: err as! String, inView: self)
                             }
                             else
                             {
-                                App_showAlert(withMessage: dictemp[kkeyError]! as! String, inView: self)
+                                appDelegate.arrLoginData = dictemp
+                                let data = NSKeyedArchiver.archivedData(withRootObject: appDelegate.arrLoginData)
+                                UserDefaults.standard.set(data, forKey: kkeyLoginData)
+                                
+                                UserDefaults.standard.set(true, forKey: kkeyisUserLogin)
+                                UserDefaults.standard.synchronize()
+                                
+                                self.RegisterDeviceToken()
+//                                let storyTab = UIStoryboard(name: "Main", bundle: nil)
+//                                let tabbar = storyTab.instantiateViewController(withIdentifier: "TabBarViewController")
+//                                self.navigationController?.pushViewController(tabbar, animated: true)
+//                                
+//                                AppDelegate .shared.getAllcampusUser()
                             }
+                            
+                        }
+                        else
+                        {
+                            App_showAlert(withMessage: dictemp[kkeyError]! as! String, inView: self)
                         }
                     }
-                    break
-                    
-                case .failure(_):
-                    print(response.result.error!)
-                    App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
-                    break
                 }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
             }
-            
-            /*request("\(kServerURL)login.php", method: .post, parameters:parameters).responseString{ response in
-             debugPrint(response)
-             }*/
-            
         }
+        
+        /*request("\(kServerURL)login.php", method: .post, parameters:parameters).responseString{ response in
+         debugPrint(response)
+         }*/
+        
+    }
+    
+    func RegisterDeviceToken()
+    {
+        // get all home feed api calling
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        let url = kServerURL + kkeySetDeviceToken
+        showProgress(inView: self.view)
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        let param = ["device_token" :  "\(appDelegate.strDeviceToken)"]
+        
+        request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil
+                {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value
+                    {
+                        
+                        let storyTab = UIStoryboard(name: "Main", bundle: nil)
+                        let tabbar = storyTab.instantiateViewController(withIdentifier: "TabBarViewController")
+                        self.navigationController?.pushViewController(tabbar, animated: true)
+                        
+                        AppDelegate .shared.getAllcampusUser()
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+
+    }
     
     @IBAction func btnbackPressed()
     {

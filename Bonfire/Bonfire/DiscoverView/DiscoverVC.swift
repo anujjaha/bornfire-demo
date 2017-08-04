@@ -285,45 +285,147 @@ extension DiscoverVC : UICollectionViewDelegate
             dic = self.arrDiscovery[indexPath.row] as! NSDictionary
             print(dic)
             
-            if dic.object(forKey: kkeyisMember) as! Int == 0 && dic.object(forKey: kkeyisLeader) as! Int == 0
-            {
-                let objJoinGroupVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "JoingGroupVC") as! JoingGroupVC
-                objJoinGroupVC.dicGroupDetail = dic
-                self.navigationController?.pushViewController(objJoinGroupVC, animated: true)
-            }
-            else
+            if dic.object(forKey: kkeyisLeader) as! Int == 1
             {
                 let grpVcOBj = GroupVC.initViewController()
                 grpVcOBj.grpDetail = dic
                 grpVcOBj.isFromLeadingGrp = false
                 self.navigationController?.pushViewController(grpVcOBj, animated: true)
+            }
+            else if dic.object(forKey: kkeyisPrivate) as! Int == 0
+            {
+                if dic.object(forKey: kkeyisMember) as! Int == 0 && dic.object(forKey: kkeyisLeader) as! Int == 0
+                {
+                    let objJoinGroupVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "JoingGroupVC") as! JoingGroupVC
+                    objJoinGroupVC.dicGroupDetail = dic
+                    self.navigationController?.pushViewController(objJoinGroupVC, animated: true)
+                }
+                else
+                {
+                    let grpVcOBj = GroupVC.initViewController()
+                    grpVcOBj.grpDetail = dic
+                    grpVcOBj.isFromLeadingGrp = false
+                    self.navigationController?.pushViewController(grpVcOBj, animated: true)
+                }
+            }
+            else
+            {
+                if dic.object(forKey: kkeyisMember) as! Int == 1 && dic.object(forKey: kkeymemberStatus) as! Int == 1
+                {
+                    let grpVcOBj = GroupVC.initViewController()
+                    grpVcOBj.grpDetail = dic
+                    grpVcOBj.isFromLeadingGrp = false
+                    self.navigationController?.pushViewController(grpVcOBj, animated: true)
+                }
+                else  if dic.object(forKey: kkeyisMember) as! Int == 1 && dic.object(forKey: kkeymemberStatus) as! Int == 0
+                {
+                    App_showAlert(withMessage: "You don't have permission to see Group Activity", inView: self)
+
+                }
+                else if dic.object(forKey: kkeyisMember) as! Int == 0
+                {
+                    let objJoinGroupVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "JoingGroupVC") as! JoingGroupVC
+                    objJoinGroupVC.dicGroupDetail = dic
+                    self.navigationController?.pushViewController(objJoinGroupVC, animated: true)
+                }
             }
         }
         else if(collectionView == self.clvwGroups)
         {
             dic = self.arrAllFeedData[indexPath.row] as! NSDictionary
-            if dic.object(forKey: kkeyisMember) as! Int == 0 && dic.object(forKey: kkeyisLeader) as! Int == 0
-            {
-                let objJoinGroupVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "JoingGroupVC") as! JoingGroupVC
-                objJoinGroupVC.dicGroupDetail = dic
-                self.navigationController?.pushViewController(objJoinGroupVC, animated: true)
-            }
-            else
+            if dic.object(forKey: kkeyisLeader) as! Int == 1
             {
                 let grpVcOBj = GroupVC.initViewController()
                 grpVcOBj.grpDetail = dic
                 grpVcOBj.isFromLeadingGrp = false
                 self.navigationController?.pushViewController(grpVcOBj, animated: true)
             }
+           else if dic.object(forKey: kkeyisPrivate) as! Int == 0
+            {
+                if dic.object(forKey: kkeyisMember) as! Int == 0 && dic.object(forKey: kkeyisLeader) as! Int == 0
+                {
+                    let objJoinGroupVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "JoingGroupVC") as! JoingGroupVC
+                    objJoinGroupVC.dicGroupDetail = dic
+                    self.navigationController?.pushViewController(objJoinGroupVC, animated: true)
+                }
+                else
+                {
+                    let grpVcOBj = GroupVC.initViewController()
+                    grpVcOBj.grpDetail = dic
+                    grpVcOBj.isFromLeadingGrp = false
+                    self.navigationController?.pushViewController(grpVcOBj, animated: true)
+                }
+            }
+            else
+            {
+                if dic.object(forKey: kkeyisMember) as! Int == 1 && dic.object(forKey: kkeymemberStatus) as! Int == 1
+                {
+                    let grpVcOBj = GroupVC.initViewController()
+                    grpVcOBj.grpDetail = dic
+                    grpVcOBj.isFromLeadingGrp = false
+                    self.navigationController?.pushViewController(grpVcOBj, animated: true)
+                }
+                else  if dic.object(forKey: kkeyisMember) as! Int == 1 && dic.object(forKey: kkeymemberStatus) as! Int == 0
+                {
+                    App_showAlert(withMessage: "You don't have permission to see Group Activity", inView: self)
+                    
+                }
+                else if dic.object(forKey: kkeyisMember) as! Int == 0
+                {
+                    let objJoinGroupVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "JoingGroupVC") as! JoingGroupVC
+                    objJoinGroupVC.dicGroupDetail = dic
+                    self.navigationController?.pushViewController(objJoinGroupVC, animated: true)
+                }
+            }
+
         }
         else
         {
             dic = self.arrForYouGrp[indexPath.row] as! NSDictionary
-            let grpVcOBj = GroupVC.initViewController()
-            grpVcOBj.grpDetail = dic
-            grpVcOBj.isFromLeadingGrp = false
-            self.navigationController?.pushViewController(grpVcOBj, animated: true)
-            
+            if dic.object(forKey: kkeyisLeader) as! Int == 1
+            {
+                let grpVcOBj = GroupVC.initViewController()
+                grpVcOBj.grpDetail = dic
+                grpVcOBj.isFromLeadingGrp = false
+                self.navigationController?.pushViewController(grpVcOBj, animated: true)
+            }
+            else if dic.object(forKey: kkeyisPrivate) as! Int == 0
+            {
+                if dic.object(forKey: kkeyisMember) as! Int == 0 && dic.object(forKey: kkeyisLeader) as! Int == 0
+                {
+                    let objJoinGroupVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "JoingGroupVC") as! JoingGroupVC
+                    objJoinGroupVC.dicGroupDetail = dic
+                    self.navigationController?.pushViewController(objJoinGroupVC, animated: true)
+                }
+                else
+                {
+                    let grpVcOBj = GroupVC.initViewController()
+                    grpVcOBj.grpDetail = dic
+                    grpVcOBj.isFromLeadingGrp = false
+                    self.navigationController?.pushViewController(grpVcOBj, animated: true)
+                }
+            }
+            else
+            {
+                if dic.object(forKey: kkeyisMember) as! Int == 1 && dic.object(forKey: kkeymemberStatus) as! Int == 1
+                {
+                    let grpVcOBj = GroupVC.initViewController()
+                    grpVcOBj.grpDetail = dic
+                    grpVcOBj.isFromLeadingGrp = false
+                    self.navigationController?.pushViewController(grpVcOBj, animated: true)
+                }
+                else  if dic.object(forKey: kkeyisMember) as! Int == 1 && dic.object(forKey: kkeymemberStatus) as! Int == 0
+                {
+                    App_showAlert(withMessage: "You don't have permission to see Group Activity", inView: self)
+                    
+                }
+                else if dic.object(forKey: kkeyisMember) as! Int == 0
+                {
+                    let objJoinGroupVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "JoingGroupVC") as! JoingGroupVC
+                    objJoinGroupVC.dicGroupDetail = dic
+                    self.navigationController?.pushViewController(objJoinGroupVC, animated: true)
+                }
+            }
         }
     }
 }

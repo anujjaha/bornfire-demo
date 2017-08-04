@@ -445,7 +445,14 @@ class GroupVC: UIViewController {
         }
         else
         {
-            self.menuButton.isHidden = false
+            if grpDetail.object(forKey: kkeyisLeader) as! Int == 1
+            {
+                self.menuButton.isHidden = false
+            }
+            else
+            {
+                self.menuButton.isHidden = true
+            }
             self.dropDownIcon.isHidden = false
         }
         self.navigationItem.hidesBackButton = true

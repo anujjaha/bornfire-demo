@@ -150,6 +150,9 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
     
     @IBAction func logoutTap(_ sender: Any)
     {
+        UserDefaults.standard.set(false, forKey: kkeyisUserLogin)
+        UserDefaults.standard.synchronize()
+
         let appdelegate = UIApplication.shared.delegate as! AppDelegate
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController

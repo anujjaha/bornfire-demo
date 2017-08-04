@@ -138,18 +138,37 @@ extension ActivityVC : UICollectionViewDelegate ,UICollectionViewDelegateFlowLay
         let grpVcOBj = GroupVC.initViewController()
         var dic = NSDictionary()
       
-        if collectionView == self.clvwLeading {
-            
+        if collectionView == self.clvwLeading
+        {
             dic = self.arrLeaderingGrp[indexPath.row] as! NSDictionary
             grpVcOBj.isFromLeadingGrp = true
+            grpVcOBj.grpDetail = dic
+            self.navigationController?.pushViewController(grpVcOBj, animated: true)
         }
         else
         {
             dic = self.arrYourGrp[indexPath.row] as! NSDictionary
-            grpVcOBj.isFromLeadingGrp = false
+
+            if dic.object(forKey: kkeyisPrivate) as! Int == 1
+            {
+                if dic.object(forKey: kkeymemberStatus) as! Int == 1
+                {
+                    grpVcOBj.isFromLeadingGrp = false
+                    grpVcOBj.grpDetail = dic
+                    self.navigationController?.pushViewController(grpVcOBj, animated: true)
+                }
+                else
+                {
+                    App_showAlert(withMessage: "You don't have permission to see Group Activity", inView: self)
+                }
+            }
+            else
+            {
+                grpVcOBj.isFromLeadingGrp = false
+                grpVcOBj.grpDetail = dic
+                self.navigationController?.pushViewController(grpVcOBj, animated: true)
+            }
         }
         
-        grpVcOBj.grpDetail = dic
-        self.navigationController?.pushViewController(grpVcOBj, animated: true)
     }
 }
