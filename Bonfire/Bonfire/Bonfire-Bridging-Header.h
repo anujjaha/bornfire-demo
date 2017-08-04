@@ -12,6 +12,6 @@
 #import "UIImageView+WebCache.h"
 #import "JVFloatLabeledTextView.h"
 #import "JVFloatLabeledTextField.h"
-
+#import "ActionSheetPicker.h"
 
 #endif /* Bonfire_Bridging_Header_h */

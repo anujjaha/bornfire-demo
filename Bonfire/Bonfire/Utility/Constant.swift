@@ -85,6 +85,8 @@ let kRemoveGroup = "groups/exit"
 let kUserInterestUpdate = "user-interest/add-bulk-interest"
 let kLeadersofGroup = "groups/get-member-suggestions"
 let kAddMemberAPI = "groups/add-member"
+let kAddEvent = "events/create"
+let kDeleteEvent = "events/delete"
 
 //var CurrentUser : UserModel = UserModel()
 

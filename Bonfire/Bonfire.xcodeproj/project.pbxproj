@@ -125,6 +125,15 @@
 		D3C2CD2A1EA3B96100996D8F /* IQUIView+IQKeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C2CD021EA3B96100996D8F /* IQUIView+IQKeyboardToolbar.swift */; };
 		D3C2CD2B1EA3B96100996D8F /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D3C2CD041EA3B96100996D8F /* IQKeyboardManager.bundle */; };
 		D3C2CD321EA3C87B00996D8F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C2CD311EA3C87B00996D8F /* LoginVC.swift */; };
+		D3C947AB1F34E2CC00D2A20D /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C947981F34E2CC00D2A20D /* AbstractActionSheetPicker.m */; };
+		D3C947AC1F34E2CC00D2A20D /* ActionSheetCustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C9479A1F34E2CC00D2A20D /* ActionSheetCustomPicker.m */; };
+		D3C947AD1F34E2CC00D2A20D /* ActionSheetDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C9479D1F34E2CC00D2A20D /* ActionSheetDatePicker.m */; };
+		D3C947AE1F34E2CC00D2A20D /* ActionSheetDistancePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C9479F1F34E2CC00D2A20D /* ActionSheetDistancePicker.m */; };
+		D3C947AF1F34E2CC00D2A20D /* ActionSheetLocalePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C947A11F34E2CC00D2A20D /* ActionSheetLocalePicker.m */; };
+		D3C947B01F34E2CC00D2A20D /* ActionSheetMultipleStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C947A31F34E2CC00D2A20D /* ActionSheetMultipleStringPicker.m */; };
+		D3C947B11F34E2CC00D2A20D /* ActionSheetStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C947A61F34E2CC00D2A20D /* ActionSheetStringPicker.m */; };
+		D3C947B21F34E2CC00D2A20D /* DistancePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C947A81F34E2CC00D2A20D /* DistancePickerView.m */; };
+		D3C947B31F34E2CC00D2A20D /* SWActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C947AA1F34E2CC00D2A20D /* SWActionSheet.m */; };
 		D3CB726B1F33A8E4004DBBD5 /* EventListAddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB726A1F33A8E4004DBBD5 /* EventListAddVC.swift */; };
 		D3D49AFC1ED152530000ED81 /* GroupTitleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D49AFB1ED152530000ED81 /* GroupTitleVC.swift */; };
 		D3E315971F336121005128CA /* SelectLeaderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E315961F336121005128CA /* SelectLeaderVC.swift */; };
@@ -279,6 +288,26 @@
 		D3C2CD021EA3B96100996D8F /* IQUIView+IQKeyboardToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IQUIView+IQKeyboardToolbar.swift"; sourceTree = "<group>"; };
 		D3C2CD041EA3B96100996D8F /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
 		D3C2CD311EA3C87B00996D8F /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		D3C947971F34E2CC00D2A20D /* AbstractActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractActionSheetPicker.h; sourceTree = "<group>"; };
+		D3C947981F34E2CC00D2A20D /* AbstractActionSheetPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractActionSheetPicker.m; sourceTree = "<group>"; };
+		D3C947991F34E2CC00D2A20D /* ActionSheetCustomPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetCustomPicker.h; sourceTree = "<group>"; };
+		D3C9479A1F34E2CC00D2A20D /* ActionSheetCustomPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetCustomPicker.m; sourceTree = "<group>"; };
+		D3C9479B1F34E2CC00D2A20D /* ActionSheetCustomPickerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetCustomPickerDelegate.h; sourceTree = "<group>"; };
+		D3C9479C1F34E2CC00D2A20D /* ActionSheetDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDatePicker.h; sourceTree = "<group>"; };
+		D3C9479D1F34E2CC00D2A20D /* ActionSheetDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetDatePicker.m; sourceTree = "<group>"; };
+		D3C9479E1F34E2CC00D2A20D /* ActionSheetDistancePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDistancePicker.h; sourceTree = "<group>"; };
+		D3C9479F1F34E2CC00D2A20D /* ActionSheetDistancePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetDistancePicker.m; sourceTree = "<group>"; };
+		D3C947A01F34E2CC00D2A20D /* ActionSheetLocalePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetLocalePicker.h; sourceTree = "<group>"; };
+		D3C947A11F34E2CC00D2A20D /* ActionSheetLocalePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetLocalePicker.m; sourceTree = "<group>"; };
+		D3C947A21F34E2CC00D2A20D /* ActionSheetMultipleStringPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetMultipleStringPicker.h; sourceTree = "<group>"; };
+		D3C947A31F34E2CC00D2A20D /* ActionSheetMultipleStringPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetMultipleStringPicker.m; sourceTree = "<group>"; };
+		D3C947A41F34E2CC00D2A20D /* ActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetPicker.h; sourceTree = "<group>"; };
+		D3C947A51F34E2CC00D2A20D /* ActionSheetStringPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetStringPicker.h; sourceTree = "<group>"; };
+		D3C947A61F34E2CC00D2A20D /* ActionSheetStringPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetStringPicker.m; sourceTree = "<group>"; };
+		D3C947A71F34E2CC00D2A20D /* DistancePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistancePickerView.h; sourceTree = "<group>"; };
+		D3C947A81F34E2CC00D2A20D /* DistancePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistancePickerView.m; sourceTree = "<group>"; };
+		D3C947A91F34E2CC00D2A20D /* SWActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWActionSheet.h; sourceTree = "<group>"; };
+		D3C947AA1F34E2CC00D2A20D /* SWActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWActionSheet.m; sourceTree = "<group>"; };
 		D3CB726A1F33A8E4004DBBD5 /* EventListAddVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventListAddVC.swift; sourceTree = "<group>"; };
 		D3D49AFB1ED152530000ED81 /* GroupTitleVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTitleVC.swift; sourceTree = "<group>"; };
 		D3E315961F336121005128CA /* SelectLeaderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLeaderVC.swift; sourceTree = "<group>"; };
@@ -511,6 +540,7 @@
 		D3C2CCBB1EA3B39A00996D8F /* Bonfire */ = {
 			isa = PBXGroup;
 			children = (
+				D3C947961F34E2CC00D2A20D /* Pickers */,
 				D330C52D1F3244D600C73A84 /* JVFloatLabeledTextField */,
 				92082AD61EE1CFCC00E3BA4E /* DatePickerView */,
 				92082AB71EE1CDFD00E3BA4E /* JBDatePicker */,
@@ -660,6 +690,33 @@
 			path = "Login&Registration";
 			sourceTree = "<group>";
 		};
+		D3C947961F34E2CC00D2A20D /* Pickers */ = {
+			isa = PBXGroup;
+			children = (
+				D3C947971F34E2CC00D2A20D /* AbstractActionSheetPicker.h */,
+				D3C947981F34E2CC00D2A20D /* AbstractActionSheetPicker.m */,
+				D3C947991F34E2CC00D2A20D /* ActionSheetCustomPicker.h */,
+				D3C9479A1F34E2CC00D2A20D /* ActionSheetCustomPicker.m */,
+				D3C9479B1F34E2CC00D2A20D /* ActionSheetCustomPickerDelegate.h */,
+				D3C9479C1F34E2CC00D2A20D /* ActionSheetDatePicker.h */,
+				D3C9479D1F34E2CC00D2A20D /* ActionSheetDatePicker.m */,
+				D3C9479E1F34E2CC00D2A20D /* ActionSheetDistancePicker.h */,
+				D3C9479F1F34E2CC00D2A20D /* ActionSheetDistancePicker.m */,
+				D3C947A01F34E2CC00D2A20D /* ActionSheetLocalePicker.h */,
+				D3C947A11F34E2CC00D2A20D /* ActionSheetLocalePicker.m */,
+				D3C947A21F34E2CC00D2A20D /* ActionSheetMultipleStringPicker.h */,
+				D3C947A31F34E2CC00D2A20D /* ActionSheetMultipleStringPicker.m */,
+				D3C947A41F34E2CC00D2A20D /* ActionSheetPicker.h */,
+				D3C947A51F34E2CC00D2A20D /* ActionSheetStringPicker.h */,
+				D3C947A61F34E2CC00D2A20D /* ActionSheetStringPicker.m */,
+				D3C947A71F34E2CC00D2A20D /* DistancePickerView.h */,
+				D3C947A81F34E2CC00D2A20D /* DistancePickerView.m */,
+				D3C947A91F34E2CC00D2A20D /* SWActionSheet.h */,
+				D3C947AA1F34E2CC00D2A20D /* SWActionSheet.m */,
+			);
+			path = Pickers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -753,12 +810,14 @@
 				61EE66A31EF05CCE005C57B2 /* NSData+ImageContentType.m in Sources */,
 				92082ACF1EE1CDFD00E3BA4E /* JBDatePickerSelectionView.swift in Sources */,
 				D3C2CD101EA3B96100996D8F /* Request.swift in Sources */,
+				D3C947AC1F34E2CC00D2A20D /* ActionSheetCustomPicker.m in Sources */,
 				D30D9EA21EB4737800245FE5 /* TourGuideVC.swift in Sources */,
 				D3BAC6311EB59B61002745AC /* ActivityVC.swift in Sources */,
 				D3C2CD1B1EA3B96100996D8F /* IQNSArray+Sort.swift in Sources */,
 				92082AD21EE1CDFD00E3BA4E /* JBDatePickerWeekDaysView.swift in Sources */,
 				D3C2CD171EA3B96100996D8F /* TaskDelegate.swift in Sources */,
 				D312119A1ED0527E00DAE68C /* InterestCell.swift in Sources */,
+				D3C947B31F34E2CC00D2A20D /* SWActionSheet.m in Sources */,
 				D3C2CD221EA3B96100996D8F /* IQKeyboardManagerConstantsInternal.swift in Sources */,
 				D3C2CD1A1EA3B96100996D8F /* SwiftyJSON.swift in Sources */,
 				D3C2CD1C1EA3B96100996D8F /* IQUIScrollView+Additions.swift in Sources */,
@@ -772,6 +831,7 @@
 				D35522321EB5EBD000E0608C /* DiscoverCell.swift in Sources */,
 				D3E315971F336121005128CA /* SelectLeaderVC.swift in Sources */,
 				92082ACB1EE1CDFD00E3BA4E /* JBDatePickerDayView.swift in Sources */,
+				D3C947B01F34E2CC00D2A20D /* ActionSheetMultipleStringPicker.m in Sources */,
 				D3C2CD161EA3B96100996D8F /* SessionManager.swift in Sources */,
 				61EE66A51EF05CCE005C57B2 /* SDImageCache.m in Sources */,
 				D312118F1ED0521500DAE68C /* CreateGrpCell.swift in Sources */,
@@ -784,14 +844,17 @@
 				D3C2CD0A1EA3B96100996D8F /* DispatchQueue+Alamofire.swift in Sources */,
 				D330C5341F3244D600C73A84 /* JVFloatLabeledTextField.m in Sources */,
 				61EE66AD1EF05CCE005C57B2 /* UIButton+WebCache.m in Sources */,
+				D3C947B11F34E2CC00D2A20D /* ActionSheetStringPicker.m in Sources */,
 				92082AC91EE1CDFD00E3BA4E /* JBDateExtension.swift in Sources */,
 				D3C2CD121EA3B96100996D8F /* ResponseSerialization.swift in Sources */,
 				61EE66AE1EF05CCE005C57B2 /* UIImage+GIF.m in Sources */,
+				D3C947B21F34E2CC00D2A20D /* DistancePickerView.m in Sources */,
 				D30D9E991EB4704F00245FE5 /* HTagView.swift in Sources */,
 				61EE66A21EF05CCE005C57B2 /* MKAnnotationView+WebCache.m in Sources */,
 				61162C841EFA9787009C5BB7 /* MessageGroupListVC.swift in Sources */,
 				D330C5361F3244D600C73A84 /* NSString+TextDirectionality.m in Sources */,
 				D3C2CD181EA3B96100996D8F /* Timeline.swift in Sources */,
+				D3C947AF1F34E2CC00D2A20D /* ActionSheetLocalePicker.m in Sources */,
 				D330C5351F3244D600C73A84 /* JVFloatLabeledTextView.m in Sources */,
 				D3C2CD1F1EA3B96100996D8F /* IQUIViewController+Additions.swift in Sources */,
 				D3C2CD271EA3B96100996D8F /* IQPreviousNextView.swift in Sources */,
@@ -819,6 +882,7 @@
 				D3C2CD051EA3B96100996D8F /* AppUtils.swift in Sources */,
 				D3599A1F1EA5342500EC1D9B /* LoginViewController.swift in Sources */,
 				92E51A941EC239A90022AC6A /* AddInterestToMsgVC.swift in Sources */,
+				D3C947AD1F34E2CC00D2A20D /* ActionSheetDatePicker.m in Sources */,
 				92082AD01EE1CDFD00E3BA4E /* JBDatePickerView.swift in Sources */,
 				D3C2CD151EA3B96100996D8F /* SessionDelegate.swift in Sources */,
 				D3BF9A561F30E86400302412 /* JoingGroupVC.swift in Sources */,
@@ -831,6 +895,7 @@
 				61EE66B21EF05CCE005C57B2 /* UIImageView+WebCache.m in Sources */,
 				D39749E61EA67CAB00E41482 /* SignupViewController.swift in Sources */,
 				D3C2CCBF1EA3B39A00996D8F /* ViewController.swift in Sources */,
+				D3C947AE1F34E2CC00D2A20D /* ActionSheetDistancePicker.m in Sources */,
 				92082ACA1EE1CDFD00E3BA4E /* JBDatePickerContentVC.swift in Sources */,
 				D3BAC62F1EB59B4F002745AC /* MessageVC.swift in Sources */,
 				D3C2CD241EA3B96100996D8F /* IQKeyboardReturnKeyHandler.swift in Sources */,
@@ -849,6 +914,7 @@
 				D31211921ED0521500DAE68C /* GroupVC.swift in Sources */,
 				61EE66B41EF05CCE005C57B2 /* UIView+WebCacheOperation.m in Sources */,
 				D31211911ED0521500DAE68C /* GroupEventDetailVC.swift in Sources */,
+				D3C947AB1F34E2CC00D2A20D /* AbstractActionSheetPicker.m in Sources */,
 				D3C2CD201EA3B96100996D8F /* IQUIWindow+Hierarchy.swift in Sources */,
 				92082ACD1EE1CDFD00E3BA4E /* JBDatePickerManager.swift in Sources */,
 			);
