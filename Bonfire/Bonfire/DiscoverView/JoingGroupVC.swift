@@ -14,6 +14,7 @@ class JoingGroupVC: UIViewController {
     @IBOutlet weak var imageViewCoverPhoto: UIImageView!
     @IBOutlet weak var lblGroupTitle: UILabel!
     @IBOutlet weak var lblGroupDescription: UILabel!
+    @IBOutlet weak var btnJoinGroup : UIButton!
 
     override func viewDidLoad()
     {
@@ -31,6 +32,22 @@ class JoingGroupVC: UIViewController {
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = true
 
+        if dicGroupDetail.object(forKey: kkeyisPrivate) as! Int == 0
+        {
+//            btnJoinGroup.setTitle("Join +", for: .normal)
+            let myNormalAttributedTitle = NSAttributedString(string: "Join +",
+                                                             attributes: [NSForegroundColorAttributeName : UIColor.black])
+            btnJoinGroup.setAttributedTitle(myNormalAttributedTitle, for: .normal)
+
+        }
+        else
+        {
+//            btnJoinGroup.setTitle("Request +", for: .normal)
+            let myNormalAttributedTitle = NSAttributedString(string: "Request +",
+                                                             attributes: [NSForegroundColorAttributeName : UIColor.black])
+            btnJoinGroup.setAttributedTitle(myNormalAttributedTitle, for: .normal)
+
+        }
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -67,7 +84,8 @@ class JoingGroupVC: UIViewController {
             switch(response.result)
             {
             case .success(_):
-                if response.result.value != nil {
+                if response.result.value != nil
+                {
                     print(response.result.value!)
                     
                     if let json = response.result.value
@@ -93,6 +111,7 @@ class JoingGroupVC: UIViewController {
                                 }
                                 else
                                 {
+                                    appDelegate.bcalltoRefreshChannel = true
                                     let grpVcOBj = GroupVC.initViewController()
                                     grpVcOBj.grpDetail = NSMutableDictionary(dictionary: self.dicGroupDetail)
                                     grpVcOBj.isFromLeadingGrp = false

@@ -64,7 +64,7 @@ class ActivityVC: UIViewController {
         self.arrLeaderingGrp = AppDelegate .shared.arrAllGrpData.filter { namePredicate.evaluate(with: $0) } as NSArray
     
         let namePredicate1 = NSPredicate(format: "%K = %d", "isMember",1)
-        self.arrYourGrp = AppDelegate .shared.arrAllGrpData.filter { namePredicate1.evaluate(with: $0) } as NSArray
+        self.arrYourGrp = AppDelegate.shared.arrAllGrpData.filter { namePredicate1.evaluate(with: $0) } as NSArray
         
     }
     override func didReceiveMemoryWarning() {

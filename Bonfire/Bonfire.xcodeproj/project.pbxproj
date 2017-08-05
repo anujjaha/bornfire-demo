@@ -75,6 +75,7 @@
 		D3599A1C1EA52BD200EC1D9B /* exljbris-MuseoSans-300.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3599A1A1EA52BD200EC1D9B /* exljbris-MuseoSans-300.otf */; };
 		D3599A1D1EA52BD200EC1D9B /* exljbris-MuseoSans-500.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3599A1B1EA52BD200EC1D9B /* exljbris-MuseoSans-500.otf */; };
 		D3599A1F1EA5342500EC1D9B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3599A1E1EA5342500EC1D9B /* LoginViewController.swift */; };
+		D38498D51F3643C50001DA27 /* ChannelListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38498D41F3643C50001DA27 /* ChannelListVC.swift */; };
 		D39749E61EA67CAB00E41482 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39749E51EA67CAB00E41482 /* SignupViewController.swift */; };
 		D3BAC6281EB599A1002745AC /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BAC6271EB599A1002745AC /* TabBarViewController.swift */; };
 		D3BAC62F1EB59B4F002745AC /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BAC62E1EB59B4F002745AC /* MessageVC.swift */; };
@@ -233,6 +234,7 @@
 		D3599A1A1EA52BD200EC1D9B /* exljbris-MuseoSans-300.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "exljbris-MuseoSans-300.otf"; sourceTree = "<group>"; };
 		D3599A1B1EA52BD200EC1D9B /* exljbris-MuseoSans-500.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "exljbris-MuseoSans-500.otf"; sourceTree = "<group>"; };
 		D3599A1E1EA5342500EC1D9B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D38498D41F3643C50001DA27 /* ChannelListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelListVC.swift; sourceTree = "<group>"; };
 		D39749E51EA67CAB00E41482 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		D3BAC6271EB599A1002745AC /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		D3BAC62E1EB59B4F002745AC /* MessageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 				D3BAC6321EB59B6E002745AC /* ProfileVC.swift */,
 				D3E315961F336121005128CA /* SelectLeaderVC.swift */,
 				D3CB726A1F33A8E4004DBBD5 /* EventListAddVC.swift */,
+				D38498D41F3643C50001DA27 /* ChannelListVC.swift */,
 			);
 			path = ProfileVC;
 			sourceTree = "<group>";
@@ -842,6 +845,7 @@
 				61EE66B01EF05CCE005C57B2 /* UIImage+WebP.m in Sources */,
 				61EE66A61EF05CCE005C57B2 /* SDImageCacheConfig.m in Sources */,
 				D3C2CD0A1EA3B96100996D8F /* DispatchQueue+Alamofire.swift in Sources */,
+				D38498D51F3643C50001DA27 /* ChannelListVC.swift in Sources */,
 				D330C5341F3244D600C73A84 /* JVFloatLabeledTextField.m in Sources */,
 				61EE66AD1EF05CCE005C57B2 /* UIButton+WebCache.m in Sources */,
 				D3C947B11F34E2CC00D2A20D /* ActionSheetStringPicker.m in Sources */,

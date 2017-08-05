@@ -21,7 +21,6 @@ class SettingVC: UIViewController {
     @IBOutlet weak var textViewGrpDescription: UITextView!
     @IBOutlet weak var txtGrpName: UITextField!
     
-    @IBOutlet weak var clvChannelList: UICollectionView!
     
     @IBOutlet weak var btnNewChannel: UIButton!
     @IBOutlet weak var btncoverPhoto: UIButton!
@@ -59,7 +58,6 @@ class SettingVC: UIViewController {
     {
         let tag = sender.tag - 101;
         self.arrChannelList .remove(at: tag)
-        clvChannelList .reloadData()
     }
 
     override func viewDidLoad()
@@ -121,8 +119,6 @@ class SettingVC: UIViewController {
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.isHidden = true
        
-        self.clvChannelList.dataSource = self
-        self.clvChannelList.delegate = self
         
         self.clvLeader.dataSource = self
         self.clvLeader.delegate = self
@@ -395,9 +391,13 @@ class SettingVC: UIViewController {
         self.navigationController?.pushViewController(interst, animated: true)
     }
     
+    //MARK: Got to New Channel
     @IBAction func btnNewChannletap(_ sender: Any)
     {
-        self .showPopUp()
+       // self .showPopUp()
+        let objChannelListVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "ChannelListVC") as! ChannelListVC
+        objChannelListVC.groupDetail = grpDetail
+        self.navigationController?.pushViewController(objChannelListVC, animated: true)
     }
     
     func showPopUp()
@@ -410,7 +410,6 @@ class SettingVC: UIViewController {
                 // store your data
             self.callAddChannelWs(name: field.text!)
                 
-            self.clvChannelList .reloadData()
                 
             } else {
                 // user did not fill field
@@ -552,21 +551,20 @@ class SettingVC: UIViewController {
                 if response.result.value != nil {
                     print(response.result.value!)
                     
-                    if let json = response.result.value {
+                    if let json = response.result.value
+                    {
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
                        // let data  = temp .value(forKey: "data") as! NSArray
                         
-                        if temp.count > 0 {
-                            hideProgress()
+                        if temp.count > 0
+                        {
                             self.arrChannelList.append(name)
-                            self.clvChannelList .reloadData()
                             App_showAlert(withMessage: (temp .value(forKey: "message") as? String)!, inView: self)
                         }
                         else
                         {
-                            hideProgress()
                             
                         }
                     }
@@ -747,12 +745,7 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        if collectionView == clvChannelList
-        {
-            return self.arrChannelList.count
-            //return 2
-        }
-        else if collectionView == clvMember
+        if collectionView == clvMember
         {
                return self.arrMember.count
         }
@@ -767,45 +760,14 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        if collectionView == clvChannelList
-        {
-            var calCulateSizze: CGSize? = (self.arrChannelList[indexPath.row]).size(attributes: nil)
-            let num = Int((calCulateSizze?.width)!)
-            
-            if num <= 42
-            {
-                calCulateSizze?.width = (calCulateSizze?.width)! + 40
-            }
-            else
-            {
-                calCulateSizze?.width = (calCulateSizze?.width)! + 50
-            }
-            calCulateSizze?.height = (calCulateSizze?.height)! + 10
-            return calCulateSizze!
-        }
-        else
-        {
-//            let cell = clvLeader.cellForItem(at: indexPath) as! MemberCell
-//            return CGSize(width: cell.frame.size.width, height: cell.frame.size.height)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+    {
             return CGSize(width: 62, height: 100)
-        }
-       // return CGSize.zero
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        if collectionView == clvChannelList
-        {
-            let identifier = "channelCell"
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! ChannelCell
-            cell.channelName.text = self.arrChannelList[indexPath.row]
-            cell.btnClose.tag = indexPath.row + 101;
-            
-            return cell
-        }
-        else if collectionView == clvMember
+        if collectionView == clvMember
         {
             
             let identifier = "memberCell"

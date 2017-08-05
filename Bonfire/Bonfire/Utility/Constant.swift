@@ -91,6 +91,8 @@ let kAddEvent = "events/create"
 let kDeleteEvent = "events/delete"
 let kkeySetDeviceToken = "set-user-token"
 
+let kEditProfileAPI = "user-profile/update-profile"
+
 //var CurrentUser : UserModel = UserModel()
 
 let kIdentifire_AddInterestToMsgView = "AddInterestToMsgView"

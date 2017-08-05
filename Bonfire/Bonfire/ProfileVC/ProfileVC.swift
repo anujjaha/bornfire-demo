@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
-
+class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
+{
     @IBOutlet weak var clviewGrp: UICollectionView!
     @IBOutlet weak var clviewInterest: UICollectionView!
     
@@ -27,7 +27,7 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
 
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var profileImgview: UIImageView!
-    
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -66,6 +66,7 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
         profileImgview.layer.borderColor = UIColor.lightGray.cgColor
         profileImgview.layer.cornerRadius = 50
         profileImgview.clipsToBounds = true
+        
         //profileImgview.layer.cornerRadius = 50
         //profileImgview.layer.masksToBounds = true
 
@@ -144,7 +145,8 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
             present(alert, animated: true, completion: nil)
         }
     }
-    @IBAction func profileTap(_ sender: Any) {
+    @IBAction func profileTap(_ sender: Any)
+    {
         self.openActionsheet()
     }
     
@@ -343,6 +345,7 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
         var dic = NSDictionary()
         dic = (self.arrGrp .object(at: sender.tag) as! NSDictionary)
         
+        appDelegate.bcalltoRefreshChannel = true
         if(appDelegate.bisUserProfile)
         {
                 let grpVcOBj = GroupVC.initViewController()
@@ -364,11 +367,78 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource {
                 grpVcOBj.grpDetail = dic
                 grpVcOBj.isFromLeadingGrp = false
                 self.navigationController?.pushViewController(grpVcOBj, animated: true)
-                
             }
         }
     }
+    
+    //MARK: Edit Profile User
+    func edituserprofile()
+    {
+        showProgress(inView: self.view)
 
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        
+        let param = ["name" : "\(usernameLabel.text!)"]
+        let url = kServerURL + kEditProfileAPI
+        
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        
+        upload(multipartFormData:{ multipartFormData in
+            
+            for (key, value) in param {
+                multipartFormData.append((value.data(using: String.Encoding.utf8)!), withName: key)
+            }
+            
+            if self.profileImgview.image != nil
+            {
+                let imgData = UIImageJPEGRepresentation(self.profileImgview.image!, 0.5)
+                if (imgData != nil)
+                {
+                    multipartFormData.append((imgData)!, withName: "image", fileName: "test.jpg", mimeType: "image/jpeg")
+                }
+            }
+            
+        } ,usingThreshold:UInt64.init(),
+           to:url,
+           method:.post,
+           headers:headers,
+           
+           encodingCompletion: { encodingResult in
+            
+            switch encodingResult {
+                
+            case .success(let upload, _, _):
+                upload .responseJSON(completionHandler: { (response) in
+                    hideProgress()
+                    debugPrint(response)
+                    //                    self .getAllChannelfeed(channelId: self.selectedChannelID)
+                    if let json = response.result.value
+                    {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp.firstObject as! NSDictionary
+                        if (temp.value(forKey: "error") != nil)
+                        {
+                            let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
+                            App_showAlert(withMessage: msg as! String, inView: self)
+                        }
+                        else
+                        {
+                            self.callProfileAPI()
+                        }
+                    }
+                })
+                
+            case .failure(let encodingError):
+                hideProgress()
+                print(encodingError)
+            }
+        })
+
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -502,6 +572,7 @@ extension ProfileVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         
         if  collectionView == self.clviewGrp
         {
+            appDelegate.bcalltoRefreshChannel = true
             if(appDelegate.bisUserProfile)
             {
                 let grpVcOBj = GroupVC.initViewController()
@@ -542,7 +613,7 @@ extension ProfileVC : UIImagePickerControllerDelegate,UINavigationControllerDele
     {
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         self.profileImgview.image = chosenImage
-        self.profileImgview.contentMode = .scaleToFill
+        self.edituserprofile()
         dismiss(animated: true, completion: nil)
     }
 }

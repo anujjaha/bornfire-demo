@@ -289,6 +289,7 @@ class GroupVC: UIViewController {
                         
                         if (temp.value(forKey: "error") != nil)
                         {
+                            self.arrChannelFeed = NSArray()
                             let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
                             App_showAlert(withMessage: msg as! String, inView: self)
                         }
@@ -300,16 +301,13 @@ class GroupVC: UIViewController {
                                 print(data)
                                 self.arrChannelFeed = data as NSArray
                                 print("self.arrChannelFeed :> \(self.arrChannelFeed)")
-
-                                self.tblviewListing.dataSource = self
-                                self.tblviewListing.delegate = self
-                                self.tblviewListing.reloadData()
-                            }
-                            else
-                            {
-                                //                            App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
                             }
                         }
+                        
+                        self.tblviewListing.dataSource = self
+                        self.tblviewListing.delegate = self
+                        self.tblviewListing.reloadData()
+
                     }
                     else
                     {

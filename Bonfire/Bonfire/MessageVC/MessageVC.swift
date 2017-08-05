@@ -474,6 +474,7 @@ extension MessageVC : UICollectionViewDelegate
 {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
+        appDelegate.bcalltoRefreshChannel = true
         let dic = self.arrAllFeedData[indexPath.row] as! NSDictionary
         let grpVcOBj = GroupVC.initViewController()
         grpVcOBj.grpDetail = dic
