@@ -137,7 +137,8 @@ extension ActivityVC : UICollectionViewDelegate ,UICollectionViewDelegateFlowLay
     {
         let grpVcOBj = GroupVC.initViewController()
         var dic = NSDictionary()
-      
+        appDelegate.bcalltoRefreshChannel = true
+
         if collectionView == self.clvwLeading
         {
             dic = self.arrLeaderingGrp[indexPath.row] as! NSDictionary

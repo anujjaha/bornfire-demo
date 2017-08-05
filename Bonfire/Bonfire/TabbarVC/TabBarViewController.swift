@@ -22,6 +22,8 @@ class TabBarViewController: UITabBarController,UITabBarControllerDelegate
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController)
     {
+        appDelegate.bcalltoRefreshChannel = true
+        
         if selectedIndex == 0 {
             let nav = viewController as! UINavigationController
             

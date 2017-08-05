@@ -66,6 +66,9 @@ class SettingVC: UIViewController {
     {
         super.viewDidLoad()
         
+        appDelegate.bcalltoRefreshChannel = true
+
+        
         cnt = 2
 //        textFieldDate.tag = 201
 //        textFieldTime.tag = 301

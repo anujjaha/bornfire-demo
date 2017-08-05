@@ -43,6 +43,7 @@ class GroupVC: UIViewController {
     @IBOutlet weak var tblviewListing: UITableView!
     var isInterestTap = false
     
+    
 
     
     var tableData :NSMutableArray  = ["Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing ","Lorem Ipsum is simply dummy text of the printing  Lorem Ipsum is simply dummy text of the printing and typesetting industry","Lorem Ipsum is simply dummy text of the printing  Lorem Ipsum is simply dummy text of the printing"]
@@ -53,6 +54,10 @@ class GroupVC: UIViewController {
         if !(self.txtAnythingTosay.text?.isEmpty)! && selectedChannelID != 0
         {
             self.callApiToCreateNewChannelFeed()
+        }
+        else
+        {
+            App_showAlert(withMessage: "Please enter message to post feed", inView: self)
         }
     }
     
@@ -74,7 +79,7 @@ class GroupVC: UIViewController {
         groupEventObj.grpMember = self.grpMemeber
         groupEventObj.channelArr = self.channelArr
         groupEventObj.groupDetails = grpDetail
-
+        
         self.navigationController?.pushViewController(groupEventObj, animated: false)
     }
    
@@ -96,16 +101,16 @@ class GroupVC: UIViewController {
         self.navigationController?.pushViewController(createGrpObj, animated: true)
     }
     
-    func updateHeader (notification : NSNotification) {
-
+    //MARK: Channel Refresh
+    func updateHeader (notification : NSNotification)
+    {
         let dict =  notification .value(forKey: "object") as! NSDictionary
         let selectedChannel =   dict .value(forKey: "isShowHeader")
         selectedChannelID =   dict .value(forKey: "channelId") as! Int
-        
-        
         self.lblChannel.text = selectedChannel as? String
-
         self .getAllChannelfeed(channelId: selectedChannelID)
+        
+
 //      let isShow =   dict .value(forKey: "isShowHeader") as! Bool
 //        
 //        if isShow {
@@ -176,11 +181,11 @@ class GroupVC: UIViewController {
         
         let grpId = self.grpDetail .value(forKey: "groupId") as! Int
         
-        let strint = self.arrInterestForMessage.componentsJoined(by: ",")
+//        let strint = self.arrInterestForMessage.componentsJoined(by: ",")
 
-        let param = ["is_campus_feed" : "0","group_id" : String(grpId) ,"channel_id" : String(selectedChannelID),"description":self.txtAnythingTosay.text!,"interests": strint]
+//        let param = ["is_campus_feed" : "0","group_id" : String(grpId) ,"channel_id" : String(selectedChannelID),"description":self.txtAnythingTosay.text!,"interests": strint]
         
-        
+        let param = ["is_campus_feed" : "0","group_id" : String(grpId) ,"channel_id" : String(selectedChannelID),"description":self.txtAnythingTosay.text!]
         let url = kServerURL + kCreateNewFeed
         
         showProgress(inView: self.view)
@@ -199,11 +204,14 @@ class GroupVC: UIViewController {
                 multipartFormData.append((value.data(using: String.Encoding.utf8)!), withName: key)
             }
             
-            if self.imagview.image != nil {
-
+            if self.imagview.image != nil
+            {
                 //                let imgData = UIImagePNGRepresentation(self.imagview.image!)
                 let imgData = UIImageJPEGRepresentation(self.imagview.image!, 0.5)
-                multipartFormData.append((imgData)!, withName: "attachment", fileName: "test.jpg", mimeType: "image/jpeg")
+                if (imgData != nil)
+                {
+                    multipartFormData.append((imgData)!, withName: "attachment", fileName: "test.jpg", mimeType: "image/jpeg")
+                }
             }
             
         } ,usingThreshold:UInt64.init(),
@@ -229,7 +237,8 @@ class GroupVC: UIViewController {
                         if data.count > 0
                         {
                             self.txtAnythingTosay.text = ""
-                            self.imagview.image = UIImage()
+                            self.imagview.image = UIImage(named : "")
+                            self.arrInterestForMessage = NSArray()
                             self .getAllChannelfeed(channelId: self.selectedChannelID)
                         }
                     }
@@ -415,7 +424,7 @@ class GroupVC: UIViewController {
 
 
         // Do any additional setup after loading the view.
-        self.tblviewListing.estimatedRowHeight = 80;
+        self.tblviewListing.estimatedRowHeight = 94;
         self.tblviewListing.rowHeight = UITableViewAutomaticDimension;
         
     }
@@ -474,8 +483,12 @@ class GroupVC: UIViewController {
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = true
         
-        showProgress(inView: self.view)
-        self.callGellChannelWS()
+        if (appDelegate.bcalltoRefreshChannel == true)
+        {
+            appDelegate.bcalltoRefreshChannel = false
+            showProgress(inView: self.view)
+            self.callGellChannelWS()
+        }
     }
     override func viewWillDisappear(_ animated: Bool)
     {
@@ -490,6 +503,36 @@ class GroupVC: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
         }
     }
+    
+    //MARK: Share Image
+    @IBAction func shareTextButton(_ sender: Any, event: Any)
+    {
+        let touches = (event as AnyObject).allTouches!
+        let touch = touches?.first!
+        let currentTouchPosition = touch?.location(in: self.tblviewListing)
+        var indexPath = self.tblviewListing.indexPathForRow(at: currentTouchPosition!)!
+
+        let dataarray = ((self.arrChannelFeed[indexPath.section] as AnyObject).object(forKey: "values") as! NSArray)
+        let dict = dataarray[indexPath.row] as! NSDictionary
+
+        // text to share
+        let text = "\(dict.object(forKey: kkeyattachment_link)!)"
+        
+        // set up activity view controller
+        let textToShare = [ text ]
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+        
+        // exclude some activity types from the list (optional)
+//        activityViewController.excludedActivityTypes = [ UIActivityType.airDrop, UIActivityType.postToFacebook ]
+        activityViewController.excludedActivityTypes = [ UIActivityType.airDrop]
+        
+        // present the view controller
+        self.present(activityViewController, animated: true, completion: nil)
+        
+    }
+
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -591,16 +634,6 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! GroupCell
         cell.imgView.backgroundColor = UIColor.gray
         
-        if indexPath.row == 1
-        {
-            cell.Const_LinkBtn_height.constant = 10
-            cell.btnLink.isHidden = false
-        }
-        else
-        {
-           // cell.Const_LinkBtn_height.constant = 0
-            cell.btnLink.isHidden = true
-        }
         let dataarray = ((self.arrChannelFeed[indexPath.section] as AnyObject).object(forKey: "values") as! NSArray)
         let dict = dataarray[indexPath.row] as! NSDictionary
         
@@ -623,6 +656,21 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource
         let profileurl = feeddict? .value(forKey: "profile_picture") as? String
         cell.imgView .sd_setImage(with: URL(string: (profileurl)!), placeholderImage: nil)
         
+        
+        if dict.object(forKey: kkeyis_attachment) as! Int == 1
+        {
+            cell.Const_LinkBtn_height.constant = 27
+            cell.btnLink.setTitle(dict .value(forKey: "attachmentName") as! String?, for: .normal)
+            cell.btnLink.isHidden = false
+        }
+        else
+        {
+            cell.Const_LinkBtn_height.constant = 0
+            cell.btnLink.isHidden = true
+        }
+        cell.btnLink.tag = indexPath.row
+        cell.btnLink.addTarget(self, action: #selector(GroupVC.shareTextButton(_:event:)), for: .touchUpInside)
+
         cell.selectionStyle = .none
         return cell
     }

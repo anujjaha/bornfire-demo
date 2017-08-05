@@ -279,6 +279,7 @@ extension DiscoverVC : UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         var dic = NSDictionary()
+        appDelegate.bcalltoRefreshChannel = true
         
         if  collectionView == self.clvwDiscover
         {

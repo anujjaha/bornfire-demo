@@ -1130,19 +1130,19 @@
                                         </constraints>
                                         <state key="normal" title="plus" image="plusWithRound"/>
                                         <connections>
-                                            <action selector="plusBtnTap:" destination="xGa-wv-0h1" eventType="touchUpInside" id="RrQ-no-trn"/>
+                                            <action selector="BtnimageTap:" destination="xGa-wv-0h1" eventType="touchUpInside" id="vwF-Pt-WG6"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Anything to say?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1sY-OE-a2W">
-                                        <rect key="frame" x="101" y="8" width="153" height="24"/>
+                                        <rect key="frame" x="47" y="8" width="207" height="24"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bOy-vk-l5H">
-                                        <rect key="frame" x="39" y="5" width="54" height="30"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bOy-vk-l5H">
+                                        <rect key="frame" x="39" y="5" width="0.0" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="54" id="SwJ-Tf-TxW"/>
+                                            <constraint firstAttribute="width" id="SwJ-Tf-TxW"/>
                                         </constraints>
                                         <state key="normal" image="images_placeholder">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1194,23 +1194,23 @@ If you are a leader please create a channel from settings</string>
                                 <rect key="frame" x="0.0" y="180" width="320" height="347"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="65" id="cWy-Qo-vsp" customClass="GroupCell" customModule="Bonfire" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="320" height="65"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="94" id="cWy-Qo-vsp" customClass="GroupCell" customModule="Bonfire" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="320" height="94"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cWy-Qo-vsp" id="t5S-bM-njz">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="64.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="93.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="soO-W6-m4S">
-                                                    <rect key="frame" x="20" y="7" width="30" height="30"/>
+                                                    <rect key="frame" x="20" y="7" width="40" height="40.5"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="30" id="WRw-nm-LVa"/>
-                                                        <constraint firstAttribute="height" constant="30" id="sCE-8O-QVG"/>
+                                                        <constraint firstAttribute="width" constant="40" id="WRw-nm-LVa"/>
+                                                        <constraint firstAttribute="height" constant="40" id="sCE-8O-QVG"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4z-U8-q6b">
-                                                    <rect key="frame" x="58" y="7" width="176" height="22"/>
+                                                    <rect key="frame" x="68" y="7" width="166" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1224,22 +1224,31 @@ If you are a leader please create a channel from settings</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LR0-o9-jix">
-                                                    <rect key="frame" x="58" y="29" width="245" height="0.0"/>
+                                                    <rect key="frame" x="68" y="29" width="235" height="0.0"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" id="ZWi-Ud-ddN"/>
                                                     </constraints>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJK-fO-dfF">
-                                                    <rect key="frame" x="58" y="31" width="254" height="22"/>
+                                                    <rect key="frame" x="68" y="31" width="244" height="28.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="TNs-W9-Nsi"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9X5-JU-9nI">
+                                                    <rect key="frame" x="68" y="61.5" width="244" height="27"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="27" id="5rv-lB-8kV"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                                                    <state key="normal" title="test"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="KJK-fO-dfF" secondAttribute="bottom" constant="11" id="7vg-fq-2SX"/>
+                                                <constraint firstItem="9X5-JU-9nI" firstAttribute="top" secondItem="KJK-fO-dfF" secondAttribute="bottom" constant="2" id="4j6-qg-LWq"/>
+                                                <constraint firstAttribute="bottom" secondItem="9X5-JU-9nI" secondAttribute="bottom" constant="5" id="79i-pb-CyS"/>
                                                 <constraint firstItem="KJK-fO-dfF" firstAttribute="leading" secondItem="soO-W6-m4S" secondAttribute="trailing" constant="8" id="DGM-49-Rq1"/>
                                                 <constraint firstItem="u4z-U8-q6b" firstAttribute="leading" secondItem="soO-W6-m4S" secondAttribute="trailing" constant="8" id="M9Y-or-sF7"/>
                                                 <constraint firstItem="u4z-U8-q6b" firstAttribute="top" secondItem="soO-W6-m4S" secondAttribute="top" id="NWH-Wd-7o3"/>
@@ -1248,7 +1257,9 @@ If you are a leader please create a channel from settings</string>
                                                 <constraint firstItem="KJK-fO-dfF" firstAttribute="top" secondItem="LR0-o9-jix" secondAttribute="bottom" constant="2.5" id="PyB-HP-aBg"/>
                                                 <constraint firstItem="LR0-o9-jix" firstAttribute="top" secondItem="lzL-LI-s88" secondAttribute="bottom" constant="2" id="V41-5L-brQ"/>
                                                 <constraint firstAttribute="trailing" secondItem="lzL-LI-s88" secondAttribute="trailing" constant="8" id="ZvP-kE-Zfh"/>
+                                                <constraint firstItem="9X5-JU-9nI" firstAttribute="leading" secondItem="KJK-fO-dfF" secondAttribute="leading" id="cdF-jp-uiu"/>
                                                 <constraint firstItem="LR0-o9-jix" firstAttribute="leading" secondItem="soO-W6-m4S" secondAttribute="trailing" constant="8" id="g82-ny-foY"/>
+                                                <constraint firstItem="9X5-JU-9nI" firstAttribute="trailing" secondItem="KJK-fO-dfF" secondAttribute="trailing" id="hqg-FG-2R4"/>
                                                 <constraint firstAttribute="trailing" secondItem="LR0-o9-jix" secondAttribute="trailing" constant="17" id="jg9-ql-owC"/>
                                                 <constraint firstItem="lzL-LI-s88" firstAttribute="top" secondItem="t5S-bM-njz" secondAttribute="top" constant="12" id="kjF-9o-Y3k"/>
                                                 <constraint firstItem="u4z-U8-q6b" firstAttribute="top" secondItem="t5S-bM-njz" secondAttribute="topMargin" constant="-1" id="pe9-e0-bWF"/>
@@ -1258,8 +1269,8 @@ If you are a leader please create a channel from settings</string>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
-                                            <outlet property="Const_LinkBtn_height" destination="ZWi-Ud-ddN" id="gU4-ro-5pW"/>
-                                            <outlet property="btnLink" destination="LR0-o9-jix" id="jRn-xK-5hi"/>
+                                            <outlet property="Const_LinkBtn_height" destination="5rv-lB-8kV" id="tNK-1m-pGC"/>
+                                            <outlet property="btnLink" destination="9X5-JU-9nI" id="d60-Wb-yab"/>
                                             <outlet property="imgView" destination="soO-W6-m4S" id="ApN-tk-vhr"/>
                                             <outlet property="lblDetail" destination="KJK-fO-dfF" id="k9N-RP-TEi"/>
                                             <outlet property="lblName" destination="u4z-U8-q6b" id="Lyr-2U-AHL"/>
@@ -2609,7 +2620,7 @@ ICArLy0gQ3JlYXRlLxBSZW1vdmUgRXZlbnRzA
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6of-xY-cnY">
-                                        <rect key="frame" x="104.5" y="8" width="111.5" height="21"/>
+                                        <rect key="frame" x="105" y="8" width="111.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20.5" id="hlf-Nf-Nhz"/>
                                         </constraints>

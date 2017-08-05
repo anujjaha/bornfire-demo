@@ -43,6 +43,8 @@ let kkeyisMember = "isMember"
 let kkeyisLeader = "isLeader"
 let kkeyisPrivate = "isPrivate"
 let kkeymemberStatus = "memberStatus"
+let kkeyis_attachment = "is_attachment"
+let kkeyattachment_link = "attachment_link"
 
 let kkeyisUserLogin = "UserLogin"
 let kkeyError = "error"

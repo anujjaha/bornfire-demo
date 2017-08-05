@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     var arrAllGrpData = NSArray()
     var bisUserProfile = Bool()
     var strDeviceToken = NSString()
+    var bcalltoRefreshChannel = Bool()
 
     static let shared = UIApplication.shared.delegate as! AppDelegate
 
