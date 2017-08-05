@@ -224,15 +224,12 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.txtAnythingTosay.text = nil
     }
    
-    func GetAllfeed() {
-        
-        
+    func GetAllfeed()
+    {
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         
-        
         let url = kServerURL + kGetAppGroup
-        
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
         
@@ -243,10 +240,12 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             switch(response.result)
             {
             case .success(_):
-                if response.result.value != nil {
+                if response.result.value != nil
+                {
                     print(response.result.value!)
                     
-                    if let json = response.result.value {
+                    if let json = response.result.value
+                    {
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
@@ -254,7 +253,8 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                         
                         hideProgress()
                         
-                        if data.count > 0 {
+                        if data.count > 0
+                        {
                             self.arrAllFeedData = data 
                             
                             self.clvwMessage.dataSource = self
@@ -274,9 +274,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
                 break
             }
-
         }
-        
     }
     
     func callApiToCreateNewChannelFeed()
@@ -349,17 +347,22 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 if response.result.value != nil {
                     print(response.result.value!)
                     
-                    if let json = response.result.value {
+                    if let json = response.result.value
+                    {
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
                         
-                        if (temp.value(forKey: "error") != nil) {
+                        if (temp.value(forKey: "error") != nil)
+                        {
                         
-                        } else {
+                        }
+                        else
+                        {
                             let data  = temp .value(forKey: "data") as! NSArray
                             
-                            if data.count > 0 {
+                            if data.count > 0
+                            {
                                 print(data)
                                 self.arrMessages = data .mutableCopy() as! NSMutableArray
                                 self.tblMessages .reloadData()
@@ -495,8 +498,8 @@ extension MessageVC : UIScrollViewDelegate {
                     
                     print(scrollPos)
                     UIView .animate(withDuration: 0.25, animations: {
-                        self.const_collecview_top.constant -= 50
-                        self.const_tbl_top.constant -= 50
+                        self.const_collecview_top.constant = -100
+//                        self.const_tbl_top.constant = -50
                     })
                     
                 }
@@ -506,8 +509,10 @@ extension MessageVC : UIScrollViewDelegate {
                 let scrollPos: CGFloat = clvwMessage.frame.origin.y
                 if scrollPos < 0
                 {
-                    self.const_collecview_top.constant += 100
-                    self.const_tbl_top.constant += 100
+                    UIView .animate(withDuration: 1, animations:
+                        {
+                        self.const_collecview_top.constant = 5
+                    })
                 }
             }
         }

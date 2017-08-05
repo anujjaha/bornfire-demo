@@ -58,7 +58,8 @@ class EventListAddVC: UIViewController
                         
                         if (temp.value(forKey: "error") != nil)
                         {
-                              App_showAlert(withMessage: temp.value(forKey: "error") as! String, inView: self)
+                            let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
+                            App_showAlert(withMessage: msg as! String, inView: self)
                         }
                         else
                         {
@@ -173,7 +174,10 @@ class EventListAddVC: UIViewController
                             
                             if (temp.value(forKey: "error") != nil)
                             {
-                                App_showAlert(withMessage: temp.value(forKey: "error") as! String, inView: self)
+                                    let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
+                                    App_showAlert(withMessage: msg as! String, inView: self)
+
+                               // App_showAlert(withMessage: temp.value(forKey: "error") as! String, inView: self)
                             }
                             else
                             {
@@ -318,7 +322,8 @@ extension EventListAddVC : UITableViewDataSource , UITableViewDelegate
                                 
                                 if (temp.value(forKey: "error") != nil)
                                 {
-                                    App_showAlert(withMessage: temp.value(forKey: "error") as! String, inView: self)
+                                    let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
+                                    App_showAlert(withMessage: msg as! String, inView: self)
                                 }
                                 else
                                 {

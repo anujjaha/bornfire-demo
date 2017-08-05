@@ -1182,6 +1182,14 @@
                                     <constraint firstItem="iSi-yM-asb" firstAttribute="top" secondItem="ALP-ip-7Wr" secondAttribute="top" constant="5" id="uwI-xG-GE3"/>
                                 </constraints>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Do3-Ef-qyI">
+                                <rect key="frame" x="8" y="253.5" width="304" height="61"/>
+                                <string key="text">No channels Found.
+If you are a leader please create a channel from settings</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="65" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="cEg-sW-hdT">
                                 <rect key="frame" x="0.0" y="180" width="320" height="347"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1201,7 +1209,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="sCE-8O-QVG"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ryan Simpson" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4z-U8-q6b">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4z-U8-q6b">
                                                     <rect key="frame" x="58" y="7" width="176" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
@@ -1316,9 +1324,13 @@
                             <constraint firstItem="xyl-Ij-yVc" firstAttribute="top" secondItem="jXL-1f-6Xx" secondAttribute="bottom" id="WTU-0u-oO5"/>
                             <constraint firstItem="jXL-1f-6Xx" firstAttribute="top" secondItem="vy3-x9-2X5" secondAttribute="top" id="Xso-O8-XDt"/>
                             <constraint firstAttribute="trailing" secondItem="xyl-Ij-yVc" secondAttribute="trailing" id="a3W-KW-TqB"/>
+                            <constraint firstItem="Do3-Ef-qyI" firstAttribute="centerY" secondItem="vy3-x9-2X5" secondAttribute="centerY" id="aqa-Ao-WPS"/>
+                            <constraint firstItem="Do3-Ef-qyI" firstAttribute="leading" secondItem="vy3-x9-2X5" secondAttribute="leading" constant="8" id="eZG-ep-KtW"/>
                             <constraint firstItem="jXL-1f-6Xx" firstAttribute="leading" secondItem="vy3-x9-2X5" secondAttribute="leading" id="gHh-4J-mz5"/>
                             <constraint firstAttribute="trailing" secondItem="ALP-ip-7Wr" secondAttribute="trailing" id="mIy-vB-yvN"/>
+                            <constraint firstItem="Do3-Ef-qyI" firstAttribute="centerX" secondItem="vy3-x9-2X5" secondAttribute="centerX" id="nms-di-Tfb"/>
                             <constraint firstItem="xyl-Ij-yVc" firstAttribute="leading" secondItem="vy3-x9-2X5" secondAttribute="leading" id="qNU-rO-0Gj"/>
+                            <constraint firstAttribute="trailing" secondItem="Do3-Ef-qyI" secondAttribute="trailing" constant="8" id="rAL-6l-F20"/>
                             <constraint firstItem="ALP-ip-7Wr" firstAttribute="leading" secondItem="vy3-x9-2X5" secondAttribute="leading" id="uBF-4N-xaf"/>
                             <constraint firstItem="cEg-sW-hdT" firstAttribute="top" secondItem="xyl-Ij-yVc" secondAttribute="bottom" id="yEl-8o-aSS"/>
                         </constraints>
@@ -1327,13 +1339,16 @@
                         <outlet property="blGrpMember" destination="Jg3-8J-f66" id="Ps6-vW-hZc"/>
                         <outlet property="btnImage" destination="bOy-vk-l5H" id="ANi-Gs-8Ze"/>
                         <outlet property="const_topview_height" destination="v27-iU-ePL" id="ah8-cJ-O6m"/>
+                        <outlet property="const_vwFooterView_height" destination="KTZ-0J-HvU" id="E2r-yY-oSc"/>
                         <outlet property="dropDownIcon" destination="vI0-uo-ghf" id="ygA-5y-ygo"/>
                         <outlet property="lblChannel" destination="gKU-8M-VLX" id="jio-PE-UW2"/>
                         <outlet property="lblGrpName" destination="YZ9-nV-Top" id="SbS-Hh-2h0"/>
+                        <outlet property="lblNoDataFound" destination="Do3-Ef-qyI" id="asA-oI-a9v"/>
                         <outlet property="menuButton" destination="ijg-0I-vMJ" id="u6G-Yv-uU8"/>
                         <outlet property="profileCollectonview" destination="qJC-Yx-Afh" id="rEn-M1-zsU"/>
                         <outlet property="tblviewListing" destination="cEg-sW-hdT" id="WTE-MM-iKO"/>
                         <outlet property="txtAnythingTosay" destination="1sY-OE-a2W" id="Cye-m6-VOV"/>
+                        <outlet property="vwFooterView" destination="ALP-ip-7Wr" id="UrK-Iy-vaq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fB8-z5-z4Y" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -191,22 +191,23 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
-                        let data  = temp .value(forKey: "data") as! NSArray
                         
-                        if data.count > 0
+                        if (temp.value(forKey: "error") != nil)
                         {
-                            if let err  =  (data[0] as AnyObject).value(forKey: kkeyError)
-                            {
-                                App_showAlert(withMessage: err as! String, inView: self)
-                            }
-                            else
+                            let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
+                            App_showAlert(withMessage: msg as! String, inView: self)
+                        }
+                        else
+                        {
+                            let data  = temp .value(forKey: "data") as! NSArray
+                            if data.count > 0
                             {
                                 print("no error")
                                 self.eventArr = data
                                 print("self.eventArr -> \(self.eventArr)")
                                 
                                 self.arrCurrentdateData = NSMutableArray()
-
+                                
                                 for i in 0..<self.eventArr.count
                                 {
                                     let dict = self.eventArr[i] as! NSDictionary
@@ -219,18 +220,8 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
                                     {
                                         self.arrCurrentdateData.add(dict)
                                     }
-
                                 }
-                                
-//                                let namePredicate = NSPredicate(format: "%K = %d", "isLeader",1)
-//                                self.arrLeaderingGrp = AppDelegate .shared.arrAllGrpData.filter { namePredicate.evaluate(with: $0) } as NSArray
-                                 self.tableEvent.reloadData()
-                            }
-                        }
-                        else
-                        {
-                            if let err  =  (data[0] as AnyObject).value(forKey: kkeyError) {
-                                App_showAlert(withMessage: err as! String, inView: self)
+                                self.tableEvent.reloadData()
                             }
                         }
                     }

@@ -35,8 +35,14 @@ class GroupVC: UIViewController {
     @IBOutlet weak var txtAnythingTosay: UITextField!
     @IBOutlet var profileCollectonview: UICollectionView!
     
+    @IBOutlet weak var lblNoDataFound: UILabel!
+    @IBOutlet weak var vwFooterView: UIView!
+    @IBOutlet weak var const_vwFooterView_height: NSLayoutConstraint!
+
+    
     @IBOutlet weak var tblviewListing: UITableView!
     var isInterestTap = false
+    
 
     
     var tableData :NSMutableArray  = ["Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing ","Lorem Ipsum is simply dummy text of the printing  Lorem Ipsum is simply dummy text of the printing and typesetting industry","Lorem Ipsum is simply dummy text of the printing  Lorem Ipsum is simply dummy text of the printing"]
@@ -346,11 +352,18 @@ class GroupVC: UIViewController {
                         
                         if (temp.value(forKey: "error") != nil)
                         {
-                            let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
-                            App_showAlert(withMessage: msg as! String, inView: self)
+//                            let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
+//                            App_showAlert(withMessage: msg as! String, inView: self)
+                            self.lblNoDataFound.isHidden = false
+                            self.tblviewListing.isHidden = true
+                            self.vwFooterView.isHidden = true
                         }
                         else
                         {
+                            self.lblNoDataFound.isHidden = true
+                            self.tblviewListing.isHidden = false
+                            self.vwFooterView.isHidden = false
+                            
                             let dictemp = json as! NSArray
                             print("dictemp :> \(dictemp)")
                             let temp  = dictemp.firstObject as! NSDictionary
@@ -440,29 +453,29 @@ class GroupVC: UIViewController {
         
         if self.isFromLeadingGrp
         {
-            self.menuButton.isHidden = true
-            self.dropDownIcon.isHidden = true
+            self.menuButton.isHidden = false
+           // self.dropDownIcon.isHidden = false
+            self.const_vwFooterView_height.constant = 40
         }
         else
         {
             if grpDetail.object(forKey: kkeyisLeader) as! Int == 1
             {
                 self.menuButton.isHidden = false
+                self.const_vwFooterView_height.constant = 40
             }
             else
             {
                 self.menuButton.isHidden = true
+                self.const_vwFooterView_height.constant = 0
             }
-            self.dropDownIcon.isHidden = false
         }
+        self.dropDownIcon.isHidden = false
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = true
         
-        
-        
         showProgress(inView: self.view)
         self.callGellChannelWS()
-        
     }
     override func viewWillDisappear(_ animated: Bool)
     {
