@@ -16,6 +16,9 @@ class GroupCell: UITableViewCell {
     @IBOutlet weak var btnLink: UIButton!
     @IBOutlet weak var lblDetail: UILabel!
     @IBOutlet weak var Const_LinkBtn_height: NSLayoutConstraint!
+    @IBOutlet weak var imgofLink : UIImageView!
+    @IBOutlet weak var Const_imgofLink_height: NSLayoutConstraint!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.imgView.layer.cornerRadius = 20

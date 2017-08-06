@@ -266,7 +266,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="uxQ-b8-qzl" firstAttribute="top" secondItem="BDv-61-tzT" secondAttribute="bottom" constant="17.5" id="0g3-b2-4Ju"/>
                                             <constraint firstItem="l37-T7-RdK" firstAttribute="centerY" secondItem="Tcy-YR-lO4" secondAttribute="centerY" id="3rJ-6j-0oH"/>
@@ -1134,7 +1134,7 @@
                                             <action selector="BtnimageTap:" destination="xGa-wv-0h1" eventType="touchUpInside" id="vwF-Pt-WG6"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Anything to say?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1sY-OE-a2W">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1sY-OE-a2W">
                                         <rect key="frame" x="47" y="8" width="207" height="24"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1195,11 +1195,11 @@ If you are a leader please create a channel from settings</string>
                                 <rect key="frame" x="0.0" y="180" width="320" height="347"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="94" id="cWy-Qo-vsp" customClass="GroupCell" customModule="Bonfire" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="320" height="94"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="167" id="cWy-Qo-vsp" customClass="GroupCell" customModule="Bonfire" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="320" height="167"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cWy-Qo-vsp" id="t5S-bM-njz">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="93.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="166.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="soO-W6-m4S">
@@ -1211,12 +1211,12 @@ If you are a leader please create a channel from settings</string>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4z-U8-q6b">
-                                                    <rect key="frame" x="68" y="7" width="166" height="22"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                    <rect key="frame" x="68" y="7" width="166" height="20"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="10:06 AM" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lzL-LI-s88">
-                                                    <rect key="frame" x="242" y="12" width="70" height="15"/>
+                                                    <rect key="frame" x="242" y="12" width="70" height="13"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="70" id="9la-Nh-JQF"/>
                                                     </constraints>
@@ -1225,31 +1225,37 @@ If you are a leader please create a channel from settings</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LR0-o9-jix">
-                                                    <rect key="frame" x="68" y="29" width="235" height="0.0"/>
+                                                    <rect key="frame" x="68" y="27" width="235" height="0.0"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" id="ZWi-Ud-ddN"/>
                                                     </constraints>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJK-fO-dfF">
-                                                    <rect key="frame" x="68" y="31" width="244" height="28.5"/>
+                                                    <rect key="frame" x="68" y="29" width="244" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="TNs-W9-Nsi"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9X5-JU-9nI">
-                                                    <rect key="frame" x="68" y="61.5" width="244" height="27"/>
+                                                    <rect key="frame" x="68" y="52" width="244" height="27"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="27" id="5rv-lB-8kV"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                                     <state key="normal" title="test"/>
                                                 </button>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tMJ-X1-C48">
+                                                    <rect key="frame" x="68" y="84" width="75" height="75"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="75" id="5r5-YI-B8a"/>
+                                                        <constraint firstAttribute="height" constant="75" id="64n-1g-vGk"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="9X5-JU-9nI" firstAttribute="top" secondItem="KJK-fO-dfF" secondAttribute="bottom" constant="2" id="4j6-qg-LWq"/>
-                                                <constraint firstAttribute="bottom" secondItem="9X5-JU-9nI" secondAttribute="bottom" constant="5" id="79i-pb-CyS"/>
                                                 <constraint firstItem="KJK-fO-dfF" firstAttribute="leading" secondItem="soO-W6-m4S" secondAttribute="trailing" constant="8" id="DGM-49-Rq1"/>
                                                 <constraint firstItem="u4z-U8-q6b" firstAttribute="leading" secondItem="soO-W6-m4S" secondAttribute="trailing" constant="8" id="M9Y-or-sF7"/>
                                                 <constraint firstItem="u4z-U8-q6b" firstAttribute="top" secondItem="soO-W6-m4S" secondAttribute="top" id="NWH-Wd-7o3"/>
@@ -1257,6 +1263,8 @@ If you are a leader please create a channel from settings</string>
                                                 <constraint firstItem="lzL-LI-s88" firstAttribute="leading" secondItem="u4z-U8-q6b" secondAttribute="trailing" constant="8" id="OeS-Pz-C2N"/>
                                                 <constraint firstItem="KJK-fO-dfF" firstAttribute="top" secondItem="LR0-o9-jix" secondAttribute="bottom" constant="2.5" id="PyB-HP-aBg"/>
                                                 <constraint firstItem="LR0-o9-jix" firstAttribute="top" secondItem="lzL-LI-s88" secondAttribute="bottom" constant="2" id="V41-5L-brQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="tMJ-X1-C48" secondAttribute="bottom" constant="7.5" id="VLg-Jw-ErM"/>
+                                                <constraint firstItem="tMJ-X1-C48" firstAttribute="leading" secondItem="9X5-JU-9nI" secondAttribute="leading" id="Vj9-a9-8KK"/>
                                                 <constraint firstAttribute="trailing" secondItem="lzL-LI-s88" secondAttribute="trailing" constant="8" id="ZvP-kE-Zfh"/>
                                                 <constraint firstItem="9X5-JU-9nI" firstAttribute="leading" secondItem="KJK-fO-dfF" secondAttribute="leading" id="cdF-jp-uiu"/>
                                                 <constraint firstItem="LR0-o9-jix" firstAttribute="leading" secondItem="soO-W6-m4S" secondAttribute="trailing" constant="8" id="g82-ny-foY"/>
@@ -1265,14 +1273,17 @@ If you are a leader please create a channel from settings</string>
                                                 <constraint firstItem="lzL-LI-s88" firstAttribute="top" secondItem="t5S-bM-njz" secondAttribute="top" constant="12" id="kjF-9o-Y3k"/>
                                                 <constraint firstItem="u4z-U8-q6b" firstAttribute="top" secondItem="t5S-bM-njz" secondAttribute="topMargin" constant="-1" id="pe9-e0-bWF"/>
                                                 <constraint firstItem="LR0-o9-jix" firstAttribute="top" secondItem="u4z-U8-q6b" secondAttribute="bottom" constant="0.5" id="thm-yY-Ehx"/>
+                                                <constraint firstItem="tMJ-X1-C48" firstAttribute="top" secondItem="9X5-JU-9nI" secondAttribute="bottom" constant="5" id="wNn-vA-1od"/>
                                                 <constraint firstAttribute="trailing" secondItem="KJK-fO-dfF" secondAttribute="trailing" constant="8" id="y45-10-EyQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
                                             <outlet property="Const_LinkBtn_height" destination="5rv-lB-8kV" id="tNK-1m-pGC"/>
+                                            <outlet property="Const_imgofLink_height" destination="64n-1g-vGk" id="F0D-A0-BeY"/>
                                             <outlet property="btnLink" destination="9X5-JU-9nI" id="d60-Wb-yab"/>
                                             <outlet property="imgView" destination="soO-W6-m4S" id="ApN-tk-vhr"/>
+                                            <outlet property="imgofLink" destination="tMJ-X1-C48" id="M2e-a3-HOg"/>
                                             <outlet property="lblDetail" destination="KJK-fO-dfF" id="k9N-RP-TEi"/>
                                             <outlet property="lblName" destination="u4z-U8-q6b" id="Lyr-2U-AHL"/>
                                             <outlet property="lblTime" destination="lzL-LI-s88" id="AEa-W5-9rY"/>
@@ -2575,7 +2586,7 @@ ICArLy0gQ3JlYXRlLxBSZW1vdmUgRXZlbnRzA
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6of-xY-cnY">
-                                        <rect key="frame" x="105" y="8" width="111.5" height="21"/>
+                                        <rect key="frame" x="104.5" y="8" width="111.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20.5" id="hlf-Nf-Nhz"/>
                                         </constraints>
@@ -2667,7 +2678,7 @@ ICArLy0gQ3JlYXRlLxBSZW1vdmUgRXZlbnRzA
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Channel Listing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K15-b9-xEf">
-                                <rect key="frame" x="90.5" y="33" width="140" height="20.5"/>
+                                <rect key="frame" x="90" y="33" width="140" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="YYX-Zm-gIA"/>
                                 </constraints>

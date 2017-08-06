@@ -257,6 +257,9 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                         {
                             self.arrAllFeedData = data 
                             
+                            let namePredicate1 = NSPredicate(format: "(%K = %d) OR (%K = %d)", "isMember",1,"isLeader",1)
+                            self.arrAllFeedData = self.arrAllFeedData.filter { namePredicate1.evaluate(with: $0) } as NSArray
+                            
                             self.clvwMessage.dataSource = self
                             self.clvwMessage.delegate = self
                             self.clvwMessage .reloadData()
@@ -310,6 +313,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                     {
 //                        self.tblMessages .reloadData()
                         self.txtAnythingTosay.text = "Anything to say?"
+                        self.arrInterestForMessage = NSArray()
                         self.getAllMessagesFeed()
                     }
                     else

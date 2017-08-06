@@ -122,14 +122,15 @@ extension ActivityVC : UICollectionViewDelegate ,UICollectionViewDelegateFlowLay
 {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView != self.clvwLeading {
-            if UIScreen.main.bounds.size.height<=568 {
-                return CGSize(width: 145, height: 140)
+        if collectionView != self.clvwLeading
+        {
+            if UIScreen.main.bounds.size.height<=568
+            {
+                return CGSize(width: 140, height: 140)
             }
-            return CGSize(width: 170, height: 170)
+            return CGSize(width: 170, height: 220)
         }
         return CGSize(width: 170, height: 220)
-        
     }
     
     

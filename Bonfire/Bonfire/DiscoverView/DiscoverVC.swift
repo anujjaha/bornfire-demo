@@ -50,6 +50,9 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
     override func viewWillAppear(_ animated: Bool)
     {
         self .GetAllfeed()
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+
     }
     
     

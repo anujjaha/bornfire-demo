@@ -291,14 +291,13 @@ class GroupVC: UIViewController {
                         {
                             self.arrChannelFeed = NSArray()
                             let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
-                            App_showAlert(withMessage: msg as! String, inView: self)
+//                            App_showAlert(withMessage: msg as! String, inView: self)
                         }
                         else
                         {
                             let data  = temp .value(forKey: "data") as! NSArray
                             if data.count > 0
                             {
-                                print(data)
                                 self.arrChannelFeed = data as NSArray
                                 print("self.arrChannelFeed :> \(self.arrChannelFeed)")
                             }
@@ -422,9 +421,8 @@ class GroupVC: UIViewController {
 
 
         // Do any additional setup after loading the view.
-        self.tblviewListing.estimatedRowHeight = 94;
-        self.tblviewListing.rowHeight = UITableViewAutomaticDimension;
-        
+        self.tblviewListing.estimatedRowHeight = 172
+        self.tblviewListing.rowHeight = UITableViewAutomaticDimension
     }
     
     func selectedInterestForChannel(notification:Notification)
@@ -469,12 +467,12 @@ class GroupVC: UIViewController {
             if grpDetail.object(forKey: kkeyisLeader) as! Int == 1
             {
                 self.menuButton.isHidden = false
-                self.const_vwFooterView_height.constant = 40
+//                self.const_vwFooterView_height.constant = 40
             }
             else
             {
                 self.menuButton.isHidden = true
-                self.const_vwFooterView_height.constant = 0
+//                self.const_vwFooterView_height.constant = 0
             }
         }
         self.dropDownIcon.isHidden = false
@@ -658,13 +656,22 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource
         if dict.object(forKey: kkeyis_attachment) as! Int == 1
         {
             cell.Const_LinkBtn_height.constant = 27
+            cell.Const_imgofLink_height.constant = 75
+
+            let attachment_link = dict.value(forKey: "attachment_link") as? String
+            cell.imgofLink.sd_setImage(with: URL(string: (attachment_link)!), placeholderImage: nil)
+
             cell.btnLink.setTitle(dict .value(forKey: "attachmentName") as! String?, for: .normal)
             cell.btnLink.isHidden = false
+            cell.imgofLink.isHidden = false
         }
         else
         {
             cell.Const_LinkBtn_height.constant = 0
+            cell.Const_imgofLink_height.constant = 0
             cell.btnLink.isHidden = true
+            cell.imgofLink.isHidden = true
+
         }
         cell.btnLink.tag = indexPath.row
         cell.btnLink.addTarget(self, action: #selector(GroupVC.shareTextButton(_:event:)), for: .touchUpInside)
