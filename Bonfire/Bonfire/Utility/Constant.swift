@@ -72,6 +72,7 @@ let kEvents  = "events"
 let kAddInterest = "user-interest/add-interest"
 let kGetAllChannel = "get-channels"
 let kGetChannelByGroupID = "channels/get-channels-by-group-id"
+let kManagePermission = "groups/manage-permission"
 
 let kGetAppGroup = "groups"
 let kGetForYouFeed = "get-for-you-groups"
@@ -92,6 +93,7 @@ let kDeleteEvent = "events/delete"
 let kkeySetDeviceToken = "set-user-token"
 
 let kEditProfileAPI = "user-profile/update-profile"
+
 
 //var CurrentUser : UserModel = UserModel()
 

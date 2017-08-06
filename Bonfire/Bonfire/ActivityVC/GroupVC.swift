@@ -527,6 +527,23 @@ class GroupVC: UIViewController {
         self.present(activityViewController, animated: true, completion: nil)
         
     }
+    //MARK open Image in big View
+    @IBAction func imageTapped(_ sender: UITapGestureRecognizer) {
+        let imageView = sender.view as! UIImageView
+        let newImageView = UIImageView(image: imageView.image)
+        newImageView.frame = UIScreen.main.bounds
+        newImageView.backgroundColor = .black
+        newImageView.contentMode = .scaleAspectFit
+        newImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        newImageView.addGestureRecognizer(tap)
+        self.view.addSubview(newImageView)
+    }
+    
+    func dismissFullscreenImage(_ sender: UITapGestureRecognizer)
+    {
+        sender.view?.removeFromSuperview()
+    }
 
     
     override func didReceiveMemoryWarning() {
@@ -644,7 +661,9 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource
         
         cell.lblTime.text = time
         
-        cell.lblDetail.text = dict .value(forKey: "description") as! String?
+       // cell.lblDetail.text = dict .value(forKey: "description") as! String?
+        cell.tvDetail.text = dict .value(forKey: "description") as! String?
+
         
         let feeddict = dict  .value(forKey: "feedCreator") as? NSDictionary
         cell.lblName.text = feeddict? .value(forKey: "name") as? String
@@ -655,15 +674,17 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource
         
         if dict.object(forKey: kkeyis_attachment) as! Int == 1
         {
-            cell.Const_LinkBtn_height.constant = 27
+            cell.Const_LinkBtn_height.constant = 0
             cell.Const_imgofLink_height.constant = 75
 
             let attachment_link = dict.value(forKey: "attachment_link") as? String
             cell.imgofLink.sd_setImage(with: URL(string: (attachment_link)!), placeholderImage: nil)
 
-            cell.btnLink.setTitle(dict .value(forKey: "attachmentName") as! String?, for: .normal)
-            cell.btnLink.isHidden = false
+//            cell.btnLink.setTitle(dict .value(forKey: "attachmentName") as! String?, for: .normal)
+            cell.btnLink.isHidden = true
             cell.imgofLink.isHidden = false
+            
+
         }
         else
         {
@@ -673,6 +694,8 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource
             cell.imgofLink.isHidden = true
 
         }
+        let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        cell.imgofLink.addGestureRecognizer(tap)
         cell.btnLink.tag = indexPath.row
         cell.btnLink.addTarget(self, action: #selector(GroupVC.shareTextButton(_:event:)), for: .touchUpInside)
 

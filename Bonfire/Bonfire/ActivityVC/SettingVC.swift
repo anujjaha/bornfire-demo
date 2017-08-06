@@ -15,6 +15,8 @@ class SettingVC: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var memberSearch: UITextField!
     @IBOutlet weak var leaderSearch: UITextField!
+    @IBOutlet weak var txtManagePermission: UITextField!
+
     @IBOutlet weak var btnEditInterests: UIButton!
     
     @IBOutlet weak var btnPlus: UIButton!
@@ -28,6 +30,7 @@ class SettingVC: UIViewController {
 
     @IBOutlet weak var clvMember: UICollectionView!
     @IBOutlet weak var clvLeader: UICollectionView!
+    @IBOutlet weak var clvManagPermission: UICollectionView!
 
     var picker:UIImagePickerController?=UIImagePickerController()
     
@@ -51,7 +54,8 @@ class SettingVC: UIViewController {
     var arrChannelList = [String]()
     var arrLeader = NSMutableArray()
     var arrMember = NSMutableArray()
-
+    var arrManagePermission = NSMutableArray()
+    
     //MARK: View Life Cycle
     
     @IBAction func removeChannelTap(_ sender: AnyObject)
@@ -84,11 +88,16 @@ class SettingVC: UIViewController {
             arrLeader = (self.grpDetail.value(forKey: "group_members") as! NSArray).filter { namePredicate.evaluate(with: $0) } as! NSMutableArray
         }
 
-        
         if self.grpDetail.value(forKey: "group_members") != nil
         {
             let namePredicate = NSPredicate(format: "%K = %d", "isMember",1)
             arrMember = (self.grpDetail.value(forKey: "group_members") as! NSArray).filter { namePredicate.evaluate(with: $0) } as! NSMutableArray
+        }
+        
+        if self.grpDetail.value(forKey: "group_members") != nil
+        {
+            let namePredicate = NSPredicate(format: "%K = %d", "isMember",1)
+            arrManagePermission = (self.grpDetail.value(forKey: "group_members") as! NSArray).filter { namePredicate.evaluate(with: $0) } as! NSMutableArray
         }
 
         
@@ -126,6 +135,9 @@ class SettingVC: UIViewController {
         self.clvMember.dataSource = self
         self.clvMember.delegate = self
         
+        self.clvManagPermission.dataSource = self
+        self.clvManagPermission.delegate = self
+        
         self.setRoundCorner()
         
         
@@ -148,9 +160,15 @@ class SettingVC: UIViewController {
             arrMember = (self.grpDetail.value(forKey: "group_members") as! NSArray).filter { namePredicate.evaluate(with: $0) } as! NSMutableArray
         }
 
+        if self.grpDetail.value(forKey: "group_members") != nil
+        {
+            let namePredicate = NSPredicate(format: "%K = %d", "isMember",1)
+            arrManagePermission = (self.grpDetail.value(forKey: "group_members") as! NSArray).filter { namePredicate.evaluate(with: $0) } as! NSMutableArray
+        }
+
         self.clvLeader.reloadData()
         self.clvMember.reloadData()
-
+        self.clvManagPermission.reloadData()
     }
 
     
@@ -173,6 +191,8 @@ class SettingVC: UIViewController {
         
         self.memberSearch.layer.cornerRadius = 15
         self.leaderSearch.layer.cornerRadius = 15
+        self.txtManagePermission.layer.cornerRadius = 15
+        
         self.textViewGrpDescription.layer.cornerRadius = 15
         self.txtGrpName.layer.cornerRadius = 15
         
@@ -187,6 +207,11 @@ class SettingVC: UIViewController {
         self.leaderSearch.backgroundColor = UIColor .white
         self.leaderSearch.layer.borderColor = UIColor.white.cgColor
         self.leaderSearch.layer.borderWidth  = 1.0
+        
+        self.txtManagePermission.backgroundColor = UIColor .white
+        self.txtManagePermission.layer.borderColor = UIColor.white.cgColor
+        self.txtManagePermission.layer.borderWidth  = 1.0
+
         
         self.textViewGrpDescription.backgroundColor = UIColor .white
         self.textViewGrpDescription.layer.borderColor = UIColor.white.cgColor
@@ -598,6 +623,13 @@ class SettingVC: UIViewController {
         objSelectLeader.isfromMember = true
         self.navigationController?.pushViewController(objSelectLeader, animated: true)
     }
+    @IBAction func btnGoToManagePermission(_ sender: Any)
+    {
+        let objManagPermission = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "ManagePermissionVC") as! ManagePermissionVC
+        objManagPermission.strGroupID = "\(grpDetail.object(forKey: "groupId")!)"
+        objManagPermission.dicGroupDetail = grpDetail
+        self.navigationController?.pushViewController(objManagPermission, animated: true)
+    }
 
     @IBAction func btnGoEventListingandCreate(_ sender: Any)
     {
@@ -753,6 +785,11 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
         {
             return self.arrLeader.count
         }
+        else if collectionView == clvManagPermission
+        {
+            return self.arrManagePermission.count
+        }
+
         else
         {
             return 3
@@ -799,6 +836,23 @@ extension SettingVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
 
             cell.layoutIfNeeded()
             return cell
+        }
+        else if collectionView == clvManagPermission
+        {
+            
+            let identifier = "ManagPermission"
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! MemberCell
+            
+            let dic = self.arrManagePermission[indexPath.row] as! NSDictionary
+            cell.labelMemberName.text = dic["name"] as? String
+            cell.imgViewMember.sd_setImage(with: URL(string:dic .value(forKey: "profile_picture") as! String), placeholderImage: nil)
+            
+            cell.imgViewMember.layer.cornerRadius = cell.imgViewMember.frame.height/2
+            cell.imgViewMember.clipsToBounds = true
+            
+            cell.layoutIfNeeded()
+            return cell
+            
         }
         else
         {

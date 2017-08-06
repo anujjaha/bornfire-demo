@@ -21,6 +21,18 @@ class LoginViewController: UIViewController
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool)
+    {
+        if appDelegate.bisUserLogout
+        {
+            self.backbtn.isHidden = true
+        }
+        else
+        {
+            self.backbtn.isHidden = false
+        }
+    }
+    
     @IBAction func btnLoginPressed()
     {
         if (self.txtUserName.text?.isEmpty)!

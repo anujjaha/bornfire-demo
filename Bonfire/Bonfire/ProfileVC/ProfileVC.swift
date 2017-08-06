@@ -154,13 +154,13 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
     {
         UserDefaults.standard.set(false, forKey: kkeyisUserLogin)
         UserDefaults.standard.synchronize()
-
-        let appdelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        appDelegate.bisUserLogout = true
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         let nav = UINavigationController(rootViewController: homeViewController)
         nav.isNavigationBarHidden = true
-        appdelegate.window!.rootViewController = nav
+        appDelegate.window!.rootViewController = nav
     }
     // MARK: - API call
     func callProfileAPI()

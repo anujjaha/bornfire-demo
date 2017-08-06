@@ -19,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     var bisUserProfile = Bool()
     var strDeviceToken = NSString()
     var bcalltoRefreshChannel = Bool()
-
+    var bisUserLogout = Bool()
+    
     static let shared = UIApplication.shared.delegate as! AppDelegate
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
