@@ -55,27 +55,25 @@ class EventListAddVC: UIViewController
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
+                        self.arrGrpEvent = NSMutableArray()
                         
                         if (temp.value(forKey: "error") != nil)
                         {
                             let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
-                            App_showAlert(withMessage: msg as! String, inView: self)
+//                            App_showAlert(withMessage: msg as! String, inView: self)
                         }
                         else
                         {
                             let data  = temp .value(forKey: "data") as! NSArray
-                            
                             if data.count > 0
                             {
                                 print(data)
                                 self.arrGrpEvent = NSMutableArray(array: data)
-                                self.tableEventDesc .reloadData()
-                            }
-                            else
-                            {
-                                //                            App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
                             }
                         }
+                        
+                        self.tableEventDesc.reloadData()
+
                     }
                 }
                 break
@@ -327,12 +325,8 @@ extension EventListAddVC : UITableViewDataSource , UITableViewDelegate
                                 }
                                 else
                                 {
-                                    let data  = temp .value(forKey: "data") as! NSDictionary
-                                    if data.count > 0
-                                    {
                                         App_showAlert(withMessage: "Event Deleted Successfully", inView: self)
                                         self.getAllGrpEvents()
-                                    }
                                 }
                             }
                         }

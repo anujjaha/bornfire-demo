@@ -60,14 +60,79 @@ class ActivityVC: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = false
         
-        let namePredicate = NSPredicate(format: "%K = %d", "isLeader",1)
-        self.arrLeaderingGrp = AppDelegate .shared.arrAllGrpData.filter { namePredicate.evaluate(with: $0) } as NSArray
-    
-        let namePredicate1 = NSPredicate(format: "%K = %d", "isMember",1)
-        self.arrYourGrp = AppDelegate.shared.arrAllGrpData.filter { namePredicate1.evaluate(with: $0) } as NSArray
+        if appDelegate.bUserCreatedGroup == true
+        {
+            self.GetAllfeed()
+            appDelegate.bUserCreatedGroup = false
+        }
+        else
+        {
+            let namePredicate = NSPredicate(format: "%K = %d", "isLeader",1)
+            self.arrLeaderingGrp = AppDelegate .shared.arrAllGrpData.filter { namePredicate.evaluate(with: $0) } as NSArray
+            
+            let namePredicate1 = NSPredicate(format: "%K = %d", "isMember",1)
+            self.arrYourGrp = AppDelegate.shared.arrAllGrpData.filter { namePredicate1.evaluate(with: $0) } as NSArray
+        }
         
     }
-    override func didReceiveMemoryWarning() {
+    func GetAllfeed()
+    {
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        
+        let url = kServerURL + kGetAppGroup
+        showProgress(inView: self.view)
+        
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        
+        request(url, method: .get, parameters:nil, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil
+                {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value
+                    {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp.firstObject as! NSDictionary
+                        let data  = temp .value(forKey: "data") as! NSArray
+                        
+                        if data.count > 0
+                        {
+                            AppDelegate.shared.arrAllGrpData = data as! Array<Any> as NSArray
+                            
+                            let namePredicate = NSPredicate(format: "%K = %d", "isLeader",1)
+                            self.arrLeaderingGrp = AppDelegate .shared.arrAllGrpData.filter { namePredicate.evaluate(with: $0) } as NSArray
+                            
+                            let namePredicate1 = NSPredicate(format: "%K = %d", "isMember",1)
+                            self.arrYourGrp = AppDelegate.shared.arrAllGrpData.filter { namePredicate1.evaluate(with: $0) } as NSArray
+                            
+                            self.clvwLeading.reloadData()
+                            self.clvwDiscover.reloadData()
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+    }
+    
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }

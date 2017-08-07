@@ -10,7 +10,7 @@ import UIKit
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate
+class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate
 {
     var window: UIWindow?
     var arrLoginData = NSDictionary()
@@ -20,11 +20,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     var strDeviceToken = NSString()
     var bcalltoRefreshChannel = Bool()
     var bisUserLogout = Bool()
+    var bUserCreatedGroup = Bool()
     
     static let shared = UIApplication.shared.delegate as! AppDelegate
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
     {
+        strDeviceToken = "424442253525"
+
+        //Push Notification Setting Code
+        if #available(iOS 10.0, *)
+        {
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+                
+                // Enable or disable features based on authorization.
+                if granted == true
+                {
+                    print("Allow")
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+                else
+                {
+                    print("Don't Allow")
+                }
+            }
+        }
+        else
+        {
+            // Fallback on earlier versions
+//            let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+//            application.registerUserNotificationSettings(settings)
+//            application.registerForRemoteNotifications()
+            let type: UIUserNotificationType = [UIUserNotificationType.badge, UIUserNotificationType.alert, UIUserNotificationType.sound]
+            let setting = UIUserNotificationSettings(types: type, categories: nil)
+            UIApplication.shared.registerUserNotificationSettings(setting)
+            UIApplication.shared.registerForRemoteNotifications()
+
+        }
+
+        
         // Override point for customization after application launch.
         IQKeyboardManager.sharedManager().enable = true
         //IQKeyboardManager.sharedManager().enableAutoToolbar = false
@@ -32,7 +67,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
         self.callGetAllCampusAPI()
         
-        strDeviceToken = "424442253525"
         
         if (userDefaults.bool(forKey: kkeyisUserLogin))
         {
@@ -56,31 +90,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         }
         
         
-        //Push Notification Setting Code 
-        if #available(iOS 10.0, *)
-        {
-            let center = UNUserNotificationCenter.current()
-            center.requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
-                
-                // Enable or disable features based on authorization.
-                if granted == true
-                {
-                    print("Allow")
-                    UIApplication.shared.registerForRemoteNotifications()
-                }
-                else
-                {
-                    print("Don't Allow")
-                }
-            }
-        }
-        else
-        {
-            // Fallback on earlier versions
-            let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-            application.registerUserNotificationSettings(settings)
-            application.registerForRemoteNotifications()
-        }
 
 
         UIApplication.shared.statusBarStyle = .default
@@ -139,6 +148,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
         print(deviceTokenString)
         strDeviceToken = deviceTokenString as NSString
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("error fail -> \(error)")
+
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any])

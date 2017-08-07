@@ -15,7 +15,8 @@ class SignupViewController: UIViewController
     @IBOutlet weak var txtUserName : UITextField!
     @IBOutlet weak var txtPassword : UITextField!
     var campusID = String()
-    
+    var iCampusID = Int()
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -49,7 +50,7 @@ class SignupViewController: UIViewController
 
     func callSignUPAPI() {
         let url = kServerURL + kSignUP
-        let parameters: [String: Any] = ["name": self.txtFullName.text!, "email": self.txtEmail.text!, "password": self.txtPassword.text!,"username": self.txtUserName.text!,"campus_id":Int(campusID)!]
+        let parameters: [String: Any] = ["name": self.txtFullName.text!, "email": self.txtEmail.text!, "password": self.txtPassword.text!,"username": self.txtUserName.text!,"campus_id":iCampusID]
         
         showProgress(inView: self.view)
         print("parameters:>\(parameters)")
@@ -68,15 +69,18 @@ class SignupViewController: UIViewController
                         let dictemp = json as! NSDictionary
                         print("dictemp :> \(dictemp)")
                         
-                        if dictemp.count > 0 {
-                            
-                            if let err  =  dictemp.value(forKey: kkeyError) {
+                        if dictemp.count > 0
+                        {
+                            if let err  =  dictemp.value(forKey: kkeyError)
+                            {
                                 App_showAlert(withMessage: err as! String, inView: self)
-                            }else {
-//                                let storyTab = UIStoryboard(name: "Main", bundle: nil)
-//                                let objTourGuideVC = storyTab.instantiateViewController(withIdentifier: "TourGuideVC") as! TourGuideVC
-//                                self.navigationController?.pushViewController(objTourGuideVC, animated: true)
-             
+                            }
+                            else
+                            {
+                                //                                let storyTab = UIStoryboard(name: "Main", bundle: nil)
+                                //                                let objTourGuideVC = storyTab.instantiateViewController(withIdentifier: "TourGuideVC") as! TourGuideVC
+                                //                                self.navigationController?.pushViewController(objTourGuideVC, animated: true)
+                                
                                 let data = NSKeyedArchiver.archivedData(withRootObject: dictemp)
                                 UserDefaults.standard.set(data, forKey: kkeyLoginData)
                                 UserDefaults.standard.synchronize()
@@ -84,11 +88,11 @@ class SignupViewController: UIViewController
                                 UserDefaults.standard.set(true, forKey: kkeyisUserLogin)
                                 UserDefaults.standard.synchronize()
                                 
-//                                let interst = InterestVC .initViewController()
-//                                self.navigationController?.navigationBar.isTranslucent  = false
-//                                self.navigationController?.pushViewController(interst, animated: true)
+                                self.RegisterDeviceToken()
+                                //                                let interst = InterestVC .initViewController()
+                                //                                self.navigationController?.navigationBar.isTranslucent  = false
+                                //                                self.navigationController?.pushViewController(interst, animated: true)
                             }
-                        
                         }
                         else
                         {

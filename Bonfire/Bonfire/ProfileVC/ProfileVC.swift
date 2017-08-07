@@ -157,7 +157,8 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
         
         appDelegate.bisUserLogout = true
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+//        let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+         let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
         let nav = UINavigationController(rootViewController: homeViewController)
         nav.isNavigationBarHidden = true
         appDelegate.window!.rootViewController = nav

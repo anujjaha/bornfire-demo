@@ -49,6 +49,7 @@ let kkeyattachment_link = "attachment_link"
 let kkeyisUserLogin = "UserLogin"
 let kkeyError = "error"
 let kkeyCampusCode = "CampusCode"
+let kkeyCampusID = "campusID"
 
 let kkeytext = "text"
 let kkeytime = "time"
@@ -91,6 +92,7 @@ let kAddMemberAPI = "groups/add-member"
 let kAddEvent = "events/create"
 let kDeleteEvent = "events/delete"
 let kkeySetDeviceToken = "set-user-token"
+let kDeleteChannel = "channels/delete-channel"
 
 let kEditProfileAPI = "user-profile/update-profile"
 

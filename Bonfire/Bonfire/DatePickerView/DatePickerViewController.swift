@@ -195,7 +195,7 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
                         if (temp.value(forKey: "error") != nil)
                         {
                             let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
-                            App_showAlert(withMessage: msg as! String, inView: self)
+//                            App_showAlert(withMessage: msg as! String, inView: self)
                         }
                         else
                         {

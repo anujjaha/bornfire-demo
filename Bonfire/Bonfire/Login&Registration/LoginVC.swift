@@ -11,6 +11,7 @@ import UIKit
 class LoginVC: UIViewController {
 
     var strCampusCode = String()
+    var iCampusID = Int()
     
     override func viewDidLoad()
     {
@@ -31,6 +32,7 @@ class LoginVC: UIViewController {
         let storyTab = UIStoryboard(name: "Main", bundle: nil)
         let objLoginVC = storyTab.instantiateViewController(withIdentifier: "SignupViewController") as! SignupViewController
         objLoginVC.campusID = strCampusCode;
+        objLoginVC.iCampusID = iCampusID
         self.navigationController?.pushViewController(objLoginVC, animated: true)
     }
 

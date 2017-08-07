@@ -55,6 +55,8 @@ class SettingVC: UIViewController {
     var arrLeader = NSMutableArray()
     var arrMember = NSMutableArray()
     var arrManagePermission = NSMutableArray()
+    var bfromCreateGroup = Bool()
+    
     
     //MARK: View Life Cycle
     
@@ -174,7 +176,15 @@ class SettingVC: UIViewController {
     
     @IBAction func menuButtonClick(_ sender: AnyObject)
     {
-        _ = self.navigationController?.popViewController(animated: true)
+        if(bfromCreateGroup)
+        {
+            appDelegate.bUserCreatedGroup = true
+            _ = self.navigationController?.popToRootViewController(animated: true)
+        }
+        else
+        {
+            _ = self.navigationController?.popViewController(animated: true)
+        }
     }
     
     func setRoundCorner()

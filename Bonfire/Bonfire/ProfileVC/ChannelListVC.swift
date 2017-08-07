@@ -79,6 +79,8 @@ class ChannelListVC: UIViewController
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
                         
+                        self.channelArr = NSMutableArray()
+                        
                         if (temp.value(forKey: "error") != nil)
                         {
                             self.lblNoDataFound.isHidden = false
@@ -97,9 +99,6 @@ class ChannelListVC: UIViewController
                             if data.count > 0
                             {
                                 self.channelArr = data
-                            }
-                            else
-                            {
                             }
                         }
                         
@@ -156,20 +155,22 @@ class ChannelListVC: UIViewController
         
         self.present(alertController, animated: true, completion: nil)
     }
-    func callAddChannelWs(name:String) {
-        
+    func callAddChannelWs(name:String)
+    {
         showProgress(inView: self.view)
         
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         let userid = final .value(forKey: "userId")
-        let campuscode = UserDefaults.standard.value(forKey: kkeyCampusCode)
         
         let url = kServerURL + kCreateNewChannel
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
         
-        let param = ["name":name,"user_id":userid!,"campus_id":campuscode!,"group_id":"\(groupDetail.object(forKey: "groupId")!)"]
+        
+        let dictGroupCampus = groupDetail.object(forKey: "groupCampus") as! NSDictionary
+        
+        let param = ["name":name,"user_id":userid!,"campus_id":"\(dictGroupCampus.object(forKey: "campusId")!)","group_id":"\(groupDetail.object(forKey: "groupId")!)"]
         
         request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
             
@@ -242,6 +243,83 @@ extension ChannelListVC : UITableViewDataSource , UITableViewDelegate
     {
         return self.channelArr.count
     }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
+    {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
+    {
+        let dict = self.channelArr.object(at: indexPath.row) as! NSDictionary
+        
+        if (editingStyle == UITableViewCellEditingStyle.delete)
+        {
+            let alertView = UIAlertController(title: Application_Name, message: "Are you sure want to delete channel?", preferredStyle: .alert)
+            let OKAction = UIAlertAction(title: "Yes", style: .default)
+            { (action) in
+                
+                // get all home feed api calling
+                let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+                let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+                let url = kServerURL + kDeleteChannel
+                showProgress(inView: self.view)
+                let token = final .value(forKey: "userToken")
+                let headers = ["Authorization":"Bearer \(token!)"]
+                let param = [
+                    "channel_id" :  "\(dict.value(forKey: "channelId")!)",
+                    "group_id":  "\(dict.value(forKey: "groupId")!)"
+                ]
+                
+                request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+                    
+                    print(response.result.debugDescription)
+                    
+                    hideProgress()
+                    switch(response.result)
+                    {
+                    case .success(_):
+                        if response.result.value != nil
+                        {
+                            print(response.result.value!)
+                            
+                            if let json = response.result.value
+                            {
+                                let dictemp = json as! NSArray
+                                print("dictemp :> \(dictemp)")
+                                let temp  = dictemp.firstObject as! NSDictionary
+                                
+                                if (temp.value(forKey: "error") != nil)
+                                {
+                                    let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
+                                    App_showAlert(withMessage: msg as! String, inView: self)
+                                }
+                                else
+                                {
+                                        App_showAlert(withMessage: "Channel Deleted Successfully", inView: self)
+                                        self.callGetChannelWS()
+                                }
+                            }
+                        }
+                        break
+                        
+                    case .failure(_):
+                        print(response.result.error!)
+                        App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                        break
+                    }
+                }
+            }
+            alertView.addAction(OKAction)
+            
+            let CancelAction = UIAlertAction(title: "No", style: .default)
+            {
+                (action) in
+            }
+            alertView.addAction(CancelAction)
+            self.present(alertView, animated: true, completion: nil)
+        }
+    }
+
 }
 class ChannelListCell: UITableViewCell
 {

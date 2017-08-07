@@ -70,8 +70,12 @@ class JoingGroupVC: UIViewController {
         let headers = ["Authorization":"Bearer \(token!)"]
 
         let url = kServerURL + "groups/add-member"
+
+        let userid = "\(final.value(forKey: "userId")!)"
+
         let parameters = [
-            "group_id":  "\(dicGroupDetail.object(forKey: "groupId")!)"
+            "group_id":  "\(dicGroupDetail.object(forKey: "groupId")!)",
+            "user_id": userid
         ]
         
         showProgress(inView: self.view)

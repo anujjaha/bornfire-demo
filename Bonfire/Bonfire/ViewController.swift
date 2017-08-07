@@ -18,6 +18,15 @@ class ViewController: UIViewController,UITextFieldDelegate
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    override func viewWillAppear(_ animated: Bool)
+    {
+        appDelegate.bisUserLogout = false
+        if let campuscode = UserDefaults.standard.value(forKey: kkeyCampusCode)
+        {
+            self.txtCampusCode.text = campuscode as? String
+        }
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField)
     {
         if (self.txtCampusCode.text?.isEmpty)!
@@ -39,6 +48,7 @@ class ViewController: UIViewController,UITextFieldDelegate
                 if arrcampusdata.count > 0
                 {
                     UserDefaults.standard.set(self.txtCampusCode.text!, forKey: kkeyCampusCode)
+                    UserDefaults.standard.set((arrcampusdata[0] as AnyObject).value(forKey: kkeyCampusID), forKey: kkeyCampusID)
                     UserDefaults.standard.synchronize()
                     
                     textField.resignFirstResponder()
@@ -46,6 +56,7 @@ class ViewController: UIViewController,UITextFieldDelegate
                     let storyTab = UIStoryboard(name: "Main", bundle: nil)
                     let objLoginVC = storyTab.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
                     objLoginVC.strCampusCode = self.txtCampusCode.text!
+                    objLoginVC.iCampusID = (arrcampusdata[0] as AnyObject).value(forKey: kkeyCampusID) as! Int
                     self.navigationController?.pushViewController(objLoginVC, animated: true)
                 }
                 else

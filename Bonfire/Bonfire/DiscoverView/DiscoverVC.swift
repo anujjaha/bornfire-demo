@@ -84,20 +84,26 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
-                        let data  = temp .value(forKey: "data") as! NSArray
                         
-                        if data.count > 0
+                        if (temp.value(forKey: "error") != nil)
                         {
-                            self.arrAllFeedData = data as! Array<Any>
-                            AppDelegate .shared.arrAllGrpData = self.arrAllFeedData as NSArray
-                  
-                            let namePredicate = NSPredicate(format: "%K = %d", "isDiscovery",1)
-                    
-                            self.arrDiscovery = self.arrAllFeedData.filter { namePredicate.evaluate(with: $0) };
+                            let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
+                            App_showAlert(withMessage: msg as! String, inView: self)
                         }
                         else
                         {
-//                            App_showAlert(withMessage: data[kkeyError]! as! String, inView: self)
+                            
+                            let data  = temp .value(forKey: "data") as! NSArray
+                            
+                            if data.count > 0
+                            {
+                                self.arrAllFeedData = data as! Array<Any>
+                                AppDelegate .shared.arrAllGrpData = self.arrAllFeedData as NSArray
+                                
+                                let namePredicate = NSPredicate(format: "%K = %d", "isDiscovery",1)
+                                
+                                self.arrDiscovery = self.arrAllFeedData.filter { namePredicate.evaluate(with: $0) };
+                            }
                         }
                     }
                 }

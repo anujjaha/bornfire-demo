@@ -98,6 +98,7 @@ class GroupVC: UIViewController {
         
         let createGrpObj = SettingVC.initViewController()
         createGrpObj.grpDetail = NSMutableDictionary(dictionary: grpDetail)
+        createGrpObj.bfromCreateGroup = false
         self.navigationController?.pushViewController(createGrpObj, animated: true)
     }
     
