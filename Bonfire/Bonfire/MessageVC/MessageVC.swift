@@ -18,13 +18,17 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet var buttonUpArrow: UIButton!
     @IBOutlet var buttonPlus: UIButton!
     @IBOutlet var btnHashTag: UIButton!
-    
+    @IBOutlet var btnG: UIButton!
+    @IBOutlet var const_TxtAnything_leading: NSLayoutConstraint!
+
     var arrMessages = NSMutableArray()
     var currentOffset = CGFloat()
     var selectedGrpForMessage = String()
     var arrInterestForMessage = NSArray()
     var arrAllFeedData = NSArray()
+    var arrSelectedGroupIDs = NSArray()
     
+    var bfromInterestorGroup = Bool()
     
     @IBOutlet var btnBackBtn: UIButton!
     
@@ -76,11 +80,19 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.setTabbar()
         tblMessages.reloadData()
         
-        self.getAllMessagesFeed()
         
     }
     override func viewWillAppear(_ animated: Bool) {
         
+        if (bfromInterestorGroup)
+        {
+            bfromInterestorGroup = false
+        }
+        else
+        {
+            self.getAllMessagesFeed()
+        }
+
     }
     
     func handleAction(action:UIAlertAction)  {
@@ -93,15 +105,25 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         print(str!)
     }
     
-    func selectedGrpForMessage(notification:Notification){
+    func selectedGrpForMessage(notification:Notification)
+    {
         let str =  notification.object
-        selectedGrpForMessage = str as! String
-        print(str!)
+        arrSelectedGroupIDs = str as! NSMutableArray
     }
     
-    @IBAction func btnGrpTap(_ sender: Any) {
+    @IBAction func btnGrpTap(_ sender: Any)
+    {
     }
 
+    
+    @IBAction func btnGTap(_ sender: AnyObject)
+    {
+        bfromInterestorGroup = true
+        let  messagevc = MessageGroupListVC .initViewController()
+        self.navigationController?.pushViewController(messagevc, animated: true)
+    }
+
+    
     @IBAction func btnMesssageTap(_ sender: Any)
     {
         let btn = sender as! UIButton
@@ -173,6 +195,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
 //            self .navigationController?.pushViewController(viewController, animated: true)
 //            
 //            }
+        bfromInterestorGroup = true
         let viewController = AddInterestToMessageVC .initViewController()
         self .navigationController?.pushViewController(viewController, animated: true)
     }
@@ -287,7 +310,17 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         let strint = self.arrInterestForMessage.componentsJoined(by: ",")
 //        let param:[String:Any] = ["is_campus_feed" : "1","description": self.txtAnythingTosay.text!,"interests": arrInterestForMessage as Array]
-        let param:[String:Any] = ["is_campus_feed" : "1","description": self.txtAnythingTosay.text!,"interests": strint]
+        
+        var param = [String:Any]()
+        if arrSelectedGroupIDs.count > 0
+        {
+            let strgroupsID = self.arrSelectedGroupIDs.componentsJoined(by: ",")
+            param = ["is_campus_feed" : "1","description": self.txtAnythingTosay.text!,"interests": strint , "group_id": strgroupsID]
+        }
+        else
+        {
+            param = ["is_campus_feed" : "1","description": self.txtAnythingTosay.text!,"interests": strint]
+        }
 
         let url = kServerURL + kCreateNewFeed
         print("parameters Message Post:>\(param)")
@@ -314,6 +347,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
 //                        self.tblMessages .reloadData()
                         self.txtAnythingTosay.text = "Anything to say?"
                         self.arrInterestForMessage = NSArray()
+                        self.arrSelectedGroupIDs = NSMutableArray()
                         self.getAllMessagesFeed()
                     }
                     else
@@ -354,7 +388,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                     if let json = response.result.value
                     {
                         let dictemp = json as! NSArray
-                        print("dictemp :> \(dictemp)")
+                        print("dictemp getAllMessagesFeed:> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
                         
                         if (temp.value(forKey: "error") != nil)
@@ -420,8 +454,39 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         {
             let firstdict = interestArr.firstObject as! NSDictionary
             let firstname = firstdict .value(forKey: "name") as? String
+            
+            var size = CGSize()
+            size = (firstname?.size(attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17.0)]))!
+
             cell.btnInterest .setTitle("#" + firstname!, for: .normal)
+            cell.const_btnInterest_width.constant = size.width + 10
         }
+        
+        let groupDetails = dict.value(forKey: "groupDetails") as! NSDictionary
+        if interestArr.count > 0
+        {
+            let igroupId = groupDetails.object(forKey: "groupId") as! Int
+            if igroupId > 0
+            {
+                var size = CGSize()
+                
+                let name = groupDetails.value(forKey: "groupName") as? String
+                size = (name?.size(attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17.0)]))! //you can add NSForegroundColorAttributeName as well
+                let firstname = (groupDetails.value(forKey: "groupName") as? String)
+
+                cell.btnGroup.setTitle("#" + firstname!, for: .normal)
+                cell.const_btnGroup_width.constant = size.width + 10
+            }
+            else
+            {
+                cell.const_btnGroup_width.constant = 0
+            }
+        }
+        else
+        {
+            cell.const_btnGroup_width.constant = 0
+        }
+
         return cell
     }
     
@@ -461,7 +526,10 @@ extension MessageVC : UICollectionViewDataSource
         let identifier = "DiscoverCell"
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! DiscoverCell
         
-        
+        cell.imageView.layer.cornerRadius = 5
+        cell.imageView.clipsToBounds = true
+        cell.imageView.backgroundColor = UIColor.clear
+
         let dic = self.arrAllFeedData[indexPath.row] as! NSDictionary
         let strurl = dic["groupImage"] as! String
         let url  = URL.init(string: strurl)
@@ -538,8 +606,8 @@ extension MessageVC : UITextFieldDelegate
         IQKeyboardManager.sharedManager().enableAutoToolbar = true
         self.txtAnythingTosay.placeholder = "Anything to say?"
         self.btnBackBtn.isHidden = true
-        
-//        self.const_TxtAnything_leading.constant = 10
+        self.btnG.isHidden = false
+        self.const_TxtAnything_leading.constant = 10
         
         
 //        self.setTabbar()
@@ -547,12 +615,14 @@ extension MessageVC : UITextFieldDelegate
     
     func textFieldDidBeginEditing(_ textField: UITextField)
     {
-//        self.const_TxtAnything_leading.constant = -20
+        self.const_TxtAnything_leading.constant = -20
         self.btnHashTag.isHidden = true
         self.buttonUpArrow.isHidden = false
         IQKeyboardManager.sharedManager().enableAutoToolbar = false
         self.txtAnythingTosay.placeholder = nil
         self.btnBackBtn.isHidden = false
+        self.btnG.isHidden = true
+
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
@@ -580,6 +650,8 @@ class MessageCell: UITableViewCell
     @IBOutlet weak var lblMessageText : UILabel!
     @IBOutlet weak var btnInterest: UIButton!
     @IBOutlet weak var btnGroup: UIButton!
+    @IBOutlet var const_btnGroup_width: NSLayoutConstraint!
+    @IBOutlet var const_btnInterest_width: NSLayoutConstraint!
 
 }
 

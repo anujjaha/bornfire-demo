@@ -56,7 +56,12 @@ class SettingVC: UIViewController {
     var arrMember = NSMutableArray()
     var arrManagePermission = NSMutableArray()
     var bfromCreateGroup = Bool()
-    
+    var arrInterestSelectedId = NSMutableArray()
+    @IBOutlet weak var imageViewCoverPhoto: UIImageView!
+
+    @IBOutlet weak var switchPrivate: UISwitch!
+    @IBOutlet weak var btnUpdateGroup: UIButton!
+
     
     //MARK: View Life Cycle
     
@@ -71,8 +76,7 @@ class SettingVC: UIViewController {
         super.viewDidLoad()
         
         appDelegate.bcalltoRefreshChannel = true
-
-        
+        picker?.delegate=self
         cnt = 2
 //        textFieldDate.tag = 201
 //        textFieldTime.tag = 301
@@ -113,8 +117,37 @@ class SettingVC: UIViewController {
         
         self.textViewGrpDescription.delegate = self
         
+        let strurl =  self.grpDetail["groupImage"] as! String
+        let url  = URL.init(string: strurl)
+        imageViewCoverPhoto.sd_setImage(with: url, placeholderImage: nil)
+
+        let interestdata =  self.grpDetail.object(forKey: "interests") as! NSArray
+        
+        if (interestdata.count > 0)
+        {
+            for i in 0..<interestdata.count
+            {
+                let dic = interestdata[i] as! NSDictionary
+                self.arrInterestSelectedId.add(dic.value(forKey: "interestId")!)
+            }
+        }
+        
+        
+        if self.grpDetail.object(forKey: kkeyisPrivate) as! Int == 0
+        {
+            switchPrivate.setOn(false, animated: true)
+        }
+        else
+        {
+            switchPrivate.setOn(true, animated: true)
+        }
+        
+
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateGroupDetails(notification:)), name:Notification.Name(rawValue: "updateGroupDetails"), object: nil)
+
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateInterest(notification:)), name:Notification.Name(rawValue: "updateInterest"), object: nil)
 
         // Do any additional setup after loading the view.
     }
@@ -173,6 +206,12 @@ class SettingVC: UIViewController {
         self.clvManagPermission.reloadData()
     }
 
+    func updateInterest(notification:Notification)
+    {
+        let str =  notification.object
+        self.arrInterestSelectedId = str as! NSMutableArray
+    }
+
     
     @IBAction func menuButtonClick(_ sender: AnyObject)
     {
@@ -205,6 +244,8 @@ class SettingVC: UIViewController {
         
         self.textViewGrpDescription.layer.cornerRadius = 15
         self.txtGrpName.layer.cornerRadius = 15
+        
+        btnUpdateGroup.layer.cornerRadius = self.btnUpdateGroup.bounds.size.height/2
         
         self.txtGrpName.backgroundColor = UIColor .white
         self.txtGrpName.layer.borderColor = UIColor.white.cgColor
@@ -423,6 +464,7 @@ class SettingVC: UIViewController {
     {
         let interst = InterestVC .initViewController()
         interst.isFromSetting = true
+        interst.dicGroupDetail = grpDetail
         self.navigationController?.pushViewController(interst, animated: true)
     }
     
@@ -465,6 +507,7 @@ class SettingVC: UIViewController {
     
     func openGallary()
     {
+        
         picker!.allowsEditing = false
         picker!.sourceType = UIImagePickerControllerSourceType.photoLibrary
         present(picker!, animated: true, completion: nil)
@@ -648,6 +691,126 @@ class SettingVC: UIViewController {
         self.navigationController?.pushViewController(objEventListAddVC, animated: true)
     }
     
+    //MARK: Update Group
+    @IBAction func btnUpdateGroupAction(_ sender: Any)
+    {
+        var switchstr = String()
+        if self.switchPrivate.isOn
+        {
+            switchstr = "1"
+        }
+        else
+        {
+            switchstr = "0"
+        }
+        
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        
+        let url = kServerURL + kEditGroup
+        var imgData = Data()
+        imgData = UIImageJPEGRepresentation(imageViewCoverPhoto.image!, 0.5)!
+        
+        let strint = self.arrInterestSelectedId.componentsJoined(by: ",")
+        
+        let param = [
+            "name" : txtGrpName.text!,
+            "is_private": switchstr,
+            "description": textViewGrpDescription.text!,
+            "group_id" : "\(grpDetail.object(forKey: "groupId")!)",
+            "interests": strint
+        ]
+        
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        
+        
+        upload(multipartFormData:
+            { (multipartFormData) in
+                
+                multipartFormData.append(imgData, withName: "image", fileName: "test.jpg", mimeType: "image/jpeg")
+                
+                for (key, value) in param
+                {
+                    multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+                }
+                
+        }, to: url, method: .post, headers: headers, encodingCompletion:
+            {
+                (result) in
+                
+                switch result
+                {
+                case .success(let upload, _, _):
+                    upload.responseJSON
+                        {
+                            response in
+                            hideProgress()
+                            
+                            print(response.request) // original URL request
+                            print(response.response) // URL response
+                            print(response.data) // server data
+                            print(response.result) // result of response serialization
+                            
+                            if let json = response.result.value
+                            {
+                                print("json :> \(json)")
+                                let dictemp = json as! NSArray
+                                print("dictemp Group Detail :> \(dictemp)")
+                                let temp  = dictemp.firstObject as! NSDictionary
+                                
+                                if (temp.value(forKey: "error") != nil)
+                                {
+                                    let msg = ((temp.value(forKey: "error") as! NSDictionary) .value(forKey: "reason"))
+                                    App_showAlert(withMessage: msg as! String, inView: self)
+                                }
+                                else
+                                {
+                                    let data  = temp .value(forKey: "data") as! NSDictionary
+                                    
+                                    if data.count > 0
+                                    {
+                                        if let err  =  data.value(forKey: kkeyError)
+                                        {
+                                            App_showAlert(withMessage: err as! String, inView: self)
+                                        }
+                                        else
+                                        {
+                                            let optionMenu = UIAlertController(title: "Bonfire", message: "Group is Updated Successfully", preferredStyle: .alert)
+                                            
+                                            let libraryAction = UIAlertAction(title: "OK", style: .default, handler:
+                                            {
+                                                (alert: UIAlertAction!) -> Void in
+                                                
+                                                if(self.bfromCreateGroup)
+                                                {
+                                                    appDelegate.bUserCreatedGroup = true
+                                                    _ = self.navigationController?.popToRootViewController(animated: true)
+                                                }
+                                                else
+                                                {
+                                                    _ = self.navigationController?.popViewController(animated: true)
+                                                }
+                                            })
+                                            optionMenu.addAction(libraryAction)
+                                            self.present(optionMenu, animated: true, completion: nil)
+                                        }
+                                    }
+                                }
+                            }
+                    }
+                    
+                case .failure(let encodingError):
+                    hideProgress()
+                    print(encodingError)
+                }
+                
+        })
+
+        
+    }
+
+    
     /*
     // MARK: - Navigation
 
@@ -669,7 +832,9 @@ extension SettingVC : UIImagePickerControllerDelegate,UINavigationControllerDele
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
     {
-        
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        self.imageViewCoverPhoto.image = chosenImage
+//        self.imageViewCoverPhoto.contentMode = .scaleAspectFit
         dismiss(animated: true, completion: nil)
     }
 }

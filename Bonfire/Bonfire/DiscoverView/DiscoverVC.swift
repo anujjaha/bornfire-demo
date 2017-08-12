@@ -253,6 +253,10 @@ extension DiscoverVC : UICollectionViewDataSource
     {
         let identifier = "DiscoverCell"
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! DiscoverCell
+                
+        cell.imageView.layer.cornerRadius = 5
+        cell.imageView.clipsToBounds = true
+        cell.imageView.backgroundColor = UIColor.clear
         
         if  collectionView == self.clvwDiscover
         {

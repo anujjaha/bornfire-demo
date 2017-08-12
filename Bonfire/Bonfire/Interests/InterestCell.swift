@@ -12,6 +12,8 @@ class InterestCell: UICollectionViewCell {
  
     @IBOutlet weak var lblInterestName: UILabel!
     @IBOutlet weak var imgview: UIImageView!
+    @IBOutlet weak var btnCheck: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

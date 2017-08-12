@@ -15,6 +15,14 @@ class InterestVC: UIViewController
     @IBOutlet weak var const_bottomView_Height: NSLayoutConstraint!
     @IBOutlet weak var clvwInterest: UICollectionView!
     var isFromSetting : Bool = false
+    var arrSelectedLeader = NSMutableArray()
+    var dicGroupDetail = NSDictionary()
+
+    @IBOutlet weak var btnSave: UIButton!
+    @IBOutlet weak var btnPrevious: UIButton!
+    @IBOutlet weak var btnForward: UIButton!
+
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -23,16 +31,28 @@ class InterestVC: UIViewController
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
         super.viewWillAppear(animated)
         
-        if isFromSetting {
-            self.const_bottomView_Height.constant = 0
+        if isFromSetting
+        {
+            btnSave.isHidden = false
+            btnPrevious.isHidden = true
+            btnForward.isHidden = true
+            self.navigationItem.hidesBackButton = false
+        }
+        else
+        {
+            btnSave.isHidden = true
+            btnPrevious.isHidden = false
+            btnForward.isHidden = false
+            self.navigationItem.hidesBackButton = true
+
         }
         
         self.tabBarController?.tabBar.isHidden = true
-        self.navigationItem.hidesBackButton = true
-        
+
         self.navigationController?.navigationBar.isTranslucent = false
         let imag = UIImage(named: "event_sltbar")
         self.navigationController?.navigationBar.setBackgroundImage(imag, for: .default)
@@ -54,24 +74,36 @@ class InterestVC: UIViewController
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func PrevBtnTap(_ sender: Any) {
+    @IBAction func PrevBtnTap(_ sender: Any)
+    {
         _ = self.navigationController?.popViewController(animated: true)
-        
     }
     
-    @IBAction func forwardBtnTap(_ sender: Any) {
-        
+    @IBAction func forwardBtnTap(_ sender: Any)
+    {
+        self.callAddInterestAPIWith()
+    }
+    
+    @IBAction func btnSaveTap(_ sender: Any)
+    {
+//        let tempobject = NSMutableArray(dictionary: data)
+
+        NotificationCenter .default.post(name: NSNotification.Name(rawValue: "updateInterest"), object: self.arrSelectedLeader, userInfo: nil)
+        _ =  self.navigationController?.popViewController(animated: true)
     }
 
-    func callAddInterestAPIWith(interestId: Int) {
-        
+    func callAddInterestAPIWith()
+    {
         let url = kServerURL + kAddInterest
         showProgress(inView: self.view)
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         let usertoken = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(usertoken!)"]
-        let param = ["interest_id":"\(interestId)"]
+        
+        let strint = self.arrSelectedLeader.componentsJoined(by: ",")
+
+        let param = ["interest_id":strint]
         
         request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
             
@@ -128,7 +160,25 @@ class InterestVC: UIViewController
         
     }
     
-    func callInterestAPI() {
+    @IBAction func btnCheckUnCheck(sender: UIButton)
+    {
+        let interestdata =  self.interestData[sender.tag] as! NSDictionary
+        
+        if !self.arrSelectedLeader.contains(interestdata.value(forKey: "interestId")!)
+        {
+            self.arrSelectedLeader.add(interestdata.value(forKey: "interestId")!)
+        }
+        else
+        {
+            self.arrSelectedLeader.remove(interestdata.value(forKey: "interestId")!)
+        }
+        self.clvwInterest .reloadData()
+
+    }
+
+    
+    func callInterestAPI()
+    {
         
         let url = kServerURL + kInterest
         showProgress(inView: self.view)
@@ -163,11 +213,25 @@ class InterestVC: UIViewController
                                 self.interestData = data
                                 userDefaults .set(data, forKey: "allInterest")
                                 userDefaults .synchronize()
+                                
+                                if self.isFromSetting
+                                {
+                                    let interestdata =  self.dicGroupDetail.object(forKey: "interests") as! NSArray
+
+                                    if (interestdata.count > 0)
+                                    {
+                                        for i in 0..<interestdata.count
+                                        {
+                                            let dic = interestdata[i] as! NSDictionary
+                                            self.arrSelectedLeader.add(dic.value(forKey: "interestId")!)
+                                        }
+                                    }
+                                }
+                                
                                 self.clvwInterest.dataSource = self;
                                 self.clvwInterest.delegate = self;
                                 self.clvwInterest .reloadData()
                             }
-                            
                         }
                         else
                         {
@@ -208,21 +272,52 @@ extension InterestVC : UICollectionViewDelegate,UICollectionViewDataSource,UICol
         return self.interestData.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
         // call interest update api here
         let interestdata =  self.interestData[indexPath.row] as! NSDictionary
-        let intId = interestdata .value(forKey: "interestId")
         
-       callAddInterestAPIWith(interestId: intId as! Int)
+        
+        if !self.arrSelectedLeader.contains(interestdata.value(forKey: "interestId")!)
+        {
+            self.arrSelectedLeader.add(interestdata.value(forKey: "interestId")!)
+        }
+        else
+        {
+            self.arrSelectedLeader.remove(interestdata.value(forKey: "interestId")!)
+        }
+        self.clvwInterest .reloadData()
+
+//       callAddInterestAPIWith(interestId: intId as! Int)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let identifier = "cell"
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! InterestCell
+        let interestdata =  self.interestData[indexPath.row] as! NSDictionary
+
         
+        if self.arrSelectedLeader.count > 0
+        {
+            if self.arrSelectedLeader.contains(interestdata.value(forKey: "interestId")!)
+            {
+                cell.btnCheck.isHidden = false
+            }
+            else
+            {
+                cell.btnCheck.isHidden = true
+            }
+        }
+        else
+        {
+            cell.btnCheck.isHidden = true
+        }
     
+        cell.btnCheck.tag = indexPath.row
+        cell.btnCheck.addTarget(self, action: #selector(btnCheckUnCheck(sender:)), for: .touchUpInside)
+
+        
         if let url = (self.interestData[indexPath.row] as! NSDictionary) .value(forKey: "image") {
             cell.imgview.sd_setImage(with:URL(string: url as! String), placeholderImage:nil)
            

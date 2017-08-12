@@ -177,6 +177,11 @@ extension ActivityVC : UICollectionViewDataSource
             cell.imageView .sd_setImage(with: URL.init(string:dic .value(forKey: "groupImage") as! String), placeholderImage: nil)
             
         }
+        
+        cell.imageView.layer.cornerRadius = 5
+        cell.imageView.clipsToBounds = true
+        cell.imageView.backgroundColor = UIColor.clear
+
         return cell
         
     }

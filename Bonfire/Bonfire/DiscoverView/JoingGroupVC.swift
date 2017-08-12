@@ -35,10 +35,12 @@ class JoingGroupVC: UIViewController {
         if dicGroupDetail.object(forKey: kkeyisPrivate) as! Int == 0
         {
 //            btnJoinGroup.setTitle("Join +", for: .normal)
-            let myNormalAttributedTitle = NSAttributedString(string: "Join +",
-                                                             attributes: [NSForegroundColorAttributeName : UIColor.black])
-            btnJoinGroup.setAttributedTitle(myNormalAttributedTitle, for: .normal)
+//            let myNormalAttributedTitle = NSAttributedString(string: "Join +",
+//                                                             attributes: [NSForegroundColorAttributeName : UIColor.black])
+//            btnJoinGroup.setAttributedTitle(myNormalAttributedTitle, for: .normal)
 
+            btnJoinGroup.setImage(UIImage(named: "icon_join"), for: .normal)
+            btnJoinGroup.backgroundColor = UIColor.clear
         }
         else
         {
@@ -46,7 +48,8 @@ class JoingGroupVC: UIViewController {
             let myNormalAttributedTitle = NSAttributedString(string: "Request +",
                                                              attributes: [NSForegroundColorAttributeName : UIColor.black])
             btnJoinGroup.setAttributedTitle(myNormalAttributedTitle, for: .normal)
-
+            btnJoinGroup.backgroundColor = UIColor(red: 232.0/255.0, green: 223.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+            btnJoinGroup.setImage(UIImage(named: ""), for: .normal)
         }
     }
     
@@ -115,11 +118,19 @@ class JoingGroupVC: UIViewController {
                                 }
                                 else
                                 {
-                                    appDelegate.bcalltoRefreshChannel = true
-                                    let grpVcOBj = GroupVC.initViewController()
-                                    grpVcOBj.grpDetail = NSMutableDictionary(dictionary: self.dicGroupDetail)
-                                    grpVcOBj.isFromLeadingGrp = false
-                                    self.navigationController?.pushViewController(grpVcOBj, animated: true)
+                                    if self.dicGroupDetail.object(forKey: kkeyisPrivate) as! Int == 0
+                                    {
+                                        appDelegate.bcalltoRefreshChannel = true
+                                        let grpVcOBj = GroupVC.initViewController()
+                                        grpVcOBj.grpDetail = NSMutableDictionary(dictionary: self.dicGroupDetail)
+                                        grpVcOBj.isFromLeadingGrp = false
+                                        self.navigationController?.pushViewController(grpVcOBj, animated: true)
+                                    }
+                                    else
+                                    {
+                                        _ = self.navigationController?.popViewController(animated: true)
+
+                                    }
                                 }
                             }
                         }

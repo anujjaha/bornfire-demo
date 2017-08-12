@@ -68,6 +68,8 @@ let kLogin = "login"
 let kUserprofile = "user-profile-with-interest/"
 let kCampus = "campus"
 let kCreateGroup = "groups/create"
+let kEditGroup = "groups/edit"
+
 let kInterest  = "interests"
 let kEvents  = "events"
 let kAddInterest = "user-interest/add-interest"

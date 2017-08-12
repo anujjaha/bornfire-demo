@@ -100,8 +100,10 @@ class CreateGroupVC: UIViewController {
         }
     }
     
-    @IBAction func privateSwitchTap(_ sender: Any) {
+    @IBAction func privateSwitchTap(_ sender: Any)
+    {
     
+        
     }
     
     @IBAction func addCoverPhotoTap(_ sender: Any) {
