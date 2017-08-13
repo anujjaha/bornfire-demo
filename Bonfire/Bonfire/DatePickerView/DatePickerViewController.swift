@@ -8,25 +8,16 @@
 
 import UIKit
 
-class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
-    
+class DatePickerViewController: UIViewController,FSCalendarDataSource, FSCalendarDelegate
+{
     @IBOutlet weak var tableEvent: UITableView!
-    @IBAction func leftArrowTap(_ sender: Any) {
-         datePickerView.loadPreviousView()
-    }
-    
-    @IBAction func rightArrowTap(_ sender: Any) {
-         datePickerView.loadNextView()
-    }
-    @IBOutlet weak var lblMonName: UILabel!
-    @IBOutlet weak var datePickerView: JBDatePickerView!
-    
+    @IBOutlet weak var calendarFS: FSCalendar!
+    let gregorian: NSCalendar! = NSCalendar(calendarIdentifier:NSCalendar.Identifier.gregorian)
     var dateToSelect: Date!
     var eventArr = NSArray()
     var arrCurrentdateData = NSMutableArray()
     var dttoday = NSDate()
-    
-    
+
     static func initViewController() -> DatePickerViewController
     {
         return UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "datepickerview") as! DatePickerViewController
@@ -36,7 +27,8 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
         _ = self.navigationController?.popViewController(animated: true)
         
     }
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
 
         self.title = "Calendar"
@@ -62,9 +54,6 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
         let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: navigationController, action: nil)
         navigationItem.leftBarButtonItem = backButton
         
-        // Do any additional setup after loading the view, typically from a nib.
-        datePickerView.delegate = self
-        
         //get presented month
 //        self.navigationItem.title = datePickerView.presentedMonthView?.monthDescription
         
@@ -72,14 +61,17 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
         navigationController?.navigationBar.setBackgroundImage(UIImage(named: "GreenPixel"), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage(named: "TransparentPixel")
         
-        
         let strdate = appDelegate.convertdatetoString(adte: NSDate())
         dttoday = appDelegate.convertStringtoDate(astrdate: strdate)
-
         
+        //FSCalendar
+        self.calendarFS.dataSource = self
+        self.calendarFS.delegate = self
+
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
@@ -88,86 +80,72 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
     {
 //        UIApplication.shared.statusBarStyle = .lightContent
         showProgress(inView: self.view)
-
         self.callEventApi()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool)
+    {
 //        UIApplication.shared.statusBarStyle = .default
     }
     
-    
-    // MARK: - JBDatePickerViewDelegate
-    
-    func didSelectDay(_ dayView: JBDatePickerDayView) {
+    //MARK: FSCalendar Delegates
+    fileprivate let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        return formatter
+    }()
 
-        print("date selected: \(String(describing: dayView.date))")
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition)
+    {
+        print("calendar did select date \(self.formatter.string(from: date))")
+
+        if monthPosition == .previous || monthPosition == .next
+        {
+            calendar.setCurrentPage(date, animated: true)
+        }
         
         self.arrCurrentdateData = NSMutableArray()
-
         for i in 0..<self.eventArr.count
         {
             let dict = self.eventArr[i] as! NSDictionary
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            let date = formatter.date(from: (dict.value(forKey: "eventStartDate") as? String)!)! as NSDate
+            let newformatter = DateFormatter()
+            newformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let dateStart = newformatter.date(from: (dict.value(forKey: "eventStartDate") as? String)!)!
+            let datsting = formatter.string(from: dateStart)
             
-            if(date.equalToDate(dateToCompare: dayView.date! as NSDate))
+            if datsting == self.formatter.string(from: date)
             {
                 self.arrCurrentdateData.add(dict)
             }
         }
-
         self.tableEvent.reloadData()
-
-        //self.performSegue(withIdentifier: "unwindFromDatepicker", sender: self)
-       // _ = self.navigationController?.popViewController(animated: true)
     }
     
-    func didPresentOtherMonth(_ monthView: JBDatePickerMonthView) {
-//        self.navigationItem.title = datePickerView.presentedMonthView.monthDescription
-       let str =  datePickerView.presentedMonthView.monthDescription
-        let index = str?.index((str?.startIndex)!, offsetBy: 3)
-        let final = str?.substring(to:index!)
-        self.lblMonName.text = final?.uppercased()
-        self.lblMonName.textColor = UIColor(colorLiteralRed: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1.0)
-    }
-    
-//    func shouldAllowSelectionOfDay(_ date: Date?) -> Bool {
-//        
-//        guard let date = date else {return true}
-//        let comparison = NSCalendar.current.compare(date, to: Date().stripped()!, toGranularity: .day)
-//        
-//        if comparison == .orderedAscending {
-//            return false
-//        }
-//        return true
-// 
-//    }
-
-//    var colorForUnavaibleDay: UIColor {
-//        return .blue
-//    }
-    
-    var dateToShow: Date {
-        
-        if let date = dateToSelect {
-            return date
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int
+    {
+        for i in 0..<self.eventArr.count
+        {
+            let dict = self.eventArr[i] as! NSDictionary
+            let newformatter = DateFormatter()
+            newformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let dateStart = newformatter.date(from: (dict.value(forKey: "eventStartDate") as? String)!)!
+            let datsting = formatter.string(from: dateStart)
+            
+            if datsting == self.formatter.string(from: date)
+            {
+                return 1
+            }
         }
-        else{
-            return Date()
-        }
+       return 0
+
+    /*    let day: Int! = self.gregorian.component(.day, from: date)
+        print("\(day % 5 == 0 ? day/5 : 0)")
+        return day % 5 == 0 ? 1 : 0;*/
     }
-    
-    var weekDaysViewHeightRatio: CGFloat {
-        return 0.1
-    }
-    
-    
+
     // MARK: - API call
-    func callEventApi() {
-        
-        
+    func callEventApi()
+    {
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         let userid = final .value(forKey: "userId")
@@ -184,10 +162,12 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
             switch(response.result)
             {
             case .success(_):
-                if response.result.value != nil {
+                if response.result.value != nil
+                {
                     print(response.result.value!)
                     
-                    if let json = response.result.value {
+                    if let json = response.result.value
+                    {
                         let dictemp = json as! NSArray
                         print("dictemp :> \(dictemp)")
                         let temp  = dictemp.firstObject as! NSDictionary
@@ -223,6 +203,7 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
                                 }
                                 self.tableEvent.reloadData()
                             }
+                            
                         }
                     }
                 }
@@ -233,8 +214,10 @@ class DatePickerViewController: UIViewController, JBDatePickerViewDelegate {
                 App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
                 break
             }
+            
+            self.calendarFS.reloadData()
+
         }
-        
     }
     
     // MARK: - Navigation

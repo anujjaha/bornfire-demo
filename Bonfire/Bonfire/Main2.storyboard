@@ -1537,13 +1537,13 @@ If you are a leader please create a channel from settings</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Will your group be private?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEN-tQ-sXJ">
-                                                <rect key="frame" x="17" y="226" width="288" height="21"/>
+                                                <rect key="frame" x="17" y="226" width="288" height="20"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0sR-qn-KOo">
-                                                <rect key="frame" x="18" y="264" width="51" height="31"/>
+                                                <rect key="frame" x="18" y="263" width="51" height="31"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="31" id="KGb-Ck-fLd"/>
                                                     <constraint firstAttribute="width" constant="49" id="MMp-nO-9dn"/>
@@ -1553,14 +1553,14 @@ If you are a leader please create a channel from settings</string>
                                                 </connections>
                                             </switch>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MKn-0a-Stv" userLabel="coverview">
-                                                <rect key="frame" x="0.0" y="322" width="320" height="289"/>
+                                                <rect key="frame" x="0.0" y="321" width="320" height="290"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QJo-r6-QQM">
-                                                        <rect key="frame" x="25" y="73" width="273" height="161"/>
+                                                        <rect key="frame" x="25" y="73" width="273" height="162"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOT-s6-Nd2" userLabel="right">
-                                                        <rect key="frame" x="174" y="253" width="21" height="22"/>
+                                                        <rect key="frame" x="174" y="254" width="21" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="21" id="Luh-i7-dxr"/>
                                                         </constraints>
@@ -1570,13 +1570,13 @@ If you are a leader please create a channel from settings</string>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C2w-dA-fHw">
-                                                        <rect key="frame" x="160" y="284" width="0.0" height="0.0"/>
+                                                        <rect key="frame" x="160" y="285" width="0.0" height="0.0"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oe2-df-AsR" userLabel="left">
-                                                        <rect key="frame" x="125" y="253" width="21" height="22"/>
+                                                        <rect key="frame" x="125" y="254" width="21" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="21" id="VVf-RD-de9"/>
                                                         </constraints>
@@ -1617,7 +1617,7 @@ If you are a leader please create a channel from settings</string>
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7yT-ZD-7ne" userLabel="leaderview">
-                                                <rect key="frame" x="0.0" y="322" width="320" height="288"/>
+                                                <rect key="frame" x="0.0" y="321" width="320" height="289"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find Leaders" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="56k-hi-ELV">
                                                         <rect key="frame" x="15" y="14" width="278" height="21"/>
@@ -1647,7 +1647,7 @@ If you are a leader please create a channel from settings</string>
                                                         </connections>
                                                     </button>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0pJ-jj-6vA">
-                                                        <rect key="frame" x="16" y="104" width="295" height="164"/>
+                                                        <rect key="frame" x="16" y="104" width="295" height="165"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="46i-N6-3r7">
                                                             <size key="itemSize" width="80" height="120"/>
@@ -1657,7 +1657,7 @@ If you are a leader please create a channel from settings</string>
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="leadercell" id="RsA-Ch-J3u" customClass="LeaderCell" customModule="Bonfire" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="22" width="80" height="120"/>
+                                                                <rect key="frame" x="0.0" y="22.5" width="80" height="120"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                     <rect key="frame" x="0.0" y="0.0" width="80" height="120"/>
@@ -1814,7 +1814,7 @@ If you are a leader please create a channel from settings</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aCj-El-PEp">
-                                <rect key="frame" x="0.0" y="300" width="320" height="204"/>
+                                <rect key="frame" x="0.0" y="250" width="320" height="254"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" id="vG6-tt-MV9" customClass="DatePickerCell" customModule="Bonfire" customModuleProvider="target">
@@ -1854,68 +1854,36 @@ If you are a leader please create a channel from settings</string>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wz6-eJ-X0U" customClass="JBDatePickerView" customModule="Bonfire" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="320" height="250"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wz6-eJ-X0U" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="BG9-pp-Lwa"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="headerTitleColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SvG-kC-aGf">
-                                <rect key="frame" x="181" y="10" width="20" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="9M4-t9-u6N"/>
-                                </constraints>
-                                <state key="normal" image="calender_right">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="rightArrowTap:" destination="nd7-R1-Vjj" eventType="touchUpInside" id="RVL-rY-cKb"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dqp-bx-OQj">
-                                <rect key="frame" x="120" y="10" width="20" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="b1a-co-V5Z"/>
-                                </constraints>
-                                <state key="normal" image="calender_left"/>
-                                <connections>
-                                    <action selector="leftArrowTap:" destination="nd7-R1-Vjj" eventType="touchUpInside" id="Jld-EO-aR1"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j96-8T-zha">
-                                <rect key="frame" x="145" y="15" width="31" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="SvG-kC-aGf" firstAttribute="leading" secondItem="j96-8T-zha" secondAttribute="trailing" constant="5" id="7yU-Cu-WLO"/>
                             <constraint firstItem="Mnb-Ro-3FU" firstAttribute="top" secondItem="aCj-El-PEp" secondAttribute="bottom" id="CBz-To-dMg"/>
-                            <constraint firstItem="wz6-eJ-X0U" firstAttribute="top" secondItem="SvG-kC-aGf" secondAttribute="bottom" constant="10" id="FWT-kx-dtB"/>
-                            <constraint firstItem="dqp-bx-OQj" firstAttribute="top" secondItem="VXf-Oo-Q3a" secondAttribute="top" constant="10" id="IDR-VA-5ew"/>
-                            <constraint firstItem="j96-8T-zha" firstAttribute="centerX" secondItem="wz6-eJ-X0U" secondAttribute="centerX" id="KAt-Se-m1k"/>
-                            <constraint firstItem="wz6-eJ-X0U" firstAttribute="top" secondItem="j96-8T-zha" secondAttribute="bottom" constant="14" id="LKe-g0-s2f"/>
-                            <constraint firstItem="j96-8T-zha" firstAttribute="top" secondItem="ned-1V-j5S" secondAttribute="bottom" constant="15" id="OYb-JC-riL"/>
                             <constraint firstItem="aCj-El-PEp" firstAttribute="top" secondItem="wz6-eJ-X0U" secondAttribute="bottom" id="R1f-le-O8S"/>
                             <constraint firstItem="wz6-eJ-X0U" firstAttribute="leading" secondItem="VXf-Oo-Q3a" secondAttribute="leading" id="Sql-pd-DgK"/>
                             <constraint firstAttribute="trailing" secondItem="wz6-eJ-X0U" secondAttribute="trailing" id="UY9-gA-R7Z"/>
-                            <constraint firstItem="wz6-eJ-X0U" firstAttribute="top" secondItem="ned-1V-j5S" secondAttribute="bottom" constant="50" id="b8T-KT-6h8"/>
-                            <constraint firstItem="SvG-kC-aGf" firstAttribute="top" secondItem="dqp-bx-OQj" secondAttribute="top" id="g8i-dY-sug"/>
-                            <constraint firstItem="wz6-eJ-X0U" firstAttribute="top" secondItem="dqp-bx-OQj" secondAttribute="bottom" constant="10" id="hp8-TI-0Fm"/>
+                            <constraint firstItem="wz6-eJ-X0U" firstAttribute="top" secondItem="ned-1V-j5S" secondAttribute="bottom" id="b8T-KT-6h8"/>
                             <constraint firstAttribute="trailing" secondItem="aCj-El-PEp" secondAttribute="trailing" id="kFG-hf-qzf"/>
                             <constraint firstItem="aCj-El-PEp" firstAttribute="leading" secondItem="VXf-Oo-Q3a" secondAttribute="leading" id="sRC-fi-TpX"/>
-                            <constraint firstItem="j96-8T-zha" firstAttribute="leading" secondItem="dqp-bx-OQj" secondAttribute="trailing" constant="5" id="vcU-La-cxE"/>
                         </constraints>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
-                        <outlet property="datePickerView" destination="wz6-eJ-X0U" id="gCx-Dk-w6U"/>
-                        <outlet property="lblMonName" destination="j96-8T-zha" id="Zzw-Gh-4cN"/>
+                        <outlet property="calendarFS" destination="wz6-eJ-X0U" id="3Sy-vq-pN7"/>
                         <outlet property="tableEvent" destination="aCj-El-PEp" id="916-Zh-Coq"/>
                     </connections>
                 </viewController>
@@ -2596,7 +2564,7 @@ ICArLy0gQ3JlYXRlLxBSZW1vdmUgRXZlbnRzA
                                 <rect key="frame" x="0.0" y="66" width="320" height="502"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Listing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deb-k2-vlM">
-                                <rect key="frame" x="105" y="33" width="111" height="20.5"/>
+                                <rect key="frame" x="111.5" y="33" width="98" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="o1p-h4-uPk"/>
                                 </constraints>
@@ -2792,7 +2760,7 @@ ICArLy0gQ3JlYXRlLxBSZW1vdmUgRXZlbnRzA
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6of-xY-cnY">
-                                        <rect key="frame" x="104.5" y="8" width="111.5" height="21"/>
+                                        <rect key="frame" x="112" y="8" width="98" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20.5" id="hlf-Nf-Nhz"/>
                                         </constraints>
@@ -3079,8 +3047,6 @@ If you are a leader please create a channel from settings</string>
         <image name="Setting_Menu_icon" width="26" height="23"/>
         <image name="anyinterest_add_icon" width="30" height="30"/>
         <image name="back_icon" width="21" height="16"/>
-        <image name="calender_left" width="5" height="10"/>
-        <image name="calender_right" width="5" height="10"/>
         <image name="campuscode_rectangle" width="358" height="138"/>
         <image name="circle_bg" width="134" height="134"/>
         <image name="close" width="10" height="10"/>

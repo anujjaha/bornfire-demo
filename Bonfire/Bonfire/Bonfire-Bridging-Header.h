@@ -13,5 +13,6 @@
 #import "JVFloatLabeledTextView.h"
 #import "JVFloatLabeledTextField.h"
 #import "ActionSheetPicker.h"
+#import "FSCalendar.h"
 
 #endif /* Bonfire_Bridging_Header_h */
