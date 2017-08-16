@@ -73,6 +73,9 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
     }
     override func viewWillAppear(_ animated: Bool)
     {
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+
         if(appDelegate.bisUserProfile)
         {
             btnAddInterest.isHidden = false
@@ -88,7 +91,6 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
         self.callProfileAPI()
         
     }
-    
     
     override func didReceiveMemoryWarning()
     {
