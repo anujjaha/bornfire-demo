@@ -1548,13 +1548,13 @@ If you are a leader please create a channel from settings</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Will your group be private?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEN-tQ-sXJ">
-                                                <rect key="frame" x="17" y="226" width="288" height="20"/>
+                                                <rect key="frame" x="17" y="226" width="288" height="21"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0sR-qn-KOo">
-                                                <rect key="frame" x="18" y="263" width="51" height="31"/>
+                                                <rect key="frame" x="18" y="264" width="51" height="31"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="31" id="KGb-Ck-fLd"/>
                                                     <constraint firstAttribute="width" constant="49" id="MMp-nO-9dn"/>
@@ -1564,14 +1564,14 @@ If you are a leader please create a channel from settings</string>
                                                 </connections>
                                             </switch>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MKn-0a-Stv" userLabel="coverview">
-                                                <rect key="frame" x="0.0" y="321" width="320" height="290"/>
+                                                <rect key="frame" x="0.0" y="322" width="320" height="289"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QJo-r6-QQM">
-                                                        <rect key="frame" x="25" y="73" width="273" height="162"/>
+                                                        <rect key="frame" x="25" y="73" width="273" height="161"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOT-s6-Nd2" userLabel="right">
-                                                        <rect key="frame" x="174" y="254" width="21" height="22"/>
+                                                        <rect key="frame" x="174" y="253" width="21" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="21" id="Luh-i7-dxr"/>
                                                         </constraints>
@@ -1581,13 +1581,13 @@ If you are a leader please create a channel from settings</string>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C2w-dA-fHw">
-                                                        <rect key="frame" x="160" y="285" width="0.0" height="0.0"/>
+                                                        <rect key="frame" x="160" y="284" width="0.0" height="0.0"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oe2-df-AsR" userLabel="left">
-                                                        <rect key="frame" x="125" y="254" width="21" height="22"/>
+                                                        <rect key="frame" x="125" y="253" width="21" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="21" id="VVf-RD-de9"/>
                                                         </constraints>
@@ -1628,7 +1628,7 @@ If you are a leader please create a channel from settings</string>
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7yT-ZD-7ne" userLabel="leaderview">
-                                                <rect key="frame" x="0.0" y="321" width="320" height="289"/>
+                                                <rect key="frame" x="0.0" y="322" width="320" height="288"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find Leaders" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="56k-hi-ELV">
                                                         <rect key="frame" x="15" y="14" width="278" height="21"/>
@@ -1658,7 +1658,7 @@ If you are a leader please create a channel from settings</string>
                                                         </connections>
                                                     </button>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0pJ-jj-6vA">
-                                                        <rect key="frame" x="16" y="104" width="295" height="165"/>
+                                                        <rect key="frame" x="16" y="104" width="295" height="164"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="46i-N6-3r7">
                                                             <size key="itemSize" width="80" height="120"/>
@@ -1668,7 +1668,7 @@ If you are a leader please create a channel from settings</string>
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="leadercell" id="RsA-Ch-J3u" customClass="LeaderCell" customModule="Bonfire" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="22.5" width="80" height="120"/>
+                                                                <rect key="frame" x="0.0" y="22" width="80" height="120"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                     <rect key="frame" x="0.0" y="0.0" width="80" height="120"/>
@@ -2575,7 +2575,7 @@ ICArLy0gQ3JlYXRlLxBSZW1vdmUgRXZlbnRzA
                                 <rect key="frame" x="0.0" y="66" width="320" height="502"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Listing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deb-k2-vlM">
-                                <rect key="frame" x="111.5" y="33" width="98" height="20.5"/>
+                                <rect key="frame" x="105" y="33" width="111" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="o1p-h4-uPk"/>
                                 </constraints>
@@ -2771,7 +2771,7 @@ ICArLy0gQ3JlYXRlLxBSZW1vdmUgRXZlbnRzA
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6of-xY-cnY">
-                                        <rect key="frame" x="111.5" y="8" width="98" height="21"/>
+                                        <rect key="frame" x="105" y="8" width="111.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20.5" id="hlf-Nf-Nhz"/>
                                         </constraints>
@@ -2863,7 +2863,7 @@ ICArLy0gQ3JlYXRlLxBSZW1vdmUgRXZlbnRzA
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Channel Listing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K15-b9-xEf">
-                                <rect key="frame" x="90.5" y="33" width="140" height="20.5"/>
+                                <rect key="frame" x="90" y="33" width="140" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="YYX-Zm-gIA"/>
                                 </constraints>
@@ -2980,7 +2980,7 @@ If you are a leader please create a channel from settings</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Report" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GgS-Ah-ieL">
-                                <rect key="frame" x="132.5" y="25" width="55" height="20.5"/>
+                                <rect key="frame" x="128.5" y="25" width="63" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="9Af-9V-LJ3"/>
                                 </constraints>
@@ -3079,7 +3079,7 @@ If you are a leader please create a channel from settings</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Plicy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b3k-ld-fIy">
-                                <rect key="frame" x="102.5" y="25" width="114" height="20.5"/>
+                                <rect key="frame" x="103" y="25" width="114" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="cGa-5D-ehe"/>
                                 </constraints>

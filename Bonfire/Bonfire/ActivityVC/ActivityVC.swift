@@ -13,6 +13,10 @@ class ActivityVC: UIViewController {
     @IBOutlet weak var btnStartNewGroup: UIButton!
     @IBOutlet weak var clvwLeading: UICollectionView!
     @IBOutlet weak var clvwDiscover: UICollectionView!
+    @IBOutlet weak var lblNoGroups : UILabel!
+    @IBOutlet weak var scrvw : UIScrollView!
+    @IBOutlet weak var const_clvwLeading_height: NSLayoutConstraint!
+    @IBOutlet weak var const_lblLeading_height: NSLayoutConstraint!
 
     var arrLeaderingGrp = NSArray()
     var arrYourGrp = NSArray()
@@ -72,6 +76,22 @@ class ActivityVC: UIViewController {
             
             let namePredicate1 = NSPredicate(format: "%K = %d", "isMember",1)
             self.arrYourGrp = AppDelegate.shared.arrAllGrpData.filter { namePredicate1.evaluate(with: $0) } as NSArray
+            
+            if self.arrLeaderingGrp.count > 0 || self.arrYourGrp.count > 0
+            {
+                scrvw.isHidden = false
+                lblNoGroups.isHidden = true
+                if self.arrLeaderingGrp.count == 0
+                {
+                    const_lblLeading_height.constant = 0
+                    const_clvwLeading_height.constant = 0
+                }
+            }
+            else
+            {
+                scrvw.isHidden = true
+                lblNoGroups.isHidden = false
+            }
         }
         
     }
@@ -116,6 +136,22 @@ class ActivityVC: UIViewController {
                             let namePredicate1 = NSPredicate(format: "%K = %d", "isMember",1)
                             self.arrYourGrp = AppDelegate.shared.arrAllGrpData.filter { namePredicate1.evaluate(with: $0) } as NSArray
                             
+                            if self.arrLeaderingGrp.count > 0 || self.arrYourGrp.count > 0
+                            {
+                                self.scrvw.isHidden = false
+                                self.lblNoGroups.isHidden = true
+                                if self.arrLeaderingGrp.count == 0
+                                {
+                                    self.const_lblLeading_height.constant = 0
+                                    self.const_clvwLeading_height.constant = 0
+                                }
+                            }
+                            else
+                            {
+                                self.scrvw.isHidden = true
+                                self.lblNoGroups.isHidden = false
+                            }
+
                             self.clvwLeading.reloadData()
                             self.clvwDiscover.reloadData()
                         }
@@ -190,16 +226,16 @@ extension ActivityVC : UICollectionViewDataSource
 // MARK:- UICollectionViewDelegate Methods
 extension ActivityVC : UICollectionViewDelegate ,UICollectionViewDelegateFlowLayout
 {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView != self.clvwLeading
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+    {
+      /*  if collectionView != self.clvwLeading
         {
             if UIScreen.main.bounds.size.height<=568
             {
                 return CGSize(width: 140, height: 140)
             }
             return CGSize(width: 170, height: 220)
-        }
+        }*/
         return CGSize(width: 170, height: 220)
     }
     
