@@ -19,6 +19,7 @@ class GroupCell: UITableViewCell {
     @IBOutlet weak var imgofLink : UIImageView!
     @IBOutlet weak var Const_imgofLink_height: NSLayoutConstraint!
     @IBOutlet weak var tvDetail: UITextView!
+    @IBOutlet weak var btnReport: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()

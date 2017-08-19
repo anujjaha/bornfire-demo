@@ -1237,15 +1237,15 @@ If you are a leader please create a channel from settings</string>
                                 <rect key="frame" x="0.0" y="180" width="320" height="347"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="167" id="cWy-Qo-vsp" customClass="GroupCell" customModule="Bonfire" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="320" height="167"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="185" id="cWy-Qo-vsp" customClass="GroupCell" customModule="Bonfire" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="320" height="185"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cWy-Qo-vsp" id="t5S-bM-njz">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="166.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="184.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="soO-W6-m4S">
-                                                    <rect key="frame" x="20" y="7" width="40" height="40.5"/>
+                                                    <rect key="frame" x="8" y="7" width="40" height="40.5"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="WRw-nm-LVa"/>
@@ -1253,12 +1253,12 @@ If you are a leader please create a channel from settings</string>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4z-U8-q6b">
-                                                    <rect key="frame" x="68" y="7" width="166" height="9.5"/>
+                                                    <rect key="frame" x="56" y="7" width="186" height="22"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="10:06 AM" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lzL-LI-s88">
-                                                    <rect key="frame" x="242" y="12" width="70" height="2.5"/>
+                                                    <rect key="frame" x="250" y="12" width="70" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="70" id="9la-Nh-JQF"/>
                                                     </constraints>
@@ -1267,13 +1267,13 @@ If you are a leader please create a channel from settings</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LR0-o9-jix">
-                                                    <rect key="frame" x="68" y="16.5" width="235" height="0.0"/>
+                                                    <rect key="frame" x="56" y="29" width="247" height="0.0"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" id="ZWi-Ud-ddN"/>
                                                     </constraints>
                                                 </button>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJK-fO-dfF">
-                                                    <rect key="frame" x="68" y="18.5" width="244" height="21"/>
+                                                    <rect key="frame" x="56" y="31" width="214" height="21"/>
                                                     <accessibility key="accessibilityConfiguration">
                                                         <accessibilityTraits key="traits" link="YES" staticText="YES"/>
                                                     </accessibility>
@@ -1284,7 +1284,7 @@ If you are a leader please create a channel from settings</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9X5-JU-9nI">
-                                                    <rect key="frame" x="68" y="57" width="244" height="27"/>
+                                                    <rect key="frame" x="56" y="75" width="214" height="27"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="27" id="5rv-lB-8kV"/>
                                                     </constraints>
@@ -1292,34 +1292,43 @@ If you are a leader please create a channel from settings</string>
                                                     <state key="normal" title="test"/>
                                                 </button>
                                                 <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tMJ-X1-C48">
-                                                    <rect key="frame" x="68" y="84" width="75" height="75"/>
+                                                    <rect key="frame" x="56" y="102" width="75" height="75"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="5r5-YI-B8a"/>
                                                         <constraint firstAttribute="height" constant="75" id="64n-1g-vGk"/>
                                                     </constraints>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VcU-Uu-JCL">
-                                                    <rect key="frame" x="63" y="19" width="249" height="33"/>
+                                                    <rect key="frame" x="51" y="31" width="211" height="39"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
                                                 </textView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j4y-3v-M6p">
+                                                    <rect key="frame" x="270" y="32" width="50" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="22" id="HPu-9E-KUr"/>
+                                                        <constraint firstAttribute="width" constant="50" id="Xbo-Oe-kHq"/>
+                                                    </constraints>
+                                                    <state key="normal" image="icon_reporting"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="VcU-Uu-JCL" firstAttribute="leading" secondItem="KJK-fO-dfF" secondAttribute="leading" constant="-5" id="4Ky-X6-nmN"/>
                                                 <constraint firstItem="9X5-JU-9nI" firstAttribute="top" secondItem="VcU-Uu-JCL" secondAttribute="bottom" constant="5" id="AG2-hb-Wqi"/>
                                                 <constraint firstItem="KJK-fO-dfF" firstAttribute="leading" secondItem="soO-W6-m4S" secondAttribute="trailing" constant="8" id="DGM-49-Rq1"/>
-                                                <constraint firstItem="VcU-Uu-JCL" firstAttribute="trailing" secondItem="KJK-fO-dfF" secondAttribute="trailing" id="Dyn-ht-9VX"/>
                                                 <constraint firstItem="u4z-U8-q6b" firstAttribute="leading" secondItem="soO-W6-m4S" secondAttribute="trailing" constant="8" id="M9Y-or-sF7"/>
                                                 <constraint firstItem="u4z-U8-q6b" firstAttribute="top" secondItem="soO-W6-m4S" secondAttribute="top" id="NWH-Wd-7o3"/>
-                                                <constraint firstItem="soO-W6-m4S" firstAttribute="leading" secondItem="t5S-bM-njz" secondAttribute="leading" constant="20" id="Ngc-kk-cTg"/>
+                                                <constraint firstItem="soO-W6-m4S" firstAttribute="leading" secondItem="t5S-bM-njz" secondAttribute="leading" constant="8" id="Ngc-kk-cTg"/>
                                                 <constraint firstItem="lzL-LI-s88" firstAttribute="leading" secondItem="u4z-U8-q6b" secondAttribute="trailing" constant="8" id="OeS-Pz-C2N"/>
                                                 <constraint firstItem="KJK-fO-dfF" firstAttribute="top" secondItem="LR0-o9-jix" secondAttribute="bottom" constant="2.5" id="PyB-HP-aBg"/>
                                                 <constraint firstItem="LR0-o9-jix" firstAttribute="top" secondItem="lzL-LI-s88" secondAttribute="bottom" constant="2" id="V41-5L-brQ"/>
                                                 <constraint firstAttribute="bottom" secondItem="tMJ-X1-C48" secondAttribute="bottom" constant="7.5" id="VLg-Jw-ErM"/>
                                                 <constraint firstItem="tMJ-X1-C48" firstAttribute="leading" secondItem="9X5-JU-9nI" secondAttribute="leading" id="Vj9-a9-8KK"/>
-                                                <constraint firstAttribute="trailing" secondItem="lzL-LI-s88" secondAttribute="trailing" constant="8" id="ZvP-kE-Zfh"/>
+                                                <constraint firstAttribute="trailing" secondItem="j4y-3v-M6p" secondAttribute="trailing" id="Yd8-Mz-KeB"/>
+                                                <constraint firstItem="j4y-3v-M6p" firstAttribute="leading" secondItem="VcU-Uu-JCL" secondAttribute="trailing" constant="8" id="ZaF-qj-EWx"/>
+                                                <constraint firstAttribute="trailing" secondItem="lzL-LI-s88" secondAttribute="trailing" id="ZvP-kE-Zfh"/>
                                                 <constraint firstItem="9X5-JU-9nI" firstAttribute="leading" secondItem="KJK-fO-dfF" secondAttribute="leading" id="cdF-jp-uiu"/>
                                                 <constraint firstItem="LR0-o9-jix" firstAttribute="leading" secondItem="soO-W6-m4S" secondAttribute="trailing" constant="8" id="g82-ny-foY"/>
                                                 <constraint firstItem="9X5-JU-9nI" firstAttribute="trailing" secondItem="KJK-fO-dfF" secondAttribute="trailing" id="hqg-FG-2R4"/>
@@ -1328,9 +1337,10 @@ If you are a leader please create a channel from settings</string>
                                                 <constraint firstItem="VcU-Uu-JCL" firstAttribute="top" secondItem="KJK-fO-dfF" secondAttribute="top" id="map-FE-lCb"/>
                                                 <constraint firstItem="u4z-U8-q6b" firstAttribute="top" secondItem="t5S-bM-njz" secondAttribute="topMargin" constant="-1" id="pe9-e0-bWF"/>
                                                 <constraint firstItem="9X5-JU-9nI" firstAttribute="top" secondItem="VcU-Uu-JCL" secondAttribute="bottom" constant="5" id="rkw-N7-hro"/>
+                                                <constraint firstItem="j4y-3v-M6p" firstAttribute="top" secondItem="LR0-o9-jix" secondAttribute="bottom" constant="3" id="sCn-eW-LHE"/>
                                                 <constraint firstItem="LR0-o9-jix" firstAttribute="top" secondItem="u4z-U8-q6b" secondAttribute="bottom" constant="0.5" id="thm-yY-Ehx"/>
                                                 <constraint firstItem="tMJ-X1-C48" firstAttribute="top" secondItem="9X5-JU-9nI" secondAttribute="bottom" id="wNn-vA-1od"/>
-                                                <constraint firstAttribute="trailing" secondItem="KJK-fO-dfF" secondAttribute="trailing" constant="8" id="y45-10-EyQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="KJK-fO-dfF" secondAttribute="trailing" constant="50" id="y45-10-EyQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1338,6 +1348,7 @@ If you are a leader please create a channel from settings</string>
                                             <outlet property="Const_LinkBtn_height" destination="5rv-lB-8kV" id="tNK-1m-pGC"/>
                                             <outlet property="Const_imgofLink_height" destination="64n-1g-vGk" id="F0D-A0-BeY"/>
                                             <outlet property="btnLink" destination="9X5-JU-9nI" id="d60-Wb-yab"/>
+                                            <outlet property="btnReport" destination="j4y-3v-M6p" id="jLn-za-MoS"/>
                                             <outlet property="imgView" destination="soO-W6-m4S" id="ApN-tk-vhr"/>
                                             <outlet property="imgofLink" destination="tMJ-X1-C48" id="M2e-a3-HOg"/>
                                             <outlet property="lblDetail" destination="KJK-fO-dfF" id="k9N-RP-TEi"/>
@@ -2852,7 +2863,7 @@ ICArLy0gQ3JlYXRlLxBSZW1vdmUgRXZlbnRzA
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Channel Listing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K15-b9-xEf">
-                                <rect key="frame" x="90" y="33" width="140" height="20.5"/>
+                                <rect key="frame" x="90.5" y="33" width="140" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="YYX-Zm-gIA"/>
                                 </constraints>
@@ -2956,6 +2967,105 @@ If you are a leader please create a channel from settings</string>
             </objects>
             <point key="canvasLocation" x="4987.5" y="896.83098591549299"/>
         </scene>
+        <!--ReportVC-->
+        <scene sceneID="cJZ-Kw-hcM">
+            <objects>
+                <viewController storyboardIdentifier="ReportVC" id="Lni-NJ-zge" customClass="ReportVC" customModule="Bonfire" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bYi-Jg-VUh"/>
+                        <viewControllerLayoutGuide type="bottom" id="crM-Ua-5lV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bcE-aN-iJt">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Report" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GgS-Ah-ieL">
+                                <rect key="frame" x="132.5" y="25" width="55" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20.5" id="9Af-9V-LJ3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pleasee enter report reason" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ERS-n4-XXm">
+                                <rect key="frame" x="16" y="81" width="288" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="WNh-Zh-gGQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w1j-hb-wsD">
+                                <rect key="frame" x="16" y="20" width="45" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="QOW-Sr-Mfg"/>
+                                    <constraint firstAttribute="height" constant="30" id="tp5-1q-DGZ"/>
+                                </constraints>
+                                <state key="normal" image="back_icon"/>
+                                <connections>
+                                    <action selector="backBtnTap:" destination="Lni-NJ-zge" eventType="touchUpInside" id="3lj-P2-Y1z"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ecB-y4-taS" customClass="JVFloatLabeledTextView">
+                                <rect key="frame" x="16" y="121" width="288" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Nbb-GQ-KVA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Enter Report Reason"/>
+                                </userDefinedRuntimeAttributes>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxB-cS-kNG">
+                                <rect key="frame" x="60" y="246" width="200" height="30"/>
+                                <color key="backgroundColor" red="0.34775617720000002" green="0.294932425" blue="0.49455517529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="prq-Xl-meC"/>
+                                    <constraint firstAttribute="width" constant="200" id="tXw-MC-EOU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="btnsendReport:" destination="Lni-NJ-zge" eventType="touchUpInside" id="RTR-3g-zwc"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GgS-Ah-ieL" firstAttribute="top" secondItem="bYi-Jg-VUh" secondAttribute="bottom" constant="5" id="6dF-zy-7Aa"/>
+                            <constraint firstAttribute="trailing" secondItem="cxB-cS-kNG" secondAttribute="trailing" constant="60" id="CJZ-28-jhn"/>
+                            <constraint firstAttribute="trailing" secondItem="ecB-y4-taS" secondAttribute="trailing" constant="16" id="DkE-2a-sGf"/>
+                            <constraint firstItem="GgS-Ah-ieL" firstAttribute="centerX" secondItem="bcE-aN-iJt" secondAttribute="centerX" id="DxZ-HW-cQz"/>
+                            <constraint firstItem="ecB-y4-taS" firstAttribute="top" secondItem="ERS-n4-XXm" secondAttribute="bottom" constant="19" id="PiU-ja-cel"/>
+                            <constraint firstItem="cxB-cS-kNG" firstAttribute="top" secondItem="ecB-y4-taS" secondAttribute="bottom" constant="25" id="RVI-Wm-McU"/>
+                            <constraint firstAttribute="trailing" secondItem="ERS-n4-XXm" secondAttribute="trailing" constant="16" id="TYE-IQ-waL"/>
+                            <constraint firstItem="ERS-n4-XXm" firstAttribute="top" secondItem="w1j-hb-wsD" secondAttribute="bottom" constant="31" id="e6c-8D-TMU"/>
+                            <constraint firstItem="cxB-cS-kNG" firstAttribute="leading" secondItem="bcE-aN-iJt" secondAttribute="leading" constant="60" id="hmM-ef-PVv"/>
+                            <constraint firstItem="w1j-hb-wsD" firstAttribute="top" secondItem="bYi-Jg-VUh" secondAttribute="bottom" id="lgg-ii-juJ"/>
+                            <constraint firstItem="w1j-hb-wsD" firstAttribute="leading" secondItem="bcE-aN-iJt" secondAttribute="leading" constant="16" id="o73-EH-Xv0"/>
+                            <constraint firstItem="ecB-y4-taS" firstAttribute="leading" secondItem="bcE-aN-iJt" secondAttribute="leading" constant="16" id="qkM-MX-5Xr"/>
+                            <constraint firstItem="ERS-n4-XXm" firstAttribute="leading" secondItem="bcE-aN-iJt" secondAttribute="leading" constant="16" id="x28-xh-7Hv"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="txtvwReportText" destination="ecB-y4-taS" id="Bxp-ba-9Kv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Px-5b-Fmo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5636.25" y="898.94366197183103"/>
+        </scene>
         <!--Manage PermissionVC-->
         <scene sceneID="6lr-1P-Udk">
             <objects>
@@ -3054,6 +3164,7 @@ If you are a leader please create a channel from settings</string>
         <image name="event_sltbar" width="375" height="435"/>
         <image name="icon_check" width="42" height="42"/>
         <image name="icon_join" width="75" height="29"/>
+        <image name="icon_reporting" width="46" height="10"/>
         <image name="images_placeholder" width="25" height="25"/>
         <image name="menu_icon" width="30" height="20"/>
         <image name="plusWithRound" width="24" height="24"/>

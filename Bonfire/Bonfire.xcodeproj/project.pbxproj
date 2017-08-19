@@ -65,6 +65,7 @@
 		D31211951ED0521500DAE68C /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D312118C1ED0521500DAE68C /* SettingCell.swift */; };
 		D31211961ED0521500DAE68C /* SettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D312118D1ED0521500DAE68C /* SettingVC.swift */; };
 		D312119A1ED0527E00DAE68C /* InterestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31211991ED0527E00DAE68C /* InterestCell.swift */; };
+		D31AD39E1F483F520057F6F1 /* ReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31AD39D1F483F520057F6F1 /* ReportVC.swift */; };
 		D32C8ACF1F37479A0056B017 /* ManagePermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32C8ACE1F37479A0056B017 /* ManagePermissionVC.swift */; };
 		D330C5341F3244D600C73A84 /* JVFloatLabeledTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D330C52F1F3244D600C73A84 /* JVFloatLabeledTextField.m */; };
 		D330C5351F3244D600C73A84 /* JVFloatLabeledTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D330C5311F3244D600C73A84 /* JVFloatLabeledTextView.m */; };
@@ -240,6 +241,7 @@
 		D312118C1ED0521500DAE68C /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		D312118D1ED0521500DAE68C /* SettingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingVC.swift; sourceTree = "<group>"; };
 		D31211991ED0527E00DAE68C /* InterestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestCell.swift; sourceTree = "<group>"; };
+		D31AD39D1F483F520057F6F1 /* ReportVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportVC.swift; sourceTree = "<group>"; };
 		D32C8ACE1F37479A0056B017 /* ManagePermissionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagePermissionVC.swift; sourceTree = "<group>"; };
 		D330C52E1F3244D600C73A84 /* JVFloatLabeledTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVFloatLabeledTextField.h; sourceTree = "<group>"; };
 		D330C52F1F3244D600C73A84 /* JVFloatLabeledTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVFloatLabeledTextField.m; sourceTree = "<group>"; };
@@ -524,6 +526,7 @@
 				D3CB726A1F33A8E4004DBBD5 /* EventListAddVC.swift */,
 				D38498D41F3643C50001DA27 /* ChannelListVC.swift */,
 				D32C8ACE1F37479A0056B017 /* ManagePermissionVC.swift */,
+				D31AD39D1F483F520057F6F1 /* ReportVC.swift */,
 			);
 			path = ProfileVC;
 			sourceTree = "<group>";
@@ -939,6 +942,7 @@
 				D3BF9A561F30E86400302412 /* JoingGroupVC.swift in Sources */,
 				61EE66A71EF05CCE005C57B2 /* SDWebImageCompat.m in Sources */,
 				D3C2CD1E1EA3B96100996D8F /* IQUIView+Hierarchy.swift in Sources */,
+				D31AD39E1F483F520057F6F1 /* ReportVC.swift in Sources */,
 				D3C2CD141EA3B96100996D8F /* ServerTrustPolicy.swift in Sources */,
 				61EE66AA1EF05CCE005C57B2 /* SDWebImageDownloaderOperation.m in Sources */,
 				D3CB726B1F33A8E4004DBBD5 /* EventListAddVC.swift in Sources */,

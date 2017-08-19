@@ -82,7 +82,11 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         
     }
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+
         
         if (bfromInterestorGroup)
         {
@@ -423,6 +427,32 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
     }
     
+    @IBAction func ReportMessagewithId(_ sender: Any, event: Any)
+    {
+        let touches = (event as AnyObject).allTouches!
+        let touch = touches?.first!
+        let currentTouchPosition = touch?.location(in: self.tblMessages)
+        var indexPath = self.tblMessages.indexPathForRow(at: currentTouchPosition!)!
+        
+        let dict = self.arrMessages[indexPath.row] as! NSDictionary
+        let alertView = UIAlertController(title: Application_Name, message: "Are you sure want to report feed?", preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "Yes", style: .default)
+        { (action) in
+            
+            let objReportVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "ReportVC") as! ReportVC
+            objReportVC.strReportID = "\(dict.object(forKey: "feedId")!)"
+            objReportVC.bisFromFeed = true
+            self.navigationController?.pushViewController(objReportVC, animated: true)
+        }
+        alertView.addAction(OKAction)
+        let CancelAction = UIAlertAction(title: "No", style: .default)
+        {
+            (action) in
+        }
+        alertView.addAction(CancelAction)
+        self.present(alertView, animated: true, completion: nil)
+    }
+
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
@@ -487,6 +517,9 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             cell.const_btnGroup_width.constant = 0
         }
 
+        cell.btnReportMessage.addTarget(self, action: #selector(self.ReportMessagewithId(_:event:)), for: .touchUpInside)
+
+        
         return cell
     }
     
@@ -652,6 +685,7 @@ class MessageCell: UITableViewCell
     @IBOutlet weak var btnGroup: UIButton!
     @IBOutlet var const_btnGroup_width: NSLayoutConstraint!
     @IBOutlet var const_btnInterest_width: NSLayoutConstraint!
+    @IBOutlet weak var btnReportMessage: UIButton!
 
 }
 

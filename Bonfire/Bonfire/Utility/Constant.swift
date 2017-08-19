@@ -98,6 +98,7 @@ let kDeleteChannel = "channels/delete-channel"
 
 let kEditProfileAPI = "user-profile/update-profile"
 
+let kReportFeed = "feeds/report"
 
 //var CurrentUser : UserModel = UserModel()
 

@@ -546,6 +546,34 @@ class GroupVC: UIViewController {
         sender.view?.removeFromSuperview()
     }
 
+    @IBAction func ReportMessagewithId(_ sender: Any, event: Any)
+    {
+        let touches = (event as AnyObject).allTouches!
+        let touch = touches?.first!
+        let currentTouchPosition = touch?.location(in: self.tblviewListing)
+        var indexPath = self.tblviewListing.indexPathForRow(at: currentTouchPosition!)!
+        
+        let dataarray = ((self.arrChannelFeed[indexPath.section] as AnyObject).object(forKey: "values") as! NSArray)
+        let dict = dataarray[indexPath.row] as! NSDictionary
+        
+        let alertView = UIAlertController(title: Application_Name, message: "Are you sure want to report feed?", preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "Yes", style: .default)
+        { (action) in
+            
+            let objReportVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "ReportVC") as! ReportVC
+            objReportVC.strReportID = "\(dict.object(forKey: "feedId")!)"
+            objReportVC.bisFromFeed = true
+            self.navigationController?.pushViewController(objReportVC, animated: true)
+        }
+        alertView.addAction(OKAction)
+        let CancelAction = UIAlertAction(title: "No", style: .default)
+        {
+            (action) in
+        }
+        alertView.addAction(CancelAction)
+        self.present(alertView, animated: true, completion: nil)
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -700,6 +728,9 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource
         cell.btnLink.tag = indexPath.row
         cell.btnLink.addTarget(self, action: #selector(GroupVC.shareTextButton(_:event:)), for: .touchUpInside)
 
+        cell.btnReport.addTarget(self, action: #selector(self.ReportMessagewithId(_:event:)), for: .touchUpInside)
+
+        
         cell.selectionStyle = .none
         return cell
     }
