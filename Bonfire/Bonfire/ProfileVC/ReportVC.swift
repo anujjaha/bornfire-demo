@@ -32,8 +32,6 @@ class ReportVC: UIViewController
         self.navigationController?.navigationBar.isHidden = false
     }
     
-
-    
     @IBAction func btnsendReport(_ sender: Any)
     {
         showProgress(inView: self.view)
@@ -42,57 +40,112 @@ class ReportVC: UIViewController
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         let userid = final .value(forKey: "userId")
         
-        let url = kServerURL + kReportFeed
-        let token = final .value(forKey: "userToken")
-        let headers = ["Authorization":"Bearer \(token!)"]
-        
-        let param = ["feed_id":strReportID,"description":txtvwReportText.text!]
-        
-        request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+        if bisFromFeed == true
+        {
+            let url = kServerURL + kReportFeed
+            let token = final .value(forKey: "userToken")
+            let headers = ["Authorization":"Bearer \(token!)"]
             
-            print(response.result.debugDescription)
+            let param = ["feed_id":strReportID,"description":txtvwReportText.text!]
             
-            hideProgress()
-            switch(response.result)
-            {
-            case .success(_):
-                if response.result.value != nil
+            request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+                
+                print(response.result.debugDescription)
+                
+                hideProgress()
+                switch(response.result)
                 {
-                    print(response.result.value!)
-                    
-                    if let json = response.result.value
+                case .success(_):
+                    if response.result.value != nil
                     {
-                        let dictemp = json as! NSArray
-                        print("dictemp :> \(dictemp)")
-                        let temp  = dictemp.firstObject as! NSDictionary
-                        // let data  = temp .value(forKey: "data") as! NSArray
+                        print(response.result.value!)
                         
-                        if temp.count > 0
+                        if let json = response.result.value
                         {
-                            let alertView = UIAlertController(title: Application_Name, message: (temp .value(forKey: "message") as? String)!, preferredStyle: .alert)
-                            let OKAction = UIAlertAction(title: "OK", style: .default)
-                            { (action) in
-                                _ = self.navigationController?.popViewController(animated: true)
-                            }
-                            alertView.addAction(OKAction)
+                            let dictemp = json as! NSArray
+                            print("dictemp :> \(dictemp)")
+                            let temp  = dictemp.firstObject as! NSDictionary
+                            // let data  = temp .value(forKey: "data") as! NSArray
                             
-                            self.present(alertView, animated: true, completion: nil)
-                        }
-                        else
-                        {
-                            App_showAlert(withMessage: (temp .value(forKey: "message") as? String)!, inView: self)
+                            if temp.count > 0
+                            {
+                                let alertView = UIAlertController(title: Application_Name, message: (temp .value(forKey: "message") as? String)!, preferredStyle: .alert)
+                                let OKAction = UIAlertAction(title: "OK", style: .default)
+                                { (action) in
+                                    _ = self.navigationController?.popViewController(animated: true)
+                                }
+                                alertView.addAction(OKAction)
+                                
+                                self.present(alertView, animated: true, completion: nil)
+                            }
+                            else
+                            {
+                                App_showAlert(withMessage: (temp .value(forKey: "message") as? String)!, inView: self)
+                            }
                         }
                     }
+                    break
+                    
+                case .failure(_):
+                    print(response.result.error!)
+                    App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                    break
                 }
-                break
-                
-            case .failure(_):
-                print(response.result.error!)
-                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
-                break
             }
         }
-
+        else
+        {
+            let url = kServerURL + kReportUser
+            let token = final .value(forKey: "userToken")
+            let headers = ["Authorization":"Bearer \(token!)"]
+            
+            let param = ["report_user_id":strReportID,"description":txtvwReportText.text!]
+            
+            request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+                
+                print(response.result.debugDescription)
+                
+                hideProgress()
+                switch(response.result)
+                {
+                case .success(_):
+                    if response.result.value != nil
+                    {
+                        print(response.result.value!)
+                        
+                        if let json = response.result.value
+                        {
+                            let dictemp = json as! NSArray
+                            print("dictemp :> \(dictemp)")
+                            let temp  = dictemp.firstObject as! NSDictionary
+                            // let data  = temp .value(forKey: "data") as! NSArray
+                            
+                            if temp.count > 0
+                            {
+                                let alertView = UIAlertController(title: Application_Name, message: (temp .value(forKey: "message") as? String)!, preferredStyle: .alert)
+                                let OKAction = UIAlertAction(title: "OK", style: .default)
+                                { (action) in
+                                    _ = self.navigationController?.popViewController(animated: true)
+                                }
+                                alertView.addAction(OKAction)
+                                
+                                self.present(alertView, animated: true, completion: nil)
+                            }
+                            else
+                            {
+                                App_showAlert(withMessage: (temp .value(forKey: "message") as? String)!, inView: self)
+                            }
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    print(response.result.error!)
+                    App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                    break
+                }
+            }
+        }
     }
 
     @IBAction func backBtnTap(_ sender: Any)

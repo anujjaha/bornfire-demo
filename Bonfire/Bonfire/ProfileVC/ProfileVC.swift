@@ -18,6 +18,9 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
     var strotheruserID = String()
     @IBOutlet weak var btnAddInterest: UIButton!
     @IBOutlet weak var btnLogout: UIButton!
+    @IBOutlet weak var btnReportUser: UIButton!
+    @IBOutlet weak var btnPrivacy: UIButton!
+    @IBOutlet weak var btnTermsConditions: UIButton!
 
 
     let tagViewInterest_data = NSMutableArray()
@@ -80,11 +83,17 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
         {
             btnAddInterest.isHidden = false
             btnLogout.isHidden = false
+            btnReportUser.isHidden = true
+            btnPrivacy.isHidden = false
+            btnTermsConditions.isHidden = false
         }
         else
         {
             btnAddInterest.isHidden = true
             btnLogout.isHidden = true
+            btnReportUser.isHidden = false
+            btnPrivacy.isHidden = true
+            btnTermsConditions.isHidden = true
         }
 
         self .profileImgSetup()
@@ -165,6 +174,41 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
         nav.isNavigationBarHidden = true
         appDelegate.window!.rootViewController = nav
     }
+    @IBAction func btnsendReport(_ sender: Any)
+    {
+        let alertView = UIAlertController(title: Application_Name, message: "Are you sure want to report user?", preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "Yes", style: .default)
+        { (action) in
+            
+            let objReportVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "ReportVC") as! ReportVC
+            objReportVC.strReportID = self.strotheruserID
+            objReportVC.bisFromFeed = false
+            self.navigationController?.pushViewController(objReportVC, animated: true)
+        }
+        alertView.addAction(OKAction)
+        let CancelAction = UIAlertAction(title: "No", style: .default)
+        {
+            (action) in
+        }
+        alertView.addAction(CancelAction)
+        self.present(alertView, animated: true, completion: nil)
+
+    }
+    
+    @IBAction func btnPrivacyAction(_ sender: Any)
+    {
+        let objPrivacyTermsVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "PrivacyTermsVC") as! PrivacyTermsVC
+        objPrivacyTermsVC.bisPrivacy = true
+        self.navigationController?.pushViewController(objPrivacyTermsVC, animated: true)
+    }
+    @IBAction func btnTermsActio(_ sender: Any)
+    {
+        let objPrivacyTermsVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "PrivacyTermsVC") as! PrivacyTermsVC
+        objPrivacyTermsVC.bisPrivacy = false
+        self.navigationController?.pushViewController(objPrivacyTermsVC, animated: true)
+    }
+
+    
     // MARK: - API call
     func callProfileAPI()
     {

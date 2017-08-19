@@ -143,6 +143,7 @@
 		D3CB726B1F33A8E4004DBBD5 /* EventListAddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB726A1F33A8E4004DBBD5 /* EventListAddVC.swift */; };
 		D3D49AFC1ED152530000ED81 /* GroupTitleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D49AFB1ED152530000ED81 /* GroupTitleVC.swift */; };
 		D3E315971F336121005128CA /* SelectLeaderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E315961F336121005128CA /* SelectLeaderVC.swift */; };
+		D3EA16F41F484D18005BEBDA /* PrivacyTermsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EA16F31F484D18005BEBDA /* PrivacyTermsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -339,6 +340,7 @@
 		D3CB726A1F33A8E4004DBBD5 /* EventListAddVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventListAddVC.swift; sourceTree = "<group>"; };
 		D3D49AFB1ED152530000ED81 /* GroupTitleVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTitleVC.swift; sourceTree = "<group>"; };
 		D3E315961F336121005128CA /* SelectLeaderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLeaderVC.swift; sourceTree = "<group>"; };
+		D3EA16F31F484D18005BEBDA /* PrivacyTermsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyTermsVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -527,6 +529,7 @@
 				D38498D41F3643C50001DA27 /* ChannelListVC.swift */,
 				D32C8ACE1F37479A0056B017 /* ManagePermissionVC.swift */,
 				D31AD39D1F483F520057F6F1 /* ReportVC.swift */,
+				D3EA16F31F484D18005BEBDA /* PrivacyTermsVC.swift */,
 			);
 			path = ProfileVC;
 			sourceTree = "<group>";
@@ -936,6 +939,7 @@
 				D3599A1F1EA5342500EC1D9B /* LoginViewController.swift in Sources */,
 				92E51A941EC239A90022AC6A /* AddInterestToMsgVC.swift in Sources */,
 				D3C947AD1F34E2CC00D2A20D /* ActionSheetDatePicker.m in Sources */,
+				D3EA16F41F484D18005BEBDA /* PrivacyTermsVC.swift in Sources */,
 				D306E5B81F4012AC0013460D /* FSCalendarHeaderView.m in Sources */,
 				D306E5AF1F4012AC0013460D /* FSCalendarAppearance.m in Sources */,
 				D3C2CD151EA3B96100996D8F /* SessionDelegate.swift in Sources */,

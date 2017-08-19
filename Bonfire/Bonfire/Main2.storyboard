@@ -2771,7 +2771,7 @@ ICArLy0gQ3JlYXRlLxBSZW1vdmUgRXZlbnRzA
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6of-xY-cnY">
-                                        <rect key="frame" x="112" y="8" width="98" height="21"/>
+                                        <rect key="frame" x="111.5" y="8" width="98" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20.5" id="hlf-Nf-Nhz"/>
                                         </constraints>
@@ -3065,6 +3065,64 @@ If you are a leader please create a channel from settings</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Px-5b-Fmo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5636.25" y="898.94366197183103"/>
+        </scene>
+        <!--Privacy TermsVC-->
+        <scene sceneID="UKh-y0-V0w">
+            <objects>
+                <viewController storyboardIdentifier="PrivacyTermsVC" id="3M2-La-ayz" customClass="PrivacyTermsVC" customModule="Bonfire" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gH1-Y0-mJE"/>
+                        <viewControllerLayoutGuide type="bottom" id="e92-jH-xOl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hdY-4c-2Ve">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Plicy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b3k-ld-fIy">
+                                <rect key="frame" x="102.5" y="25" width="114" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20.5" id="cGa-5D-ehe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Na4-GZ-aGe">
+                                <rect key="frame" x="16" y="20" width="45" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="Vou-IY-H3y"/>
+                                    <constraint firstAttribute="height" constant="30" id="eXG-g1-KA0"/>
+                                </constraints>
+                                <state key="normal" image="back_icon"/>
+                                <connections>
+                                    <action selector="backBtnTap:" destination="3M2-La-ayz" eventType="touchUpInside" id="EaB-zM-DQT"/>
+                                </connections>
+                            </button>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0Z-Ds-rWe">
+                                <rect key="frame" x="0.0" y="58" width="320" height="510"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Na4-GZ-aGe" firstAttribute="leading" secondItem="hdY-4c-2Ve" secondAttribute="leading" constant="16" id="0D1-Bu-tkq"/>
+                            <constraint firstItem="b3k-ld-fIy" firstAttribute="centerX" secondItem="hdY-4c-2Ve" secondAttribute="centerX" id="7YP-Xe-EzW"/>
+                            <constraint firstAttribute="trailing" secondItem="f0Z-Ds-rWe" secondAttribute="trailing" id="96Z-Dl-15r"/>
+                            <constraint firstItem="f0Z-Ds-rWe" firstAttribute="leading" secondItem="hdY-4c-2Ve" secondAttribute="leading" id="9hc-A4-9Dk"/>
+                            <constraint firstItem="f0Z-Ds-rWe" firstAttribute="top" secondItem="Na4-GZ-aGe" secondAttribute="bottom" constant="8" id="D10-Rl-rOD"/>
+                            <constraint firstItem="b3k-ld-fIy" firstAttribute="top" secondItem="gH1-Y0-mJE" secondAttribute="bottom" constant="5" id="Dbb-hH-ALZ"/>
+                            <constraint firstItem="Na4-GZ-aGe" firstAttribute="top" secondItem="gH1-Y0-mJE" secondAttribute="bottom" id="HbP-Wc-A5e"/>
+                            <constraint firstItem="e92-jH-xOl" firstAttribute="top" secondItem="f0Z-Ds-rWe" secondAttribute="bottom" id="fq1-jU-lM8"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lblTitle" destination="b3k-ld-fIy" id="IYk-Ny-8fG"/>
+                        <outlet property="webView" destination="f0Z-Ds-rWe" id="iYC-be-OVe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dYL-wB-Uol" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6270" y="898.94366197183103"/>
         </scene>
         <!--Manage PermissionVC-->
         <scene sceneID="6lr-1P-Udk">
