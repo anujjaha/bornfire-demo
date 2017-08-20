@@ -9,7 +9,6 @@
 import UIKit
 
 class GroupEventDetailCell: UITableViewCell {
-    @IBOutlet weak var channelBadgeNo: UIButton!
     @IBOutlet weak var downiconImage: UIImageView!
     @IBOutlet weak var channelName: UILabel!
 

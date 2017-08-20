@@ -307,7 +307,12 @@ class GroupVC: UIViewController {
                         self.tblviewListing.dataSource = self
                         self.tblviewListing.delegate = self
                         self.tblviewListing.reloadData()
-
+                        
+                        if(self.arrChannelFeed.count > 0)
+                        {
+                            let indexPath = IndexPath.init(row: ((self.arrChannelFeed[self.arrChannelFeed.count - 1] as AnyObject).object(forKey: "values") as! NSArray).count - 1 , section: self.arrChannelFeed.count - 1 )
+                            self.tblviewListing.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                        }
                     }
                     else
                     {
@@ -433,8 +438,11 @@ class GroupVC: UIViewController {
         print(str!)
     }
 
+
     override func viewWillAppear(_ animated: Bool)
     {
+      UIApplication.shared.statusBarStyle = .lightContent
+
         super.viewWillAppear(animated)
         
         self.lblGrpName.text = self.grpDetail .value(forKey: "groupName") as? String
@@ -490,14 +498,16 @@ class GroupVC: UIViewController {
     override func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
+        UIApplication.shared.statusBarStyle = .default
+        
         if(isInterestTap)
         {
             isInterestTap = false
         }
         else
         {
-        self.navigationController?.navigationBar.isHidden = false
-        self.tabBarController?.tabBar.isHidden = false
+            self.navigationController?.navigationBar.isHidden = false
+            self.tabBarController?.tabBar.isHidden = false
         }
     }
     
@@ -598,7 +608,7 @@ extension GroupVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollec
         
         
         cell.imgView .sd_setImage(with: URL(string:dic .value(forKey: "profile_picture") as! String), placeholderImage: nil)
-        cell.imgView.layer.cornerRadius = 20.0;
+        cell.imgView.layer.cornerRadius = 25.0;
         cell.imgView.layoutIfNeeded() //This is important line
         cell.imgView.clipsToBounds = true
         
@@ -675,6 +685,7 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! GroupCell
         cell.imgView.backgroundColor = UIColor.gray
+        cell.imgView.layer.cornerRadius = 8.0
         
         let dataarray = ((self.arrChannelFeed[indexPath.section] as AnyObject).object(forKey: "values") as! NSArray)
         let dict = dataarray[indexPath.row] as! NSDictionary

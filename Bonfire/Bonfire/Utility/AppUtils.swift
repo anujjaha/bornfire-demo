@@ -53,6 +53,16 @@ func hideProgress() {
     progressView = nil
 }
 
+func ShowProgresswithImage(inView view: UIView? , image : UIImage?)
+{
+    
+}
+func hideProgresswithImage()
+{
+    progressView?.removeFromSuperview()
+    progressView = nil
+}
+
 func resize(_ image: UIImage) -> UIImage
 {
     var actualHeight: Float = Float(image.size.height)

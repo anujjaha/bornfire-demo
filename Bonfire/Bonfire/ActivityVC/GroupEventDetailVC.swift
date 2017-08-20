@@ -21,7 +21,8 @@ class GroupEventDetailVC: UIViewController {
     var grpname = String()
     
     var grpMember = NSArray()
-    
+    @IBOutlet weak var btnLeaveGroup: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableEventDesc .dataSource = self
@@ -37,6 +38,10 @@ class GroupEventDetailVC: UIViewController {
         
         self.profileCollectonview.delegate = self
         self.profileCollectonview.dataSource = self
+        
+        self.channelTblView.estimatedRowHeight = 40;
+        self.channelTblView.rowHeight = UITableViewAutomaticDimension;
+
         
 //        self.callGellChannelWS()
         // Do any additional setup after loading the view.
@@ -135,6 +140,9 @@ class GroupEventDetailVC: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
         self.lblGrpName.text = self.grpname
+        
+        btnLeaveGroup.setTitle("Leave \(self.grpname)", for: .normal)
+        
         
         self.lblMember.text = ""
         self.lblMember.text = String(self.grpMember.count) + " members"
@@ -245,31 +253,15 @@ extension GroupEventDetailVC : UITableViewDataSource , UITableViewDelegate{
             if indexPath.row == 0
             {
                 cell.downiconImage.isHidden = false
-                cell.channelBadgeNo.isHidden = true
-            } else
+            }
+            else
             {
-                if indexPath.row == 1
-                {
-//                    cell.channelBadgeNo .setTitle("11", for: .normal)
-                cell.channelBadgeNo.backgroundColor = UIColor.clear
-//                    cell.channelBadgeNo.backgroundColor = UIColor .init(colorLiteralRed: 255.0/255.0, green: 0.0/255.0, blue: 103.0/255.0, alpha: 1.0)
-                    
-                } else {
-                    cell.channelBadgeNo .setTitle("", for: .normal)
-                    cell.channelBadgeNo.backgroundColor = UIColor .clear
-                }
-                
-                
-                cell.channelBadgeNo.layer.cornerRadius = cell.channelBadgeNo.frame.height/2;
-                cell.channelBadgeNo.isHidden = false
                 cell.downiconImage.isHidden = true
             }
             
             cell.backgroundColor = UIColor .clear
-            cell.channelBadgeNo .setTitleColor(UIColor.white, for: .normal)
             cell.selectionStyle = .none
             return cell
-            
         }
         else
         {
@@ -291,6 +283,10 @@ extension GroupEventDetailVC : UITableViewDataSource , UITableViewDelegate{
             return self.arrGrpEvent.count
         }
     }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return UITableViewAutomaticDimension
+    }
 }
 extension GroupEventDetailVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -306,7 +302,7 @@ extension GroupEventDetailVC : UICollectionViewDelegate,UICollectionViewDataSour
         let dic = self.grpMember .object(at: indexPath.row) as! NSDictionary
         cell.imgView .sd_setImage(with: URL(string:dic .value(forKey: "profile_picture") as! String), placeholderImage: nil)
 
-        cell.imgView.layer.cornerRadius = 20.0
+        cell.imgView.layer.cornerRadius = 25.0
         cell.imgView.layoutIfNeeded() //This is important line
         //cell.imgView.layer.masksToBounds = true
         cell.imgView.clipsToBounds = true
