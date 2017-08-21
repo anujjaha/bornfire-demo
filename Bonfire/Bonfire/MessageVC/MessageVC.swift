@@ -376,7 +376,9 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         
         let url = kServerURL + kGetMessagesFeed
-        showProgress(inView: self.view)
+//        showProgress(inView: self.view)
+        ShowProgresswithImage(inView: nil, image:UIImage(named: "icon_homepageloading"))
+
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
         

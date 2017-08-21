@@ -61,10 +61,10 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
 
-        
         let url = kServerURL + kGetAppGroup
-        showProgress(inView: self.view)
-
+//        showProgress(inView: self.view)
+        ShowProgresswithImage(inView: nil, image:UIImage(named: "icon_discoverloading"))
+        
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
         
@@ -126,7 +126,8 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
         
         let url = kServerURL + kGetForYouFeed
         DispatchQueue.main.async {
-            showProgress(inView: self.view)
+//            showProgress(inView: self.view)
+            ShowProgresswithImage(inView: nil, image:UIImage(named: "icon_discoverloading"))
         }
         
         let token = final .value(forKey: "userToken")

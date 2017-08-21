@@ -265,7 +265,9 @@ class GroupVC: UIViewController {
         
         let url = kServerURL + kGetAllChannelFeed
         
-        showProgress(inView: self.view)
+//        showProgress(inView: self.view)
+        ShowProgresswithImage(inView: nil, image:UIImage(named: "icon_channelsloading"))
+
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
         
@@ -491,7 +493,8 @@ class GroupVC: UIViewController {
         if (appDelegate.bcalltoRefreshChannel == true)
         {
             appDelegate.bcalltoRefreshChannel = false
-            showProgress(inView: self.view)
+//            showProgress(inView: self.view)
+            ShowProgresswithImage(inView: nil, image:UIImage(named: "icon_channelsloading"))
             self.callGellChannelWS()
         }
     }

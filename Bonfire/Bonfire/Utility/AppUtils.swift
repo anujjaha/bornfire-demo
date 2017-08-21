@@ -55,7 +55,35 @@ func hideProgress() {
 
 func ShowProgresswithImage(inView view: UIView? , image : UIImage?)
 {
-    
+    if progressView == nil
+    {
+        var frame : CGRect
+        if (view != nil)
+        {
+            frame = (view?.bounds)!
+        }
+        else
+        {
+            frame = CGRect(x: 0, y: 0, width: MainScreen.width, height: MainScreen.height)
+        }
+        progressView = UIView(frame: frame)
+        //progressView!.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        
+        let imgvw = UIImageView(image: image)
+        imgvw.contentMode = .scaleToFill
+        imgvw.frame = CGRect(x: 0, y: 0, width: MainScreen.width, height: MainScreen.height)
+        progressView!.addSubview(imgvw)
+        
+        if (view != nil)
+        {
+            view?.addSubview(progressView!)
+        }
+        else
+        {
+            appDelegate.window?.addSubview(progressView!)
+        }
+    }
+
 }
 func hideProgresswithImage()
 {
