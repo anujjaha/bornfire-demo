@@ -218,6 +218,7 @@ extension ActivityVC : UICollectionViewDataSource
         cell.imageView.layer.cornerRadius = 5
         cell.imageView.clipsToBounds = true
         cell.imageView.backgroundColor = UIColor.clear
+        cell.imageView.contentMode = .scaleAspectFill
 
         return cell
         

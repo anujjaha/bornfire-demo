@@ -76,7 +76,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             let nav = UINavigationController(rootViewController: homeViewController)
             
             appdelegate.window!.rootViewController = nav
-            
         }
         else
         {
@@ -86,12 +85,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             let nav = UINavigationController(rootViewController: homeViewController)
             nav.isNavigationBarHidden = true
             appdelegate.window!.rootViewController = nav
-
         }
         
         
-
-
         UIApplication.shared.statusBarStyle = .default
 
         return true

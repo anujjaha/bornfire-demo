@@ -17,6 +17,8 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
     @IBOutlet weak var clvwGroups: UICollectionView!
     @IBOutlet weak var scrlvMain: UIScrollView!
     
+    @IBOutlet weak var vwHeader: UIView!
+
     var arrDiscovery = Array<Any>()
     var arrForYouGrp = Array<Any>()
     var arrAllFeedData = Array<Any>()
@@ -50,9 +52,9 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
     override func viewWillAppear(_ animated: Bool)
     {
         self .GetAllfeed()
-        self.navigationController?.navigationBar.isHidden = false
-        self.tabBarController?.tabBar.isHidden = false
 
+        self.navigationController?.navigationBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     
@@ -213,22 +215,27 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
     {
-        if scrollView == scrlvMain {
+        if scrollView == scrlvMain
+        {
             currentOffset = self.scrlvMain.contentOffset.y
             
             let scrollPos: CGFloat = clvwyour.contentOffset.y
-            if scrollPos >= currentOffset {
+            if scrollPos >= currentOffset
+            {
                 //Fully hide your toolbar
                 UIView.animate(withDuration: 0.25, animations: {() -> Void in
-                    self.navigationController?.setNavigationBarHidden(true, animated: true)
+                    
+                    self.vwHeader.isHidden = true
+//                    self.navigationController?.setNavigationBarHidden(true, animated: true)
                 })
             }
-            else {
+            else
+            {
                 //Slide it up incrementally, etc.
-               
                 UIView.beginAnimations("toggleNavBar", context: nil)
                 UIView.setAnimationDuration(0.2)
-                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                vwHeader.isHidden = false
+                //                self.navigationController?.setNavigationBarHidden(false, animated: true)
                 UIView.commitAnimations()
             }
         }
@@ -258,7 +265,8 @@ extension DiscoverVC : UICollectionViewDataSource
         cell.imageView.layer.cornerRadius = 5
         cell.imageView.clipsToBounds = true
         cell.imageView.backgroundColor = UIColor.clear
-        
+        cell.imageView.contentMode = .scaleAspectFill
+
         if  collectionView == self.clvwDiscover
         {
             let dic = self.arrDiscovery[indexPath.row] as! NSDictionary

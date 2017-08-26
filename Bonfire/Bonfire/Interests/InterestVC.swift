@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SpriteKit
 
 class InterestVC: UIViewController
 {
@@ -62,7 +63,8 @@ class InterestVC: UIViewController
         self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [String : Any]
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool)
+    {
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -173,17 +175,15 @@ class InterestVC: UIViewController
             self.arrSelectedLeader.remove(interestdata.value(forKey: "interestId")!)
         }
         self.clvwInterest .reloadData()
-
     }
 
-    
     func callInterestAPI()
     {
         
         let url = kServerURL + kInterest
         showProgress(inView: self.view)
-                let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
-                let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         let usertoken = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(usertoken)"]
         
@@ -206,9 +206,12 @@ class InterestVC: UIViewController
 //
                         if data.count > 0 {
                             
-                            if let err  =  (data[0] as! NSDictionary).value(forKey: kkeyError) {
+                            if let err  =  (data[0] as! NSDictionary).value(forKey: kkeyError)
+                            {
                                 App_showAlert(withMessage: err as! String, inView: self)
-                            }else {
+                            }
+                            else
+                            {
                                 print("no error")
                                 self.interestData = data
                                 userDefaults .set(data, forKey: "allInterest")
@@ -217,7 +220,7 @@ class InterestVC: UIViewController
                                 if self.isFromSetting
                                 {
                                     let interestdata =  self.dicGroupDetail.object(forKey: "interests") as! NSArray
-
+                                    
                                     if (interestdata.count > 0)
                                     {
                                         for i in 0..<interestdata.count
@@ -227,6 +230,21 @@ class InterestVC: UIViewController
                                         }
                                     }
                                 }
+                                
+                                
+                              /*  for i in 0..<self.interestData.count
+                                {
+                                    let interestdata =  self.interestData[i] as! NSDictionary
+                                    
+
+                                    
+                                    let name = (self.interestData[i] as! NSDictionary) .value(forKey: "name") as! String?
+                                    let imgname = (self.interestData[i] as! NSDictionary) .value(forKey: "image")
+                                    let color = UIColor.colors.randomItem()
+                                    let node = Node(text: name?.capitalized, image: UIImage(named: imgname as! String), color: color, radius: 40)
+                                    self.magnetic.addChild(node)
+                                }*/
+
                                 
                                 self.clvwInterest.dataSource = self;
                                 self.clvwInterest.delegate = self;

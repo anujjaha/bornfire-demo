@@ -84,13 +84,17 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     override func viewWillAppear(_ animated: Bool)
     {
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = true
         self.tabBarController?.tabBar.isHidden = false
 
         
         if (bfromInterestorGroup)
         {
             bfromInterestorGroup = false
+            self.tabBarController?.tabBar.layer.zPosition = -1
+            self.tabBarController?.tabBar.isUserInteractionEnabled = false;
+            self.tabBarController?.tabBar.isHidden = true
+
         }
         else
         {
@@ -228,17 +232,17 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
     }
     
-     func calendarBtnTap(_ sender: Any)
-     {
-       let datepicker =  DatePickerViewController .initViewController()
+    @IBAction func calendarBtnTap(_ sender: Any)
+    {
+        let datepicker =  DatePickerViewController .initViewController()
         self.navigationController?.navigationBar.isTranslucent  = false
         self.navigationController?.pushViewController(datepicker, animated: true)
     }
-   
+    
     @IBAction func buttonBackArrowTap(_ sender: Any)
     {
         self.txtAnythingTosay .resignFirstResponder()
-//        self.txtAnythingTosay.text = nil
+        //        self.txtAnythingTosay.text = nil
         
     }
     
@@ -564,6 +568,7 @@ extension MessageVC : UICollectionViewDataSource
         cell.imageView.layer.cornerRadius = 5
         cell.imageView.clipsToBounds = true
         cell.imageView.backgroundColor = UIColor.clear
+        cell.imageView.contentMode = .scaleAspectFill
 
         let dic = self.arrAllFeedData[indexPath.row] as! NSDictionary
         let strurl = dic["groupImage"] as! String

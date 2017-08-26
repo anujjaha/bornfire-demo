@@ -1106,8 +1106,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Bonfire.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b0ff8b5a-b93c-404d-bf96-678834919415";
-				PROVISIONING_PROFILE_SPECIFIER = AppStore;
+				PROVISIONING_PROFILE = "d4d47f98-a48e-4719-9280-63d2022a0aa8";
+				PROVISIONING_PROFILE_SPECIFIER = "Bonfire Dist";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Projects/Anuj Projects/Bonfire/LatestCode/bornfire-demo/Bonfire/Bonfire/Bonfire-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -1126,8 +1126,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Bonfire.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b0ff8b5a-b93c-404d-bf96-678834919415";
-				PROVISIONING_PROFILE_SPECIFIER = AppStore;
+				PROVISIONING_PROFILE = "d4d47f98-a48e-4719-9280-63d2022a0aa8";
+				PROVISIONING_PROFILE_SPECIFIER = "Bonfire Dist";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Projects/Anuj Projects/Bonfire/LatestCode/bornfire-demo/Bonfire/Bonfire/Bonfire-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

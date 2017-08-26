@@ -62,6 +62,9 @@ class SettingVC: UIViewController {
     @IBOutlet weak var switchPrivate: UISwitch!
     @IBOutlet weak var btnUpdateGroup: UIButton!
 
+    @IBOutlet weak var btnUpdateCreate: UIButton!
+    @IBOutlet weak var btnMenuSetting: UIButton!
+
     
     //MARK: View Life Cycle
     
@@ -150,6 +153,20 @@ class SettingVC: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateInterest(notification:)), name:Notification.Name(rawValue: "updateInterest"), object: nil)
 
         // Do any additional setup after loading the view.
+        
+        if(bfromCreateGroup)
+        {
+            btnUpdateCreate.isHidden = false
+            btnUpdateGroup.isHidden = true
+            btnMenuSetting.isHidden = true
+        }
+        else
+        {
+            btnUpdateCreate.isHidden = true
+            btnUpdateGroup.isHidden = false
+            btnMenuSetting.isHidden = false
+
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -79,6 +79,7 @@ class DatePickerViewController: UIViewController,FSCalendarDataSource, FSCalenda
     override func viewWillAppear(_ animated: Bool)
     {
 //        UIApplication.shared.statusBarStyle = .lightContent
+        self.navigationController?.navigationBar.isHidden = false
         showProgress(inView: self.view)
         self.callEventApi()
     }

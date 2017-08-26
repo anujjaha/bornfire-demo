@@ -22,7 +22,7 @@ class TourGuideVC: UIViewController,UIScrollViewDelegate
         // Do any additional setup after loading the view.
         self.scrvw = UIScrollView(frame: CGRect(x:0, y:0, width:MainScreen.width,height: MainScreen.height))
         pgControl.addTarget(self, action: #selector(self.changePage(sender:)), for: UIControlEvents.valueChanged)
-        self.pgControl.numberOfPages = 4
+        self.pgControl.numberOfPages = 5
         self.pgControl.currentPage = 0
         self.scrvw.isPagingEnabled = true
         self.scrvw.delegate = self
@@ -33,50 +33,44 @@ class TourGuideVC: UIViewController,UIScrollViewDelegate
 
         UIApplication.shared.isStatusBarHidden = true
         
-        for index in 0..<4
+        for index in 0..<5
         {
             frame.origin.x = self.scrvw.frame.size.width * CGFloat(index)
             frame.size = self.scrvw.frame.size
             
         
             let myiconImgView:UIImageView = UIImageView()
-            myiconImgView.frame = CGRect(x:(frame.origin.x+(frame.size.width/2))-55 , y:(frame.size.height/2)-120, width:100,height:120)
-            myiconImgView.contentMode = .scaleAspectFit
+            myiconImgView.frame = CGRect(x:frame.origin.x , y:0, width:frame.size.width,height:frame.size.height)
+            myiconImgView.contentMode = .scaleAspectFill
             
-            let lblText:UILabel = UILabel(frame: CGRect(x:frame.origin.x + 30 , y:frame.size.height-200, width:frame.size.width-60,height:60))
             switch index
             {
             case 0:
-                lblText.text = "Discover New Groups"
-                myiconImgView.image =  UIImage(named: "Rocket_tourGuide")!
-
+                myiconImgView.image =  UIImage(named: "img_tutorial1")!
                 break
             case 1:
-                lblText.text = "Stay Updated on Campus"
-                myiconImgView.image =  UIImage(named: "Bonfire_tourGuide")!
+                myiconImgView.image =  UIImage(named: "img_tutorial2")!
                 break
             case 2:
-                lblText.text = "Lead and be active in groups"
-                myiconImgView.image =  UIImage(named: "Penny Farthing_tourGuide")!
+                myiconImgView.image =  UIImage(named: "img_tutorial3")!
                 break
             case 3:
-                lblText.text = "Keep of a profile of your groups and interests"
-                myiconImgView.image =  UIImage(named: "Monocle_tourGuide")!
+                myiconImgView.image =  UIImage(named: "img_tutorial4")!
                 break
+            case 4:
+                myiconImgView.image =  UIImage(named: "img_tutorial5")!
+                break
+
             default:
                 break
             }
-            lblText.numberOfLines = 2
-            lblText.textColor = UIColor.white
-            lblText.textAlignment = .center
-            lblText.font = UIFont(name: "Cabin-Bold", size: 24)
+//            lblText.font = UIFont(name: "Cabin-Bold", size: 24)
             
             self.scrvw.addSubview(myiconImgView)
-            self.scrvw.addSubview(lblText)
             
-            if(index == 3)
+            if(index == 4)
             {
-                let btngotoTabbar:UIButton = UIButton(frame: CGRect(x:(frame.origin.x + (frame.size.width/2)-20), y:frame.size.height-120, width:40,height: 40))
+                let btngotoTabbar:UIButton = UIButton(frame: CGRect(x:(frame.origin.x + (frame.size.width/2)-20), y:frame.size.height-40, width:40,height: 40))
                 btngotoTabbar.backgroundColor = UIColor.clear
                 btngotoTabbar.setImage(UIImage(named: "white_right_arrow"), for: .normal)
                 btngotoTabbar.addTarget(self, action: #selector(self.gotoTabbar(sender:)), for: .touchUpInside)
@@ -84,7 +78,7 @@ class TourGuideVC: UIViewController,UIScrollViewDelegate
             }
         }
 
-        self.scrvw.contentSize = CGSize(width:self.scrvw.frame.size.width * 4,height: self.scrvw.frame.size.height)
+        self.scrvw.contentSize = CGSize(width:self.scrvw.frame.size.width * 5,height: self.scrvw.frame.size.height)
     }
     
     override func viewWillDisappear(_ animated: Bool)     {
