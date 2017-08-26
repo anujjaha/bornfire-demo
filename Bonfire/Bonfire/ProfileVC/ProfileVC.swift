@@ -21,6 +21,7 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
     @IBOutlet weak var btnReportUser: UIButton!
     @IBOutlet weak var btnPrivacy: UIButton!
     @IBOutlet weak var btnTermsConditions: UIButton!
+    @IBOutlet weak var btnBack: UIButton!
 
 
     let tagViewInterest_data = NSMutableArray()
@@ -76,9 +77,12 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
     }
     override func viewWillAppear(_ animated: Bool)
     {
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = true
         self.tabBarController?.tabBar.isHidden = false
-
+    }
+    
+    override func viewDidAppear(_ animated: Bool)
+    {
         if(appDelegate.bisUserProfile)
         {
             btnAddInterest.isHidden = false
@@ -86,6 +90,7 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
             btnReportUser.isHidden = true
             btnPrivacy.isHidden = false
             btnTermsConditions.isHidden = false
+            btnBack.isHidden = true
         }
         else
         {
@@ -94,11 +99,11 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
             btnReportUser.isHidden = false
             btnPrivacy.isHidden = true
             btnTermsConditions.isHidden = true
+            btnBack.isHidden = false
         }
-
+        
         self .profileImgSetup()
         self.callProfileAPI()
-        
     }
     
     override func didReceiveMemoryWarning()
@@ -106,6 +111,11 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func backBtnTap(_ sender: Any) {
+        _ =  self.navigationController?.popViewController(animated: true)
+    }
+    
     func openGallary()
     {
         picker!.allowsEditing = false

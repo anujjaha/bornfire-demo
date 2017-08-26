@@ -87,14 +87,12 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.navigationController?.navigationBar.isHidden = true
         self.tabBarController?.tabBar.isHidden = false
 
-        
         if (bfromInterestorGroup)
         {
             bfromInterestorGroup = false
             self.tabBarController?.tabBar.layer.zPosition = -1
             self.tabBarController?.tabBar.isUserInteractionEnabled = false;
             self.tabBarController?.tabBar.isHidden = true
-
         }
         else
         {
@@ -599,7 +597,7 @@ extension MessageVC : UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
-        if scrollView == tblMessages
+       /* if scrollView == tblMessages
         {
             
             if scrollView.panGestureRecognizer .translation(in: scrollView.superview).y < 0
@@ -628,7 +626,7 @@ extension MessageVC : UIScrollViewDelegate {
                     })
                 }
             }
-        }
+        }*/
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

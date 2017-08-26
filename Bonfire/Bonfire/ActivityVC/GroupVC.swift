@@ -39,7 +39,7 @@ class GroupVC: UIViewController {
     @IBOutlet weak var vwFooterView: UIView!
     @IBOutlet weak var const_vwFooterView_height: NSLayoutConstraint!
 
-    
+    @IBOutlet weak var vwDropDown: UIView!
     @IBOutlet weak var tblviewListing: UITableView!
     var isInterestTap = false
     
@@ -371,12 +371,14 @@ class GroupVC: UIViewController {
                             self.lblNoDataFound.isHidden = false
                             self.tblviewListing.isHidden = true
                             self.vwFooterView.isHidden = true
+                            self.vwDropDown.isHidden = true
                         }
                         else
                         {
                             self.lblNoDataFound.isHidden = true
                             self.tblviewListing.isHidden = false
                             self.vwFooterView.isHidden = false
+                            self.vwDropDown.isHidden = false
                             
                             let dictemp = json as! NSArray
                             print("dictemp :> \(dictemp)")

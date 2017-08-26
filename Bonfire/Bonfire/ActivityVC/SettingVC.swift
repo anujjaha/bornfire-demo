@@ -135,7 +135,6 @@ class SettingVC: UIViewController {
             }
         }
         
-        
         if self.grpDetail.object(forKey: kkeyisPrivate) as! Int == 0
         {
             switchPrivate.setOn(false, animated: true)
@@ -145,11 +144,8 @@ class SettingVC: UIViewController {
             switchPrivate.setOn(true, animated: true)
         }
         
-
-        
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateGroupDetails(notification:)), name:Notification.Name(rawValue: "updateGroupDetails"), object: nil)
 
-        
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateInterest(notification:)), name:Notification.Name(rawValue: "updateInterest"), object: nil)
 
         // Do any additional setup after loading the view.

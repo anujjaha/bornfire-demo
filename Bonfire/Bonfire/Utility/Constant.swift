@@ -79,6 +79,7 @@ let kManagePermission = "groups/manage-permission"
 
 let kGetAppGroup = "groups"
 let kGetForYouFeed = "get-for-you-groups"
+let kRandomGroups = "groups/random-groups"
 
 let kCreateNewChannel = "create-new-channel"
 let kCreateNewFeed = "create-new-feed"

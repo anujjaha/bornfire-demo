@@ -52,8 +52,6 @@ class TabBarViewController: UITabBarController,UITabBarControllerDelegate
             appDelegate.bisUserProfile = true
 
             let nav = viewController as! UINavigationController
-            
-            
             if !(nav.visibleViewController?.isKind(of:ProfileVC.self))! {
                 nav.popToRootViewController(animated: true)
             }

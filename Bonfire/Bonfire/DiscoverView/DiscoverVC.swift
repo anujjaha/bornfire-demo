@@ -16,13 +16,14 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
     @IBOutlet weak var clvwDiscover: UICollectionView!
     @IBOutlet weak var clvwGroups: UICollectionView!
     @IBOutlet weak var scrlvMain: UIScrollView!
-    
+    @IBOutlet weak var cosnt_scrlvMain_height: NSLayoutConstraint!
+
     @IBOutlet weak var vwHeader: UIView!
 
     var arrDiscovery = Array<Any>()
     var arrForYouGrp = Array<Any>()
     var arrAllFeedData = Array<Any>()
-    
+
     var previousScrollViewYOffset: CGFloat = 0.0
     var currentOffset = CGFloat()
     
@@ -94,16 +95,13 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                         }
                         else
                         {
-                            
                             let data  = temp .value(forKey: "data") as! NSArray
-                            
                             if data.count > 0
                             {
                                 self.arrAllFeedData = data as! Array<Any>
                                 AppDelegate .shared.arrAllGrpData = self.arrAllFeedData as NSArray
                                 
                                 let namePredicate = NSPredicate(format: "%K = %d", "isDiscovery",1)
-                                
                                 self.arrDiscovery = self.arrAllFeedData.filter { namePredicate.evaluate(with: $0) };
                             }
                         }
@@ -124,7 +122,6 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
     {
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
-        
         
         let url = kServerURL + kGetForYouFeed
         DispatchQueue.main.async {
@@ -158,6 +155,7 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
 //                            let msg = errdic .value(forKey: "reason") as? String
                             self.const_foryouCollview_height.constant = 0
                             self.cosnt_foryouLabel_height.constant = 0
+                            self.cosnt_scrlvMain_height.constant = 601
                         }
                         else
                         {
@@ -167,6 +165,66 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                                 self.arrForYouGrp = data as! Array<Any>
                                 self.const_foryouCollview_height.constant = 220
                                 self.cosnt_foryouLabel_height.constant = 21
+                                self.cosnt_scrlvMain_height.constant = 720
+                            }
+                            else
+                            {
+                            }
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+            self.callRandomGroups()
+        }
+    }
+    
+    func callRandomGroups()
+    {
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        
+        let url = kServerURL + kRandomGroups
+        DispatchQueue.main.async {
+            ShowProgresswithImage(inView: nil, image:UIImage(named: "icon_discoverloading"))
+        }
+        
+        let token = final .value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        
+        request(url, method: .get, parameters:nil, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil
+                {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value
+                    {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp.firstObject as! NSDictionary
+                        
+                        if (temp.value(forKey: "error") != nil)
+                        {
+                            let errdic = temp.value(forKey: "error") as! NSDictionary
+                        }
+                        else
+                        {
+                            let data  = temp .value(forKey: "data") as! NSArray
+                            if data.count > 0
+                            {
+                                self.arrDiscovery = data as! Array<Any>
                             }
                             else
                             {
@@ -197,7 +255,7 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
             self.clvwDiscover .reloadData()
         }
     }
-    
+
     @IBAction func calwndarBtnTap(_ sender: Any)
     {
         let datepicker =  DatePickerViewController .initViewController()
@@ -215,7 +273,7 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
     {
-        if scrollView == scrlvMain
+       /* if scrollView == scrlvMain
         {
             currentOffset = self.scrlvMain.contentOffset.y
             
@@ -238,7 +296,7 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                 //                self.navigationController?.setNavigationBarHidden(false, animated: true)
                 UIView.commitAnimations()
             }
-        }
+        }*/
     }
 
 }
@@ -247,11 +305,16 @@ extension DiscoverVC : UICollectionViewDataSource
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        if  collectionView == self.clvwDiscover {
+        if  collectionView == self.clvwDiscover
+        {
             return self.arrDiscovery.count
-        } else if(collectionView == self.clvwGroups) {
+        }
+        else if(collectionView == self.clvwGroups)
+        {
             return self.arrAllFeedData.count
-        } else{
+        }
+        else
+        {
             return self.arrForYouGrp.count
         }
         
