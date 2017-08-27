@@ -165,7 +165,7 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
                                 self.arrForYouGrp = data as! Array<Any>
                                 self.const_foryouCollview_height.constant = 220
                                 self.cosnt_foryouLabel_height.constant = 21
-                                self.cosnt_scrlvMain_height.constant = 720
+                                self.cosnt_scrlvMain_height.constant = 730
                             }
                             else
                             {

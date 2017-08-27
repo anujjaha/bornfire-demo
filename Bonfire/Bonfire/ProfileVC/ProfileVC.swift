@@ -8,11 +8,8 @@
 
 import UIKit
 
-class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
+class ProfileVC: UIViewController
 {
-    @IBOutlet weak var clviewGrp: UICollectionView!
-    @IBOutlet weak var clviewInterest: UICollectionView!
-    
     var arrInterest = NSArray()
     var arrGrp = NSArray()
     var strotheruserID = String()
@@ -23,14 +20,16 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
     @IBOutlet weak var btnTermsConditions: UIButton!
     @IBOutlet weak var btnBack: UIButton!
 
-
     let tagViewInterest_data = NSMutableArray()
-    @IBOutlet weak var tagViewInterest: HTagView!
-    @IBOutlet weak var tagViewGroups: HTagView!
     var picker:UIImagePickerController?=UIImagePickerController()
 
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var profileImgview: UIImageView!
+    @IBOutlet weak var cloudView: CloudTagView!
+    @IBOutlet weak var cloudGroupTagView: CloudTagView!
+    @IBOutlet weak var cosnt_scrlvMain_height: NSLayoutConstraint!
+    @IBOutlet weak var cosnt_cloudViewInterest_height: NSLayoutConstraint!
+    @IBOutlet weak var cosnt_cloudGroup_height: NSLayoutConstraint!
 
     override func viewDidLoad()
     {
@@ -38,11 +37,8 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
         // Do any additional setup after loading the view.
         picker?.delegate=self
         
-        clviewGrp.dataSource = self
-        clviewGrp.delegate = self
-        
-        clviewInterest.dataSource = self
-        clviewInterest.delegate = self
+        cloudView.delegate = self
+        cloudGroupTagView.delegate = self
     }
 
     func profileImgSetup()
@@ -274,7 +270,6 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
                                 let img = UIImage(named: "")
                                 
                                 self.profileImgview .sd_setImage(with:URL(string: url as String), placeholderImage:img)
-                                
                                 self.usernameLabel.text = data.value(forKey: "name") as! String?
                                 
                                 if (data.value(forKey:"interests")) != nil
@@ -287,8 +282,35 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
                                     self.arrGrp = data .value(forKey:"userGroups") as! NSArray
                                 }
 //                                self.createInterestArr(arrInterest: arrInterest)
-                                self.clviewGrp .reloadData()
-                                self.clviewInterest.reloadData()
+                                
+                                self.cloudView.tags.removeAll()
+                                for iIndex in 0..<self.arrInterest.count
+                                {
+                                    let name = ((self.arrInterest .object(at: iIndex) as! NSDictionary) .value(forKey: "name")) as! String
+
+                                    let differentFontTag = TagView(text: name)
+                                    differentFontTag.font = UIFont(name: "Montserrat-Regular", size: 14)!
+                                    differentFontTag.tintColor = UIColor.black
+                                    differentFontTag.backgroundColor = UIColor(red: 204.0/255.0, green: 228.0/255.0, blue: 254.0/255.0, alpha: 1)
+                                    differentFontTag.tag = iIndex
+                                    self.cloudView.tags.append(differentFontTag)
+                                    self.cosnt_cloudViewInterest_height.constant = self.cloudView.frame.height
+                                }
+
+                                self.cloudGroupTagView.tags.removeAll()
+                                for iIndexofGroup in 0..<self.arrGrp.count
+                                {
+                                    let name = ((self.arrGrp .object(at: iIndexofGroup) as! NSDictionary) .value(forKey: "groupName")) as! String
+                                    let differentFontTag = TagView(text: name)
+                                    differentFontTag.font = UIFont(name: "Montserrat-Regular", size: 14)!
+                                    differentFontTag.tintColor = UIColor.black
+                                    differentFontTag.backgroundColor = UIColor(red: 235.0/255.0, green: 255.0/255.0, blue: 196.0/255.0, alpha: 1)
+                                    differentFontTag.tag = iIndexofGroup
+                                    self.cloudGroupTagView.tags.append(differentFontTag)
+                                    self.cosnt_cloudGroup_height.constant = self.cloudGroupTagView.frame.height
+                                }
+                                
+                                self.cosnt_scrlvMain_height.constant = 240 + self.cosnt_cloudViewInterest_height.constant + 50 + self.cloudGroupTagView.frame.height + 80
                             }
                         }
                         else
@@ -305,10 +327,10 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
                 break
             }
         }
-
     }
-    func createInterestArr(arrInterest : NSArray)  {
-       
+    
+    func createInterestArr(arrInterest : NSArray)
+    {
         if arrInterest.count > 0 {
             for (index, item) in arrInterest.enumerated() {
                 print("Found \(item) at position \(index)")
@@ -326,64 +348,14 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
     }
     // MARK: - Data
     
-    var tagViewGroups_data = ["Group"]
-    
-    // MARK: - HTagViewDataSource
-    func numberOfTags(_ tagView: HTagView) -> Int {
-        switch tagView {
-        case tagViewInterest:
-            return tagViewInterest_data.count
-        case tagViewGroups:
-            return tagViewGroups_data.count
-        default:
-            return 0
-        }
-    }
     @IBAction func calendarBtnTap(_ sender: Any) {
         let datepicker =  DatePickerViewController .initViewController()
         self.navigationController?.navigationBar.isTranslucent  = false
         self.navigationController?.pushViewController(datepicker, animated: true)        
     }
     
-    func tagView(_ tagView: HTagView, titleOfTagAtIndex index: Int) -> String {
-        switch tagView
-        {
-        case tagViewInterest:
-            return tagViewInterest_data[index] as! String
-        case tagViewGroups:
-            return tagViewGroups_data[index]
-        default:
-            return "???"
-        }
-    }
-    
-    func tagView(_ tagView: HTagView, tagTypeAtIndex index: Int) -> HTagType {
-        switch tagView
-        {
-        case tagViewInterest:
-            return .select
-        case tagViewGroups:
-            return .select
-        default:
-            return .select
-        }
-    }
-    
-    // MARK: - HTagViewDelegate
-    func tagView(_ tagView: HTagView, tagSelectionDidChange selectedIndices: [Int])
+    @IBAction func addInterestTap(_ sender: Any)
     {
-        print("tag with indices \(selectedIndices) are selected")
-    }
-    
-    func tagView(_ tagView: HTagView, didCancelTagAtIndex index: Int)
-    {
-        print("tag with index: '\(index)' has to be removed from tagView")
-        tagViewGroups_data.remove(at: index)
-        tagView.reloadData()
-    }
-
-
-    @IBAction func addInterestTap(_ sender: Any) {
         
         let viewController = AddInterestToMessageVC .initViewController()
         viewController.isfromProfile = true
@@ -510,127 +482,41 @@ class ProfileVC: UIViewController, HTagViewDelegate, HTagViewDataSource
 
 }
 
-extension ProfileVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+
+extension ProfileVC : UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
     
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
     {
-        if collectionView == self.clviewGrp
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        self.profileImgview.image = chosenImage
+        self.edituserprofile()
+        dismiss(animated: true, completion: nil)
+    }
+}
+extension ProfileVC : TagViewDelegate
+{
+    func tagDismissed(_ tag: TagView)
+    {
+        print("tag dismissed: " + tag.text)
+    }
+    
+    func tagTouched(_ tag: TagView)
+    {
+        if tag == cloudView
         {
-            return self.arrGrp.count
+            print("tag touched: " + tag.text)
+            print("tag tag: \(tag.tag)")
         }
         else
         {
-            return self.arrInterest.count
-        }
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
-    {
-        if collectionView == self.clviewGrp
-        {
-            let identifier = "grpcell"
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! interestAndGrpCell
-            let name = ((self.arrGrp .object(at: indexPath.row) as! NSDictionary) .value(forKey: "groupName")) as! String
-            cell.btnGrp.setTitle(name, for: .normal)
-            cell.btnGrp.tag = indexPath.row
-            cell.btnGrp.addTarget(self, action: #selector(btnGroupDetailAction(_:)), for: .touchUpInside)
+            var dic = NSDictionary()
+            dic = (self.arrGrp .object(at: tag.tag) as! NSDictionary)
 
-            return cell
-        }
-        else
-        {
-            let identifier = "intCell"
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! profileInterestCell
-            
-                let name = ((self.arrInterest .object(at: indexPath.row) as! NSDictionary) .value(forKey: "name")) as! String
-                cell.btnIntereset .setTitle(name, for: .normal)
-                cell.btnIntereset.titleLabel?.lineBreakMode = .byTruncatingTail
-
-            return cell
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
-    {
-        var size = CGSize()
-        
-        if collectionView == self.clviewGrp
-        {
-            let name = ((self.arrGrp .object(at: indexPath.row) as! NSDictionary) .value(forKey: "groupName")) as! String
-            size = name.size(attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17.0)]) //you can add NSForegroundColorAttributeName as well
-            return CGSize(width: size.width+15, height: 28.0)
-
-        }
-        else
-        {
-            let name = ((self.arrInterest .object(at: indexPath.row) as! NSDictionary) .value(forKey: "name")) as! String
-            size = name.size(attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17.0)]) //you can add NSForegroundColorAttributeName as well
-        }
-
-
-        return CGSize(width: size.width+10, height: 28.0)
-    }
-
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
-    {
-        if collectionView == self.clviewGrp
-        {
-            return 0
-        }
-        else
-        {
-            return 5.0
-        }
-    }
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-//    }
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAt section: Int) -> UIEdgeInsets
-    {
-        if collectionView == self.clviewGrp
-        {
-            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        }
-        else
-        {
-            if (self.arrInterest.count > 2)
-            {
-                return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            }
-            else
-            {
-                let flowLayout = (collectionViewLayout as! UICollectionViewFlowLayout)
-                let cellSpacing = flowLayout.minimumInteritemSpacing
-                let cellWidth = flowLayout.itemSize.width
-                let cellCount = CGFloat(collectionView.numberOfItems(inSection: section))
-                
-                let collectionViewWidth = collectionView.bounds.size.width
-                
-                let totalCellWidth = cellCount * cellWidth
-                let totalCellSpacing = cellSpacing * (cellCount - 1)
-                
-                let totalCellsWidth = totalCellWidth + totalCellSpacing
-                
-                let edgeInsets = (collectionViewWidth - totalCellsWidth) / 2.0
-                
-                return edgeInsets > 0 ? UIEdgeInsetsMake(0, edgeInsets, 0, edgeInsets) : UIEdgeInsetsMake(0, cellSpacing, 0, cellSpacing)
-            }
-            
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
-    {
-        var dic = NSDictionary()
-        dic = (self.arrGrp .object(at: indexPath.row) as! NSDictionary)
-        
-        if  collectionView == self.clviewGrp
-        {
             appDelegate.bcalltoRefreshChannel = true
             if(appDelegate.bisUserProfile)
             {
@@ -660,22 +546,6 @@ extension ProfileVC : UICollectionViewDelegate,UICollectionViewDataSource,UIColl
     }
 }
 
-
-extension ProfileVC : UIImagePickerControllerDelegate,UINavigationControllerDelegate{
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
-    {
-        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        self.profileImgview.image = chosenImage
-        self.edituserprofile()
-        dismiss(animated: true, completion: nil)
-    }
-}
 
 class interestAndGrpCell : UICollectionViewCell
 {
