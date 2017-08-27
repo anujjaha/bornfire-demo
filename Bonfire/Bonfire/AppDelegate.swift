@@ -163,8 +163,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             {
                 let strmessage = alert!["body"] as! String
                 App_showAlert(withMessage: strmessage, inView: (self.window?.rootViewController)!)
+                
+                if (userDefaults.bool(forKey: kkeyisUserLogin))
+                {
+                    if let tbc : UINavigationController = self.window!.rootViewController as? UINavigationController
+                    {
+//                        tbc.selectedIndex = 1
+                        print(tbc.viewControllers)
+                        if tbc.viewControllers.count > 0
+                        {
+                            if let viewNumNavController  = tbc.viewControllers[0] as? TabBarViewController
+                            {
+                                viewNumNavController.selectedIndex = 1
+                            }
+                        }
+                    }
+                }
             }
-        }        
+        }
     }
 
     //MARK: Function Calling
