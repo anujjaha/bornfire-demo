@@ -80,7 +80,6 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.setTabbar()
         tblMessages.reloadData()
         
-        
     }
     override func viewWillAppear(_ animated: Bool)
     {

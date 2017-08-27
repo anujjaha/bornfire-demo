@@ -109,6 +109,7 @@ class GroupVC: UIViewController {
         let selectedChannel =   dict .value(forKey: "isShowHeader")
         selectedChannelID =   dict .value(forKey: "channelId") as! Int
         self.lblChannel.text = selectedChannel as? String
+        self.lblChannel.text =  self.lblChannel.text?.capitalized
         self .getAllChannelfeed(channelId: selectedChannelID)
         
 
@@ -388,6 +389,7 @@ class GroupVC: UIViewController {
                             if data.count > 0 {
                                 self.channelArr = data
                                 self.lblChannel.text = (self.channelArr.firstObject as! NSDictionary) .value(forKey: "channelName") as? String
+                               self.lblChannel.text =  self.lblChannel.text?.capitalized
                                 
                                 if let channel = (self.channelArr.firstObject)
                                 {
@@ -701,7 +703,7 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource
         let date = formatter .date(from: dateinstr! as! String)
         
         let formatternew = DateFormatter()
-        formatternew.dateFormat = "hh:mm"
+        formatternew.dateFormat = "hh:mm a"
         let time = formatternew .string(from: date!)
         
         cell.lblTime.text = time

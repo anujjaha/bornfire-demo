@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PrivacyTermsVC: UIViewController
+class PrivacyTermsVC: UIViewController,UIWebViewDelegate
 {
     var bisPrivacy = Bool()
     @IBOutlet weak var webView : UIWebView!
@@ -17,6 +17,10 @@ class PrivacyTermsVC: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        webView.delegate = self
+        showProgress(inView: self.view)
+        
         if(bisPrivacy)
         {
             lblTitle.text = "Privacy Policy"
@@ -35,7 +39,6 @@ class PrivacyTermsVC: UIViewController
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         
         let url = kServerURL + kPrivacy
-        showProgress(inView: self.view)
         
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
@@ -92,7 +95,6 @@ class PrivacyTermsVC: UIViewController
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         
         let url = kServerURL + kTermsConditions
-        showProgress(inView: self.view)
         
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
@@ -160,12 +162,12 @@ class PrivacyTermsVC: UIViewController
         _ =  self.navigationController?.popViewController(animated: true)
     }
         
-    func webViewDidStartLoad(webView : UIWebView)
+    func webViewDidStartLoad(_ webView : UIWebView)
     {
         showProgress(inView: self.view)
     }
     
-    func webViewDidFinishLoad(webView : UIWebView)
+    func webViewDidFinishLoad(_ webView : UIWebView)
     {
         hideProgress()
     }

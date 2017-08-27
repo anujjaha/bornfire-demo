@@ -1286,12 +1286,20 @@
                                             <action selector="calendarBtnTap:" destination="6jc-dT-dgd" eventType="touchUpInside" id="Y5j-zw-GhZ"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Messages" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fAR-IA-BL7">
+                                        <rect key="frame" x="118" y="11.5" width="85" height="21"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="pu9-gI-6O8" firstAttribute="centerY" secondItem="TrJ-16-CVu" secondAttribute="centerY" id="1z6-Jf-aib"/>
+                                    <constraint firstItem="fAR-IA-BL7" firstAttribute="centerY" secondItem="TrJ-16-CVu" secondAttribute="centerY" id="ITm-58-n8V"/>
                                     <constraint firstAttribute="trailing" secondItem="pu9-gI-6O8" secondAttribute="trailing" constant="17" id="VoX-CI-9VE"/>
                                     <constraint firstAttribute="height" constant="44" id="Y0z-Cw-vTR"/>
+                                    <constraint firstItem="fAR-IA-BL7" firstAttribute="centerX" secondItem="TrJ-16-CVu" secondAttribute="centerX" id="wWm-q7-HMT"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="7ho-U8-gGw">

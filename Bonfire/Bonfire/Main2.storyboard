@@ -1237,14 +1237,14 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4z-U8-q6b">
-                                                    <rect key="frame" x="48" y="7" width="194" height="22"/>
+                                                    <rect key="frame" x="48" y="7" width="0.0" height="22"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="10:06 AM" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lzL-LI-s88">
-                                                    <rect key="frame" x="250" y="12" width="70" height="15"/>
+                                                    <rect key="frame" x="56" y="12" width="60" height="15"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="70" id="9la-Nh-JQF"/>
+                                                        <constraint firstAttribute="width" constant="60" id="9la-Nh-JQF"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="12"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -1312,7 +1312,6 @@
                                                 <constraint firstItem="tMJ-X1-C48" firstAttribute="leading" secondItem="9X5-JU-9nI" secondAttribute="leading" id="Vj9-a9-8KK"/>
                                                 <constraint firstAttribute="trailing" secondItem="j4y-3v-M6p" secondAttribute="trailing" id="Yd8-Mz-KeB"/>
                                                 <constraint firstItem="j4y-3v-M6p" firstAttribute="leading" secondItem="VcU-Uu-JCL" secondAttribute="trailing" constant="8" id="ZaF-qj-EWx"/>
-                                                <constraint firstAttribute="trailing" secondItem="lzL-LI-s88" secondAttribute="trailing" id="ZvP-kE-Zfh"/>
                                                 <constraint firstItem="9X5-JU-9nI" firstAttribute="leading" secondItem="KJK-fO-dfF" secondAttribute="leading" id="cdF-jp-uiu"/>
                                                 <constraint firstItem="LR0-o9-jix" firstAttribute="leading" secondItem="soO-W6-m4S" secondAttribute="trailing" constant="8" id="g82-ny-foY"/>
                                                 <constraint firstItem="9X5-JU-9nI" firstAttribute="trailing" secondItem="KJK-fO-dfF" secondAttribute="trailing" id="hqg-FG-2R4"/>
@@ -1347,7 +1346,7 @@
                                 <rect key="frame" x="0.0" y="130" width="320" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKU-8M-VLX">
-                                        <rect key="frame" x="20" y="8" width="30" height="30"/>
+                                        <rect key="frame" x="20" y="13" width="35" height="25"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1377,14 +1376,14 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="vI0-uo-ghf" firstAttribute="leading" secondItem="Fo7-4e-Q7C" secondAttribute="trailing" constant="6" id="0SP-xU-s04"/>
-                                    <constraint firstItem="gKU-8M-VLX" firstAttribute="top" secondItem="Fo7-4e-Q7C" secondAttribute="top" id="7gE-WL-Bqa"/>
+                                    <constraint firstItem="gKU-8M-VLX" firstAttribute="top" secondItem="Fo7-4e-Q7C" secondAttribute="top" constant="5" id="7gE-WL-Bqa"/>
                                     <constraint firstItem="gKU-8M-VLX" firstAttribute="leading" secondItem="Fo7-4e-Q7C" secondAttribute="leading" id="h1u-Hh-u5a"/>
                                     <constraint firstItem="gKU-8M-VLX" firstAttribute="bottom" secondItem="Fo7-4e-Q7C" secondAttribute="bottom" id="jxF-Gg-em3"/>
                                     <constraint firstAttribute="bottom" secondItem="Fo7-4e-Q7C" secondAttribute="bottom" constant="12" id="kzq-UE-SpT"/>
                                     <constraint firstItem="Fo7-4e-Q7C" firstAttribute="top" secondItem="xyl-Ij-yVc" secondAttribute="top" constant="8" id="ouz-RS-ATa"/>
                                     <constraint firstItem="vI0-uo-ghf" firstAttribute="centerY" secondItem="Fo7-4e-Q7C" secondAttribute="centerY" constant="2" id="s26-gH-46I"/>
                                     <constraint firstAttribute="height" constant="50" id="sB7-kD-m63"/>
-                                    <constraint firstItem="gKU-8M-VLX" firstAttribute="trailing" secondItem="Fo7-4e-Q7C" secondAttribute="trailing" id="vme-0M-2u6"/>
+                                    <constraint firstItem="gKU-8M-VLX" firstAttribute="trailing" secondItem="Fo7-4e-Q7C" secondAttribute="trailing" constant="5" id="vme-0M-2u6"/>
                                     <constraint firstItem="Fo7-4e-Q7C" firstAttribute="leading" secondItem="xyl-Ij-yVc" secondAttribute="leading" constant="20" id="x91-0R-dso"/>
                                 </constraints>
                             </view>

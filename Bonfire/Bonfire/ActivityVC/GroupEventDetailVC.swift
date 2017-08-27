@@ -249,7 +249,8 @@ extension GroupEventDetailVC : UITableViewDataSource , UITableViewDelegate{
         if tableView == self.channelTblView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! GroupEventDetailCell
             cell.channelName.text = (self.channelArr .object(at: indexPath.row) as! NSDictionary) .value(forKey: "channelName") as? String
-            
+            cell.channelName.text =  cell.channelName.text?.capitalized
+
             if indexPath.row == 0
             {
                 cell.downiconImage.isHidden = false

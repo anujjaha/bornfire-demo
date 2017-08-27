@@ -30,6 +30,8 @@ class ProfileVC: UIViewController
     @IBOutlet weak var cosnt_scrlvMain_height: NSLayoutConstraint!
     @IBOutlet weak var cosnt_cloudViewInterest_height: NSLayoutConstraint!
     @IBOutlet weak var cosnt_cloudGroup_height: NSLayoutConstraint!
+    
+    var bDoNotCallWebService = Bool()
 
     override func viewDidLoad()
     {
@@ -98,8 +100,15 @@ class ProfileVC: UIViewController
             btnBack.isHidden = false
         }
         
-        self .profileImgSetup()
-        self.callProfileAPI()
+        if(bDoNotCallWebService)
+        {
+           bDoNotCallWebService = false
+        }
+        else
+        {
+            self .profileImgSetup()
+            self.callProfileAPI()
+        }
     }
     
     override func didReceiveMemoryWarning()
@@ -203,12 +212,14 @@ class ProfileVC: UIViewController
     
     @IBAction func btnPrivacyAction(_ sender: Any)
     {
+        bDoNotCallWebService = true
         let objPrivacyTermsVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "PrivacyTermsVC") as! PrivacyTermsVC
         objPrivacyTermsVC.bisPrivacy = true
         self.navigationController?.pushViewController(objPrivacyTermsVC, animated: true)
     }
     @IBAction func btnTermsActio(_ sender: Any)
     {
+        bDoNotCallWebService = true
         let objPrivacyTermsVC = UIStoryboard(name: "Main2", bundle: nil).instantiateViewController(withIdentifier: "PrivacyTermsVC") as! PrivacyTermsVC
         objPrivacyTermsVC.bisPrivacy = false
         self.navigationController?.pushViewController(objPrivacyTermsVC, animated: true)
