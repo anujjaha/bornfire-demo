@@ -61,7 +61,9 @@ let kYES = "YES"
 let kFBAPPID = "128398547683260"
 
 
-let kServerURL = "http://52.66.73.127/bonfire/bon-lara/public/api/"
+//let kServerURL = "http://52.66.73.127/bonfire/bon-lara/public/api/"
+// https://bonfireapp.xyz/
+let kServerURL = "https://bonfireapp.xyz/api/"
 
 let kSignUP = "signup"
 let kLogin = "login"

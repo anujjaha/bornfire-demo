@@ -218,7 +218,7 @@
                                                 <rect key="frame" x="0.0" y="275" width="320" height="273"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUx-6d-DMu">
-                                                        <rect key="frame" x="82" y="28" width="157.5" height="34.5"/>
+                                                        <rect key="frame" x="8" y="28" width="304" height="34.5"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="28"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -233,9 +233,11 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="yUx-6d-DMu" firstAttribute="centerX" secondItem="Rm1-MQ-vsZ" secondAttribute="centerX" id="3Il-Gx-X8J"/>
+                                                    <constraint firstItem="yUx-6d-DMu" firstAttribute="leading" secondItem="Rm1-MQ-vsZ" secondAttribute="leading" constant="8" id="Blq-eo-q5X"/>
                                                     <constraint firstAttribute="trailing" secondItem="bF3-Ms-yyl" secondAttribute="trailing" constant="8" id="Jeu-nE-aWZ"/>
                                                     <constraint firstItem="yUx-6d-DMu" firstAttribute="top" secondItem="Rm1-MQ-vsZ" secondAttribute="top" constant="28" id="R1u-Sg-hG8"/>
                                                     <constraint firstItem="bF3-Ms-yyl" firstAttribute="top" secondItem="yUx-6d-DMu" secondAttribute="bottom" constant="15" id="gdN-i2-Cib"/>
+                                                    <constraint firstAttribute="trailing" secondItem="yUx-6d-DMu" secondAttribute="trailing" constant="8" id="lcA-MI-hAB"/>
                                                     <constraint firstItem="bF3-Ms-yyl" firstAttribute="leading" secondItem="Rm1-MQ-vsZ" secondAttribute="leading" constant="8" id="tI3-PQ-LsS"/>
                                                 </constraints>
                                             </view>
