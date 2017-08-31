@@ -142,7 +142,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     {
         print(deviceToken)
         let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
-        print(deviceTokenString)
+        print("deviceTokenString -> \(deviceTokenString)")
         strDeviceToken = deviceTokenString as NSString
     }
     

@@ -92,6 +92,10 @@ class ActivityVC: UIViewController {
                 scrvw.isHidden = true
                 lblNoGroups.isHidden = false
             }
+            
+            
+            self.clvwLeading.reloadData()
+            self.clvwDiscover.reloadData()
         }
         
     }

@@ -173,7 +173,10 @@ class ProfileVC: UIViewController
     }
     @IBAction func profileTap(_ sender: Any)
     {
-        self.openActionsheet()
+        if(appDelegate.bisUserProfile)
+        {
+            self.openActionsheet()
+        }
     }
     
     @IBAction func logoutTap(_ sender: Any)
@@ -303,7 +306,7 @@ class ProfileVC: UIViewController
                                     differentFontTag.font = UIFont(name: "Montserrat-Regular", size: 14)!
                                     differentFontTag.tintColor = UIColor.black
                                     differentFontTag.backgroundColor = UIColor(red: 204.0/255.0, green: 228.0/255.0, blue: 254.0/255.0, alpha: 1)
-                                    differentFontTag.tag = iIndex
+                                    differentFontTag.tag = -1
                                     self.cloudView.tags.append(differentFontTag)
                                     self.cosnt_cloudViewInterest_height.constant = self.cloudView.frame.height
                                 }
@@ -518,7 +521,7 @@ extension ProfileVC : TagViewDelegate
     
     func tagTouched(_ tag: TagView)
     {
-        if tag == cloudView
+        if tag.tag == -1
         {
             print("tag touched: " + tag.text)
             print("tag tag: \(tag.tag)")
