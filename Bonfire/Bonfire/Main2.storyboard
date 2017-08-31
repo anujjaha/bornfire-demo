@@ -7,6 +7,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -197,12 +198,8 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BDv-61-tzT">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="274"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="365.5"/>
                                             </imageView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l37-T7-RdK">
-                                                <rect key="frame" x="0.0" y="274" width="306" height="0.0"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0aX-7I-fyQ">
                                                 <rect key="frame" x="10" y="0.0" width="44" height="30"/>
                                                 <constraints>
@@ -215,7 +212,7 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rm1-MQ-vsZ">
-                                                <rect key="frame" x="0.0" y="275" width="320" height="273"/>
+                                                <rect key="frame" x="0.0" y="366" width="320" height="182"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUx-6d-DMu">
                                                         <rect key="frame" x="8" y="28" width="304" height="34.5"/>
@@ -242,7 +239,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uxQ-b8-qzl">
-                                                <rect key="frame" x="217" y="259" width="91" height="30"/>
+                                                <rect key="frame" x="217" y="351" width="91" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="91" id="fYs-Wa-YyG"/>
@@ -261,20 +258,16 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="l37-T7-RdK" firstAttribute="centerY" secondItem="Tcy-YR-lO4" secondAttribute="centerY" id="3rJ-6j-0oH"/>
-                                            <constraint firstAttribute="trailing" secondItem="l37-T7-RdK" secondAttribute="trailing" constant="14.5" id="4NS-cU-3Zd"/>
                                             <constraint firstItem="0aX-7I-fyQ" firstAttribute="top" secondItem="Tcy-YR-lO4" secondAttribute="top" id="86v-pR-dUA"/>
                                             <constraint firstItem="BDv-61-tzT" firstAttribute="top" secondItem="Tcy-YR-lO4" secondAttribute="top" id="8gi-Ae-TZR"/>
-                                            <constraint firstItem="l37-T7-RdK" firstAttribute="leading" secondItem="Tcy-YR-lO4" secondAttribute="leading" id="9lz-Zp-waq"/>
                                             <constraint firstItem="BDv-61-tzT" firstAttribute="leading" secondItem="Tcy-YR-lO4" secondAttribute="leading" id="CPA-9p-7Cz"/>
-                                            <constraint firstItem="uxQ-b8-qzl" firstAttribute="centerY" secondItem="Tcy-YR-lO4" secondAttribute="centerY" id="EBp-4Q-m22"/>
-                                            <constraint firstItem="Rm1-MQ-vsZ" firstAttribute="top" secondItem="l37-T7-RdK" secondAttribute="bottom" constant="1" id="Ly9-nJ-cJx"/>
+                                            <constraint firstItem="Rm1-MQ-vsZ" firstAttribute="top" secondItem="BDv-61-tzT" secondAttribute="bottom" id="Eq0-nA-Xrw"/>
                                             <constraint firstItem="0aX-7I-fyQ" firstAttribute="leading" secondItem="Tcy-YR-lO4" secondAttribute="leading" constant="10" id="MiA-Xo-A0S"/>
                                             <constraint firstAttribute="trailing" secondItem="Rm1-MQ-vsZ" secondAttribute="trailing" id="Twa-gH-mtM"/>
+                                            <constraint firstItem="BDv-61-tzT" firstAttribute="height" secondItem="Tcy-YR-lO4" secondAttribute="height" multiplier="2:3" id="VTQ-LC-lGq"/>
                                             <constraint firstAttribute="trailing" secondItem="BDv-61-tzT" secondAttribute="trailing" id="ZaL-lr-QZN"/>
+                                            <constraint firstItem="uxQ-b8-qzl" firstAttribute="top" secondItem="Rm1-MQ-vsZ" secondAttribute="top" constant="-15" id="cBh-IJ-cBJ"/>
                                             <constraint firstAttribute="trailing" secondItem="uxQ-b8-qzl" secondAttribute="trailing" constant="12" id="fEA-Je-O6e"/>
-                                            <constraint firstItem="l37-T7-RdK" firstAttribute="top" secondItem="Tcy-YR-lO4" secondAttribute="centerY" id="gU7-yz-WAN"/>
-                                            <constraint firstItem="l37-T7-RdK" firstAttribute="top" secondItem="BDv-61-tzT" secondAttribute="bottom" id="paH-v3-aoc"/>
                                             <constraint firstItem="Rm1-MQ-vsZ" firstAttribute="leading" secondItem="Tcy-YR-lO4" secondAttribute="leading" id="pq6-KM-RUu"/>
                                             <constraint firstAttribute="bottom" secondItem="Rm1-MQ-vsZ" secondAttribute="bottom" id="yFX-Ug-WXK"/>
                                         </constraints>
@@ -1214,7 +1207,7 @@
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There are no channels to display" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Do3-Ef-qyI">
-                                <rect key="frame" x="8" y="253.5" width="304" height="61"/>
+                                <rect key="frame" x="8" y="254" width="304" height="61"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2771,7 +2764,7 @@ ICArLy0gQ3JlYXRlLxBSZW1vdmUgRXZlbnRzA
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6of-xY-cnY">
-                                        <rect key="frame" x="105" y="8" width="111.5" height="21"/>
+                                        <rect key="frame" x="104.5" y="8" width="111.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20.5" id="hlf-Nf-Nhz"/>
                                         </constraints>
@@ -2863,7 +2856,7 @@ ICArLy0gQ3JlYXRlLxBSZW1vdmUgRXZlbnRzA
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Channel Listing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K15-b9-xEf">
-                                <rect key="frame" x="90" y="33" width="140" height="20.5"/>
+                                <rect key="frame" x="90.5" y="33" width="140" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="YYX-Zm-gIA"/>
                                 </constraints>
@@ -3079,7 +3072,7 @@ If you are a leader please create a channel from settings</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Plicy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b3k-ld-fIy">
-                                <rect key="frame" x="103" y="25" width="114" height="20.5"/>
+                                <rect key="frame" x="103.5" y="25" width="114" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="cGa-5D-ehe"/>
                                 </constraints>

@@ -37,7 +37,7 @@ class ActivityVC: UIViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         btnStartNewGroup.layer.cornerRadius = 10.0
         
@@ -46,7 +46,7 @@ class ActivityVC: UIViewController {
         let img = UIImage(named: "Daybar")
         button.setImage(img, for: .normal)
         button.setImage(img, for: .highlighted)
-
+        
         
         button.addTarget(self, action: #selector(ActivityVC.calendarBtnTap(_:)), for: .touchUpInside)
         
@@ -69,8 +69,14 @@ class ActivityVC: UIViewController {
             self.GetAllfeed()
             appDelegate.bUserCreatedGroup = false
         }
+//        else if(AppDelegate.shared.arrAllGrpData.count == 0)
+//        {
+//            self.GetAllfeed()
+//        }
         else
         {
+            self.GetAllfeed()
+            /*
             let namePredicate = NSPredicate(format: "%K = %d", "isLeader",1)
             self.arrLeaderingGrp = AppDelegate .shared.arrAllGrpData.filter { namePredicate.evaluate(with: $0) } as NSArray
             
@@ -95,7 +101,7 @@ class ActivityVC: UIViewController {
             
             
             self.clvwLeading.reloadData()
-            self.clvwDiscover.reloadData()
+            self.clvwDiscover.reloadData()*/
         }
         
     }

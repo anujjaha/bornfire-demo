@@ -72,9 +72,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         {
             let appdelegate = UIApplication.shared.delegate as! AppDelegate
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: "TabBarViewController")
+            let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
+            homeViewController.selectedIndex = 1
             let nav = UINavigationController(rootViewController: homeViewController)
-            
+            nav.navigationBar.isHidden = true
             appdelegate.window!.rootViewController = nav
         }
         else
