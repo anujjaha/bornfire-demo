@@ -107,6 +107,10 @@ let kReportUser = "users/report-user"
 let kPrivacy = "privacy-policy"
 let kTermsConditions = "terms-conditions"
 
+let kAPIAllowAccess = "groups/allow-access"
+let kAPIRemoveAccess = "groups/remove-access"
+
+
 //var CurrentUser : UserModel = UserModel()
 
 let kIdentifire_AddInterestToMsgView = "AddInterestToMsgView"

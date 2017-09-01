@@ -55,6 +55,7 @@ class JoingGroupVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool)
     {
+        UIApplication.shared.isStatusBarHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool)
@@ -62,6 +63,8 @@ class JoingGroupVC: UIViewController {
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = false
+        
+        UIApplication.shared.isStatusBarHidden = false
     }
 
     @IBAction func btnJoinGroupAction(_ sender: Any)

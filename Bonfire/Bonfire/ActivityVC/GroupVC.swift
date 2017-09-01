@@ -591,7 +591,147 @@ class GroupVC: UIViewController {
         self.present(alertView, animated: true, completion: nil)
     }
 
-    
+    //MARK: Accept and Reject Button
+    @IBAction func btnAcceptButtonAction(_ sender: Any, event: Any)
+    {
+        let touches = (event as AnyObject).allTouches!
+        let touch = touches?.first!
+        let currentTouchPosition = touch?.location(in: self.tblviewListing)
+        var indexPath = self.tblviewListing.indexPathForRow(at: currentTouchPosition!)!
+        
+        let dataarray = ((self.arrChannelFeed[indexPath.section] as AnyObject).object(forKey: "values") as! NSArray)
+        let dict = dataarray[indexPath.row] as! NSDictionary
+        
+        let url = kServerURL + kAPIAllowAccess
+
+        showProgress(inView: self.view)
+
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        let token = final.value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        
+        let param = ["group_id":"\(self.grpDetail .value(forKey: "groupId")!)","user_id":"\(dict.object(forKey: "requestedUserId")!)","feed_id":"\(dict.object(forKey: "feedId")!)"]
+        
+        request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil
+                {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value
+                    {
+                        
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp.firstObject as! NSDictionary
+                        
+                        if (temp.value(forKey: "error") != nil)
+                        {
+                            App_showAlert(withMessage: (temp .value(forKey: "message") as? String)!, inView: self)
+                        }
+                        else
+                        {
+                            let data  = temp .value(forKey: "data") as! NSDictionary
+                            if data.count > 0
+                            {
+                                self.grpDetail = data
+                            }
+                            self.lblGrpName.text = self.grpDetail .value(forKey: "groupName") as? String
+                            
+                            self.blGrpMember.text = ""
+                            if let member = self.grpDetail .value(forKey: "group_members")
+                            {
+                                self.grpMemeber = self.grpDetail .value(forKey: "group_members") as! NSArray
+                                self.blGrpMember.text = String(self.grpMemeber.count) + " members"
+                            }
+                            
+                            self.profileCollectonview.dataSource = self
+                            self.profileCollectonview.delegate = self
+                            self.profileCollectonview.reloadData()
+
+                            
+                            ShowProgresswithImage(inView: nil, image:UIImage(named: "icon_channelsloading"))
+                            self.callGellChannelWS()
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+    }
+
+    @IBAction func btnRejectButtonAction(_ sender: Any, event: Any)
+    {
+        let touches = (event as AnyObject).allTouches!
+        let touch = touches?.first!
+        let currentTouchPosition = touch?.location(in: self.tblviewListing)
+        var indexPath = self.tblviewListing.indexPathForRow(at: currentTouchPosition!)!
+        
+        let dataarray = ((self.arrChannelFeed[indexPath.section] as AnyObject).object(forKey: "values") as! NSArray)
+        let dict = dataarray[indexPath.row] as! NSDictionary
+        
+        showProgress(inView: self.view)
+
+        let url = kServerURL + kAPIRemoveAccess
+        let dic = UserDefaults.standard.value(forKey: kkeyLoginData)
+        let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
+        let token = final.value(forKey: "userToken")
+        let headers = ["Authorization":"Bearer \(token!)"]
+        
+        let param = ["group_id":"\(self.grpDetail .value(forKey: "groupId")!)","user_id":"\(dict.object(forKey: "requestedUserId")!)","feed_id":"\(dict.object(forKey: "feedId")!)"]
+        
+        request(url, method: .post, parameters:param, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            
+            print(response.result.debugDescription)
+            
+            hideProgress()
+            switch(response.result)
+            {
+            case .success(_):
+                if response.result.value != nil
+                {
+                    print(response.result.value!)
+                    
+                    if let json = response.result.value
+                    {
+                        let dictemp = json as! NSArray
+                        print("dictemp :> \(dictemp)")
+                        let temp  = dictemp.firstObject as! NSDictionary
+                        
+                        if (temp.value(forKey: "error") != nil)
+                        {
+                            App_showAlert(withMessage: (temp .value(forKey: "message") as? String)!, inView: self)
+                        }
+                        else
+                        {
+                            ShowProgresswithImage(inView: nil, image:UIImage(named: "icon_channelsloading"))
+                            self.callGellChannelWS()
+                        }
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error!)
+                App_showAlert(withMessage: response.result.error.debugDescription, inView: self)
+                break
+            }
+        }
+
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -690,67 +830,91 @@ extension GroupVC : UITableViewDelegate,UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! GroupCell
-        cell.imgView.backgroundColor = UIColor.gray
-        cell.imgView.layer.cornerRadius = 8.0
-        
         let dataarray = ((self.arrChannelFeed[indexPath.section] as AnyObject).object(forKey: "values") as! NSArray)
         let dict = dataarray[indexPath.row] as! NSDictionary
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
-        let dateinstr = dict .value(forKey: "createdAt")
-        let date = formatter .date(from: dateinstr! as! String)
-        
-        let formatternew = DateFormatter()
-        formatternew.dateFormat = "hh:mm a"
-        let time = formatternew .string(from: date!)
-        
-        cell.lblTime.text = time
-        
-       // cell.lblDetail.text = dict .value(forKey: "description") as! String?
-        cell.tvDetail.text = dict .value(forKey: "description") as! String?
 
-        
-        let feeddict = dict  .value(forKey: "feedCreator") as? NSDictionary
-        cell.lblName.text = feeddict? .value(forKey: "name") as? String
-        
-        let profileurl = feeddict? .value(forKey: "profile_picture") as? String
-        cell.imgView .sd_setImage(with: URL(string: (profileurl)!), placeholderImage: nil)
-        
-        
-        if dict.object(forKey: kkeyis_attachment) as! Int == 1
+        if dict.object(forKey: "requestedUserId") as! Int == 0
         {
-            cell.Const_LinkBtn_height.constant = 0
-            cell.Const_imgofLink_height.constant = 75
-
-            let attachment_link = dict.value(forKey: "attachment_link") as? String
-            cell.imgofLink.sd_setImage(with: URL(string: (attachment_link)!), placeholderImage: nil)
-
-//            cell.btnLink.setTitle(dict .value(forKey: "attachmentName") as! String?, for: .normal)
-            cell.btnLink.isHidden = true
-            cell.imgofLink.isHidden = false
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! GroupCell
+            cell.imgView.backgroundColor = UIColor.gray
+            cell.imgView.layer.cornerRadius = 8.0
             
-
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
+            let dateinstr = dict .value(forKey: "createdAt")
+            let date = formatter .date(from: dateinstr! as! String)
+            
+            let formatternew = DateFormatter()
+            formatternew.dateFormat = "hh:mm a"
+            let time = formatternew .string(from: date!)
+            
+            cell.lblTime.text = time
+            
+            // cell.lblDetail.text = dict .value(forKey: "description") as! String?
+            cell.tvDetail.text = dict .value(forKey: "description") as! String?
+            
+            
+            let feeddict = dict  .value(forKey: "feedCreator") as? NSDictionary
+            cell.lblName.text = feeddict? .value(forKey: "name") as? String
+            
+            let profileurl = feeddict? .value(forKey: "profile_picture") as? String
+            cell.imgView .sd_setImage(with: URL(string: (profileurl)!), placeholderImage: nil)
+            
+            
+            if dict.object(forKey: kkeyis_attachment) as! Int == 1
+            {
+                cell.Const_LinkBtn_height.constant = 0
+                cell.Const_imgofLink_height.constant = 75
+                
+                let attachment_link = dict.value(forKey: "attachment_link") as? String
+                cell.imgofLink.sd_setImage(with: URL(string: (attachment_link)!), placeholderImage: nil)
+                
+                //            cell.btnLink.setTitle(dict .value(forKey: "attachmentName") as! String?, for: .normal)
+                cell.btnLink.isHidden = true
+                cell.imgofLink.isHidden = false
+                
+                
+            }
+            else
+            {
+                cell.Const_LinkBtn_height.constant = 0
+                cell.Const_imgofLink_height.constant = 0
+                cell.btnLink.isHidden = true
+                cell.imgofLink.isHidden = true
+                
+            }
+            let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+            cell.imgofLink.addGestureRecognizer(tap)
+            cell.btnLink.tag = indexPath.row
+            cell.btnLink.addTarget(self, action: #selector(GroupVC.shareTextButton(_:event:)), for: .touchUpInside)
+            
+            cell.btnReport.addTarget(self, action: #selector(self.ReportMessagewithId(_:event:)), for: .touchUpInside)
+            
+            
+            cell.selectionStyle = .none
+            return cell
         }
         else
         {
-            cell.Const_LinkBtn_height.constant = 0
-            cell.Const_imgofLink_height.constant = 0
-            cell.btnLink.isHidden = true
-            cell.imgofLink.isHidden = true
-
+            let cell = tableView.dequeueReusableCell(withIdentifier: "inviteCell") as! InviteCell
+            cell.imgUser.backgroundColor = UIColor.gray
+            cell.imgUser.layer.cornerRadius = 8.0
+            
+            cell.lblMessageText.text = dict .value(forKey: "description") as! String?
+            
+            let feeddict = dict  .value(forKey: "feedCreator") as? NSDictionary
+            cell.lblUserame.text = feeddict? .value(forKey: "name") as? String
+            
+            let profileurl = feeddict? .value(forKey: "profile_picture") as? String
+            cell.imgUser.sd_setImage(with: URL(string: (profileurl)!), placeholderImage: nil)
+            
+            cell.btnAccept.addTarget(self, action: #selector(self.btnAcceptButtonAction(_:event:)), for: .touchUpInside)
+            
+            cell.btnReject.addTarget(self, action: #selector(self.btnRejectButtonAction(_:event:)), for: .touchUpInside)
+            
+            return cell
         }
-        let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
-        cell.imgofLink.addGestureRecognizer(tap)
-        cell.btnLink.tag = indexPath.row
-        cell.btnLink.addTarget(self, action: #selector(GroupVC.shareTextButton(_:event:)), for: .touchUpInside)
-
-        cell.btnReport.addTarget(self, action: #selector(self.ReportMessagewithId(_:event:)), for: .touchUpInside)
-
-        
-        cell.selectionStyle = .none
-        return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {

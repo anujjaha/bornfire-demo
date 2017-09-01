@@ -707,6 +707,8 @@ class SettingVC: UIViewController {
     //MARK: Update Group
     @IBAction func btnUpdateGroupAction(_ sender: Any)
     {
+        showProgress(inView: self.view)
+        
         var switchstr = String()
         if self.switchPrivate.isOn
         {

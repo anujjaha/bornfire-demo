@@ -231,6 +231,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     @IBAction func calendarBtnTap(_ sender: Any)
     {
+        setTabbar()
         let datepicker =  DatePickerViewController .initViewController()
         self.navigationController?.navigationBar.isTranslucent  = false
         self.navigationController?.pushViewController(datepicker, animated: true)
