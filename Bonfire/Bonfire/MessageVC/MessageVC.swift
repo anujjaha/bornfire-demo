@@ -80,6 +80,13 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.setTabbar()
         tblMessages.reloadData()
         
+        self.getAllMessagesFeed()
+
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(pullToRefresh(_:)), for: .valueChanged)
+        tblMessages.addSubview(refreshControl) // not required when using UITableViewController
     }
     override func viewWillAppear(_ animated: Bool)
     {
@@ -95,10 +102,18 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
         else
         {
-            self.getAllMessagesFeed()
+//            self.getAllMessagesFeed()
         }
 
     }
+    
+    func pullToRefresh(_ refreshControl: UIRefreshControl)
+    {
+        // Update your conntent here
+        self.getAllMessagesFeed()
+        refreshControl.endRefreshing()
+    }
+
     
     func handleAction(action:UIAlertAction)  {
         

@@ -56,6 +56,12 @@ class ActivityVC: UIViewController {
         let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         space.width = -20 // adjust as needed
         
+        let refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(pullToRefresh(_:)), for: .valueChanged)
+        scrvw.addSubview(refreshControl)
+
+        self.GetAllfeed()
         
         self.navigationItem.rightBarButtonItems = [barButton,space]
     }
@@ -69,14 +75,10 @@ class ActivityVC: UIViewController {
             self.GetAllfeed()
             appDelegate.bUserCreatedGroup = false
         }
-//        else if(AppDelegate.shared.arrAllGrpData.count == 0)
-//        {
-//            self.GetAllfeed()
-//        }
         else
         {
-            self.GetAllfeed()
-            /*
+          //  self.GetAllfeed()
+            
             let namePredicate = NSPredicate(format: "%K = %d", "isLeader",1)
             self.arrLeaderingGrp = AppDelegate .shared.arrAllGrpData.filter { namePredicate.evaluate(with: $0) } as NSArray
             
@@ -99,12 +101,18 @@ class ActivityVC: UIViewController {
                 lblNoGroups.isHidden = false
             }
             
-            
             self.clvwLeading.reloadData()
-            self.clvwDiscover.reloadData()*/
+            self.clvwDiscover.reloadData()
         }
-        
     }
+    
+    func pullToRefresh(_ refreshControl: UIRefreshControl)
+    {
+        // Update your conntent here
+        self.GetAllfeed()
+        refreshControl.endRefreshing()
+    }
+
     func GetAllfeed()
     {
         let dic = UserDefaults.standard.value(forKey: kkeyLoginData)

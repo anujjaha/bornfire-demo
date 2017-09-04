@@ -33,6 +33,12 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
         self.clvwyour.dataSource = self
         scrlvMain.delegate = self
         
+        scrlvMain.isScrollEnabled = true
+        let refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(pullToRefresh(_:)), for: .valueChanged)
+        scrlvMain.addSubview(refreshControl)
+        
         let button = UIButton()
         button.frame = CGRect(x: 0, y: 0, width: 22, height: 35)
         let img = UIImage(named: "Daybar")
@@ -48,16 +54,23 @@ class DiscoverVC: UIViewController ,UIScrollViewDelegate
         space.width = -20 // adjust as needed
         
         self.navigationItem.rightBarButtonItems = [barButton,space]
+        
+        self .GetAllfeed()
     }
-
     override func viewWillAppear(_ animated: Bool)
     {
-        self .GetAllfeed()
-
+//        self .GetAllfeed()
         self.navigationController?.navigationBar.isHidden = true
         self.tabBarController?.tabBar.isHidden = false
     }
     
+    func pullToRefresh(_ refreshControl: UIRefreshControl)
+    {
+        // Update your conntent here
+        self .GetAllfeed()
+        refreshControl.endRefreshing()
+    }
+
     
     func GetAllfeed()
     {

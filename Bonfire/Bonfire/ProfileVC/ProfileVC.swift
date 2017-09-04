@@ -19,6 +19,7 @@ class ProfileVC: UIViewController
     @IBOutlet weak var btnPrivacy: UIButton!
     @IBOutlet weak var btnTermsConditions: UIButton!
     @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var scrvw : UIScrollView!
 
     let tagViewInterest_data = NSMutableArray()
     var picker:UIImagePickerController?=UIImagePickerController()
@@ -41,6 +42,14 @@ class ProfileVC: UIViewController
         
         cloudView.delegate = self
         cloudGroupTagView.delegate = self
+        
+        scrvw.isScrollEnabled = true
+        let refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(pullToRefresh(_:)), for: .valueChanged)
+        scrvw.addSubview(refreshControl)
+
+        self.callProfileAPI()
     }
 
     func profileImgSetup()
@@ -71,6 +80,8 @@ class ProfileVC: UIViewController
         
         //profileImgview.layer.cornerRadius = 50
         //profileImgview.layer.masksToBounds = true
+        
+
 
     }
     override func viewWillAppear(_ animated: Bool)
@@ -107,8 +118,16 @@ class ProfileVC: UIViewController
         else
         {
             self .profileImgSetup()
-            self.callProfileAPI()
+//            self.callProfileAPI()
         }
+    }
+    
+    func pullToRefresh(_ refreshControl: UIRefreshControl)
+    {
+        // Update your conntent here
+        self .profileImgSetup()
+        self.callProfileAPI()
+        refreshControl.endRefreshing()
     }
     
     override func didReceiveMemoryWarning()
@@ -325,6 +344,11 @@ class ProfileVC: UIViewController
                                 }
                                 
                                 self.cosnt_scrlvMain_height.constant = 240 + self.cosnt_cloudViewInterest_height.constant + 50 + self.cloudGroupTagView.frame.height + 80
+                                
+                                if self.cosnt_scrlvMain_height.constant < MainScreen.height
+                                {
+                                    self.cosnt_scrlvMain_height.constant = MainScreen.height + 10 
+                                }
                             }
                         }
                         else
