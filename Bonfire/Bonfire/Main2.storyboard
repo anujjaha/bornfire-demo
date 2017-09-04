@@ -1207,7 +1207,7 @@
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There are no channels to display" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Do3-Ef-qyI">
-                                <rect key="frame" x="8" y="253.5" width="304" height="61"/>
+                                <rect key="frame" x="8" y="254" width="304" height="61"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2831,7 +2831,7 @@ ICArLy0gQ3JlYXRlLxBSZW1vdmUgRXZlbnRzA
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6of-xY-cnY">
-                                        <rect key="frame" x="104.5" y="8" width="111.5" height="21"/>
+                                        <rect key="frame" x="105" y="8" width="111.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20.5" id="hlf-Nf-Nhz"/>
                                         </constraints>
@@ -2923,7 +2923,7 @@ ICArLy0gQ3JlYXRlLxBSZW1vdmUgRXZlbnRzA
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Channel Listing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K15-b9-xEf">
-                                <rect key="frame" x="90" y="33" width="140" height="20.5"/>
+                                <rect key="frame" x="90.5" y="33" width="140" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="YYX-Zm-gIA"/>
                                 </constraints>
@@ -3139,7 +3139,7 @@ If you are a leader please create a channel from settings</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Plicy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b3k-ld-fIy">
-                                <rect key="frame" x="103" y="25" width="114" height="20.5"/>
+                                <rect key="frame" x="103.5" y="25" width="114" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="cGa-5D-ehe"/>
                                 </constraints>

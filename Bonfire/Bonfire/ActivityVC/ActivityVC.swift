@@ -119,8 +119,8 @@ class ActivityVC: UIViewController {
         let final  = NSKeyedUnarchiver .unarchiveObject(with: dic as! Data) as! NSDictionary
         
         let url = kServerURL + kGetAppGroup
-//        showProgress(inView: self.view)
-        ShowProgresswithImage(inView: nil, image:UIImage(named: "icon_activityloading"))
+        showProgress(inView: self.view)
+//        ShowProgresswithImage(inView: nil, image:UIImage(named: "icon_activityloading"))
         
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]

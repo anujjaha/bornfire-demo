@@ -265,8 +265,8 @@ class ProfileVC: UIViewController
         }
         
         let url = kServerURL + kUserprofile + String(describing: userid)
-//        showProgress(inView: self.view)
-        ShowProgresswithImage(inView: nil, image:UIImage(named: "icon_profileloading"))
+        showProgress(inView: self.view)
+//        ShowProgresswithImage(inView: nil, image:UIImage(named: "icon_profileloading"))
 
         let token = final .value(forKey: "userToken")
         let headers = ["Authorization":"Bearer \(token!)"]
