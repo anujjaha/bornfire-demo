@@ -217,6 +217,7 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
 //            }
         bfromInterestorGroup = true
         let viewController = AddInterestToMessageVC .initViewController()
+        viewController.isfromMessageFeed = true
         self .navigationController?.pushViewController(viewController, animated: true)
     }
   
@@ -224,17 +225,18 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         
         self.txtAnythingTosay .resignFirstResponder()
-        if (txtAnythingTosay.text?.characters.count)! > 0 {
-            
-            if  arrInterestForMessage.count > 0
+        if (txtAnythingTosay.text?.characters.count)! > 0
+        {
+            if  arrInterestForMessage.count == 0 && arrSelectedGroupIDs.count == 0
             {
                 //arrMessages .add(textField.text! as String)
-                self.callApiToCreateNewChannelFeed()
-                self.setTabbar()
+                App_showAlert(withMessage: "Please select all details", inView: self)
+
             }
             else
             {
-                App_showAlert(withMessage: "Please select all details", inView: self)
+                self.callApiToCreateNewChannelFeed()
+                self.setTabbar()
             }
         }
         else
@@ -333,14 +335,23 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
 //        let param:[String:Any] = ["is_campus_feed" : "1","description": self.txtAnythingTosay.text!,"interests": arrInterestForMessage as Array]
         
         var param = [String:Any]()
-        if arrSelectedGroupIDs.count > 0
+        if arrSelectedGroupIDs.count > 0 && arrInterestForMessage.count > 0
         {
             let strgroupsID = self.arrSelectedGroupIDs.componentsJoined(by: ",")
             param = ["is_campus_feed" : "1","description": self.txtAnythingTosay.text!,"interests": strint , "group_id": strgroupsID]
         }
-        else
+        else if arrInterestForMessage.count > 0 && arrSelectedGroupIDs.count == 0
         {
             param = ["is_campus_feed" : "1","description": self.txtAnythingTosay.text!,"interests": strint]
+        }
+        else if arrSelectedGroupIDs.count > 0 && arrInterestForMessage.count == 0
+        {
+            let strgroupsID = self.arrSelectedGroupIDs.componentsJoined(by: ",")
+            param = ["is_campus_feed" : "1","description": self.txtAnythingTosay.text! , "group_id": strgroupsID]
+        }
+        else
+        {
+            param = ["is_campus_feed" : "1","description": self.txtAnythingTosay.text!]
         }
 
         let url = kServerURL + kCreateNewFeed
@@ -510,9 +521,13 @@ class MessageVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             cell.btnInterest .setTitle("#" + firstname!, for: .normal)
             cell.const_btnInterest_width.constant = size.width + 10
         }
-        
+        else
+        {
+            cell.const_btnInterest_width.constant = 0
+        }
+
         let groupDetails = dict.value(forKey: "groupDetails") as! NSDictionary
-        if interestArr.count > 0
+        if groupDetails.count > 0
         {
             let igroupId = groupDetails.object(forKey: "groupId") as! Int
             if igroupId > 0

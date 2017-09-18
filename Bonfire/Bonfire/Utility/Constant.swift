@@ -73,6 +73,7 @@ let kCreateGroup = "groups/create"
 let kEditGroup = "groups/edit"
 
 let kInterest  = "interests"
+let kGetUserInterest = "user-interests"
 let kEvents  = "events"
 let kAddInterest = "user-interest/add-interest"
 let kGetAllChannel = "get-channels"
